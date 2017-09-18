@@ -36,7 +36,8 @@
 
 * Add those two methods in your AppDelegate as described in our [iOS Getting Started](https://developer.foresee.com/docs/getting-started)
 
-> -(BOOL)application:(UIApplication *)application 
+> 
+-(BOOL)application:(UIApplication *)application 
     didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
         [ForeSee start];
         [ForeSee checkIfEligibleForSurvey];
