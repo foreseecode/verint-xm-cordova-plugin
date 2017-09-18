@@ -50,7 +50,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
     }
 
-    private void showSurvey(String id, CallbackContext callback){
+    private void showSurvey(final String id, final  CallbackContext callback){
         try {
              cordova.getActivity().runOnUiThread(new Runnable() {
                 public void run() {
@@ -66,7 +66,7 @@ public class ForeSeeAPI extends CordovaPlugin {
 
     private void showInvite(final String id, final CallbackContext callback){
         try {
-            cordova.getActivity().runOnUiThread(new RunnRunnable(){
+            cordova.getActivity().runOnUiThread(new Runnable(){
                 public void run(){
                     Log.d(sTag, "Show invite for survey " + id);
                     ForeSee.showInviteForSurveyID(id);
