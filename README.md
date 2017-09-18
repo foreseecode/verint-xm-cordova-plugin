@@ -1,0 +1,1 @@
+# foresee-sdk-cordova-plugin
