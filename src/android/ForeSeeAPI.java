@@ -32,6 +32,9 @@ public class ForeSeeAPI extends CordovaPlugin {
         }else if(action.equals("showInvite")){
             this.showInvite(args.getString(0), callbackContext);
             return true;
+        }else if(action.equals("checkEligibility")){
+            this.checkEligibility(callbackContext);
+            return true;
         }
         return false;
     }
@@ -43,29 +46,57 @@ public class ForeSeeAPI extends CordovaPlugin {
             callbackContext.success();
         }catch (Exception ex){
             Log.d(sTag, ex.getMessage());
-            callbackContext.error("FORESEE_CORDOVA init phase");
+            callbackContext.error(sTag + " init phase failure");
         }
     }
 
     private void showSurvey(String id, CallbackContext callback){
         try {
-            Log.d(sTag, "Show survey " + id);
-            ForeSee.showSurveyForSurveyID(id);
-            callback.success();
+             cordova.getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    ForeSee.showSurveyForSurveyID(id);
+                    callback.success();
+                }
+            });
         }catch (Exception ex){
             Log.d(sTag, ex.getMessage());
-            callback.error("FORESEE_CORDOVA show survey failure");
+            callback.error(sTag + " show survey failure");
         }
     }
 
-    private void showInvite(String id, CallbackContext callback){
+    private void showInvite(final String id, final CallbackContext callback){
         try {
-            Log.d(sTag, "Show invite for survey " + id);
-            ForeSee.showInviteForSurveyID(id);
-            callback.success();
+            cordova.getActivity().runOnUiThread(new RunnRunnable(){
+                public void run(){
+                    Log.d(sTag, "Show invite for survey " + id);
+                    ForeSee.showInviteForSurveyID(id);
+                    callback.success();
+                }
+            });
+            
         }catch (Exception ex){
             Log.d(sTag, ex.getMessage());
-            callback.error("FORESEE_CORDOVA show invite failure");
+            callback.error(sTag + " show invite failure");
         }
+    }
+
+    private void checkEligibility(CallbackContext callback){
+        Log.d(sTag, "checkEligibility for survey");
+        ForeSee.checkIfEligibleForSurvey();
+        callback.success();
+    }
+
+     @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(sTag, "onStart for cordova");
+        ForeSee.start(cordova.getActivity().getApplication());
+    }
+
+
+    @Override
+    public void onResume(boolean multitasking) {
+        super.onResume(multitasking);
+        Log.d(sTag, "onResume");
     }
 }
