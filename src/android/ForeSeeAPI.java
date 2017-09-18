@@ -38,6 +38,9 @@ public class ForeSeeAPI extends CordovaPlugin {
     }
 
     private void showSurvey(final String id, final  CallbackContext callback){
+
+        if(null == id || id.length() < 1) return;
+        
         try {
              cordova.getActivity().runOnUiThread(new Runnable() {
                 public void run() {
@@ -52,6 +55,9 @@ public class ForeSeeAPI extends CordovaPlugin {
     }
 
     private void showInvite(final String id, final CallbackContext callback){
+
+        if(null == id || id.length() < 1) return;
+        
         try {
             cordova.getActivity().runOnUiThread(new Runnable(){
                 public void run(){
