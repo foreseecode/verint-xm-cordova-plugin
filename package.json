@@ -1,0 +1,14 @@
+{
+  "name": "ForeSeeAPI",
+  "version": "0.0.1",
+  "description": "ForeSee Cordova Plugin",
+  "cordova": {
+    "id": "com.foresee.cordova.plugin",
+    "platforms": []
+  },
+  "keywords": [
+    "ecosystem:cordova"
+  ],
+  "author": "Pavel Mogilevsky",
+  "license": "ISC"
+}
