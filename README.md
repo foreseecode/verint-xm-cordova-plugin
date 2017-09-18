@@ -32,12 +32,11 @@
 
 `cordova plugin add https://github.com/foreseecode/foresee-sdk-cordova-plugin`
 
-* Add `foresee_configuration.json` file as described in [iOS Getting Started](https://developer.foresee.com/docs/getting-started)
+* Add `foresee_configuration.json` file to your iOS project as described in [iOS Getting Started](https://developer.foresee.com/docs/getting-started)
 
 * Add those two methods in your AppDelegate as described in our [iOS Getting Started](https://developer.foresee.com/docs/getting-started)
 
-> 
--(BOOL)application:(UIApplication *)application 
+> -(BOOL)application:(UIApplication *)application 
     didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
         [ForeSee start];
         [ForeSee checkIfEligibleForSurvey];
