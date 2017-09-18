@@ -27,7 +27,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             this.init(callbackContext);
             return true;
         }else if(action.equals("showSurvey")){
-            this.showInvite(args.getString(0), callbackContext);
+            this.showSurvey(args.getString(0), callbackContext);
             return true;
         }else if(action.equals("showInvite")){
             this.showInvite(args.getString(0), callbackContext);
