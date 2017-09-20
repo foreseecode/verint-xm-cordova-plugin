@@ -30,6 +30,6 @@ exports.incrementSignificantEventCount = function(arg0, success, error){
     exec(success, error, ForeSeeAPI, "incrementSignificantEvent", arg0);
 };
 
-exports.resetState = function(arg0, success, error){
-    exec(success, error, ForeSeeAPI, "resetState", [arg0]);
+exports.resetState = function(success, error){
+    exec(success, error, ForeSeeAPI, "resetState", []);
 };

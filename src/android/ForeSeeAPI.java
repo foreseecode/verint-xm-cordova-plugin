@@ -119,12 +119,14 @@ public class ForeSeeAPI extends CordovaPlugin {
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
                 try {
-                    if (args == null || args.length() < 1 || args.getJSONArray(0).length() < 2) {
+                    if (args == null || args.length() < 2
+                            || args.getString(0).length() < 1
+                            || args.getString(1).length() < 1) {
                         callback.error("Wrong value for addCPP");
                         return true;
                     }
 
-                    ForeSee.addCPPValue(args.getJSONArray(0).getString(0), args.getJSONArray(0).getString(1));
+                    ForeSee.addCPPValue(args.getString(0), args.getString(1));
                     callback.success();
                 } catch (Exception ex) {
                     Log.d(sTag, ex.getMessage());
@@ -142,7 +144,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
                 try {
-                    if (args == null || args.length() < 1 || args.getJSONArray(0).length() < 1) {
+                    if (args == null || args.length() < 1 || args.getString(0).length() < 1) {
                         callback.error("Wrong value for removeCPP");
                         return true;
                     }
@@ -176,7 +178,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
                 try {
-                    if (args == null || args.length() < 1) {
+                    if (args == null || args.length() < 1 || args.getString(0).length() < 1) {
                         callback.error("Wrongs value for incrementSignificantEvent");
                         return true;
                     }
