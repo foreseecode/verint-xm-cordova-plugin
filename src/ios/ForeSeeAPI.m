@@ -1,6 +1,7 @@
 /********* ForeSeeAPI.m Cordova Plugin Implementation *******/
 
 #import <Cordova/CDV.h>
+#import <ForeSee/ForeSee.h>
 
 @interface ForeSeeAPI : CDVPlugin {
   // Member variables go here.
@@ -9,7 +10,7 @@
 // methods exposed to JS as API
 - (void)showSurvey: (CDVInvokedUrlCommand*)command;
 
-- (void)showInivite: (CDVInvokedUrlCommand*)command;
+- (void)showInvite: (CDVInvokedUrlCommand*)command;
 
 - (void)checkEligibility: (CDVInvokedUrlCommand*)command;
 
@@ -46,14 +47,14 @@
     NSString* surveyId = [command.arguments objectAtIndex:0];
 
     if (surveyId != nil && [surveyId length] > 0) {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:echo];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
 
         [ForeSee showSurveyForSurveyID:surveyId];
     } else {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
 
-    
+
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
@@ -64,9 +65,9 @@
     NSString* surveyId = [command.arguments objectAtIndex:0];
 
     if (surveyId != nil && [surveyId length] > 0) {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:echo];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
 
-        [ForeSee show]
+        [ForeSee showInviteForSurveyID:surveyId];
     } else {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
@@ -82,8 +83,8 @@
     NSString* value = [command.arguments objectAtIndex:1];
 
      if (key != nil && [key length] > 0 && value != nil && [value length] > 0) {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:echo];
-        [ForeSee addCPPValue:key forKey:key];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        [ForeSee setCPPValue:key forKey:key];
     } else {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
@@ -97,7 +98,7 @@
     NSString* key = [command.arguments objectAtIndex:0];
 
     if (key != nil && [key length] > 0) {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:echo];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         [ForeSee removeCPPValueForKey:key];
     } else {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
@@ -121,12 +122,12 @@
 
 -(void)incrementSignificantEventCount: (CDVInvokedUrlCommand*)command{
 
-    CDVInvokedUrlCommand* pluginResult = nil;
+    CDVPluginResult* pluginResult = nil;
 
     NSString* key = [command.arguments objectAtIndex:0];
 
     if (key != nil && [key length] > 0 ) {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:echo];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         [ForeSee incrementSignificantEventCountWithKey:key];
     } else {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
