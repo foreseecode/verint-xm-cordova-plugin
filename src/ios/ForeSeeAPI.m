@@ -105,7 +105,7 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
--(void)incrementPageViewsCount: (CDVInvokedUrlCommand*)command{
+-(void)incrementPageViews: (CDVInvokedUrlCommand*)command{
     
     CDVPluginResult* pluginResult = nil;
 
@@ -118,7 +118,7 @@
 }
 
 
--(void)incrementSignificantEventCount: (CDVInvokedUrlCommand*)command{
+-(void)incrementSignificantEvent: (CDVInvokedUrlCommand*)command{
 
     CDVPluginResult* pluginResult = nil;
 
