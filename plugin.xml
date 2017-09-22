@@ -29,6 +29,7 @@
         <config-file parent="/*" target="config.xml">
             <feature name="ForeSeeAPI">
                 <param name="ios-package" value="ForeSeeAPI" />
+                <param name="onload" value="true" />
             </feature>
         </config-file>
         <source-file src="src/ios/ForeSeeAPI.m" />

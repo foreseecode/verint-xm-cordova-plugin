@@ -18,17 +18,15 @@
 
 - (void)removeCPPValue: (CDVInvokedUrlCommand*)command;
 
-- (void)incrementPageViewsCount: (CDVInvokedUrlCommand*)command;
+- (void)incrementPageViews: (CDVInvokedUrlCommand*)command;
 
-- (void)incrementSignificantEventCount: (CDVInvokedUrlCommand*)command;
+- (void)incrementSignificantEvent: (CDVInvokedUrlCommand*)command;
 
 - (void)resetState: (CDVInvokedUrlCommand*)command;
 
 @end
 
 @implementation ForeSeeAPI
-
-
 
 - (void)checkEligibility: (CDVInvokedUrlCommand*)command
 {
