@@ -157,14 +157,14 @@ public class ForeSeeAPI extends CordovaPlugin {
 
                 try {
                     if (args == null || args.length() < 1){
-                        callback.error("No kye for removeCPPValue");
+                        callback.error("No value for removeCPPValue");
                         return true;
                     }
 
                     String key =  args.getString(0);
 
                     if(key == null || key.isEmpty()){
-                        callback.error("Bad kye for removeCPPValue");
+                        callback.error("Bad value for removeCPPValue");
                         return true;
                     }
 
