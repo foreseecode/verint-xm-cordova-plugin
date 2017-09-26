@@ -202,7 +202,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                         return true;
                     }
 
-                    String key = args.getString(0).length();
+                    String key = args.getString(0);
 
                     if(null == key || key.isEmpty()){
                         callback.error("Bad key for incrementSignificantEvent");
