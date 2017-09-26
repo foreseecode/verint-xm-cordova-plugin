@@ -47,9 +47,9 @@
 
     if (surveyId != nil && [surveyId length] > 0) {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-
         [ForeSee showSurveyForSurveyID:surveyId];
     } else {
+        NSLog(@"Bad surveyId for showSurvey");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errorMessage];
     }
 
@@ -66,9 +66,9 @@
 
     if (surveyId != nil && [surveyId length] > 0) {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-
         [ForeSee showInviteForSurveyID:surveyId];
     } else {
+        NSLog(@"Bad surveyId for showInvite");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errorMessage];
     }
 
@@ -87,6 +87,7 @@
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         [ForeSee setCPPValue:key forKey:key];
     } else {
+        NSLog(@"Bad key or value for addCPPValue");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errorMessage];
     }
 
@@ -103,6 +104,7 @@
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         [ForeSee removeCPPValueForKey:key];
     } else {
+        NSLog(@"Bad value in removeCPPValue");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errorMessage];
     }
 
@@ -133,6 +135,7 @@
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         [ForeSee incrementSignificantEventCountWithKey:key];
     } else {
+        NSLog(@"Bad value in incrementSignificantEvent");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errorMessage];
     }
 
