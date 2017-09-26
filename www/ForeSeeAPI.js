@@ -57,7 +57,7 @@ exports.checkEligibility = function (success, error) {
  * @example
  * `cordova.plugins.ForeSeeAPI.addCPPValue(["hello", "bye"], _onSuccess, _onFailure);`
  * 
- * @param {array} args - Array of strings, we expect key/value pair inside.
+ * @param {array} args - Array of strings, we expect a key/value pair inside.
  * @param {callback} success - A Cordova-style success callback object.
  * @param {callback} error - A Cordova-style error callback object.
  */
@@ -73,7 +73,7 @@ exports.addCPPValue = function (args, success, error) {
  * @example
  * `cordova.plugins.ForeSeeAPI.removeCPPValue(["hello"], _onSuccess, _onFailure);`
  * 
- * @param {array} args - Array of string, we expect one string inside.
+ * @param {array} args - Array of string, we expect a single inside.
  * @param {callback} success - A Cordova-style success callback object.
  * @param {callback} error - A Cordova-style error callback object.
  */
@@ -105,7 +105,7 @@ exports.incrementPageViews = function (success, error) {
  * @example
  * `cordova.plugins.ForeSeeAPI.incrementSignificantEventCount(["hello"], _onSuccess, _onFailure);`
  * 
- * @param {array} args - Array of string, we expect to get a single String inside
+ * @param {array} args - Array of string, we expect to get a single string inside
  * @param {callback} success - A Cordova-style success callback object.
  * @param {callback} error - A Cordova-style error callback object.
  */
