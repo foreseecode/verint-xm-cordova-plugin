@@ -44,10 +44,15 @@ public class ForeSeeAPI extends CordovaPlugin {
             public boolean invoke(JSONArray args, final CallbackContext callbackContext, CordovaInterface cordova) {
 
                 try {
+                    if (args == null || args.length() < 1) {
+                        callbackContext.error("No Survey ID provided for showInvite");
+                        return true;
+                    }
+
                     final String id = args.getString(0);
 
-                    if (null == id || id.length() < 1) {
-                        callbackContext.error("Wrong value for showSurvey");
+                    if (null == id || id.isEmpty()) {
+                        callbackContext.error("Bad surveyId for showSurvey");
                         return true;
                     }
 
@@ -58,7 +63,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                         }
                     });
                 } catch (Exception ex) {
-                    Log.d(sTag, ex.getMessage());
+                    Log.e(sTag, ex.getMessage());
                     callbackContext.error(sTag + " showSurvey failure");
                 }
 
@@ -74,14 +79,14 @@ public class ForeSeeAPI extends CordovaPlugin {
 
                 try {
                     if (args == null || args.length() < 1) {
-                        callbackContext.error("Wrong value for showInvite");
+                        callbackContext.error("No Survey ID provided for showInvite");
                         return true;
                     }
 
                     final String id = args.getString(0);
 
-                    if (null == id || id.length() < 1) {
-                        callbackContext.error("Wrong value for showInvite");
+                    if (null == id || id.isEmpty()) {
+                        callbackContext.error("Bad surveyId for showInvite");
                         return true;
                     }
 
@@ -93,7 +98,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                     });
 
                 } catch (Exception ex) {
-                    Log.d(sTag, ex.getMessage());
+                    Log.e(sTag, ex.getMessage());
                     callbackContext.error(sTag + " showInvite failure");
                 }
 
@@ -119,17 +124,24 @@ public class ForeSeeAPI extends CordovaPlugin {
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
                 try {
-                    if (args == null || args.length() < 2
-                            || args.getString(0).length() < 1
-                            || args.getString(1).length() < 1) {
-                        callback.error("Wrong value for addCPP");
+                    if (args == null || args.length() < 2){
+                        callback.error("No key or value for addCPPValue");
                         return true;
                     }
 
-                    ForeSee.addCPPValue(args.getString(0), args.getString(1));
+                    String key = args.getString(0);
+                    String value = args.getString(1);
+
+                    if( key == null || key.isEmpty()
+                        || value == null || value.isEmpty()) {
+                        callback.error("Bad key or value for addCPPValue");
+                        return true;
+                    }
+
+                    ForeSee.addCPPValue(key, value);
                     callback.success();
                 } catch (Exception ex) {
-                    Log.d(sTag, ex.getMessage());
+                    Log.e(sTag, ex.getMessage());
                     callback.error(sTag + " show addCPPValue failure");
                 }
 
@@ -144,15 +156,22 @@ public class ForeSeeAPI extends CordovaPlugin {
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
                 try {
-                    if (args == null || args.length() < 1 || args.getString(0).length() < 1) {
-                        callback.error("Wrong value for removeCPP");
+                    if (args == null || args.length() < 1){
+                        callback.error("No kye for removeCPPValue");
                         return true;
                     }
 
-                    ForeSee.removeCPPValue(args.getString(0));
+                    String key =  args.getString(0);
+
+                    if(key == null || key.isEmpty()){
+                        callback.error("Bad kye for removeCPPValue");
+                        return true;
+                    }
+
+                    ForeSee.removeCPPValue(key);
                     callback.success();
                 } catch (Exception ex) {
-                    Log.d(sTag, ex.getMessage());
+                    Log.e(sTag, ex.getMessage());
                     callback.error(sTag + " show removeCPPValue failure");
                 }
 
@@ -178,15 +197,22 @@ public class ForeSeeAPI extends CordovaPlugin {
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
                 try {
-                    if (args == null || args.length() < 1 || args.getString(0).length() < 1) {
-                        callback.error("Wrongs value for incrementSignificantEvent");
+                    if (args == null || args.length() < 1) {
+                        callback.error("No key for incrementSignificantEvent");
+                        return true;
+                    }
+
+                    String key = args.getString(0).length();
+
+                    if(null == key || key.isEmpty()){
+                        callback.error("Bad key for incrementSignificantEvent");
                         return true;
                     }
 
                     ForeSee.incrementSignificantEventCountWithKey(args.getString(0));
                     callback.success();
                 } catch (Exception ex) {
-                    Log.d(sTag, ex.getMessage());
+                    Log.e(sTag, ex.getMessage());
                     callback.error(sTag + "incrementSignificantEvent failure");
                 }
 
@@ -195,7 +221,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
 
 
-        //increment significant event
+        //reetState
         sActions.put("resetState", new ForeSeeMethod() {
 
             @Override
@@ -205,7 +231,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                     ForeSee.resetState();
                     callback.success();
                 } catch (Exception ex) {
-                    Log.d(sTag, ex.getMessage());
+                    Log.e(sTag, ex.getMessage());
                     callback.error(sTag + "incrementSignificantEvent failure");
                 }
 

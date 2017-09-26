@@ -9,7 +9,7 @@ const ForeSeeAPI = "ForeSeeAPI";
  * @example
  * `cordova.plugins.ForeSeeAPI.showSurvey(["app_test_1"], _onSuccess, _onFailure);`
  * 
- * @param  {array} args - Array of parameters. Required by cordova's plugin EXEC.
+ * @param  {array} args - Array of strings, we expect a surveyID inside.
  * @param  {callback} success - A Cordova-style success callback object.
  * @param  {callback} error - A Cordova-style error callback object.
  */
@@ -25,9 +25,9 @@ exports.showSurvey = function (args, success, error) {
  * @example
  * `cordova.plugins.ForeSeeAPI.showInvite(["app_test_1"], _onSuccess, _onFailure);`
  * 
- * @param {array} args 
- * @param {callback} success 
- * @param {callback} error 
+ * @param {array} args - Array of strings, we expect a surveyID inside.
+ * @param {callback} success - A Cordova-style success callback object.
+ * @param {callback} error - A Cordova-style error callback object.
  */
 exports.showInvite = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "showInvite", args);
@@ -43,8 +43,8 @@ exports.showInvite = function (args, success, error) {
  * @example
  * `cordova.plugins.ForeSeeAPI.checkEligibility(_onSuccess, _onFailure);`
  * 
- * @param {callback} success 
- * @param {callback} error 
+ * @param {callback} success - A Cordova-style success callback object.
+ * @param {callback} error - A Cordova-style error callback object.
  */
 exports.checkEligibility = function (success, error) {
     exec(success, error, ForeSeeAPI, "checkEligibility", []);
@@ -57,7 +57,7 @@ exports.checkEligibility = function (success, error) {
  * @example
  * `cordova.plugins.ForeSeeAPI.addCPPValue(["hello", "bye"], _onSuccess, _onFailure);`
  * 
- * @param {array} args - Array of parameters. Required by cordova's plugin EXEC.
+ * @param {array} args - Array of strings, we expect key/value pair inside.
  * @param {callback} success - A Cordova-style success callback object.
  * @param {callback} error - A Cordova-style error callback object.
  */
@@ -73,7 +73,7 @@ exports.addCPPValue = function (args, success, error) {
  * @example
  * `cordova.plugins.ForeSeeAPI.removeCPPValue(["hello"], _onSuccess, _onFailure);`
  * 
- * @param {array} args Array of parameters. Required by cordova's plugin EXEC.
+ * @param {array} args - Array of string, we expect one string inside.
  * @param {callback} success - A Cordova-style success callback object.
  * @param {callback} error - A Cordova-style error callback object.
  */
@@ -85,13 +85,13 @@ exports.removeCPPValue = function (args, success, error) {
 /**
  * @description
  * Manually increment the number of pages counted by the ForeSee SDK.
- * This can be useful when the user would consider a new page to have been shown, but the activity has not been changed, e.g. when using full screen fragments
+ * This can be useful when the user would consider a new page to have been shown.
  * 
  * @example
  * `cordova.plugins.ForeSeeAPI.incrementPageViews(_onSuccess, _onFailure);`
  * 
- * @param {callback} success 
- * @param {callback} error 
+ * @param {callback} success - A Cordova-style success callback object.
+ * @param {callback} error - A Cordova-style error callback object.
  */
 exports.incrementPageViews = function (success, error) {
     exec(success, error, ForeSeeAPI, "incrementPageViews", []);
@@ -105,9 +105,9 @@ exports.incrementPageViews = function (success, error) {
  * @example
  * `cordova.plugins.ForeSeeAPI.incrementSignificantEventCount(["hello"], _onSuccess, _onFailure);`
  * 
- * @param {array} args 
- * @param {callback} success 
- * @param {callback} error 
+ * @param {array} args - Array of string, we expect to get a single String inside
+ * @param {callback} success - A Cordova-style success callback object.
+ * @param {callback} error - A Cordova-style error callback object.
  */
 exports.incrementSignificantEventCount = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "incrementSignificantEvent", args);
@@ -122,8 +122,8 @@ exports.incrementSignificantEventCount = function (args, success, error) {
  * @example
  * `cordova.plugins.ForeSeeAPI.resetState(_onSuccess, _onFailure);`
  * 
- * @param {callback} success 
- * @param {callback} error 
+ * @param {callback} success - A Cordova-style success callback object.
+ * @param {callback} error - A Cordova-style error callback object.
  */
 exports.resetState = function (success, error) {
     exec(success, error, ForeSeeAPI, "resetState", []);

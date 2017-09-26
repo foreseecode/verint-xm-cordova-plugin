@@ -40,6 +40,6 @@
     <info>
         For iOS don't forget to run pod install, to include ForeSee iOS SDK 
 
-        For Android don't forget to add MyApplication.java if you don't have it yep
+        For Android don't forget to add MyApplication.java if you don't have it yet
     </info>
 </plugin>
