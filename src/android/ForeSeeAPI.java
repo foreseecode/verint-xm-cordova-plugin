@@ -221,7 +221,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
 
 
-        //reetState
+        //resetState
         sActions.put("resetState", new ForeSeeMethod() {
 
             @Override
