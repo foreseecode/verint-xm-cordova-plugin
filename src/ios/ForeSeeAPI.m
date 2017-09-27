@@ -39,20 +39,25 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)showSurvey: (CDVInvokedUrlCommand*)command
+- (void)showSurvey: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
-    NSString* surveyId = [command.arguments objectAtIndex:0];
-    NSString* errorMessage = @"No surveyID provided for showSurvey"; 
-
-    if (surveyId != nil && [surveyId length] > 0) {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        [ForeSee showSurveyForSurveyID:surveyId];
-    } else {
+    NSArray* arguments = command.arguments;
+    
+    if(arguments == nil || arguments.count < 1){
         NSLog(@"Bad surveyId for showSurvey");
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errorMessage];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
-
+    else{
+        NSString* surveyId = [command.arguments objectAtIndex:0];
+        if (surveyId != nil && [surveyId length] > 0) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+            [ForeSee showSurveyForSurveyID:surveyId];
+        } else {
+            NSLog(@"Bad surveyId for showSurvey");
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
+    }
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -61,17 +66,22 @@
 - (void)showInvite: (CDVInvokedUrlCommand*)command
 {
     CDVPluginResult* pluginResult = nil;
-    NSString* surveyId = [command.arguments objectAtIndex:0];
-    NSString* errorMessage = @"No value provided for showInvite";
+    NSArray* arguments = command.arguments;
 
-    if (surveyId != nil && [surveyId length] > 0) {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        [ForeSee showInviteForSurveyID:surveyId];
-    } else {
-        NSLog(@"Bad surveyId for showInvite");
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errorMessage];
+    if(arguments == nil || arguments.count < 1){
+        NSLog(@"No surveyId for showInvite");
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }else{
+        NSString* surveyId = [command.arguments objectAtIndex:0];
+        
+        if (surveyId != nil && [surveyId length] > 0) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+            [ForeSee showInviteForSurveyID:surveyId];
+        } else {
+            NSLog(@"Bad surveyId for showInvite");
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
     }
-
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
@@ -79,16 +89,23 @@
 - (void)addCPPValue: (CDVInvokedUrlCommand*)command
 {
     CDVPluginResult* pluginResult = nil;
-    NSString* key = [command.arguments objectAtIndex:0];
-    NSString* value = [command.arguments objectAtIndex:1];
-    NSString* errorMessage = @"No key or value provided for addCPPValue";
+    NSArray* arguments = command.arguments;
+   
+    if(arguments == nil || arguments.count < 1){
+        NSLog(@"No surveyId for showInvite");
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    else{
+        NSString* key = [command.arguments objectAtIndex:0];
+        NSString* value = [command.arguments objectAtIndex:1];
 
-     if (key != nil && [key length] > 0 && value != nil && [value length] > 0) {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        [ForeSee setCPPValue:key forKey:key];
-    } else {
-        NSLog(@"Bad key or value for addCPPValue");
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errorMessage];
+        if (key != nil && [key length] > 0 && value != nil && [value length] > 0) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+            [ForeSee setCPPValue:key forKey:key];
+        } else {
+            NSLog(@"Bad key or value for addCPPValue");
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
     }
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -97,15 +114,22 @@
 -(void)removeCPPValue: (CDVInvokedUrlCommand*)command
 {
     CDVPluginResult* pluginResult = nil;
-    NSString* key = [command.arguments objectAtIndex:0];
-    NSString* errorMessage = @"No key provided for removeCPPValue";
+    NSArray* arguments = command.arguments;
+   
+    if(arguments == nil || arguments.count < 1){
+        NSLog(@"No surveyId for showInvite");
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    else{
+        NSString* key = [command.arguments objectAtIndex:0];
 
-    if (key != nil && [key length] > 0) {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        [ForeSee removeCPPValueForKey:key];
-    } else {
-        NSLog(@"Bad value in removeCPPValue");
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errorMessage];
+        if (key != nil && [key length] > 0) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+            [ForeSee removeCPPValueForKey:key];
+        } else {
+            NSLog(@"Bad value in removeCPPValue");
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
     }
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -127,16 +151,22 @@
 -(void)incrementSignificantEvent: (CDVInvokedUrlCommand*)command{
 
     CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+   
+    if(arguments == nil || arguments.count < 1){
+        NSLog(@"No surveyId for showInvite");
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    else{
+        NSString* key = [command.arguments objectAtIndex:0];
 
-    NSString* key = [command.arguments objectAtIndex:0];
-    NSString* errorMessage = @"No key provided for incrementSignificantEvent";
-
-    if (key != nil && [key length] > 0 ) {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        [ForeSee incrementSignificantEventCountWithKey:key];
-    } else {
-        NSLog(@"Bad value in incrementSignificantEvent");
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errorMessage];
+        if (key != nil && [key length] > 0 ) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+            [ForeSee incrementSignificantEventCountWithKey:key];
+        } else {
+            NSLog(@"Bad value in incrementSignificantEvent");
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
     }
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
