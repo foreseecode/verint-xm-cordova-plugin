@@ -128,3 +128,60 @@ exports.incrementSignificantEventCount = function (args, success, error) {
 exports.resetState = function (success, error) {
     exec(success, error, ForeSeeAPI, "resetState", []);
 };
+
+
+/**
+ * @description 
+ * Starts the Trigger and SessionReplay modules (if enabled).
+ * Behavior of the two modules is defined in the foresee_configuration.json file.
+ * For SessionReplay, a recording starts once this method is called and ends when the app is put into the background.
+ * 
+ * @example
+ * `cordova.plugins.ForeSeeAPI.start([json], _onSucess, _onFailure )
+ * 
+ * @param {array} args - We expect to get a single Json object
+ * @param {callback} success - A Cordova-style success callback object.
+ * @param {callback} error - A Cordova-style success callback object.
+ */
+exports.start = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "start", args);
+};
+
+exports.startWithConfigurationFile = function(args, success, error){
+    exec(success, error, ForeSeeAPI, "startWithConfigurationFile", args);
+}
+
+exports.startWithConfigurationJson = function(args, success, error){
+    exec(success, error, ForeSeeAPI, "startWithConfigurationJson", args);
+}
+
+exports.isDebugLogEnabled = function(success, error){
+    exec(success, error, ForeSeeAPI, "isDebugLogEnabled", []);
+}
+
+exports.getVersion = function(success, error){
+    exec(success, error, ForeSeeAPI, "getVersion", []);
+}
+
+exports.getContactDetails = function(success, error){
+    exec(success, error, ForeSeeAPI, "getContactDetails", []);
+}
+
+exports.customInviteDeclined = function(success, error){
+    exec(success, error, ForeSeeAPI, "customInviteDeclined", []);
+}
+
+exports.customInviteAccepted = function(success, error){
+    exec(success, error, ForeSeeAPI, "customInviteAccepted", []);
+}
+
+exports.setSkipPoolingCheck = function(args, success, error){
+    exec(success, error, "setSkipPoolingCheck", args);
+}
+
+// onSuccess: Callback that is invoked upon receiving the data about the invoked command 
+//The callback takes one paramter, containing the message from a command
+
+// onError: Optional callback that is invoked in the event of an error. 
+//The callback takes one error parameter, containing the details of the error.
+
