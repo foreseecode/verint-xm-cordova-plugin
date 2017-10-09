@@ -143,8 +143,8 @@ exports.resetState = function (success, error) {
  * @param {callback} success - A Cordova-style success callback object.
  * @param {callback} error - A Cordova-style success callback object.
  */
-exports.start = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "start", args);
+exports.start = function (success, error) {
+    exec(success, error, ForeSeeAPI, "start", []);
 };
 
 exports.startWithConfigurationFile = function(args, success, error){
