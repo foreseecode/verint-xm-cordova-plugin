@@ -176,7 +176,7 @@ exports.customInviteAccepted = function(success, error){
 }
 
 exports.setSkipPoolingCheck = function(args, success, error){
-    exec(success, error, "setSkipPoolingCheck", args);
+    exec(success, error, ForeSeeAPI, "setSkipPoolingCheck", args);
 }
 
 // onSuccess: Callback that is invoked upon receiving the data about the invoked command 
