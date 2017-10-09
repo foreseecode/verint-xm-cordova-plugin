@@ -167,6 +167,10 @@ exports.getContactDetails = function(success, error){
     exec(success, error, ForeSeeAPI, "getContactDetails", []);
 }
 
+exports.setContactDetails = function(args, success, error){
+    exec(success, error, ForeSeeAPI, "setContactDetails", args);
+}
+
 exports.customInviteDeclined = function(success, error){
     exec(success, error, ForeSeeAPI, "customInviteDeclined", []);
 }
@@ -177,6 +181,10 @@ exports.customInviteAccepted = function(success, error){
 
 exports.setSkipPoolingCheck = function(args, success, error){
     exec(success, error, ForeSeeAPI, "setSkipPoolingCheck", args);
+}
+
+exports.setDebugLogEnabled = function(args, success, error){
+    exec(success, error, ForeSeeAPI, "setDebugLogEnabled", args);
 }
 
 // onSuccess: Callback that is invoked upon receiving the data about the invoked command 

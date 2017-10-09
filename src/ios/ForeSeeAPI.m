@@ -36,11 +36,15 @@
 
 - (void)getContactDetails: (CDVInvokedUrlCommand*)command;
 
+- (void)setContactDetails: (CDVInvokedUrlCommand*)command;
+
 - (void)customInviteDeclined: (CDVInvokedUrlCommand*)command;
 
 - (void)customInviteAccepted: (CDVInvokedUrlCommand*)command;
 
 - (void)setSkipPoolingCheck: (CDVInvokedUrlCommand*)command;
+
+- (void)setDebugLogEnabled: (CDVInvokedUrlCommand*)command;
 
 @end
 
@@ -289,6 +293,29 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
+- (void)setContactDetails: (CDVInvokedUrlCommand*)command{
+
+    CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+    
+    if(arguments == nil || arguments.count < 1){
+        NSLog(@"No configJson for setContactDetails");
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    else{
+        NSString* contact = [command.arguments objectAtIndex:0];
+        if (contact != nil && [contact length] > 0) {
+            [ForeSee setContactDetails:contact];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        } else {
+            NSLog(@"Bad configJson for setContactDetails");
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
+    }
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
 - (void)customInviteDeclined: (CDVInvokedUrlCommand*)command{
     CDVPluginResult* pluginResult = nil;
 
@@ -325,4 +352,24 @@
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
+
+
+- (void)setDebugLogEnabled: (CDVInvokedUrlCommand*)command{
+    CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+
+    if(arguments == nil || arguments.count < 1){
+        NSLog(@"No data for setDebugLogEnabled");
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    else{
+        BOOL enable = [command.arguments objectAtIndex:0];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        [ForeSee setDebugLogEnabled:enable];
+    }
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+
 @end
