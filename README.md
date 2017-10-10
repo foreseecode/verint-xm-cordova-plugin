@@ -45,13 +45,17 @@
 
 * Add `foresee_configuration.json` file to your iOS project.
 
-* Use `cordova.plugins.ForeSeeAPI.start(success, error)` to initialize the ForeSee SDK.
-`deviceready` event is a good place for this.
+* Use 
+
+```
+cordova.plugins.ForeSeeAPI.start(success, error)
+``` 
+to initialize the ForeSee SDK. `deviceready` event is a good place for this.
 
 * Now you can use `cordova.plugins.ForeSeeAPI` in your JavaScript code for example:
 
    ```
-   cordova.plugins.ForeSeeAPI.checkEligibility(_onSuccess, _onFailure);`
+   cordova.plugins.ForeSeeAPI.checkEligibility(_onSuccess, _onFailure);
    ```
 
 * For all suported methods please check out official portal [ForeSee Developer Portal](https://developer.foresee.com)
