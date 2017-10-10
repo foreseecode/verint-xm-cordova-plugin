@@ -43,8 +43,6 @@
    cordova plugin add https://github.com/foreseecode/foresee-sdk-cordova-plugin
    ```
 
-* All initial steps are same as described in our [iOS Getting Started](https://developer.foresee.com/docs/getting-started)
-
 * Add `foresee_configuration.json` file to your iOS project.
 
 * Use `cordova.plugins.ForeSeeAPI.start(success, error)` to initialize the ForeSee SDK.
