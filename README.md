@@ -47,20 +47,8 @@
 
 * Add `foresee_configuration.json` file to your iOS project.
 
-* Add those two methods in your AppDelegate.
-
-   ```
-   -(BOOL)application:(UIApplication *)application 
-       didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-           [ForeSee start];
-           [ForeSee checkIfEligibleForSurvey];
-   }
-
-   -(void)applicationDidBecomeActive:(UIApplication *)application 
-   {
-     [ForeSee checkIfEligibleForSurvey];
-   }
-   ```
+* Use `cordova.plugins.ForeSeeAPI.start(success, error)` to initialize the ForeSee SDK.
+`deviceready` event is a good place for this.
 
 * Now you can use `cordova.plugins.ForeSeeAPI` in your JavaScript code for example:
 
