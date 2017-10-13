@@ -18,9 +18,21 @@
 
 * All initial steps are same as described in our  [Android Getting Started](https://developer.foresee.com/docs/tutorial)
 
-* Add a new Application class to your project and AndroidManifest.xml.
+* Within the `onCreate` method of the `MainActivity.java` class that was generated, initialize the ForeSee SDK by invoking `ForeSee.start(getApplication())`.
 
-   > skip this step if you already have one
+``` @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null && extras.getBoolean("cdvStartInBackground", false)) {
+            moveTaskToBack(true);
+        }
+        loadUrl(launchUrl);
+
+        ForeSee.start(getApplication());
+    }
+``` 
 
 * Add `foresee_configuration.json` file in your `res/raw`.
 
