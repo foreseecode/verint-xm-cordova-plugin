@@ -252,28 +252,11 @@ public class ForeSeeAPI extends CordovaPlugin {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
-
-                try {
-                    if (args == null || args.length() < 1) {
-                        callback.error("No file name for startWithConfigurationFile");
-                        return true;
-                    }
-
-                    String file = args.getString(0);
-
-                    if (null == file || file.isEmpty()) {
-                        callback.error("Bad file name for startWithConfigurationFile");
-                    } else {
-                        ForeSee.startWithConfiguration(cordova.getActivity().getApplication(), file);
-                        callback.success();
-                    }
-
-                } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "startWithConfigurationFile failure");
-                } finally {
-                    return true;
-                }
+                
+                Log.e(sTag, "PLEASE DO NOT USE start() JS API for ANDROID");
+                callback.error(sTag + "start() is not available");
+                return true;
+               
             }
         });
 
@@ -323,27 +306,9 @@ public class ForeSeeAPI extends CordovaPlugin {
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
-                try {
-                    if (args == null || args.length() < 1) {
-                        callback.error("No JSON for startWithConfigurationJson");
-                        return true;
-                    }
-
-                    String jsonConfig = args.getString(0);
-
-                    if (null == jsonConfig || jsonConfig.isEmpty()) {
-                        callback.error("Bad JSON for startWithConfigurationJson");
-                    } else {
-                        ForeSee.startWithConfigurationJSON(cordova.getActivity().getApplication(), jsonConfig);
-                        callback.success();
-                    }
-
-                } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "startWithConfigurationJson failure");
-                } finally {
-                    return true;
-                }
+                Log.e(sTag, "PLEASE DO NOT USE start() JS API for ANDROID");
+                callback.error(sTag + "start() is not available");
+                return true;
             }
         });
 
