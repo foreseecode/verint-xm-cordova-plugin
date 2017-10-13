@@ -11,7 +11,7 @@
 * Add the ForeSee plugin to your project 
 
    ```
-   cordova plugin add https://github.com/foreseecode/foresee-sdk-cordova-plugin`
+   cordova plugin add https://github.com/foreseecode/foresee-sdk-cordova-plugin
    ```
 
    > this will automaticly add `compile "com.foresee.sdk:sdk:+"` to your `build.gradle` file
