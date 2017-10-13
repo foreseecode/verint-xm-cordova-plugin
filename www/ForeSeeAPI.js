@@ -52,19 +52,18 @@ exports.checkEligibility = function (success, error) {
 
 /**
  * @description
- * Adds a CPP key/value pair. CPPs are transmitted along with surveys upon submission.
+ * Sets a CPP key/value pair. CPPs are transmitted along with surveys upon submission.
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.addCPPValue(["hello", "bye"], _onSuccess, _onFailure);`
+ * `cordova.plugins.ForeSeeAPI.setCPPValue(["hello", "bye"], _onSuccess, _onFailure);`
  * 
  * @param {array} args - Array of parameters, we expect a key/value pair inside. Required by cordova's plugin EXEC.
  * @param {callback} success - A Cordova-style success callback object.
  * @param {callback} error - A Cordova-style error callback object.
  */
-exports.addCPPValue = function (args, success, error) {
+exports.setCPPValue = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "addCPPValue", args);
 };
-
 
 /**
  * @description
@@ -83,7 +82,6 @@ exports.removeCPPValue = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "removeCPPValue", args);
 };
 
-
 /**
  * @description
  * Manually increment the number of pages counted by the ForeSee SDK.
@@ -101,7 +99,6 @@ exports.incrementPageViews = function (success, error) {
     exec(success, error, ForeSeeAPI, "incrementPageViews", []);
 };
 
-
 /**
  * @description
  * Increment the significant event count for a given key
@@ -118,8 +115,6 @@ exports.incrementPageViews = function (success, error) {
 exports.incrementSignificantEventCount = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "incrementSignificantEvent", args);
 };
-
-
 
 /**
  * @description 
