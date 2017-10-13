@@ -26,15 +26,13 @@ public class ForeSeeAPI extends CordovaPlugin {
         public abstract boolean invoke(JSONArray args, CallbackContext callbackContext, CordovaInterface cordova);
     }
 
-
     /* Class tag for logs */
     private final static String sTag = "FORESEE_CORDOVA";
-
 
     HashMap<String, ForeSeeMethod> sActions = new HashMap<String, ForeSeeMethod>();
 
     /**
-     * Initializaton of all supported ForeSee API methods
+     * Initialization of all supported ForeSee API methods
      */ {
 
         //showSurvey
@@ -124,7 +122,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
                 try {
-                    if (args == null || args.length() < 2){
+                    if (args == null || args.length() < 2) {
                         callback.error("No key or value for addCPPValue");
                         return true;
                     }
@@ -132,20 +130,19 @@ public class ForeSeeAPI extends CordovaPlugin {
                     String key = args.getString(0);
                     String value = args.getString(1);
 
-                    if( key == null || key.isEmpty()
-                        || value == null || value.isEmpty()) {
+                    if (key == null || key.isEmpty()
+                            || value == null || value.isEmpty()) {
                         callback.error("Bad key or value for addCPPValue");
-                        return true;
+                    } else {
+                        ForeSee.addCPPValue(key, value);
+                        callback.success();
                     }
-
-                    ForeSee.addCPPValue(key, value);
-                    callback.success();
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
                     callback.error(sTag + " show addCPPValue failure");
+                } finally {
+                    return true;
                 }
-
-                return true;
             }
         });
 
@@ -156,26 +153,25 @@ public class ForeSeeAPI extends CordovaPlugin {
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
                 try {
-                    if (args == null || args.length() < 1){
+                    if (args == null || args.length() < 1) {
                         callback.error("No value for removeCPPValue");
                         return true;
                     }
 
-                    String key =  args.getString(0);
+                    String key = args.getString(0);
 
-                    if(key == null || key.isEmpty()){
+                    if (key == null || key.isEmpty()) {
                         callback.error("Bad value for removeCPPValue");
-                        return true;
+                    } else {
+                        ForeSee.removeCPPValue(key);
+                        callback.success();
                     }
-
-                    ForeSee.removeCPPValue(key);
-                    callback.success();
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
                     callback.error(sTag + " show removeCPPValue failure");
+                } finally {
+                    return true;
                 }
-
-                return true;
             }
         });
 
@@ -204,19 +200,18 @@ public class ForeSeeAPI extends CordovaPlugin {
 
                     String key = args.getString(0);
 
-                    if(null == key || key.isEmpty()){
+                    if (null == key || key.isEmpty()) {
                         callback.error("Bad key for incrementSignificantEvent");
-                        return true;
+                    } else {
+                        ForeSee.incrementSignificantEventCountWithKey(key);
+                        callback.success();
                     }
-
-                    ForeSee.incrementSignificantEventCountWithKey(args.getString(0));
-                    callback.success();
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
                     callback.error(sTag + "incrementSignificantEvent failure");
+                } finally {
+                    return true;
                 }
-
-                return true;
             }
         });
 
@@ -233,9 +228,242 @@ public class ForeSeeAPI extends CordovaPlugin {
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
                     callback.error(sTag + "incrementSignificantEvent failure");
+                } finally {
+                    return true;
                 }
+            }
+        });
 
+
+        //start
+        sActions.put("start", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+
+                Log.e(sTag, "PLEASE DO NOT USE start() JS API for ANDROID");
+                callback.error(sTag + "start() is not available");
                 return true;
+            }
+        });
+
+        //startWithConfigurationFile
+        sActions.put("startWithConfigurationFile", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+
+                try {
+                    if (args == null || args.length() < 1) {
+                        callback.error("No file name for startWithConfigurationFile");
+                        return true;
+                    }
+
+                    String file = args.getString(0);
+
+                    if (null == file || file.isEmpty()) {
+                        callback.error("Bad file name for startWithConfigurationFile");
+                    } else {
+                        ForeSee.startWithConfiguration(cordova.getActivity().getApplication(), file);
+                        callback.success();
+                    }
+
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "startWithConfigurationFile failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        //isDebugLogEnabled
+        sActions.put("isDebugLogEnabled", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    callback.success(String.valueOf(ForeSee.isDebugLogEnabled()));
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "isDebugLogEnabled failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+
+        //setDebugLogEnabled
+        sActions.put("setDebugLogEnabled", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    if (args == null || args.length() < 1) {
+                        callback.error("No value for setDebugLogEnabled");
+                        return true;
+                    }
+                    
+                    ForeSee.setDebugLogEnabled(args.getBoolean(0));
+                    callback.success();
+
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "setDebugLogEnabled failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        //startWithConfigurationJson
+        sActions.put("startWithConfigurationJson", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+
+                try {
+                    if (args == null || args.length() < 1) {
+                        callback.error("No JSON for startWithConfigurationJson");
+                        return true;
+                    }
+
+                    String jsonConfig = args.getString(0);
+
+                    if (null == jsonConfig || jsonConfig.isEmpty()) {
+                        callback.error("Bad JSON for startWithConfigurationJson");
+                    } else {
+                        ForeSee.startWithConfigurationJSON(cordova.getActivity().getApplication(), jsonConfig);
+                        callback.success();
+                    }
+
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "startWithConfigurationJson failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+
+        //getVersion
+        sActions.put("getVersion", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    callback.success(ForeSee.getVersion());
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "getVersion failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        //getContactDetails
+        sActions.put("getContactDetails", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    callback.success(ForeSee.getContactDetails());
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "getContactDetails failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        //setContactDetails
+        sActions.put("setContactDetails", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+
+                try {
+                    if (args == null || args.length() < 1) {
+                        callback.error("No details for setContactDetails");
+                        return true;
+                    }
+
+                    String contact = args.getString(0);
+
+                    if (null == contact || contact.isEmpty()) {
+                        callback.error("Bad details for setContactDetails");
+                    } else {
+                        ForeSee.setContactDetails(contact);
+                        callback.success();
+                    }
+
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "setContactDetails failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+
+        //customInviteDeclined
+        sActions.put("customInviteDeclined", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    ForeSee.customInviteDeclined();
+                    callback.success();
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "customInviteDeclined failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        //customInviteAccepted
+        sActions.put("customInviteAccepted", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    ForeSee.customInviteAccepted();
+                    callback.success();
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "customInviteAccepted failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        //setSkipPoolingCheck
+        sActions.put("setSkipPoolingCheck", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    if (args == null || args.length() < 1) {
+                        callback.error("No value for setSkipPoolingCheck");
+                        return true;
+                    }
+                    ForeSee.setSkipPoolingCheck(args.getBoolean(0));
+                    callback.success();
+
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "setSkipPoolingCheck failure");
+                } finally {
+                    return true;
+                }
             }
         });
 
