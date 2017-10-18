@@ -36,8 +36,6 @@
 
 * Add `foresee_configuration.json` file in your `res/raw`.
 
-* Call the `ForeSee.start(this)` in your Application class within your `onCreate` method
-
 * Now you can use `cordova.plugins.ForeSeeAPI` in your JavaScript code for example:
 
    ```

@@ -4,7 +4,7 @@ const ForeSeeAPI = "ForeSeeAPI";
 
 /**
  * @description
- * Programmatically present the survey for a given survey ID (sid)
+ * Programmatically present the survey for a given survey ID (sid).
  * 
  * @example
  * `cordova.plugins.ForeSeeAPI.showSurvey(["app_test_1"], _onSuccess, _onFailure);`
@@ -20,7 +20,7 @@ exports.showSurvey = function (args, success, error) {
 
 /**
  * @description
- * Programmatically present the invitation for a given survey ID (sid)
+ * Programmatically present the invitation for a given survey ID (sid).
  * 
  * @example
  * `cordova.plugins.ForeSeeAPI.showInvite(["app_test_1"], _onSuccess, _onFailure);`
