@@ -17,7 +17,6 @@ exports.showSurvey = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "showSurvey", args);
 };
 
-
 /**
  * @description
  * Programmatically present the invitation for a given survey ID (sid)
@@ -32,7 +31,6 @@ exports.showSurvey = function (args, success, error) {
 exports.showInvite = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "showInvite", args);
 };
-
 
 /**
  * @description
@@ -132,7 +130,6 @@ exports.resetState = function (success, error) {
     exec(success, error, ForeSeeAPI, "resetState", []);
 };
 
-
 /**
  * @description 
  * Starts the Trigger and SessionReplay modules (if enabled).
@@ -150,7 +147,6 @@ exports.resetState = function (success, error) {
 exports.start = function (success, error) {
     exec(success, error, ForeSeeAPI, "start", []);
 };
-
 
 /**
  * @description 
@@ -220,7 +216,6 @@ exports.isDebugLogEnabled = function(success, error){
 exports.getVersion = function(success, error){
     exec(success, error, ForeSeeAPI, "getVersion", []);
 }
-
 
 /**
  * @description
