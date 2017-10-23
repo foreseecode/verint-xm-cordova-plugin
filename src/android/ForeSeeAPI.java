@@ -260,6 +260,19 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
+
+        //startWithConfigurationJson
+        sActions.put("startWithConfigurationJson", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+
+                Log.i(sTag, "startWithConfigurationJson() JS API for ANDROID is not available");
+                callback.success(sTag + "start() is not available");
+                return true;
+            }
+        });
+
         //isDebugLogEnabled
         sActions.put("isDebugLogEnabled", new ForeSeeMethod() {
 
@@ -297,18 +310,6 @@ public class ForeSeeAPI extends CordovaPlugin {
                 } finally {
                     return true;
                 }
-            }
-        });
-
-        //startWithConfigurationJson
-        sActions.put("startWithConfigurationJson", new ForeSeeMethod() {
-
-            @Override
-            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
-
-                Log.i(sTag, "startWithConfigurationJson() JS API for ANDROID is not available");
-                callback.success(sTag + "start() is not available");
-                return true;
             }
         });
 

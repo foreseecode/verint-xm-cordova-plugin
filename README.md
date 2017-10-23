@@ -20,15 +20,11 @@
 
 * Within the `onCreate` method of the `MainActivity.java` class that was generated, initialize the ForeSee SDK by invoking `ForeSee.start(getApplication())`.
 
-``` @Override
+``` 
+    @Override
     public void onCreate(Bundle savedInstanceState)
     {
-        super.onCreate(savedInstanceState);
-        Bundle extras = getIntent().getExtras();
-        if (extras != null && extras.getBoolean("cdvStartInBackground", false)) {
-            moveTaskToBack(true);
-        }
-        loadUrl(launchUrl);
+        //... cordova generated code ... 
 
         ForeSee.start(getApplication());
     }

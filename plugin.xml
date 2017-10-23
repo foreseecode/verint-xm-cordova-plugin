@@ -3,7 +3,7 @@
     <name>ForeSeeAPI</name>
 	<description>ForeSee SDK API Plugin</description>
 	<keywords>foresee</keywords>
-	<author>Pavel Mogilevsky</author>
+	<author>ForeSee</author>
 
  
     <js-module name="ForeSeeAPI" src="www/ForeSeeAPI.js">

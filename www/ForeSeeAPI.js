@@ -55,7 +55,7 @@ exports.checkEligibility = function (success, error) {
  * Adds a CPP key/value pair. CPPs are transmitted along with surveys upon submission.
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.addCPPValue(["hello", "bye"], _onSuccess, _onFailure);`
+ * `cordova.plugins.ForeSeeAPI.addCPPValue(["key", "value"], _onSuccess, _onFailure);`
  * 
  * @param {array} args - Array of parameters, we expect a key/value pair inside. Required by Cordova's plugin EXEC.
  * @param {callback} success - A Cordova-style success callback object.
@@ -182,9 +182,9 @@ exports.startWithConfigurationFile = function(args, success, error){
  * Behavior of the two modules is defined by the string provided.
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.startWithConfigurationFile([jsonConfig], success, error)`
+ * `cordova.plugins.ForeSeeAPI.startWithConfigurationJson([jsonConfig], success, error)`
  * 
- * @param {array} args - array. The configuration JSON to use when loading modules.
+ * @param {array} args - array. The configuration string in JSON format to use when loading modules.
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
  * The callback takes one parameter, containing the message from a command.
  * @param {callback} error - Optional callback that is invoked in the event of an error. 
