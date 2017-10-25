@@ -53,7 +53,7 @@ exports.checkEligibility = function (success, error) {
  * Sets a CPP key/value pair. CPPs are transmitted along with surveys upon submission.
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.setCPPValue(["hello", "bye"], _onSuccess, _onFailure);`
+ * `cordova.plugins.ForeSeeAPI.setCPPValue(["customParam", "customValue"], _onSuccess, _onFailure);`
  * 
  * @param {array} args - Array of parameters, we expect a key/value pair inside. Required by cordova's plugin EXEC.
  * @param {callback} success - A Cordova-style success callback object.
@@ -68,7 +68,7 @@ exports.setCPPValue = function (args, success, error) {
  * Removes a CPP value
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.removeCPPValue(["hello"], _onSuccess, _onFailure);`
+ * `cordova.plugins.ForeSeeAPI.removeCPPValue(["customParam"], _onSuccess, _onFailure);`
  * 
  * @param {array} args - Array of string, we expect a single inside.
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command 
@@ -102,7 +102,7 @@ exports.incrementPageViews = function (success, error) {
  * Increment the significant event count for a given key
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.incrementSignificantEventCount(["hello"], _onSuccess, _onFailure);`
+ * `cordova.plugins.ForeSeeAPI.incrementSignificantEventCount(["yourSignificantEventKey"], _onSuccess, _onFailure);`
  * 
  * @param {array} args - Array of string, we expect to get a single string inside
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command 
