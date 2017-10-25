@@ -18,13 +18,19 @@
 
 * All initial steps are the same as described in our [Android Getting Started](https://developer.foresee.com/docs/tutorial)
 
-* Add a new Application class to your project and AndroidManifest.xml.
+* Within the `onCreate` method of the `MainActivity.java` class that was generated, initialize the ForeSee SDK by invoking `ForeSee.start(getApplication())`.
 
-   > skip this step if you already have one
+``` 
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        //... cordova generated code ... 
+
+        ForeSee.start(getApplication());
+    }
+``` 
 
 * Add `foresee_configuration.json` file in your `res/raw`.
-
-* Call the `ForeSee.start(this)` in your Application class within your `onCreate` method
 
 * Now you can use `cordova.plugins.ForeSeeAPI` in your JavaScript code for example:
 

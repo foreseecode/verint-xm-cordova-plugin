@@ -253,7 +253,7 @@
         NSString* jsonConfig = [command.arguments objectAtIndex:0];
         if (jsonConfig != nil && [jsonConfig length] > 0) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-            [ForeSee startWithConfigurationFile:jsonConfig];
+            [ForeSee startWithConfigurationJson:jsonConfig];
         } else {
             NSLog(@"Bad configJson for startWithConfigurationJson");
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];

@@ -1,11 +1,18 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugin id="com.foresee.cordova.plugin" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>ForeSeeAPI</name>
+	<description>ForeSee SDK API Plugin</description>
+	<keywords>foresee</keywords>
+	<author>ForeSee</author>
 
+ 
     <js-module name="ForeSeeAPI" src="www/ForeSeeAPI.js">
         <clobbers target="cordova.plugins.ForeSeeAPI" />
     </js-module>
 
+<!--
+	Android
+	-->
     <platform name="android">
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="ForeSeeAPI">
@@ -24,7 +31,9 @@
         <source-file src="src/android/ForeSeeAPI.java" target-dir="src/com/foresee/cordova/plugin/ForeSeeAPI" />
     </platform>
 
-
+    <!--
+	Apple iOS
+	-->
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
             <feature name="ForeSeeAPI">
@@ -34,7 +43,6 @@
         </config-file>
         <source-file src="src/ios/ForeSeeAPI.m" />
         <framework src="ForeSee" type="podspec" spec="~> 4.2.2" />
-
     </platform>
 
     <info>
