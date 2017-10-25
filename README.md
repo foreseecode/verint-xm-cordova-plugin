@@ -11,12 +11,12 @@
 * Add the ForeSee plugin to your project 
 
    ```
-   cordova plugin add https://github.com/foreseecode/foresee-sdk-cordova-plugin`
+   cordova plugin add https://github.com/foreseecode/foresee-sdk-cordova-plugin
    ```
 
    > this will automaticly add `compile "com.foresee.sdk:sdk:+"` to your `build.gradle` file
 
-* All initial steps are same as described in our  [Android Getting Started](https://developer.foresee.com/docs/tutorial)
+* All initial steps are the same as described in our [Android Getting Started](https://developer.foresee.com/docs/tutorial)
 
 * Add a new Application class to your project and AndroidManifest.xml.
 
@@ -32,7 +32,7 @@
    cordova.plugins.ForeSeeAPI.checkEligibility(_onSuccess, _onFailure);`
    ```
 
-* For all suported methods please check out official portal [ForeSee Developer Portal](https://developer.foresee.com)
+* For all suported methods please check out the official [ForeSee Developer Portal](https://developer.foresee.com)
    
 ----
 ## iOS
@@ -43,29 +43,20 @@
    cordova plugin add https://github.com/foreseecode/foresee-sdk-cordova-plugin
    ```
 
-* All initial steps are same as described in our [iOS Getting Started](https://developer.foresee.com/docs/getting-started)
+* Add a `foresee_configuration.json` file to your iOS project.
 
-* Add `foresee_configuration.json` file to your iOS project.
+* Use 
 
-* Add those two methods in your AppDelegate.
+    ```
+    cordova.plugins.ForeSeeAPI.start(success, error)
+    ``` 
 
-   ```
-   -(BOOL)application:(UIApplication *)application 
-       didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-           [ForeSee start];
-           [ForeSee checkIfEligibleForSurvey];
-   }
+    to initialize the ForeSee SDK. The `deviceready` event is a good place for this.
 
-   -(void)applicationDidBecomeActive:(UIApplication *)application 
-   {
-     [ForeSee checkIfEligibleForSurvey];
-   }
-   ```
-
-* Now you can use `cordova.plugins.ForeSeeAPI` in your JavaScript code for example:
+* Now you can use `cordova.plugins.ForeSeeAPI` in your JavaScript code. For example:
 
    ```
-   cordova.plugins.ForeSeeAPI.checkEligibility(_onSuccess, _onFailure);`
+   cordova.plugins.ForeSeeAPI.checkEligibility(_onSuccess, _onFailure);
    ```
 
-* For all suported methods please check out official portal [ForeSee Developer Portal](https://developer.foresee.com)
+* For all suported methods please check out the official [ForeSee Developer Portal](https://developer.foresee.com)

@@ -24,6 +24,28 @@
 
 - (void)resetState: (CDVInvokedUrlCommand*)command;
 
+- (void)start: (CDVInvokedUrlCommand*)command;
+
+- (void)startWithConfigurationFile: (CDVInvokedUrlCommand*)command;
+
+- (void)startWithConfigurationJson: (CDVInvokedUrlCommand*)command;
+
+- (void)isDebugLogEnabled: (CDVInvokedUrlCommand*)command;
+
+- (void)getVersion: (CDVInvokedUrlCommand*)command;
+
+- (void)getContactDetails: (CDVInvokedUrlCommand*)command;
+
+- (void)setContactDetails: (CDVInvokedUrlCommand*)command;
+
+- (void)customInviteDeclined: (CDVInvokedUrlCommand*)command;
+
+- (void)customInviteAccepted: (CDVInvokedUrlCommand*)command;
+
+- (void)setSkipPoolingCheck: (CDVInvokedUrlCommand*)command;
+
+- (void)setDebugLogEnabled: (CDVInvokedUrlCommand*)command;
+
 @end
 
 @implementation ForeSeeAPI
@@ -92,7 +114,7 @@
     NSArray* arguments = command.arguments;
    
     if(arguments == nil || arguments.count < 1){
-        NSLog(@"No surveyId for showInvite");
+        NSLog(@"No surveyId for addCPPValue");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else{
@@ -117,7 +139,7 @@
     NSArray* arguments = command.arguments;
    
     if(arguments == nil || arguments.count < 1){
-        NSLog(@"No surveyId for showInvite");
+        NSLog(@"No surveyId for removeCPPValue");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else{
@@ -154,7 +176,7 @@
     NSArray* arguments = command.arguments;
    
     if(arguments == nil || arguments.count < 1){
-        NSLog(@"No surveyId for showInvite");
+        NSLog(@"No surveyId for incrementSignificantEvent");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else{
@@ -181,5 +203,173 @@
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
+
+
+- (void)start: (CDVInvokedUrlCommand*)command
+{
+    CDVPluginResult* pluginResult = nil;
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+
+    [ForeSee start];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)startWithConfigurationFile: (CDVInvokedUrlCommand*)command
+{
+    CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+    
+    if(arguments == nil || arguments.count < 1){
+        NSLog(@"No config for startWithConfigurationFile");
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    else{
+        NSString* configFile = [command.arguments objectAtIndex:0];
+        if (configFile != nil && [configFile length] > 0) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+            [ForeSee startWithConfigurationFile:configFile];
+        } else {
+            NSLog(@"Bad config for startWithConfigurationFile");
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
+    }
+
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)startWithConfigurationJson: (CDVInvokedUrlCommand*)command
+{
+    CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+    
+    if(arguments == nil || arguments.count < 1){
+        NSLog(@"No configJson for startWithConfigurationJson");
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    else{
+        NSString* jsonConfig = [command.arguments objectAtIndex:0];
+        if (jsonConfig != nil && [jsonConfig length] > 0) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+            [ForeSee startWithConfigurationFile:jsonConfig];
+        } else {
+            NSLog(@"Bad configJson for startWithConfigurationJson");
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
+    }
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)isDebugLogEnabled: (CDVInvokedUrlCommand*)command{
+    CDVPluginResult* pluginResult = nil;
+
+    BOOL result = [ForeSee isDebugLogEnabled];
+    
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:result];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)getVersion: (CDVInvokedUrlCommand*)command{
+    CDVPluginResult* pluginResult = nil;
+
+    NSString* version = [ForeSee version];
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:version];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)getContactDetails: (CDVInvokedUrlCommand*)command{
+    CDVPluginResult* pluginResult = nil;
+
+    NSString* result = [ForeSee contactDetails];
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:result];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)setContactDetails: (CDVInvokedUrlCommand*)command{
+
+    CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+    
+    if(arguments == nil || arguments.count < 1){
+        NSLog(@"No configJson for setContactDetails");
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    else{
+        NSString* contact = [command.arguments objectAtIndex:0];
+        if (contact != nil && [contact length] > 0) {
+            [ForeSee setContactDetails:contact];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        } else {
+            NSLog(@"Bad configJson for setContactDetails");
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
+    }
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)customInviteDeclined: (CDVInvokedUrlCommand*)command{
+    CDVPluginResult* pluginResult = nil;
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+
+    [ForeSee customInviteAccepted];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)customInviteAccepted: (CDVInvokedUrlCommand*)command{
+    CDVPluginResult* pluginResult = nil;
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+
+    [ForeSee customInviteDeclined];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)setSkipPoolingCheck: (CDVInvokedUrlCommand*)command{
+    CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+
+    if(arguments == nil || arguments.count < 1){
+        NSLog(@"No data for setSkipPoolingCheck");
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    else{
+        BOOL skip = [command.arguments objectAtIndex:0];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        [ForeSee setSkipPoolingCheck:skip];
+    }
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+
+- (void)setDebugLogEnabled: (CDVInvokedUrlCommand*)command{
+    CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+
+    if(arguments == nil || arguments.count < 1){
+        NSLog(@"No data for setDebugLogEnabled");
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    else{
+        BOOL enable = [command.arguments objectAtIndex:0];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        [ForeSee setDebugLogEnabled:enable];
+    }
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
 
 @end
