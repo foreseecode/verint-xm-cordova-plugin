@@ -17,7 +17,6 @@ exports.showSurvey = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "showSurvey", args);
 };
 
-
 /**
  * @description
  * Programmatically present the invitation for a given survey ID (sid).
@@ -32,7 +31,6 @@ exports.showSurvey = function (args, success, error) {
 exports.showInvite = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "showInvite", args);
 };
-
 
 /**
  * @description
@@ -52,19 +50,18 @@ exports.checkEligibility = function (success, error) {
 
 /**
  * @description
- * Adds a CPP key/value pair. CPPs are transmitted along with surveys upon submission.
+ * Sets a CPP key/value pair. CPPs are transmitted along with surveys upon submission.
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.addCPPValue(["key", "value"], _onSuccess, _onFailure);`
+ * `cordova.plugins.ForeSeeAPI.setCPPValue(["hello", "bye"], _onSuccess, _onFailure);`
  * 
  * @param {array} args - Array of parameters, we expect a key/value pair inside. Required by Cordova's plugin EXEC.
  * @param {callback} success - A Cordova-style success callback object.
  * @param {callback} error - A Cordova-style error callback object.
  */
-exports.addCPPValue = function (args, success, error) {
+exports.setCPPValue = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "addCPPValue", args);
 };
-
 
 /**
  * @description
@@ -83,7 +80,6 @@ exports.removeCPPValue = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "removeCPPValue", args);
 };
 
-
 /**
  * @description
  * Manually increment the number of pages counted by the ForeSee SDK.
@@ -100,7 +96,6 @@ exports.removeCPPValue = function (args, success, error) {
 exports.incrementPageViews = function (success, error) {
     exec(success, error, ForeSeeAPI, "incrementPageViews", []);
 };
-
 
 /**
  * @description
@@ -119,8 +114,6 @@ exports.incrementSignificantEventCount = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "incrementSignificantEvent", args);
 };
 
-
-
 /**
  * @description 
  * Reset the state of the tracker and (if applicable) reactivates the Replay module.
@@ -136,7 +129,6 @@ exports.incrementSignificantEventCount = function (args, success, error) {
 exports.resetState = function (success, error) {
     exec(success, error, ForeSeeAPI, "resetState", []);
 };
-
 
 /**
  * @description 
@@ -155,7 +147,6 @@ exports.resetState = function (success, error) {
 exports.start = function (success, error) {
     exec(success, error, ForeSeeAPI, "start", []);
 };
-
 
 /**
  * @description 
@@ -225,7 +216,6 @@ exports.isDebugLogEnabled = function(success, error){
 exports.getVersion = function(success, error){
     exec(success, error, ForeSeeAPI, "getVersion", []);
 }
-
 
 /**
  * @description
