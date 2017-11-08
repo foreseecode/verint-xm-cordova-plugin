@@ -3,14 +3,21 @@ package com.foresee.cordova.plugin;
 import android.util.Log;
 
 import com.foresee.sdk.ForeSee;
+import com.foresee.sdk.cxMeasure.tracker.listeners.BaseInviteListener;
+import com.foresee.sdk.common.configuration.MeasureConfiguration;
 
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
 
+import java.lang.ref.WeakReference;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.cordova.CallbackContext;
 
+import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -30,6 +37,7 @@ public class ForeSeeAPI extends CordovaPlugin {
     private final static String sTag = "FORESEE_CORDOVA";
 
     HashMap<String, ForeSeeMethod> sActions = new HashMap<String, ForeSeeMethod>();
+    Set<WeakReference<CallbackContext>> mCallbacks = Collections.synchronizedSet(new HashSet<WeakReference<CallbackContext>>());
 
     /**
      * Initialization of all supported ForeSee API methods
@@ -433,8 +441,78 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-    }
+        //setInviteListener
+        /*
+            1. If list of callback is empty - add a new one
+                1.1 On event return callback with keepAlive = true
+            2. Add a new WeakReferenced callback to list
+         */
+        sActions.put("setInviteListener", new ForeSeeMethod() {
 
+            @Override
+            public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
+                try {
+
+                    //1.
+                    if (mCallbacks.isEmpty()) {
+                        ForeSee.setInviteListener(new BaseInviteListener() {
+
+                            //1.1
+                            @Override
+                            public void onInviteCompleteWithAccept() {
+                                PluginResult result = new PluginResult(PluginResult.Status.OK, "accepted");
+                                result.setKeepCallback(true);
+                                for (WeakReference<CallbackContext> c : mCallbacks) {
+                                    if (c.get() != null) {
+                                        c.get().sendPluginResult(result);
+                                    }
+                                }
+                            }
+
+                            //1.1
+                            @Override
+                            public void onInviteCompleteWithDecline() {
+
+                                PluginResult result = new PluginResult(PluginResult.Status.OK, "declined");
+                                result.setKeepCallback(true);
+                                for (WeakReference<CallbackContext> c : mCallbacks) {
+                                    if (c.get() != null) {
+                                        c.get().sendPluginResult(result);
+                                    }
+                                }
+                            }
+
+                            //1.1
+                            @Override
+                            public void onInviteNotShownWithNetworkError(MeasureConfiguration measureConfiguration) {
+                                Log.i(sTag, "onInviteNotShownWithNetworkError");
+                            }
+
+                            //1.1
+                            @Override
+                            public void onInviteNotShownWithEligibilityFailed(MeasureConfiguration measureConfiguration) {
+                                Log.i(sTag, "onInviteNotShownWithEligibilityFailed");
+                            }
+
+                            //1.1
+                            @Override
+                            public void onInviteNotShownWithSamplingFailed(MeasureConfiguration measureConfiguration) {
+                                Log.i(sTag, "onInviteNotShownWithSamplingFailed");
+                            }
+                        });
+                    }
+                    //2.
+                    mCallbacks.add(new WeakReference<CallbackContext>(callback));
+
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "setSkipPoolingCheck failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+     }
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {

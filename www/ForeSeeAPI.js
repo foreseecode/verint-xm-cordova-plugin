@@ -322,3 +322,7 @@ exports.setDebugLogEnabled = function(args, success, error){
     exec(success, error, ForeSeeAPI, "setDebugLogEnabled", args);
 }
 
+
+exports.setInviteListener = function(success, error){
+    exec(success, error, ForeSeeAPI, "setInviteListener", []);
+}
