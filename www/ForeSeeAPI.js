@@ -322,3 +322,30 @@ exports.setDebugLogEnabled = function(args, success, error){
     exec(success, error, ForeSeeAPI, "setDebugLogEnabled", args);
 }
 
+exports.setInviteListener = function(success, error){
+    exec(success, error, ForeSeeAPI, "setIniviteListener", [])
+}
+
+exports.logReplayPageChange = function(args, success, error){
+    exec(success, error, ForeSeeAPI, "logReplayPageChange", args);
+}
+
+exports.setMaskingDebugEnabled = function(args, success, error){
+    exec(success, error, ForeSeeAPI, "setMaskingDebugEnabled", args);
+}
+
+exports.isRecording = function(success, error){
+    exec(success, error, ForeSeeAPI, "isRecording", []);
+}
+
+exports.startRecording = function(success, error){
+    exec(success, error, ForeSeeAPI, "startRecording", []);
+}
+
+exports.pauseRecording = function(success, error){
+    exec(success, error, ForeSeeAPI, "pauseRecording", []);
+}
+
+exports.resumeRecording = function(success, error){
+    exec(success, error, ForeSeeAPI, "resumeRecording", []);
+}
