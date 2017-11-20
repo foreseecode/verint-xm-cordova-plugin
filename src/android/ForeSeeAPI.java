@@ -433,8 +433,8 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-          //setSkipPoolingCheck
-        sActions.put("setInviteListner", new ForeSeeMethod() {
+        //setSkipPoolingCheck
+        sActions.put("setInviteListener", new ForeSeeMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -449,6 +449,124 @@ public class ForeSeeAPI extends CordovaPlugin {
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
                     callback.error(sTag + "setSkipPoolingCheck failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+                //startRecording
+        sActions.put("startRecording", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    callback.success();
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "startRecording failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        //logReplayPageChange
+        sActions.put("logReplayPageChange", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+
+                try {
+                    if (args == null || args.length() < 1) {
+                        callback.error("No details for logReplayPageChange");
+                        return true;
+                    }
+
+                    String page = args.getString(0);
+
+                    if (null == page || page.isEmpty()) {
+                        callback.error("Bad details for logReplayPageChange");
+                    } else {
+                        ForeSee.logReplayPageChange(page);
+                        callback.success();
+                    }
+
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "logReplayPageChange failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        //setMaskingDebugEnabled
+        sActions.put("setMaskingDebugEnabled", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    if (args == null || args.length() < 1) {
+                        callback.error("No value for setMaskingDebugEnabled");
+                        return true;
+                    }
+                    ForeSee.setMaskingDebugEnabled(args.getBoolean(0));
+                    callback.success();
+
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "setMaskingDebugEnabled failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        //isRecording
+        sActions.put("isRecording", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    callback.success(String.valueOf(ForeSee.isRecording()));
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "isRecording failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        //pauseRecording
+        sActions.put("pauseRecording", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    ForeSee.pauseRecording();
+                    callback.success();
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "pauseRecording failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        //resumeRecording
+        sActions.put("resumeRecording", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    ForeSee.resumeRecording();
+                    callback.success();
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "resumeRecording failure");
                 } finally {
                     return true;
                 }

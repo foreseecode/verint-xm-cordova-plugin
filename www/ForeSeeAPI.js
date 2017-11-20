@@ -322,30 +322,119 @@ exports.setDebugLogEnabled = function(args, success, error){
     exec(success, error, ForeSeeAPI, "setDebugLogEnabled", args);
 }
 
+
+/**
+ * @description
+ * Set the invite listener
+ * 
+ * @example
+ * 
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error. 
+ * The callback takes one error parameter, containing the details of the error. 
+ */
 exports.setInviteListener = function(success, error){
-    exec(success, error, ForeSeeAPI, "setIniviteListener", [])
+    exec(success, error, ForeSeeAPI, "setInviteListener", [])
 }
 
+
+/**
+ * @description
+ * Programmatically log a cxReplay page change event. These page change events will show up in the replay as a page marker.
+ * 
+ * @example
+ *  cordova.plugins.ForeSeeAPI.logReplayPageChange(["Page1"], onSuccess, onError);
+ * 
+ * @param {array} args 
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error. 
+ * The callback takes one error parameter, containing the details of the error.
+ */
 exports.logReplayPageChange = function(args, success, error){
     exec(success, error, ForeSeeAPI, "logReplayPageChange", args);
 }
 
+/**
+ * @description
+ * Allows implementers to debug the masking within the app by adding a colored overlay indicating masked areas
+ * 
+ * @example
+ * cordova.plugins.ForeSeeAPI.setMaskingDebugEnabled(["true"], onSuccess, onError);
+ * 
+ * @param {array} args 
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error. 
+ * The callback takes one error parameter, containing the details of the error.
+ */
 exports.setMaskingDebugEnabled = function(args, success, error){
     exec(success, error, ForeSeeAPI, "setMaskingDebugEnabled", args);
 }
 
+
+/**
+ * @description
+ * Check if cxReplay is recording
+ * 
+ * @example
+ * cordova.plugins.ForeSeeAPI.isRecording(onSuccess, onError);
+ * 
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error. 
+ * The callback takes one error parameter, containing the details of the error.
+ */
 exports.isRecording = function(success, error){
     exec(success, error, ForeSeeAPI, "isRecording", []);
 }
 
+
+/**
+ * @description
+ * Start recording
+ * 
+ * @example
+ * 
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error. 
+ * The callback takes one error parameter, containing the details of the error.
+ */
 exports.startRecording = function(success, error){
     exec(success, error, ForeSeeAPI, "startRecording", []);
 }
 
+
+/**
+ * @description
+ * Pause cxReplay recording 
+ * 
+ * @example
+ * cordova.plugins.ForeSeeAPI.pauseRecording(onSuccess, onError);
+ * 
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error. 
+ * The callback takes one error parameter, containing the details of the error.
+ */
 exports.pauseRecording = function(success, error){
     exec(success, error, ForeSeeAPI, "pauseRecording", []);
 }
 
+
+/**
+ * @description
+ * Resume cxReplay recording
+ * @example
+ * cordova.plugins.ForeSeeAPI.resumeRecording(onSuccess, onError);
+ * 
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error. 
+ * The callback takes one error parameter, containing the details of the error.
+ */
 exports.resumeRecording = function(success, error){
     exec(success, error, ForeSeeAPI, "resumeRecording", []);
 }
