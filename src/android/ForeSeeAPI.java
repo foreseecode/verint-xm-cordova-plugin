@@ -433,22 +433,17 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-        //setSkipPoolingCheck
-        sActions.put("setInviteListener", new ForeSeeMethod() {
+          //setInviteListner
+        sActions.put("setInviteListner", new ForeSeeMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
                 try {
-                    if (args == null || args.length() < 1) {
-                        callback.error("No value for setSkipPoolingCheck");
-                        return true;
-                    }
-                    ForeSee.setSkipPoolingCheck(args.getBoolean(0));
+                    //Stub method will be implemneted in https://issuetracking.foresee.com/browse/MOBILSDK-1211
                     callback.success();
-
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "setSkipPoolingCheck failure");
+                    callback.error(sTag + "setInviteListner failure");
                 } finally {
                     return true;
                 }
