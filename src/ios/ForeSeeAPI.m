@@ -440,6 +440,7 @@
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
 
+    NSLog(@"pauseRecording is not available on iOS and will have no effect");
     //[ForeSee pauseRecording]; - there is no Pause in Recording for iOS
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -451,6 +452,7 @@
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
 
+    NSLog(@"resumeRecording is not available on iOS and will have no effect");
     //[ForeSee resumeRecording]; - there is no Resume in Recording for iOS
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -461,6 +463,7 @@
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
 
+    NSLog(@"startRecording is not available on iOS and will have no effect");
     //[ForeSee startRecording]; - there is no start in Recording for iOS
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
