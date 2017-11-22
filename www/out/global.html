@@ -591,7 +591,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.customInviteDeclined(success, error);</code></pre>
+    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.customInviteDeclined(success, error);`</code></pre>
 
 
 
@@ -756,7 +756,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.getContactDetails(success, error);</code></pre>
+    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.getContactDetails(success, error);`</code></pre>
 
 
 
@@ -921,7 +921,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.getVersion(success, error)</code></pre>
+    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.getVersion(success, error)`</code></pre>
 
 
 
@@ -1450,6 +1450,524 @@ The callback takes one error parameter, containing the details of the error.</td
     
 
     
+    <h4 class="name" id="isRecording"><span class="type-signature"></span>isRecording<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Check if cxReplay is recording
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing the message from a command.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error. 
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line387">line 387</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.isRecording(onSuccess, onError);`</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="logReplayPageChange"><span class="type-signature"></span>logReplayPageChange<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Programmatically log a cxReplay page change event. These page change events will show up in the replay as a page marker.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing the message from a command.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error. 
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line354">line 354</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.logReplayPageChange(["Page1"], onSuccess, onError);`</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="pauseRecording"><span class="type-signature"></span>pauseRecording<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Pause cxReplay recording
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing the message from a command.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error. 
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line419">line 419</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.pauseRecording(onSuccess, onError);`</code></pre>
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="removeCPPValue"><span class="type-signature"></span>removeCPPValue<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
     
 
@@ -1803,6 +2321,171 @@ The callback takes one error parameter, containing the details of the error.</td
     
 
     
+    <h4 class="name" id="resumeRecording"><span class="type-signature"></span>resumeRecording<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Resume cxReplay recording
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing the message from a command.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error. 
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line435">line 435</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.resumeRecording(onSuccess, onError);`</code></pre>
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="setContactDetails"><span class="type-signature"></span>setContactDetails<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
     
 
@@ -1982,7 +2665,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.setContactDetails(["Bob"], success, error); </code></pre>
+    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.setContactDetails(["Bob"], success, error);`</code></pre>
 
 
 
@@ -2357,7 +3040,360 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.setDebugLogEnabled(["true"], success, error);</code></pre>
+    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.setDebugLogEnabled(["true"], success, error);`</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="setInviteListener"><span class="type-signature"></span>setInviteListener<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Set the invite listener
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing the message from a command.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error. 
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line337">line 337</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI(onSuccess, onError);`</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="setMaskingDebugEnabled"><span class="type-signature"></span>setMaskingDebugEnabled<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Allows implementers to debug the masking within the app by adding a colored overlay indicating masked areas
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing the message from a command.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error. 
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line371">line 371</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.setMaskingDebugEnabled(["true"], onSuccess, onError);`</code></pre>
 
 
 
@@ -2547,7 +3583,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.setSkipPoolingCheck(["true"], succes, error); </code></pre>
+    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.setSkipPoolingCheck(["true"], succes, error);` </code></pre>
 
 
 
@@ -3086,7 +4122,172 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.start(_onSucess, _onFailure )</code></pre>
+    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.start(_onSucess, _onFailure )`</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="startRecording"><span class="type-signature"></span>startRecording<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Start recording
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing the message from a command.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error. 
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line403">line 403</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>``cordova.plugins.ForeSeeAPI.startRecording(onSuccess, onError);`</code></pre>
 
 
 
@@ -3484,13 +4685,13 @@ The callback takes one error parameter, containing the details of the error.</td
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#checkEligibility">checkEligibility</a></li><li><a href="global.html#customInviteAccepted">customInviteAccepted</a></li><li><a href="global.html#customInviteDeclined">customInviteDeclined</a></li><li><a href="global.html#getContactDetails">getContactDetails</a></li><li><a href="global.html#getVersion">getVersion</a></li><li><a href="global.html#incrementPageViews">incrementPageViews</a></li><li><a href="global.html#incrementSignificantEventCount">incrementSignificantEventCount</a></li><li><a href="global.html#isDebugLogEnabled">isDebugLogEnabled</a></li><li><a href="global.html#removeCPPValue">removeCPPValue</a></li><li><a href="global.html#resetState">resetState</a></li><li><a href="global.html#setContactDetails">setContactDetails</a></li><li><a href="global.html#setCPPValue">setCPPValue</a></li><li><a href="global.html#setDebugLogEnabled">setDebugLogEnabled</a></li><li><a href="global.html#setSkipPoolingCheck">setSkipPoolingCheck</a></li><li><a href="global.html#showInvite">showInvite</a></li><li><a href="global.html#showSurvey">showSurvey</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#startWithConfigurationFile">startWithConfigurationFile</a></li><li><a href="global.html#startWithConfigurationJson">startWithConfigurationJson</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#checkEligibility">checkEligibility</a></li><li><a href="global.html#customInviteAccepted">customInviteAccepted</a></li><li><a href="global.html#customInviteDeclined">customInviteDeclined</a></li><li><a href="global.html#getContactDetails">getContactDetails</a></li><li><a href="global.html#getVersion">getVersion</a></li><li><a href="global.html#incrementPageViews">incrementPageViews</a></li><li><a href="global.html#incrementSignificantEventCount">incrementSignificantEventCount</a></li><li><a href="global.html#isDebugLogEnabled">isDebugLogEnabled</a></li><li><a href="global.html#isRecording">isRecording</a></li><li><a href="global.html#logReplayPageChange">logReplayPageChange</a></li><li><a href="global.html#pauseRecording">pauseRecording</a></li><li><a href="global.html#removeCPPValue">removeCPPValue</a></li><li><a href="global.html#resetState">resetState</a></li><li><a href="global.html#resumeRecording">resumeRecording</a></li><li><a href="global.html#setContactDetails">setContactDetails</a></li><li><a href="global.html#setCPPValue">setCPPValue</a></li><li><a href="global.html#setDebugLogEnabled">setDebugLogEnabled</a></li><li><a href="global.html#setInviteListener">setInviteListener</a></li><li><a href="global.html#setMaskingDebugEnabled">setMaskingDebugEnabled</a></li><li><a href="global.html#setSkipPoolingCheck">setSkipPoolingCheck</a></li><li><a href="global.html#showInvite">showInvite</a></li><li><a href="global.html#showSurvey">showSurvey</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#startRecording">startRecording</a></li><li><a href="global.html#startWithConfigurationFile">startWithConfigurationFile</a></li><li><a href="global.html#startWithConfigurationJson">startWithConfigurationJson</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Oct 26 2017 11:05:38 GMT-0700 (PDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Nov 20 2017 12:03:39 GMT-0800 (PST)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -46,6 +46,19 @@
 
 - (void)setDebugLogEnabled: (CDVInvokedUrlCommand*)command;
 
+- (void)logReplayPageChange: (CDVInvokedUrlCommand*)command;
+
+- (void)pauseRecording: (CDVInvokedUrlCommand*)command;
+
+- (void)resumeRecording: (CDVInvokedUrlCommand*)command;
+
+- (void)setMaskingDebugEnabled: (CDVInvokedUrlCommand*)command;
+
+- (void)isRecording: (CDVInvokedUrlCommand*)command;
+
+- (void)startRecording: (CDVInvokedUrlCommand*)command;
+
+
 @end
 
 @implementation ForeSeeAPI
@@ -299,7 +312,7 @@
     NSArray* arguments = command.arguments;
     
     if(arguments == nil || arguments.count < 1){
-        NSLog(@"No configJson for setContactDetails");
+        NSLog(@"No contact for setContactDetails");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else{
@@ -308,7 +321,7 @@
             [ForeSee setContactDetails:contact];
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         } else {
-            NSLog(@"Bad configJson for setContactDetails");
+            NSLog(@"Bad contact for setContactDetails");
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
     }
@@ -367,6 +380,91 @@
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         [ForeSee setDebugLogEnabled:enable];
     }
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+
+- (void)logReplayPageChange: (CDVInvokedUrlCommand*)command{
+    CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+
+    if(arguments == nil || arguments.count < 1){
+        NSLog(@"No page name for logReplayPageChange");
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    else{
+        NSString* page = [command.arguments objectAtIndex:0];
+        if (page != nil && [page length] > 0) {
+            [ForeSee logReplayPageChange:page];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        } else {
+            NSLog(@"Bad page name for logReplayPageChange");
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
+    }
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)setMaskingDebugEnabled: (CDVInvokedUrlCommand*)command{
+    CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+
+    if(arguments == nil || arguments.count < 1){
+        NSLog(@"No data for setMaskingDebugEnabled");
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    else{
+        BOOL enable = [command.arguments objectAtIndex:0];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        [ForeSee setMaskingDebugEnabled:enable];
+    }
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+
+- (void)isRecording: (CDVInvokedUrlCommand*)command{
+    CDVPluginResult* pluginResult = nil;
+
+    BOOL result = [ForeSee isRecording];
+    
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:result];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)pauseRecording: (CDVInvokedUrlCommand*)command{
+    CDVPluginResult* pluginResult = nil;
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+
+    NSLog(@"pauseRecording is not available on iOS and will have no effect");
+    //[ForeSee pauseRecording]; - there is no Pause in Recording for iOS
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+
+- (void)resumeRecording: (CDVInvokedUrlCommand*)command{
+    CDVPluginResult* pluginResult = nil;
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+
+    NSLog(@"resumeRecording is not available on iOS and will have no effect");
+    //[ForeSee resumeRecording]; - there is no Resume in Recording for iOS
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)startRecording: (CDVInvokedUrlCommand*)command{
+    CDVPluginResult* pluginResult = nil;
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+
+    NSLog(@"startRecording is not available on iOS and will have no effect");
+    //[ForeSee startRecording]; - there is no start in Recording for iOS
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
