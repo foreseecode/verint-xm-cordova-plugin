@@ -433,24 +433,24 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-          //setInviteListner
-        sActions.put("setInviteListner", new ForeSeeMethod() {
+        //setInviteListener
+        sActions.put("setInviteListener", new ForeSeeMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
                 try {
-                    //Stub method will be implemneted in https://issuetracking.foresee.com/browse/MOBILSDK-1211
+                    //Stub method will be implemented in https://issuetracking.foresee.com/browse/MOBILSDK-1211
                     callback.success();
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "setInviteListner failure");
+                    callback.error(sTag + "setInviteListener failure");
                 } finally {
                     return true;
                 }
             }
         });
 
-                //startRecording
+        //startRecording
         sActions.put("startRecording", new ForeSeeMethod() {
 
             @Override
