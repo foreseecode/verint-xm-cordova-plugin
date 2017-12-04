@@ -37,11 +37,13 @@ public class ForeSeeAPI extends CordovaPlugin {
     private final static String sTag = "FORESEE_CORDOVA";
 
     HashMap<String, ForeSeeMethod> sActions = new HashMap<String, ForeSeeMethod>();
-    Set<WeakReference<CallbackContext>> mCallbacks = Collections.synchronizedSet(new HashSet<WeakReference<CallbackContext>>());
+    Set<WeakReference<CallbackContext>> mCallbacks = Collections
+            .synchronizedSet(new HashSet<WeakReference<CallbackContext>>());
 
     /**
      * Initialization of all supported ForeSee API methods
-     */ {
+     */
+    {
 
         //showSurvey
         sActions.put("showSurvey", new ForeSeeMethod() {
@@ -138,8 +140,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                     String key = args.getString(0);
                     String value = args.getString(1);
 
-                    if (key == null || key.isEmpty()
-                            || value == null || value.isEmpty()) {
+                    if (key == null || key.isEmpty() || value == null || value.isEmpty()) {
                         callback.error("Bad key or value for addCPPValue");
                     } else {
                         ForeSee.addCPPValue(key, value);
@@ -223,7 +224,6 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-
         //resetState
         sActions.put("resetState", new ForeSeeMethod() {
 
@@ -242,7 +242,6 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-
         //start
         sActions.put("start", new ForeSeeMethod() {
 
@@ -260,14 +259,13 @@ public class ForeSeeAPI extends CordovaPlugin {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
-                
+
                 Log.i(sTag, "startWithConfigurationFile() JS API for ANDROID is not available");
                 callback.success(sTag + "start() is not available");
                 return true;
-               
+
             }
         });
-
 
         //startWithConfigurationJson
         sActions.put("startWithConfigurationJson", new ForeSeeMethod() {
@@ -297,7 +295,6 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-
         //setDebugLogEnabled
         sActions.put("setDebugLogEnabled", new ForeSeeMethod() {
 
@@ -308,7 +305,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                         callback.error("No value for setDebugLogEnabled");
                         return true;
                     }
-                    
+
                     ForeSee.setDebugLogEnabled(args.getBoolean(0));
                     callback.success();
 
@@ -320,7 +317,6 @@ public class ForeSeeAPI extends CordovaPlugin {
                 }
             }
         });
-
 
         //getVersion
         sActions.put("getVersion", new ForeSeeMethod() {
@@ -383,7 +379,6 @@ public class ForeSeeAPI extends CordovaPlugin {
                 }
             }
         });
-
 
         //customInviteDeclined
         sActions.put("customInviteDeclined", new ForeSeeMethod() {
@@ -490,7 +485,8 @@ public class ForeSeeAPI extends CordovaPlugin {
 
                             //1.1
                             @Override
-                            public void onInviteNotShownWithEligibilityFailed(MeasureConfiguration measureConfiguration) {
+                            public void onInviteNotShownWithEligibilityFailed(
+                                    MeasureConfiguration measureConfiguration) {
                                 Log.i(sTag, "onInviteNotShownWithEligibilityFailed");
                             }
 
@@ -512,8 +508,6 @@ public class ForeSeeAPI extends CordovaPlugin {
                 }
             }
         });
-     }
-
 
         //startRecording
         sActions.put("startRecording", new ForeSeeMethod() {
@@ -632,9 +626,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                 }
             }
         });
-
     }
-
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
