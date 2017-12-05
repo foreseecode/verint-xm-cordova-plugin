@@ -604,81 +604,101 @@ public class ForeSeeAPI extends CordovaPlugin {
 
         @Override
         public void onInviteCompleteWithAccept() {
-            PluginResult result = new PluginResult(PluginResult.Status.OK, "accepted");
-            result.setKeepCallback(true);
-            for (WeakReference<CallbackContext> c : mCallbacks) {
-                if (c.get() != null) {
-                    c.get().sendPluginResult(result);
-                }
-            }
+            Log.d(sTag, "onInviteCompleteWithAccept");
+            onEvent("onInviteCompleteWithAccept");
         }
 
         @Override
         public void onInviteCompleteWithDecline() {
-
-            PluginResult result = new PluginResult(PluginResult.Status.OK, "declined");
-            result.setKeepCallback(true);
-            for (WeakReference<CallbackContext> c : mCallbacks) {
-                if (c.get() != null) {
-                    c.get().sendPluginResult(result);
-                }
-            }
+            Log.d(sTag, "onInviteCompleteWithDecline");
+            onEvent("onInviteCompleteWithDecline");
         }
 
         @Override
         public void onInviteNotShownWithNetworkError(MeasureConfiguration measureConfiguration) {
-            Log.i(sTag, "onInviteNotShownWithNetworkError");
+            Log.d(sTag, "onInviteNotShownWithNetworkError");
+            onEvent("onInviteNotShownWithNetworkError");
         }
 
         @Override
         public void onInviteNotShownWithEligibilityFailed(
                 MeasureConfiguration measureConfiguration) {
-            Log.i(sTag, "onInviteNotShownWithEligibilityFailed");
+            Log.d(sTag, "onInviteNotShownWithEligibilityFailed");
+            onEvent("onInviteNotShownWithEligibilityFailed");
+
         }
 
         @Override
         public void onInviteNotShownWithSamplingFailed(MeasureConfiguration measureConfiguration) {
-            Log.i(sTag, "onInviteNotShownWithSamplingFailed");
+            Log.d(sTag, "onInviteNotShownWithSamplingFailed");
+            onEvent("onInviteNotShownWithSamplingFailed");
+
         }
 
         @Override
         public void showInvite(MeasureConfiguration measureConfiguration) {
-             Log.i(sTag, "showInvite");
+            Log.d(sTag, "showInvite");
+            onEvent("showInvite");
+
         }
 
         @Override
         public void onSurveyPresented() {
-             Log.i(sTag, "onSurveyPresented");
+            Log.d(sTag, "onSurveyPresented");
+            onEvent("onInviteNotShownWithNetworkError");
+
         }
 
         @Override
         public void onSurveyCompleted() {
-             Log.i(sTag, "onSurveyCompleted");
+            Log.d(sTag, "onSurveyPresented");
+            onEvent("onSurveyPresented");
+
         }
 
         @Override
         public void onSurveyCancelledByUser() {
-             Log.i(sTag, "onSurveyCancelledByUser");
+            Log.d(sTag, "onSurveyCancelledByUser");
+            onEvent("onSurveyCancelledByUser");
         }
 
         @Override
         public void onSurveyCancelledWithNetworkError() {
-             Log.i(sTag, "onSurveyCancelledWithNetworkError");
+            Log.d(sTag, "onSurveyCancelledWithNetworkError");
+            onEvent("onSurveyCancelledWithNetworkError");
         }
 
         @Override
         public void onContactFormatError() {
-             Log.i(sTag, "onContactFormatError");
+            Log.d(sTag, "onContactFormatError");
+            onEvent("onContactFormatError");
         }
 
         @Override
         public void onContactMissing() {
-             Log.i(sTag, "onContactMissing");
+            Log.d(sTag, "onContactMissing");
+            onEvent("onContactMissing");
         }
 
         @Override
         public void onInviteCancelledWithNetworkError() {
-             Log.i(sTag, "onInviteCancelledWithNetworkError");
+            Log.d(sTag, "onInviteCancelledWithNetworkError");
+            onEvent("onInviteCancelledWithNetworkError");
+        }
+
+        /**
+         * Dispatch event results
+         *
+         * @param eventMsg
+         */
+        private void onEvent(String eventMsg) {
+            PluginResult result = new PluginResult(PluginResult.Status.OK, eventMsg);
+            result.setKeepCallback(true);
+            for (WeakReference<CallbackContext> c : mCallbacks) {
+                if (c.get() != null) {
+                    c.get().sendPluginResult(result);
+                }
+            }
         }
     }
 }
