@@ -393,7 +393,7 @@ exports.isRecording = function(success, error){
  * Start recording
  *
  * @example
- * ``cordova.plugins.ForeSeeAPI.startRecording(onSuccess, onError);`
+ * `cordova.plugins.ForeSeeAPI.startRecording(onSuccess, onError);`
  *
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
  * The callback takes one parameter, containing the message from a command.

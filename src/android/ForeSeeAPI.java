@@ -5,6 +5,9 @@ import android.util.Log;
 import com.foresee.sdk.ForeSee;
 import com.foresee.sdk.cxMeasure.tracker.listeners.BaseInviteListener;
 import com.foresee.sdk.common.configuration.MeasureConfiguration;
+import com.foresee.sdk.cxMeasure.tracker.listeners.CustomContactInviteListener;
+import com.foresee.sdk.cxMeasure.tracker.listeners.CustomExitSurveyInviteListener;
+import com.foresee.sdk.cxMeasure.tracker.listeners.CustomInSessionInviteListener;
 
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
@@ -447,55 +450,9 @@ public class ForeSeeAPI extends CordovaPlugin {
             @Override
             public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
                 try {
-
-                    //1.
+                     //1.
                     if (mCallbacks.isEmpty()) {
-                        ForeSee.setInviteListener(new BaseInviteListener() {
-
-                            //1.1
-                            @Override
-                            public void onInviteCompleteWithAccept() {
-                                PluginResult result = new PluginResult(PluginResult.Status.OK, "accepted");
-                                result.setKeepCallback(true);
-                                for (WeakReference<CallbackContext> c : mCallbacks) {
-                                    if (c.get() != null) {
-                                        c.get().sendPluginResult(result);
-                                    }
-                                }
-                            }
-
-                            //1.1
-                            @Override
-                            public void onInviteCompleteWithDecline() {
-
-                                PluginResult result = new PluginResult(PluginResult.Status.OK, "declined");
-                                result.setKeepCallback(true);
-                                for (WeakReference<CallbackContext> c : mCallbacks) {
-                                    if (c.get() != null) {
-                                        c.get().sendPluginResult(result);
-                                    }
-                                }
-                            }
-
-                            //1.1
-                            @Override
-                            public void onInviteNotShownWithNetworkError(MeasureConfiguration measureConfiguration) {
-                                Log.i(sTag, "onInviteNotShownWithNetworkError");
-                            }
-
-                            //1.1
-                            @Override
-                            public void onInviteNotShownWithEligibilityFailed(
-                                    MeasureConfiguration measureConfiguration) {
-                                Log.i(sTag, "onInviteNotShownWithEligibilityFailed");
-                            }
-
-                            //1.1
-                            @Override
-                            public void onInviteNotShownWithSamplingFailed(MeasureConfiguration measureConfiguration) {
-                                Log.i(sTag, "onInviteNotShownWithSamplingFailed");
-                            }
-                        });
+                        ForeSee.setInviteListener(new FSCordovaInviteListener());
                     }
                     //2.
                     mCallbacks.add(new WeakReference<CallbackContext>(callback));
@@ -639,6 +596,89 @@ public class ForeSeeAPI extends CordovaPlugin {
             Log.d(sTag, "This action is not supported");
             callbackContext.error("This action is not supported");
             return false;
+        }
+    }
+
+    class FSCordovaInviteListener implements BaseInviteListener, CustomContactInviteListener,
+            CustomExitSurveyInviteListener, CustomInSessionInviteListener {
+
+        @Override
+        public void onInviteCompleteWithAccept() {
+            PluginResult result = new PluginResult(PluginResult.Status.OK, "accepted");
+            result.setKeepCallback(true);
+            for (WeakReference<CallbackContext> c : mCallbacks) {
+                if (c.get() != null) {
+                    c.get().sendPluginResult(result);
+                }
+            }
+        }
+
+        @Override
+        public void onInviteCompleteWithDecline() {
+
+            PluginResult result = new PluginResult(PluginResult.Status.OK, "declined");
+            result.setKeepCallback(true);
+            for (WeakReference<CallbackContext> c : mCallbacks) {
+                if (c.get() != null) {
+                    c.get().sendPluginResult(result);
+                }
+            }
+        }
+
+        @Override
+        public void onInviteNotShownWithNetworkError(MeasureConfiguration measureConfiguration) {
+            Log.i(sTag, "onInviteNotShownWithNetworkError");
+        }
+
+        @Override
+        public void onInviteNotShownWithEligibilityFailed(
+                MeasureConfiguration measureConfiguration) {
+            Log.i(sTag, "onInviteNotShownWithEligibilityFailed");
+        }
+
+        @Override
+        public void onInviteNotShownWithSamplingFailed(MeasureConfiguration measureConfiguration) {
+            Log.i(sTag, "onInviteNotShownWithSamplingFailed");
+        }
+
+        @Override
+        public void showInvite(MeasureConfiguration measureConfiguration) {
+             Log.i(sTag, "showInvite");
+        }
+
+        @Override
+        public void onSurveyPresented() {
+             Log.i(sTag, "onSurveyPresented");
+        }
+
+        @Override
+        public void onSurveyCompleted() {
+             Log.i(sTag, "onSurveyCompleted");
+        }
+
+        @Override
+        public void onSurveyCancelledByUser() {
+             Log.i(sTag, "onSurveyCancelledByUser");
+        }
+
+        @Override
+        public void onSurveyCancelledWithNetworkError() {
+             Log.i(sTag, "onSurveyCancelledWithNetworkError");
+        }
+
+        @Override
+        public void onContactFormatError() {
+             Log.i(sTag, "onContactFormatError");
+        }
+
+        @Override
+        public void onContactMissing() {
+             Log.i(sTag, "onContactMissing");
+        }
+
+        @Override
+        public void onInviteCancelledWithNetworkError() {
+             Log.i(sTag, "onInviteCancelledWithNetworkError");
         }
     }
 }
