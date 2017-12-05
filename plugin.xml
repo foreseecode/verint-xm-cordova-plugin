@@ -43,7 +43,7 @@
             </feature>
         </config-file>
         <source-file src="src/ios/ForeSeeAPI.m" />
-        <framework src="ForeSee" type="podspec" spec="~> 4.2.2" />
+        <framework src="ForeSee" type="podspec" spec="~>4.3" />
     </platform>
 
     <info>
