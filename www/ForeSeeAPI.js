@@ -390,22 +390,6 @@ exports.isRecording = function(success, error){
 
 /**
  * @description
- * Start recording
- * 
- * @example
- * ``cordova.plugins.ForeSeeAPI.startRecording(onSuccess, onError);`
- * 
- * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
- * The callback takes one parameter, containing the message from a command.
- * @param {callback} error - Optional callback that is invoked in the event of an error. 
- * The callback takes one error parameter, containing the details of the error.
- */
-exports.startRecording = function(success, error){
-    exec(success, error, ForeSeeAPI, "startRecording", []);
-}
-
-/**
- * @description
  * Pause cxReplay recording 
  * 
  * @example
