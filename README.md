@@ -4,6 +4,7 @@
 
 * cordova-android": "^6.2.3"
 * cordova-ios": "^4.4.0"
+* minSdkVersion="19"
 
 ----
 ## Android
