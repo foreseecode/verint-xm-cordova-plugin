@@ -466,22 +466,6 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-        //startRecording
-        sActions.put("startRecording", new ForeSeeMethod() {
-
-            @Override
-            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
-                try {
-                    callback.success();
-                } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "startRecording failure");
-                } finally {
-                    return true;
-                }
-            }
-        });
-
         //logReplayPageChange
         sActions.put("logReplayPageChange", new ForeSeeMethod() {
 

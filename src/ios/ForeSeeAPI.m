@@ -56,9 +56,6 @@
 
 - (void)isRecording: (CDVInvokedUrlCommand*)command;
 
-- (void)startRecording: (CDVInvokedUrlCommand*)command;
-
-
 @end
 
 @implementation ForeSeeAPI
@@ -457,17 +454,5 @@
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
-
-- (void)startRecording: (CDVInvokedUrlCommand*)command{
-    CDVPluginResult* pluginResult = nil;
-
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-
-    NSLog(@"startRecording is not available on iOS and will have no effect");
-    //[ForeSee startRecording]; - there is no start in Recording for iOS
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
 
 @end
