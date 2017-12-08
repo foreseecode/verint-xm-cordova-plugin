@@ -56,9 +56,6 @@
 
 - (void)isRecording: (CDVInvokedUrlCommand*)command;
 
-- (void)startRecording: (CDVInvokedUrlCommand*)command;
-
-
 @end
 
 @implementation ForeSeeAPI
