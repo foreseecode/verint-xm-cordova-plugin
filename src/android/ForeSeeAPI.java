@@ -5,9 +5,7 @@ import android.util.Log;
 import com.foresee.sdk.ForeSee;
 import com.foresee.sdk.cxMeasure.tracker.listeners.BaseInviteListener;
 import com.foresee.sdk.common.configuration.MeasureConfiguration;
-import com.foresee.sdk.cxMeasure.tracker.listeners.CustomContactInviteListener;
-import com.foresee.sdk.cxMeasure.tracker.listeners.CustomExitSurveyInviteListener;
-import com.foresee.sdk.cxMeasure.tracker.listeners.CustomInSessionInviteListener;
+import com.foresee.sdk.cxMeasure.tracker.listeners.DefaultInviteListener;
 
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
@@ -23,6 +21,7 @@ import org.apache.cordova.CallbackContext;
 import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * This class echoes a string called from JavaScript.
@@ -583,99 +582,132 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
     }
 
-    class FSCordovaInviteListener implements BaseInviteListener, CustomContactInviteListener,
-            CustomExitSurveyInviteListener, CustomInSessionInviteListener {
+    class FSCordovaInviteListener implements BaseInviteListener, DefaultInviteListener {
 
         @Override
         public void onInviteCompleteWithAccept() {
             Log.d(sTag, "onInviteCompleteWithAccept");
-            onEvent("onInviteCompleteWithAccept");
+            try {
+                onEvent(new JSONObject().put("event", "onInviteCompleteWithAccept"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onInviteCompleteWithAccept event");
+            }
         }
 
         @Override
         public void onInviteCompleteWithDecline() {
             Log.d(sTag, "onInviteCompleteWithDecline");
-            onEvent("onInviteCompleteWithDecline");
+            try {
+                onEvent(new JSONObject().put("event", "onInviteCompleteWithDecline"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onInviteCompleteWithDecline event");
+            }
         }
 
         @Override
         public void onInviteNotShownWithNetworkError(MeasureConfiguration measureConfiguration) {
             Log.d(sTag, "onInviteNotShownWithNetworkError");
-            onEvent("onInviteNotShownWithNetworkError");
+            try {
+                onEvent(new JSONObject()
+                        .put("event", "onSurveyCancelledWithNetworkError")
+                        .put("surveyId" , measureConfiguration.getSurveyId()));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onInviteNotShownWithNetworkError event");
+            }
         }
 
         @Override
         public void onInviteNotShownWithEligibilityFailed(
                 MeasureConfiguration measureConfiguration) {
             Log.d(sTag, "onInviteNotShownWithEligibilityFailed");
-            onEvent("onInviteNotShownWithEligibilityFailed");
-
+            try {
+                onEvent(new JSONObject()
+                        .put("event", "onInviteNotShownWithEligibilityFailed")
+                        .put("surveyId" , measureConfiguration.getSurveyId()));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onInviteNotShownWithEligibilityFailed event");
+            }
         }
 
         @Override
         public void onInviteNotShownWithSamplingFailed(MeasureConfiguration measureConfiguration) {
             Log.d(sTag, "onInviteNotShownWithSamplingFailed");
-            onEvent("onInviteNotShownWithSamplingFailed");
-
-        }
-
-        @Override
-        public void showInvite(MeasureConfiguration measureConfiguration) {
-            Log.d(sTag, "showInvite");
-            onEvent("showInvite");
-
+            try {
+                onEvent(new JSONObject()
+                        .put("event", "onInviteNotShownWithSamplingFailed")
+                        .put("surveyId" , measureConfiguration.getSurveyId()));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onInviteNotShownWithSamplingFailed event");
+            }
         }
 
         @Override
         public void onSurveyPresented() {
             Log.d(sTag, "onSurveyPresented");
-            onEvent("onInviteNotShownWithNetworkError");
-
+            try {
+                onEvent(new JSONObject().put("event", "onSurveyPresented"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onSurveyPresented event");
+            }
         }
 
         @Override
         public void onSurveyCompleted() {
-            Log.d(sTag, "onSurveyPresented");
-            onEvent("onSurveyPresented");
-
+            Log.d(sTag, "onSurveyCompleted");
+            try {
+                onEvent(new JSONObject().put("event", "onSurveyCompleted"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onSurveyCompleted event");
+            }
         }
 
         @Override
         public void onSurveyCancelledByUser() {
             Log.d(sTag, "onSurveyCancelledByUser");
-            onEvent("onSurveyCancelledByUser");
+            try {
+                onEvent(new JSONObject().put("event", "onSurveyCancelledByUser"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onSurveyCancelledByUser event");
+            }
         }
 
         @Override
         public void onSurveyCancelledWithNetworkError() {
             Log.d(sTag, "onSurveyCancelledWithNetworkError");
-            onEvent("onSurveyCancelledWithNetworkError");
+            try {
+                onEvent(new JSONObject().put("event", "onSurveyCancelledWithNetworkError"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onSurveyCancelledWithNetworkError event");
+            }
         }
 
         @Override
-        public void onContactFormatError() {
-            Log.d(sTag, "onContactFormatError");
-            onEvent("onContactFormatError");
-        }
-
-        @Override
-        public void onContactMissing() {
-            Log.d(sTag, "onContactMissing");
-            onEvent("onContactMissing");
+        public void onInvitePresented(MeasureConfiguration measureConfiguration) {
+            Log.d(sTag, "onInvitePresented");
+            try {
+                onEvent(new JSONObject()
+                        .put("event", "onInvitePresented")
+                        .put("surveyId" , measureConfiguration.getSurveyId()));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onInvitePresented event");
+            }
         }
 
         @Override
         public void onInviteCancelledWithNetworkError() {
             Log.d(sTag, "onInviteCancelledWithNetworkError");
-            onEvent("onInviteCancelledWithNetworkError");
+            try {
+                onEvent(new JSONObject().put("event", "onSurveyCancelledWithNetworkError"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onInviteCancelledWithNetworkError event");
+            }
         }
-
         /**
          * Dispatch event results
          *
          * @param eventMsg
          */
-        private void onEvent(String eventMsg) {
+        private void onEvent(JSONObject eventMsg) {
             PluginResult result = new PluginResult(PluginResult.Status.OK, eventMsg);
             result.setKeepCallback(true);
             for (WeakReference<CallbackContext> c : mCallbacks) {
