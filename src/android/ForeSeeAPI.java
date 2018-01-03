@@ -585,8 +585,8 @@ public class ForeSeeAPI extends CordovaPlugin {
     @Override
     public void onStart() {
         super.onStart();
+        Log.d(sTag, "init the ForeSee SDK");
         ForeSee.start(cordova.getActivity().getApplication());
-        ForeSee.setDebugLogEnabled(true);
     }
 
 
