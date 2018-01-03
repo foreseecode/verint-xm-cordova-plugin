@@ -10,13 +10,14 @@
         <clobbers target="cordova.plugins.ForeSeeAPI" />
     </js-module>
 
-<!--
+    <!--
 	Android
 	-->
     <platform name="android">
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="ForeSeeAPI">
                 <param name="android-package" value="com.foresee.cordova.plugin.ForeSeeAPI" />
+                <param name="onload" value="true" />
             </feature>
         </config-file>
 
@@ -49,4 +50,7 @@
     <info>
         For iOS don't forget to run pod install, to include ForeSee iOS SDK 
     </info>
+
+    <hook src="scripts/foresee_config.js" type="before_plugin_install" />
+
 </plugin>

@@ -582,6 +582,14 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        ForeSee.start(cordova.getActivity().getApplication());
+        ForeSee.setDebugLogEnabled(true);
+    }
+
+
     class FSCordovaInviteListener implements BaseInviteListener, DefaultInviteListener {
 
         @Override
