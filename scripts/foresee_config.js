@@ -13,7 +13,7 @@ var appName = getValue(config, 'name');
 
 var PLATFORM = {
     IOS: {
-        dest: 'platforms/ios/' + appName +  '/Classes/foresee_configuration.json',
+        dest: 'platforms/ios/' + appName +  '/Resources/foresee_configuration.json',
         src: [
             'foresee_configuration.json',
             'www/foresee_configuration.json'
@@ -32,7 +32,7 @@ fs.ensureDirSync = function (dir) {
     if (!fs.existsSync(dir)) {
         dir.split(path.sep).reduce(function (currentPath, folder) {
             currentPath += folder + path.sep;
-            if (!fs.existsSync(currentPath)) {
+            if (!fs.existsSync(currentPath)) {              
                 fs.mkdirSync(currentPath);
             }
             return currentPath;
@@ -51,6 +51,7 @@ function createConfigFile(platform) {
                     var folder = platform.dest.substring(0, platform.dest.lastIndexOf('/'));
                     fs.ensureDirSync(folder);
                     fs.writeFileSync(platform.dest, contents);
+
                 } catch (err) {
                     console.log("Error adding " + platform.src[i] + " " +  err);
                 }
