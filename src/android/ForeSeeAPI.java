@@ -458,7 +458,7 @@ public class ForeSeeAPI extends CordovaPlugin {
 
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "setSkipPoolingCheck failure");
+                    callback.error(sTag + "setInviteListener failure");
                 } finally {
                     return true;
                 }

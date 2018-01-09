@@ -57,7 +57,7 @@ function createConfigFile(platform) {
                 }
             break;
         }else{
-            console.log("Could not find the config file");
+            console.log("Could not find the config file ./www/foresee_configuration.json");
         }
     }
 }
