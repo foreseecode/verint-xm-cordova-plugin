@@ -20,7 +20,7 @@
    > this will automaticly add `compile "com.foresee.sdk:sdk:+"` to your `build.gradle` file
    > additionally, it will copy the foresee_configuration.json file to `platform/ios` and `platform/android` if exist
 
-* Whitin the `deviceready` event handler initialize the ForeSee SDK by invoking 
+* Within the `deviceready` event handler initialize the ForeSee SDK by invoking 
 
     ```
     cordova.plugins.ForeSeeAPI.start(this.onSuccess, this.onFailure);
@@ -32,5 +32,5 @@
    cordova.plugins.ForeSeeAPI.checkEligibility(this.onSuccess, this.onFailure);`
    ```
 
-* For all suported methods please check out the official [ForeSee Developer Portal](https://developer.foresee.com)
+* For all supported methods please check out the official [ForeSee Developer Portal](https://developer.foresee.com)
    
