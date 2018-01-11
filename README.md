@@ -34,3 +34,8 @@
 
 * For all supported methods please check out the official [ForeSee Developer Portal](https://developer.foresee.com)
    
+   
+   
+## License 
+Apache License, Version 2.0 
+https://www.apache.org/licenses/LICENSE-2.0
