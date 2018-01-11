@@ -137,7 +137,7 @@ exports.resetState = function (success, error) {
  * For Replay, a recording starts once this method is called and ends when the app is put into the background.
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.start(_onSucess, _onFailure )
+ * `cordova.plugins.ForeSeeAPI.start(_onSucess, _onFailure )`
  * 
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
  * The callback takes one parameter, containing the message from a command.
@@ -206,7 +206,7 @@ exports.isDebugLogEnabled = function(success, error){
  * Gets the version of the SDK
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.getVersion(success, error)
+ * `cordova.plugins.ForeSeeAPI.getVersion(success, error)`
  * 
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
  * The callback takes one parameter, containing the message with the version of the SDK.
@@ -222,7 +222,7 @@ exports.getVersion = function(success, error){
  * Retrieves a user’s contact details.
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.getContactDetails(success, error);
+ * `cordova.plugins.ForeSeeAPI.getContactDetails(success, error);`
  * 
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command. 
  * The callback takes one parameter, containing the string with a user's contact details (it if was set).
@@ -239,7 +239,7 @@ exports.getContactDetails = function(success, error){
  * When provided, the default invite skips the user input screen. Only applies to CONTACT surveys.
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.setContactDetails(["Bob"], success, error); 
+ * `cordova.plugins.ForeSeeAPI.setContactDetails(["Bob"], success, error);`
  * 
  * @param {array} args 
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
@@ -257,7 +257,7 @@ exports.setContactDetails = function(args, success, error){
  * You should call this method whenever a user declines a custom invitation that you’ve presented.
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.customInviteDeclined(success, error);
+ * `cordova.plugins.ForeSeeAPI.customInviteDeclined(success, error);`
  * 
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
  * The callback takes one parameter, containing the message from a command.
@@ -292,7 +292,7 @@ exports.customInviteAccepted = function(success, error){
  * This ensures that the invitation will always shows if the loyalty criteria has been fulfilled.
  * 
  * @example
- * cordova.plugins.ForeSeeAPI.setSkipPoolingCheck(["true"], succes, error); 
+ * `cordova.plugins.ForeSeeAPI.setSkipPoolingCheck(["true"], succes, error);` 
  * 
  * @param {array} args - array with one element; TRUE of FALSE.
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
@@ -310,7 +310,7 @@ exports.setSkipPoolingCheck = function(args, success, error){
  * Debug logging prints useful state information to the console for inspection. By default, debug logging is disabled.
  * 
  * @example
- * cordova.plugins.ForeSeeAPI.setDebugLogEnabled(["true"], success, error);
+ * `cordova.plugins.ForeSeeAPI.setDebugLogEnabled(["true"], success, error);`
  * 
  * @param {array} args - array with one element; TRUE of FALSE.
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
@@ -322,30 +322,100 @@ exports.setDebugLogEnabled = function(args, success, error){
     exec(success, error, ForeSeeAPI, "setDebugLogEnabled", args);
 }
 
+/**
+ * @description
+ * Set the invite listener
+ * 
+ * @example
+ * `cordova.plugins.ForeSeeAPI(onSuccess, onError);`
+ * 
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error. 
+ * The callback takes one error parameter, containing the details of the error. 
+ */
 exports.setInviteListener = function(success, error){
-    exec(success, error, ForeSeeAPI, "setIniviteListener", [])
+    exec(success, error, ForeSeeAPI, "setInviteListener", [])
 }
 
+/**
+ * @description
+ * Programmatically log a cxReplay page change event. These page change events will show up in the replay as a page marker.
+ * 
+ * @example
+ * `cordova.plugins.ForeSeeAPI.logReplayPageChange(["Page1"], onSuccess, onError);`
+ * 
+ * @param {array} args 
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error. 
+ * The callback takes one error parameter, containing the details of the error.
+ */
 exports.logReplayPageChange = function(args, success, error){
     exec(success, error, ForeSeeAPI, "logReplayPageChange", args);
 }
 
+/**
+ * @description
+ * Allows implementers to debug the masking within the app by adding a colored overlay indicating masked areas
+ * 
+ * @example
+ * `cordova.plugins.ForeSeeAPI.setMaskingDebugEnabled(["true"], onSuccess, onError);`
+ * 
+ * @param {array} args 
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error. 
+ * The callback takes one error parameter, containing the details of the error.
+ */
 exports.setMaskingDebugEnabled = function(args, success, error){
     exec(success, error, ForeSeeAPI, "setMaskingDebugEnabled", args);
 }
 
+/**
+ * @description
+ * Check if cxReplay is recording
+ * 
+ * @example
+ * `cordova.plugins.ForeSeeAPI.isRecording(onSuccess, onError);`
+ * 
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error. 
+ * The callback takes one error parameter, containing the details of the error.
+ */
 exports.isRecording = function(success, error){
     exec(success, error, ForeSeeAPI, "isRecording", []);
 }
 
-exports.startRecording = function(success, error){
-    exec(success, error, ForeSeeAPI, "startRecording", []);
-}
-
+/**
+ * @description
+ * Pause cxReplay recording 
+ * 
+ * @example
+ * `cordova.plugins.ForeSeeAPI.pauseRecording(onSuccess, onError);`
+ * 
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error. 
+ * The callback takes one error parameter, containing the details of the error.
+ */
 exports.pauseRecording = function(success, error){
     exec(success, error, ForeSeeAPI, "pauseRecording", []);
 }
 
+/**
+ * @description
+ * Resume cxReplay recording
+ * 
+ * @example
+ * `cordova.plugins.ForeSeeAPI.resumeRecording(onSuccess, onError);`
+ * 
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error. 
+ * The callback takes one error parameter, containing the details of the error.
+ */
 exports.resumeRecording = function(success, error){
     exec(success, error, ForeSeeAPI, "resumeRecording", []);
 }

@@ -3,16 +3,25 @@ package com.foresee.cordova.plugin;
 import android.util.Log;
 
 import com.foresee.sdk.ForeSee;
+import com.foresee.sdk.cxMeasure.tracker.listeners.BaseInviteListener;
+import com.foresee.sdk.common.configuration.MeasureConfiguration;
+import com.foresee.sdk.cxMeasure.tracker.listeners.DefaultInviteListener;
 
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
 
+import java.lang.ref.WeakReference;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.cordova.CallbackContext;
 
+import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * This class echoes a string called from JavaScript.
@@ -30,10 +39,13 @@ public class ForeSeeAPI extends CordovaPlugin {
     private final static String sTag = "FORESEE_CORDOVA";
 
     HashMap<String, ForeSeeMethod> sActions = new HashMap<String, ForeSeeMethod>();
+    Set<WeakReference<CallbackContext>> mCallbacks = Collections
+            .synchronizedSet(new HashSet<WeakReference<CallbackContext>>());
 
     /**
      * Initialization of all supported ForeSee API methods
-     */ {
+     */
+    {
 
         //showSurvey
         sActions.put("showSurvey", new ForeSeeMethod() {
@@ -130,8 +142,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                     String key = args.getString(0);
                     String value = args.getString(1);
 
-                    if (key == null || key.isEmpty()
-                            || value == null || value.isEmpty()) {
+                    if (key == null || key.isEmpty() || value == null || value.isEmpty()) {
                         callback.error("Bad key or value for addCPPValue");
                     } else {
                         ForeSee.addCPPValue(key, value);
@@ -215,7 +226,6 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-
         //resetState
         sActions.put("resetState", new ForeSeeMethod() {
 
@@ -234,7 +244,6 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-
         //start
         sActions.put("start", new ForeSeeMethod() {
 
@@ -252,14 +261,13 @@ public class ForeSeeAPI extends CordovaPlugin {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
-                
+
                 Log.i(sTag, "startWithConfigurationFile() JS API for ANDROID is not available");
                 callback.success(sTag + "start() is not available");
                 return true;
-               
+
             }
         });
-
 
         //startWithConfigurationJson
         sActions.put("startWithConfigurationJson", new ForeSeeMethod() {
@@ -289,7 +297,6 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-
         //setDebugLogEnabled
         sActions.put("setDebugLogEnabled", new ForeSeeMethod() {
 
@@ -300,7 +307,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                         callback.error("No value for setDebugLogEnabled");
                         return true;
                     }
-                    
+
                     ForeSee.setDebugLogEnabled(args.getBoolean(0));
                     callback.success();
 
@@ -312,7 +319,6 @@ public class ForeSeeAPI extends CordovaPlugin {
                 }
             }
         });
-
 
         //getVersion
         sActions.put("getVersion", new ForeSeeMethod() {
@@ -376,7 +382,6 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-
         //customInviteDeclined
         sActions.put("customInviteDeclined", new ForeSeeMethod() {
 
@@ -433,25 +438,135 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-          //setInviteListner
-        sActions.put("setInviteListner", new ForeSeeMethod() {
+        //setInviteListener
+        /*
+            1. If list of callback is empty - add a new one
+                1.1 On event return callback with keepAlive = true
+            2. Add a new WeakReferenced callback to list
+         */
+        sActions.put("setInviteListener", new ForeSeeMethod() {
 
             @Override
-            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+            public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
                 try {
-                    //Stub method will be implemneted in https://issuetracking.foresee.com/browse/MOBILSDK-1211
-                    callback.success();
+                     //1.
+                    if (mCallbacks.isEmpty()) {
+                        ForeSee.setInviteListener(new FSCordovaInviteListener());
+                    }
+                    //2.
+                    mCallbacks.add(new WeakReference<CallbackContext>(callback));
+
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "setInviteListner failure");
+                    callback.error(sTag + "setInviteListener failure");
                 } finally {
                     return true;
                 }
             }
         });
 
-    }
+        //logReplayPageChange
+        sActions.put("logReplayPageChange", new ForeSeeMethod() {
 
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+
+                try {
+                    if (args == null || args.length() < 1) {
+                        callback.error("No details for logReplayPageChange");
+                        return true;
+                    }
+
+                    String page = args.getString(0);
+
+                    if (null == page || page.isEmpty()) {
+                        callback.error("Bad details for logReplayPageChange");
+                    } else {
+                        ForeSee.logReplayPageChange(page);
+                        callback.success();
+                    }
+
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "logReplayPageChange failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        //setMaskingDebugEnabled
+        sActions.put("setMaskingDebugEnabled", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    if (args == null || args.length() < 1) {
+                        callback.error("No value for setMaskingDebugEnabled");
+                        return true;
+                    }
+                    ForeSee.setMaskingDebugEnabled(args.getBoolean(0));
+                    callback.success();
+
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "setMaskingDebugEnabled failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        //isRecording
+        sActions.put("isRecording", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    callback.success(String.valueOf(ForeSee.isRecording()));
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "isRecording failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        //pauseRecording
+        sActions.put("pauseRecording", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    ForeSee.pauseRecording();
+                    callback.success();
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "pauseRecording failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        //resumeRecording
+        sActions.put("resumeRecording", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    ForeSee.resumeRecording();
+                    callback.success();
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "resumeRecording failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+    }
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -464,6 +579,152 @@ public class ForeSeeAPI extends CordovaPlugin {
             Log.d(sTag, "This action is not supported");
             callbackContext.error("This action is not supported");
             return false;
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(!ForeSee.isForeSeeStarted()){
+            Log.d(sTag, "init the ForeSee SDK");
+            ForeSee.start(cordova.getActivity().getApplication());
+        }
+    }
+
+
+    class FSCordovaInviteListener implements BaseInviteListener, DefaultInviteListener {
+
+        @Override
+        public void onInviteCompleteWithAccept() {
+            Log.d(sTag, "onInviteCompleteWithAccept");
+            try {
+                onEvent(new JSONObject().put("event", "onInviteCompleteWithAccept"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onInviteCompleteWithAccept event");
+            }
+        }
+
+        @Override
+        public void onInviteCompleteWithDecline() {
+            Log.d(sTag, "onInviteCompleteWithDecline");
+            try {
+                onEvent(new JSONObject().put("event", "onInviteCompleteWithDecline"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onInviteCompleteWithDecline event");
+            }
+        }
+
+        @Override
+        public void onInviteNotShownWithNetworkError(MeasureConfiguration measureConfiguration) {
+            Log.d(sTag, "onInviteNotShownWithNetworkError");
+            try {
+                onEvent(new JSONObject()
+                        .put("event", "onSurveyCancelledWithNetworkError")
+                        .put("surveyId" , measureConfiguration.getSurveyId()));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onInviteNotShownWithNetworkError event");
+            }
+        }
+
+        @Override
+        public void onInviteNotShownWithEligibilityFailed(
+                MeasureConfiguration measureConfiguration) {
+            Log.d(sTag, "onInviteNotShownWithEligibilityFailed");
+            try {
+                onEvent(new JSONObject()
+                        .put("event", "onInviteNotShownWithEligibilityFailed")
+                        .put("surveyId" , measureConfiguration.getSurveyId()));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onInviteNotShownWithEligibilityFailed event");
+            }
+        }
+
+        @Override
+        public void onInviteNotShownWithSamplingFailed(MeasureConfiguration measureConfiguration) {
+            Log.d(sTag, "onInviteNotShownWithSamplingFailed");
+            try {
+                onEvent(new JSONObject()
+                        .put("event", "onInviteNotShownWithSamplingFailed")
+                        .put("surveyId" , measureConfiguration.getSurveyId()));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onInviteNotShownWithSamplingFailed event");
+            }
+        }
+
+        @Override
+        public void onSurveyPresented() {
+            Log.d(sTag, "onSurveyPresented");
+            try {
+                onEvent(new JSONObject().put("event", "onSurveyPresented"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onSurveyPresented event");
+            }
+        }
+
+        @Override
+        public void onSurveyCompleted() {
+            Log.d(sTag, "onSurveyCompleted");
+            try {
+                onEvent(new JSONObject().put("event", "onSurveyCompleted"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onSurveyCompleted event");
+            }
+        }
+
+        @Override
+        public void onSurveyCancelledByUser() {
+            Log.d(sTag, "onSurveyCancelledByUser");
+            try {
+                onEvent(new JSONObject().put("event", "onSurveyCancelledByUser"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onSurveyCancelledByUser event");
+            }
+        }
+
+        @Override
+        public void onSurveyCancelledWithNetworkError() {
+            Log.d(sTag, "onSurveyCancelledWithNetworkError");
+            try {
+                onEvent(new JSONObject().put("event", "onSurveyCancelledWithNetworkError"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onSurveyCancelledWithNetworkError event");
+            }
+        }
+
+        @Override
+        public void onInvitePresented(MeasureConfiguration measureConfiguration) {
+            Log.d(sTag, "onInvitePresented");
+            try {
+                onEvent(new JSONObject()
+                        .put("event", "onInvitePresented")
+                        .put("surveyId" , measureConfiguration.getSurveyId()));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onInvitePresented event");
+            }
+        }
+
+        @Override
+        public void onInviteCancelledWithNetworkError() {
+            Log.d(sTag, "onInviteCancelledWithNetworkError");
+            try {
+                onEvent(new JSONObject().put("event", "onSurveyCancelledWithNetworkError"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onInviteCancelledWithNetworkError event");
+            }
+        }
+        /**
+         * Dispatch event results
+         *
+         * @param eventMsg
+         */
+        private void onEvent(JSONObject eventMsg) {
+            PluginResult result = new PluginResult(PluginResult.Status.OK, eventMsg);
+            result.setKeepCallback(true);
+            for (WeakReference<CallbackContext> c : mCallbacks) {
+                if (c.get() != null) {
+                    c.get().sendPluginResult(result);
+                }
+            }
         }
     }
 }
