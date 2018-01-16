@@ -56,6 +56,8 @@
 
 - (void)isRecording: (CDVInvokedUrlCommand*)command;
 
+- (void)setInviteListener: (CDVInvokedUrlCommand*)command;
+
 @end
 
 @implementation ForeSeeAPI
@@ -453,6 +455,17 @@
     //[ForeSee resumeRecording]; - there is no Resume in Recording for iOS
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)setInviteListener:(CDVInvokedUrlCommand*)command{
+    CDVPluginResult* pluginResult = nil;
+
+    //pluginResult = [CDVPluginResult setInviteListener:CDVCommandStatus_OK];
+
+    NSLog(@"resumeRecording is not available on iOS and will have no effect");
+    //[ForeSee resumeRecording]; - there is no Resume in Recording for iOS
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId;
 }
 
 @end
