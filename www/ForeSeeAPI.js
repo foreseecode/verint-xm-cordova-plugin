@@ -335,7 +335,7 @@ exports.setDebugLogEnabled = function(args, success, error){
  * The callback takes one error parameter, containing the details of the error. 
  */
 exports.setInviteListener = function(success, error){
-    exec(success, error, ForeSeeAPI, "setInviteListener", [])
+    exec(success, error, ForeSeeAPI, "setInviteListener", []);
 }
 
 /**
