@@ -137,7 +137,7 @@ exports.resetState = function (success, error) {
  * For Replay, a recording starts once this method is called and ends when the app is put into the background.
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.start(_onSucess, _onFailure )`
+ * `cordova.plugins.ForeSeeAPI.start(_onSucess, _onFailure)`
  * 
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
  * The callback takes one parameter, containing the message from a command.
@@ -154,7 +154,7 @@ exports.start = function (success, error) {
  * Behavior of the two modules is defined in the named configuration file in your project.
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.startWithConfigurationFile(["my_config.json"], function success(data)`
+ * `cordova.plugins.ForeSeeAPI.startWithConfigurationFile(["my_config.json"], _onSuccess, _onFailure)`
  * 
  * @param {array} args - array. The name of the configuration file to use when loading modules
 
@@ -173,7 +173,7 @@ exports.startWithConfigurationFile = function (args, success, error) {
  * Behavior of the two modules is defined by the string provided.
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.startWithConfigurationJson([jsonConfig], success, error)`
+ * `cordova.plugins.ForeSeeAPI.startWithConfigurationJson([jsonConfig], _onSuccess, _onFailure)`
  * 
  * @param {array} args - array. The configuration string in JSON format to use when loading modules.
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
@@ -190,7 +190,7 @@ exports.startWithConfigurationJson = function (args, success, error) {
  * Returns whether or not debug logging is enabled.
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.isDebugLogEnabled(sucess, error)`
+ * `cordova.plugins.ForeSeeAPI.isDebugLogEnabled(_onSuccess, _onFailure)`
  * 
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
  * The callback takes one parameter, containing Boolean value TRUE or FALSE.
@@ -206,7 +206,7 @@ exports.isDebugLogEnabled = function (success, error) {
  * Gets the version of the SDK
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.getVersion(success, error)`
+ * `cordova.plugins.ForeSeeAPI.getVersion(_onSuccess, _onFailure)`
  * 
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
  * The callback takes one parameter, containing the message with the version of the SDK.
@@ -222,7 +222,7 @@ exports.getVersion = function (success, error) {
  * Retrieves a user’s contact details.
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.getContactDetails(success, error);`
+ * `cordova.plugins.ForeSeeAPI.getContactDetails(_onSuccess, _onFailure);`
  * 
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command. 
  * The callback takes one parameter, containing the string with a user's contact details (it if was set).
@@ -239,7 +239,7 @@ exports.getContactDetails = function (success, error) {
  * When provided, the default invite skips the user input screen. Only applies to CONTACT surveys.
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.setContactDetails(["Bob"], success, error);`
+ * `cordova.plugins.ForeSeeAPI.setContactDetails(["Bob"], _onSuccess, _onFailure);`
  * 
  * @param {array} args 
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
@@ -257,7 +257,7 @@ exports.setContactDetails = function (args, success, error) {
  * You should call this method whenever a user declines a custom invitation that you’ve presented.
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.customInviteDeclined(success, error);`
+ * `cordova.plugins.ForeSeeAPI.customInviteDeclined(_onSuccess, _onFailure);`
  * 
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
  * The callback takes one parameter, containing the message from a command.
@@ -274,7 +274,7 @@ exports.customInviteDeclined = function (success, error) {
  * You should call this method whenever a user accepts a custom invitation that you’ve presented.
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.customInviteAccepted(succes, error);`
+ * `cordova.plugins.ForeSeeAPI.customInviteAccepted(_onSuccess, _onFailure);`
  *
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command. 
  * The callback takes one parameter, containing the message from a command.
@@ -292,7 +292,7 @@ exports.customInviteAccepted = function (success, error) {
  * This ensures that the invitation will always shows if the loyalty criteria has been fulfilled.
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.setSkipPoolingCheck(["true"], succes, error);` 
+ * `cordova.plugins.ForeSeeAPI.setSkipPoolingCheck(["true"], _onSuccess, _onFailure);` 
  * 
  * @param {array} args - array with one element; TRUE of FALSE.
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
@@ -310,7 +310,7 @@ exports.setSkipPoolingCheck = function (args, success, error) {
  * Debug logging prints useful state information to the console for inspection. By default, debug logging is disabled.
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.setDebugLogEnabled(["true"], success, error);`
+ * `cordova.plugins.ForeSeeAPI.setDebugLogEnabled(["true"], _onSuccess, _onFailure);`
  * 
  * @param {array} args - array with one element; TRUE of FALSE.
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
@@ -327,7 +327,7 @@ exports.setDebugLogEnabled = function (args, success, error) {
  * Set the invite listener
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI(onSuccess, onError);`
+ * `cordova.plugins.ForeSeeAPI.setInviteListener(_onSuccess, _onFailure);`
  * 
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
  * The callback takes one parameter, containing the message from a command.
@@ -343,7 +343,7 @@ exports.setInviteListener = function (success, error) {
  * Programmatically log a cxReplay page change event. These page change events will show up in the replay as a page marker.
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.logReplayPageChange(["Page1"], onSuccess, onError);`
+ * `cordova.plugins.ForeSeeAPI.logReplayPageChange(["Page1"], _onSuccess, _onFailure);`
  * 
  * @param {array} args 
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
@@ -360,7 +360,7 @@ exports.logReplayPageChange = function (args, success, error) {
  * Allows implementers to debug the masking within the app by adding a colored overlay indicating masked areas
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.setMaskingDebugEnabled(["true"], onSuccess, onError);`
+ * `cordova.plugins.ForeSeeAPI.setMaskingDebugEnabled(["true"], _onSuccess, _onFailure);`
  * 
  * @param {array} args 
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
@@ -377,7 +377,7 @@ exports.setMaskingDebugEnabled = function (args, success, error) {
  * Check if cxReplay is recording
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.isRecording(onSuccess, onError);`
+ * `cordova.plugins.ForeSeeAPI.isRecording(_onSuccess, _onFailure);`
  * 
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
  * The callback takes one parameter, containing the message from a command.
@@ -393,7 +393,7 @@ exports.isRecording = function (success, error) {
  * Pause cxReplay recording 
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.pauseRecording(onSuccess, onError);`
+ * `cordova.plugins.ForeSeeAPI.pauseRecording(_onSuccess, _onFailure);`
  * 
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
  * The callback takes one parameter, containing the message from a command.
@@ -409,7 +409,7 @@ exports.pauseRecording = function (success, error) {
  * Resume cxReplay recording
  * 
  * @example
- * `cordova.plugins.ForeSeeAPI.resumeRecording(onSuccess, onError);`
+ * `cordova.plugins.ForeSeeAPI.resumeRecording(_onSuccess, _onFailure);`
  * 
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
  * The callback takes one parameter, containing the message from a command.
