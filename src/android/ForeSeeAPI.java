@@ -449,7 +449,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             @Override
             public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
                 try {
-                     //1.
+                    //1.
                     if (mCallbacks.isEmpty()) {
                         ForeSee.setInviteListener(new FSCordovaInviteListener());
                     }
@@ -585,12 +585,11 @@ public class ForeSeeAPI extends CordovaPlugin {
     @Override
     public void onStart() {
         super.onStart();
-        if(!ForeSee.isForeSeeStarted()){
+        if (!ForeSee.isForeSeeStarted()) {
             Log.d(sTag, "init the ForeSee SDK");
             ForeSee.start(cordova.getActivity().getApplication());
         }
     }
-
 
     class FSCordovaInviteListener implements BaseInviteListener, DefaultInviteListener {
 
@@ -618,22 +617,19 @@ public class ForeSeeAPI extends CordovaPlugin {
         public void onInviteNotShownWithNetworkError(MeasureConfiguration measureConfiguration) {
             Log.d(sTag, "onInviteNotShownWithNetworkError");
             try {
-                onEvent(new JSONObject()
-                        .put("event", "onSurveyCancelledWithNetworkError")
-                        .put("surveyId" , measureConfiguration.getSurveyId()));
+                onEvent(new JSONObject().put("event", "onSurveyCancelledWithNetworkError").put("surveyId",
+                        measureConfiguration.getSurveyId()));
             } catch (JSONException e) {
                 Log.e(sTag, "Failed to return onInviteNotShownWithNetworkError event");
             }
         }
 
         @Override
-        public void onInviteNotShownWithEligibilityFailed(
-                MeasureConfiguration measureConfiguration) {
+        public void onInviteNotShownWithEligibilityFailed(MeasureConfiguration measureConfiguration) {
             Log.d(sTag, "onInviteNotShownWithEligibilityFailed");
             try {
-                onEvent(new JSONObject()
-                        .put("event", "onInviteNotShownWithEligibilityFailed")
-                        .put("surveyId" , measureConfiguration.getSurveyId()));
+                onEvent(new JSONObject().put("event", "onInviteNotShownWithEligibilityFailed").put("surveyId",
+                        measureConfiguration.getSurveyId()));
             } catch (JSONException e) {
                 Log.e(sTag, "Failed to return onInviteNotShownWithEligibilityFailed event");
             }
@@ -643,9 +639,8 @@ public class ForeSeeAPI extends CordovaPlugin {
         public void onInviteNotShownWithSamplingFailed(MeasureConfiguration measureConfiguration) {
             Log.d(sTag, "onInviteNotShownWithSamplingFailed");
             try {
-                onEvent(new JSONObject()
-                        .put("event", "onInviteNotShownWithSamplingFailed")
-                        .put("surveyId" , measureConfiguration.getSurveyId()));
+                onEvent(new JSONObject().put("event", "onInviteNotShownWithSamplingFailed").put("surveyId",
+                        measureConfiguration.getSurveyId()));
             } catch (JSONException e) {
                 Log.e(sTag, "Failed to return onInviteNotShownWithSamplingFailed event");
             }
@@ -695,9 +690,8 @@ public class ForeSeeAPI extends CordovaPlugin {
         public void onInvitePresented(MeasureConfiguration measureConfiguration) {
             Log.d(sTag, "onInvitePresented");
             try {
-                onEvent(new JSONObject()
-                        .put("event", "onInvitePresented")
-                        .put("surveyId" , measureConfiguration.getSurveyId()));
+                onEvent(new JSONObject().put("event", "onInvitePresented").put("surveyId",
+                        measureConfiguration.getSurveyId()));
             } catch (JSONException e) {
                 Log.e(sTag, "Failed to return onInvitePresented event");
             }
@@ -712,6 +706,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                 Log.e(sTag, "Failed to return onInviteCancelledWithNetworkError event");
             }
         }
+
         /**
          * Dispatch event results
          *
