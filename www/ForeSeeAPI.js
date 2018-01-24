@@ -163,7 +163,7 @@ exports.start = function (success, error) {
  * @param {callback} error - Optional callback that is invoked in the event of an error. 
  * The callback takes one error parameter, containing the details of the error.
  */
-exports.startWithConfigurationFile = function(args, success, error){
+exports.startWithConfigurationFile = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "startWithConfigurationFile", args);
 }
 
@@ -181,7 +181,7 @@ exports.startWithConfigurationFile = function(args, success, error){
  * @param {callback} error - Optional callback that is invoked in the event of an error. 
  * The callback takes one error parameter, containing the details of the error.
  */
-exports.startWithConfigurationJson = function(args, success, error){
+exports.startWithConfigurationJson = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "startWithConfigurationJson", args);
 }
 
@@ -197,7 +197,7 @@ exports.startWithConfigurationJson = function(args, success, error){
  * @param {callback} error - Optional callback that is invoked in the event of an error. 
  * The callback takes one error parameter, containing the details of the error.
  */
-exports.isDebugLogEnabled = function(success, error){
+exports.isDebugLogEnabled = function (success, error) {
     exec(success, error, ForeSeeAPI, "isDebugLogEnabled", []);
 }
 
@@ -213,7 +213,7 @@ exports.isDebugLogEnabled = function(success, error){
  * @param {callback} error - Optional callback that is invoked in the event of an error. 
  * The callback takes one error parameter, containing the details of the error.
  */
-exports.getVersion = function(success, error){
+exports.getVersion = function (success, error) {
     exec(success, error, ForeSeeAPI, "getVersion", []);
 }
 
@@ -229,7 +229,7 @@ exports.getVersion = function(success, error){
  * @param {callback} error - Optional callback that is invoked in the event of an error. 
  * The callback takes one error parameter, containing the details of the error.
  */
-exports.getContactDetails = function(success, error){
+exports.getContactDetails = function (success, error) {
     exec(success, error, ForeSeeAPI, "getContactDetails", []);
 }
 
@@ -247,7 +247,7 @@ exports.getContactDetails = function(success, error){
  * @param {callback} error - Optional callback that is invoked in the event of an error. 
  * The callback takes one error parameter, containing the details of the error.
  */
-exports.setContactDetails = function(args, success, error){
+exports.setContactDetails = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "setContactDetails", args);
 }
 
@@ -264,7 +264,7 @@ exports.setContactDetails = function(args, success, error){
  * @param {callback} error - Optional callback that is invoked in the event of an error. 
  * The callback takes one error parameter, containing the details of the error.
  */
-exports.customInviteDeclined = function(success, error){
+exports.customInviteDeclined = function (success, error) {
     exec(success, error, ForeSeeAPI, "customInviteDeclined", []);
 }
 
@@ -281,7 +281,7 @@ exports.customInviteDeclined = function(success, error){
  * @param {callback} error - Optional callback that is invoked in the event of an error. 
  * The callback takes one error parameter, containing the details of the error.
  */
-exports.customInviteAccepted = function(success, error){
+exports.customInviteAccepted = function (success, error) {
     exec(success, error, ForeSeeAPI, "customInviteAccepted", []);
 }
 
@@ -300,7 +300,7 @@ exports.customInviteAccepted = function(success, error){
  * @param {callback} error - Optional callback that is invoked in the event of an error. 
  * The callback takes one error parameter, containing the details of the error.
  */
-exports.setSkipPoolingCheck = function(args, success, error){
+exports.setSkipPoolingCheck = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "setSkipPoolingCheck", args);
 }
 
@@ -318,7 +318,7 @@ exports.setSkipPoolingCheck = function(args, success, error){
  * @param {callback} error - Optional callback that is invoked in the event of an error. 
  * The callback takes one error parameter, containing the details of the error.
  */
-exports.setDebugLogEnabled = function(args, success, error){
+exports.setDebugLogEnabled = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "setDebugLogEnabled", args);
 }
 
@@ -334,7 +334,7 @@ exports.setDebugLogEnabled = function(args, success, error){
  * @param {callback} error - Optional callback that is invoked in the event of an error. 
  * The callback takes one error parameter, containing the details of the error. 
  */
-exports.setInviteListener = function(success, error){
+exports.setInviteListener = function (success, error) {
     exec(success, error, ForeSeeAPI, "setInviteListener", []);
 }
 
@@ -351,7 +351,7 @@ exports.setInviteListener = function(success, error){
  * @param {callback} error - Optional callback that is invoked in the event of an error. 
  * The callback takes one error parameter, containing the details of the error.
  */
-exports.logReplayPageChange = function(args, success, error){
+exports.logReplayPageChange = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "logReplayPageChange", args);
 }
 
@@ -368,7 +368,7 @@ exports.logReplayPageChange = function(args, success, error){
  * @param {callback} error - Optional callback that is invoked in the event of an error. 
  * The callback takes one error parameter, containing the details of the error.
  */
-exports.setMaskingDebugEnabled = function(args, success, error){
+exports.setMaskingDebugEnabled = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "setMaskingDebugEnabled", args);
 }
 
@@ -384,7 +384,7 @@ exports.setMaskingDebugEnabled = function(args, success, error){
  * @param {callback} error - Optional callback that is invoked in the event of an error. 
  * The callback takes one error parameter, containing the details of the error.
  */
-exports.isRecording = function(success, error){
+exports.isRecording = function (success, error) {
     exec(success, error, ForeSeeAPI, "isRecording", []);
 }
 
@@ -400,7 +400,7 @@ exports.isRecording = function(success, error){
  * @param {callback} error - Optional callback that is invoked in the event of an error. 
  * The callback takes one error parameter, containing the details of the error.
  */
-exports.pauseRecording = function(success, error){
+exports.pauseRecording = function (success, error) {
     exec(success, error, ForeSeeAPI, "pauseRecording", []);
 }
 
@@ -416,6 +416,6 @@ exports.pauseRecording = function(success, error){
  * @param {callback} error - Optional callback that is invoked in the event of an error. 
  * The callback takes one error parameter, containing the details of the error.
  */
-exports.resumeRecording = function(success, error){
+exports.resumeRecording = function (success, error) {
     exec(success, error, ForeSeeAPI, "resumeRecording", []);
 }
