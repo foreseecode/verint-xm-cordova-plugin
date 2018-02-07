@@ -1,4 +1,4 @@
-var exec = require('cordova/exec');
+var exec = require("cordova/exec");
 
 const ForeSeeAPI = "ForeSeeAPI";
 
