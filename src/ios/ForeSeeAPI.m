@@ -2,9 +2,11 @@
 
 #import <Cordova/CDV.h>
 #import <ForeSee/ForeSee.h>
+#import <ForeSee/FSInviteDelegate.h>
 
-@interface ForeSeeAPI : CDVPlugin {
+@interface ForeSeeAPI : CDVPlugin <FSInviteDelegate> {
   // Member variables go here.
+    NSMutableArray* listeners;
 }
 
 // methods exposed to JS as API
@@ -56,9 +58,18 @@
 
 - (void)isRecording: (CDVInvokedUrlCommand*)command;
 
+- (void)setInviteListener: (CDVInvokedUrlCommand*)command;
+
+- (void)sendInviteListenerResult:(TRMeasure *)measure eventMessage:(NSString*)msg;
+
 @end
 
 @implementation ForeSeeAPI
+
+
+- (void)pluginInitialize {
+    listeners = [[NSMutableArray alloc] init];
+}
 
 - (void)checkEligibility: (CDVInvokedUrlCommand*)command
 {
@@ -453,6 +464,68 @@
     //[ForeSee resumeRecording]; - there is no Resume in Recording for iOS
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)setInviteListener: (CDVInvokedUrlCommand*)command{
+
+    if(listeners.count < 1){
+        NSLog(@"Initializing the invite listener");
+        [ForeSee setInviteDelegate:self];
+    }
+
+    [listeners addObject:command];
+    NSLog(@"Adding an invite listener");
+}
+
+- (void)willNotShowInviteWithEligibilityFailedForMeasure:(TRMeasure *)measure{
+    [self sendInviteListenerResult:measure eventMessage:@"onInviteNotShownWithEligibilityFailed"];
+}
+
+- (void)willNotShowInviteWithSamplingFailedForMeasure:(TRMeasure *)measure{
+    [self sendInviteListenerResult:measure eventMessage:@"onInviteNotShownWithSamplingFailed"];
+}
+
+- (void)didShowInviteForMeasure:(TRMeasure *)measure{
+    [self sendInviteListenerResult:measure eventMessage:@"onInvitePresented"];
+}
+
+- (void)didAcceptInviteForMeasure:(TRMeasure *)measure{
+    [self sendInviteListenerResult:measure eventMessage:@"onInviteCompleteWithAccept"];
+}
+
+- (void)didDeclineInviteForMeasure:(TRMeasure *)measure{
+    [self sendInviteListenerResult:measure eventMessage:@"onInviteCompleteWithDecline"];
+}
+
+- (void)didShowSurveyForMeasure:(TRMeasure *)measure{
+    [self sendInviteListenerResult:measure eventMessage:@"onSurveyPresented"];
+}
+
+- (void)didCancelSurveyForMeasure:(TRMeasure *)measure{
+    [self sendInviteListenerResult:measure eventMessage:@"onSurveyCancelledByUser"];
+}
+
+- (void)didCompleteSurveyForMeasure:(TRMeasure *)measure{
+    [self sendInviteListenerResult:measure eventMessage:@"onSurveyCompleted"];
+}
+
+- (void)didFailForMeasure:(TRMeasure *)measure withNetworkError:(NSError *)error{
+    [self sendInviteListenerResult:measure eventMessage:@"onSurveyCancelledWithNetworkError"];
+}
+
+- (void)sendInviteListenerResult:(TRMeasure *)measure eventMessage:(NSString*)msg{
+
+    CDVPluginResult* pluginResult = nil;
+
+    for(CDVInvokedUrlCommand* command in listeners){
+
+        NSLog(@"Returning callback for %@", msg);
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:msg];
+
+        [pluginResult setKeepCallback: [NSNumber numberWithBool:YES]];
+
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }
 }
 
 @end
