@@ -165,7 +165,7 @@ exports.start = function (success, error) {
  */
 exports.startWithConfigurationFile = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "startWithConfigurationFile", args);
-}
+};
 
 /**
  * @description
@@ -183,7 +183,7 @@ exports.startWithConfigurationFile = function (args, success, error) {
  */
 exports.startWithConfigurationJson = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "startWithConfigurationJson", args);
-}
+};
 
 /**
  * @description
@@ -199,7 +199,7 @@ exports.startWithConfigurationJson = function (args, success, error) {
  */
 exports.isDebugLogEnabled = function (success, error) {
     exec(success, error, ForeSeeAPI, "isDebugLogEnabled", []);
-}
+};
 
 /**
  * @description
@@ -215,7 +215,7 @@ exports.isDebugLogEnabled = function (success, error) {
  */
 exports.getVersion = function (success, error) {
     exec(success, error, ForeSeeAPI, "getVersion", []);
-}
+};
 
 /**
  * @description
@@ -231,7 +231,7 @@ exports.getVersion = function (success, error) {
  */
 exports.getContactDetails = function (success, error) {
     exec(success, error, ForeSeeAPI, "getContactDetails", []);
-}
+};
 
 /**
  * @description
@@ -249,7 +249,7 @@ exports.getContactDetails = function (success, error) {
  */
 exports.setContactDetails = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "setContactDetails", args);
-}
+};
 
 /**
  * @description
@@ -266,7 +266,7 @@ exports.setContactDetails = function (args, success, error) {
  */
 exports.customInviteDeclined = function (success, error) {
     exec(success, error, ForeSeeAPI, "customInviteDeclined", []);
-}
+};
 
 /**
  * @description
@@ -283,7 +283,7 @@ exports.customInviteDeclined = function (success, error) {
  */
 exports.customInviteAccepted = function (success, error) {
     exec(success, error, ForeSeeAPI, "customInviteAccepted", []);
-}
+};
 
 /**
  * @description
@@ -302,7 +302,7 @@ exports.customInviteAccepted = function (success, error) {
  */
 exports.setSkipPoolingCheck = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "setSkipPoolingCheck", args);
-}
+};
 
 /**
  * @description
@@ -320,7 +320,7 @@ exports.setSkipPoolingCheck = function (args, success, error) {
  */
 exports.setDebugLogEnabled = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "setDebugLogEnabled", args);
-}
+};
 
 /**
  * @description
@@ -336,7 +336,7 @@ exports.setDebugLogEnabled = function (args, success, error) {
  */
 exports.setInviteListener = function (success, error) {
     exec(success, error, ForeSeeAPI, "setInviteListener", []);
-}
+};
 
 /**
  * @description
@@ -353,7 +353,7 @@ exports.setInviteListener = function (success, error) {
  */
 exports.logReplayPageChange = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "logReplayPageChange", args);
-}
+};
 
 /**
  * @description
@@ -370,7 +370,7 @@ exports.logReplayPageChange = function (args, success, error) {
  */
 exports.setMaskingDebugEnabled = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "setMaskingDebugEnabled", args);
-}
+};
 
 /**
  * @description
@@ -386,7 +386,7 @@ exports.setMaskingDebugEnabled = function (args, success, error) {
  */
 exports.isRecording = function (success, error) {
     exec(success, error, ForeSeeAPI, "isRecording", []);
-}
+};
 
 /**
  * @description
@@ -402,7 +402,7 @@ exports.isRecording = function (success, error) {
  */
 exports.pauseRecording = function (success, error) {
     exec(success, error, ForeSeeAPI, "pauseRecording", []);
-}
+};
 
 /**
  * @description
@@ -418,4 +418,4 @@ exports.pauseRecording = function (success, error) {
  */
 exports.resumeRecording = function (success, error) {
     exec(success, error, ForeSeeAPI, "resumeRecording", []);
-}
+};
