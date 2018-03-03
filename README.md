@@ -8,7 +8,9 @@
 * iOS: 9.0+
 
 ----
-## To set up the plugin in your app, follow these instructions
+## Setting up the plugin
+
+To set up the plugin in your app, follow these instructions
 
 1. Add `foresee_configuration.json` file in your `www` folder. For more information please check [Configuration Options](https://developer.foresee.com/docs/configuration-1)
 
