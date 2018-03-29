@@ -690,8 +690,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         public void onInvitePresented(MeasureConfiguration measureConfiguration) {
             Log.d(sTag, "onInvitePresented");
             try {
-                onEvent(new JSONObject().put("event", "onInvitePresented").put("surveyId",
-                        measureConfiguration.getSurveyId()));
+                onEvent(new JSONObject().put("event", "onInvitePresented"));
             } catch (JSONException e) {
                 Log.e(sTag, "Failed to return onInvitePresented event");
             }
