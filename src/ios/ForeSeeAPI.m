@@ -2,6 +2,7 @@
 
 #import <Cordova/CDV.h>
 #import <ForeSee/ForeSee.h>
+#import <ForeSeeReplay/ForeSeeReplay.h>
 #import <ForeSee/FSInviteDelegate.h>
 
 @interface ForeSeeAPI : CDVPlugin <FSInviteDelegate> {
@@ -404,7 +405,7 @@
     else{
         NSString* page = [command.arguments objectAtIndex:0];
         if (page != nil && [page length] > 0) {
-            [ForeSee logReplayPageChange:page];
+            [ForeSeeReplay logReplayPageChange:page];
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         } else {
             NSLog(@"Bad page name for logReplayPageChange");
@@ -426,7 +427,15 @@
     else{
         BOOL enable = [command.arguments objectAtIndex:0];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        [ForeSee setMaskingDebugEnabled:enable];
+        if ([ForeSeeReplay respondsToSelector:@selector(setMaskingDebugEnabled:)]) {
+            NSLog(@"setMaskingDebugEnabled found");
+            [ForeSeeReplay setMaskingDebugEnabled:enable];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        }
+        else {
+            NSLog(@"setMaskingDebugEnabled not found");
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
     }
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -436,7 +445,7 @@
 - (void)isRecording: (CDVInvokedUrlCommand*)command{
     CDVPluginResult* pluginResult = nil;
 
-    BOOL result = [ForeSee isRecording];
+    BOOL result = [ForeSeeReplay isRecording];
     
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:result];
 
