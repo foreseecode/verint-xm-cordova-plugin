@@ -2,7 +2,6 @@
 
 #import <Cordova/CDV.h>
 #import <ForeSee/ForeSee.h>
-#import <ForeSeeReplay/ForeSeeReplay.h>
 #import <ForeSee/FSInviteDelegate.h>
 
 @interface ForeSeeAPI : CDVPlugin <FSInviteDelegate> {
@@ -48,16 +47,6 @@
 - (void)setSkipPoolingCheck: (CDVInvokedUrlCommand*)command;
 
 - (void)setDebugLogEnabled: (CDVInvokedUrlCommand*)command;
-
-- (void)logReplayPageChange: (CDVInvokedUrlCommand*)command;
-
-- (void)pauseRecording: (CDVInvokedUrlCommand*)command;
-
-- (void)resumeRecording: (CDVInvokedUrlCommand*)command;
-
-- (void)setMaskingDebugEnabled: (CDVInvokedUrlCommand*)command;
-
-- (void)isRecording: (CDVInvokedUrlCommand*)command;
 
 - (void)setInviteListener: (CDVInvokedUrlCommand*)command;
 
@@ -371,106 +360,6 @@
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         [ForeSee setSkipPoolingCheck:skip];
     }
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-
-- (void)setDebugLogEnabled: (CDVInvokedUrlCommand*)command{
-    CDVPluginResult* pluginResult = nil;
-    NSArray* arguments = command.arguments;
-
-    if(arguments == nil || arguments.count < 1){
-        NSLog(@"No data for setDebugLogEnabled");
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-    }
-    else{
-        BOOL enable = [command.arguments objectAtIndex:0];
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        [ForeSee setDebugLogEnabled:enable];
-    }
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-
-- (void)logReplayPageChange: (CDVInvokedUrlCommand*)command{
-    CDVPluginResult* pluginResult = nil;
-    NSArray* arguments = command.arguments;
-
-    if(arguments == nil || arguments.count < 1){
-        NSLog(@"No page name for logReplayPageChange");
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-    }
-    else{
-        NSString* page = [command.arguments objectAtIndex:0];
-        if (page != nil && [page length] > 0) {
-            [ForeSeeReplay logReplayPageChange:page];
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        } else {
-            NSLog(@"Bad page name for logReplayPageChange");
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-        }
-    }
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-- (void)setMaskingDebugEnabled: (CDVInvokedUrlCommand*)command{
-    CDVPluginResult* pluginResult = nil;
-    NSArray* arguments = command.arguments;
-
-    if(arguments == nil || arguments.count < 1){
-        NSLog(@"No data for setMaskingDebugEnabled");
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-    }
-    else{
-        BOOL enable = [command.arguments objectAtIndex:0];
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        if ([ForeSeeReplay respondsToSelector:@selector(setMaskingDebugEnabled:)]) {
-            NSLog(@"setMaskingDebugEnabled found");
-            [ForeSeeReplay setMaskingDebugEnabled:enable];
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        }
-        else {
-            NSLog(@"setMaskingDebugEnabled not found");
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-        }
-    }
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-
-- (void)isRecording: (CDVInvokedUrlCommand*)command{
-    CDVPluginResult* pluginResult = nil;
-
-    BOOL result = [ForeSeeReplay isRecording];
-    
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:result];
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-- (void)pauseRecording: (CDVInvokedUrlCommand*)command{
-    CDVPluginResult* pluginResult = nil;
-
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-
-    NSLog(@"pauseRecording is not available on iOS and will have no effect");
-    //[ForeSee pauseRecording]; - there is no Pause in Recording for iOS
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-
-- (void)resumeRecording: (CDVInvokedUrlCommand*)command{
-    CDVPluginResult* pluginResult = nil;
-
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-
-    NSLog(@"resumeRecording is not available on iOS and will have no effect");
-    //[ForeSee resumeRecording]; - there is no Resume in Recording for iOS
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
