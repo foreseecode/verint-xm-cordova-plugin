@@ -10,7 +10,7 @@
     ]
   },
   "keywords": [
-    "ecosystem:cordova", 
+    "ecosystem:cordova",
     "cordova-android",
     "cordova-ios",
     "foresee"
@@ -20,5 +20,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/foreseecode/foresee-sdk-cordova-plugin"
+  },
+  "dependencies": {
+    "jscs-jsdoc": "^2.0.0",
+    "jsdocs": "^1.0.0"
   }
 }
