@@ -116,7 +116,7 @@ exports.incrementSignificantEventCount = function (args, success, error) {
 
 /**
  * @description
- * Reset the state of the tracker and (if applicable) reactivates the Replay module.
+ * Reset the state of the tracker.
  *
  * @example
  * `cordova.plugins.ForeSeeAPI.resetState(_onSuccess, _onFailure);`
@@ -132,9 +132,8 @@ exports.resetState = function (success, error) {
 
 /**
  * @description
- * Starts the Trigger and Replay modules (if enabled).
+ * Starts the CX Measure module.
  * Behavior of the two modules is defined in the foresee_configuration.json file.
- * For Replay, a recording starts once this method is called and ends when the app is put into the background.
  *
  * @example
  * `cordova.plugins.ForeSeeAPI.start(_onSucess, _onFailure)`
@@ -150,7 +149,7 @@ exports.start = function (success, error) {
 
 /**
  * @description
- * Starts the Trigger and Replay modules using a custom configuration file in your native project.
+ * Starts the CX Measure module using a custom configuration file in your native project.
  * Behavior of the two modules is defined in the named configuration file in your project.
  *
  * @example
@@ -169,7 +168,7 @@ exports.startWithConfigurationFile = function (args, success, error) {
 
 /**
  * @description
- * Starts the Trigger and Replay modules using custom configuration JSON.
+ * Starts the CX Measure module using custom configuration JSON.
  * Behavior of the two modules is defined by the string provided.
  *
  * @example

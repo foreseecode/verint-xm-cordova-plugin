@@ -2,7 +2,6 @@
 
 #import <Cordova/CDV.h>
 #import <ForeSee/ForeSee.h>
-#import <ForeSeeReplay/ForeSeeReplay.h>
 #import <ForeSee/FSInviteDelegate.h>
 
 @interface ForeSeeAPI : CDVPlugin <FSInviteDelegate> {
