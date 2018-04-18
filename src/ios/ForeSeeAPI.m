@@ -274,6 +274,23 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
+- (void)setDebugLogEnabled: (CDVInvokedUrlCommand*)command{
+    CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+
+    if(arguments == nil || arguments.count < 1){
+        NSLog(@"No data for setDebugLogEnabled");
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    else{
+        BOOL enable = [command.arguments objectAtIndex:0];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        [ForeSee setDebugLogEnabled:enable];
+    }
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
 - (void)isDebugLogEnabled: (CDVInvokedUrlCommand*)command{
     CDVPluginResult* pluginResult = nil;
 
