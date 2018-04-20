@@ -134,7 +134,7 @@
 
         if (key != nil && [key length] > 0 && value != nil && [value length] > 0) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-            [ForeSee setCPPValue:key forKey:key];
+            [ForeSee setCPPValue:value forKey:key];
         } else {
             NSLog(@"Bad key or value for addCPPValue");
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
