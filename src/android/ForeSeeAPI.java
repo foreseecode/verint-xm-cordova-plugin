@@ -6,6 +6,7 @@ import com.foresee.sdk.ForeSee;
 import com.foresee.sdk.cxMeasure.tracker.listeners.BaseInviteListener;
 import com.foresee.sdk.common.configuration.MeasureConfiguration;
 import com.foresee.sdk.cxMeasure.tracker.listeners.DefaultInviteListener;
+import com.foresee.sdk.common.configuration.EligibleMeasureConfigurations;
 
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
@@ -492,7 +493,7 @@ public class ForeSeeAPI extends CordovaPlugin {
     class FSCordovaInviteListener implements BaseInviteListener, DefaultInviteListener {
 
         @Override
-        public void onInviteCompleteWithAccept() {
+        public void onInviteCompleteWithAccept(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onInviteCompleteWithAccept");
             try {
                 onEvent(new JSONObject().put("event", "onInviteCompleteWithAccept"));
@@ -502,7 +503,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         @Override
-        public void onInviteCompleteWithDecline() {
+        public void onInviteCompleteWithDecline(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onInviteCompleteWithDecline");
             try {
                 onEvent(new JSONObject().put("event", "onInviteCompleteWithDecline"));
@@ -512,18 +513,18 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         @Override
-        public void onInviteNotShownWithNetworkError(MeasureConfiguration measureConfiguration) {
+        public void onInviteNotShownWithNetworkError(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onInviteNotShownWithNetworkError");
             try {
                 onEvent(new JSONObject().put("event", "onSurveyCancelledWithNetworkError").put("surveyId",
-                        measureConfiguration.getSurveyId()));
+                eligibleMeasures.getChosenEligibleMeasureConfiguration().getSurveyId()));
             } catch (JSONException e) {
                 Log.e(sTag, "Failed to return onInviteNotShownWithNetworkError event");
             }
         }
 
         @Override
-        public void onInviteNotShownWithEligibilityFailed(MeasureConfiguration measureConfiguration) {
+        public void onInviteNotShownWithEligibilityFailed(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onInviteNotShownWithEligibilityFailed");
             try {
                 onEvent(new JSONObject().put("event", "onInviteNotShownWithEligibilityFailed"));
@@ -533,18 +534,18 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         @Override
-        public void onInviteNotShownWithSamplingFailed(MeasureConfiguration measureConfiguration) {
+        public void onInviteNotShownWithSamplingFailed(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onInviteNotShownWithSamplingFailed");
             try {
                 onEvent(new JSONObject().put("event", "onInviteNotShownWithSamplingFailed").put("surveyId",
-                        measureConfiguration.getSurveyId()));
+                eligibleMeasures.getChosenEligibleMeasureConfiguration().getSurveyId()));
             } catch (JSONException e) {
                 Log.e(sTag, "Failed to return onInviteNotShownWithSamplingFailed event");
             }
         }
 
         @Override
-        public void onSurveyPresented() {
+        public void onSurveyPresented(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onSurveyPresented");
             try {
                 onEvent(new JSONObject().put("event", "onSurveyPresented"));
@@ -554,7 +555,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         @Override
-        public void onSurveyCompleted() {
+        public void onSurveyCompleted(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onSurveyCompleted");
             try {
                 onEvent(new JSONObject().put("event", "onSurveyCompleted"));
@@ -564,7 +565,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         @Override
-        public void onSurveyCancelledByUser() {
+        public void onSurveyCancelledByUser(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onSurveyCancelledByUser");
             try {
                 onEvent(new JSONObject().put("event", "onSurveyCancelledByUser"));
@@ -574,7 +575,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         @Override
-        public void onSurveyCancelledWithNetworkError() {
+        public void onSurveyCancelledWithNetworkError(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onSurveyCancelledWithNetworkError");
             try {
                 onEvent(new JSONObject().put("event", "onSurveyCancelledWithNetworkError"));
@@ -584,7 +585,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         @Override
-        public void onInvitePresented(MeasureConfiguration measureConfiguration) {
+        public void onInvitePresented(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onInvitePresented");
             try {
                 onEvent(new JSONObject().put("event", "onInvitePresented"));
@@ -594,7 +595,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         @Override
-        public void onInviteCancelledWithNetworkError() {
+        public void onInviteCancelledWithNetworkError(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onInviteCancelledWithNetworkError");
             try {
                 onEvent(new JSONObject().put("event", "onSurveyCancelledWithNetworkError"));
