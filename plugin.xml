@@ -28,7 +28,7 @@
         <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
         </config-file>
 
-        <framework src="com.foresee.sdk:sdk:4.3.0" />
+        <framework src="com.foresee.sdk:sdk:5.0.0" />
         <framework src="com.android.support:appcompat-v7:24.2.1"/>
         <source-file src="src/android/ForeSeeAPI.java" target-dir="src/com/foresee/cordova/plugin/ForeSeeAPI" />
     </platform>
