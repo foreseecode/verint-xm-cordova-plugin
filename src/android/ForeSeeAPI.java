@@ -537,8 +537,15 @@ public class ForeSeeAPI extends CordovaPlugin {
         public void onInviteNotShownWithSamplingFailed(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onInviteNotShownWithSamplingFailed");
             try {
-                onEvent(new JSONObject().put("event", "onInviteNotShownWithSamplingFailed").put("surveyId",
-                eligibleMeasures.getChosenEligibleMeasureConfiguration().getSurveyId()));
+                JSONObject jsonObject = new JSONObject().put("event", "onInviteNotShownWithSamplingFailed");
+                
+                // This is intended to enable forwards compatibility; 
+                // the chosen measure is null in v5.0.0 of the Android SDK, but will be added in future
+                if (eligibleMeasures.getChosenEligibleMeasureConfiguration() != null) {
+                    jsonObject.put("surveyId", eligibleMeasures.getChosenEligibleMeasureConfiguration().getSurveyId());
+                }
+
+                onEvent(jsonObject);
             } catch (JSONException e) {
                 Log.e(sTag, "Failed to return onInviteNotShownWithSamplingFailed event");
             }
