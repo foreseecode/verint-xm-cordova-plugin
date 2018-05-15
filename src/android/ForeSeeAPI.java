@@ -516,8 +516,14 @@ public class ForeSeeAPI extends CordovaPlugin {
         public void onInviteNotShownWithNetworkError(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onInviteNotShownWithNetworkError");
             try {
-                onEvent(new JSONObject().put("event", "onSurveyCancelledWithNetworkError").put("surveyId",
-                eligibleMeasures.getChosenEligibleMeasureConfiguration().getSurveyId()));
+                JSONObject jsonObject = new JSONObject().put("event", "onInviteNotShownWithSamplingFailed");
+
+                // This is intended to enable forwards compatibility; 
+                // eligibleMeasures is null in v5.0.0 of the Android SDK, but will be added in future
+                if (eligibleMeasures != null && eligibleMeasures.getChosenEligibleMeasureConfiguration() != null) {
+                    jsonObject.put("surveyId", eligibleMeasures.getChosenEligibleMeasureConfiguration().getSurveyId());
+                }
+                onEvent(jsonObject);
             } catch (JSONException e) {
                 Log.e(sTag, "Failed to return onInviteNotShownWithNetworkError event");
             }
