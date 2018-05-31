@@ -441,9 +441,9 @@ public class ForeSeeAPI extends CordovaPlugin {
 
         //setInviteListener
         /*
-            1. If list of callback is empty - add a new one
-                1.1 On event return callback with keepAlive = true
-            2. Add a new WeakReferenced callback to list
+            1. Clear current callbacks
+            2. Add a new listener
+            3. Add a new callback to list
          */
         sActions.put("setInviteListener", new ForeSeeMethod() {
 
@@ -451,12 +451,13 @@ public class ForeSeeAPI extends CordovaPlugin {
             public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
                 try {
                     //1.
-                    if (mCallbacks.isEmpty()) {
-                        ForeSee.setInviteListener(new FSCordovaInviteListener());
+                    mCallbacks.clear();
 
-                        //2.
-                        mCallbacks.add(callback);
-                    }
+                    //2. 
+                    ForeSee.setInviteListener(new FSCordovaInviteListener());
+                    
+                    //3.
+                    mCallbacks.add(callback);
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
                     callback.error(sTag + "setInviteListener failure");
