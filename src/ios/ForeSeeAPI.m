@@ -50,6 +50,8 @@
 
 - (void)setInviteListener: (CDVInvokedUrlCommand*)command;
 
+- (void)removeInviteListener: (CDVInvokedUrlCommand*)command;
+
 - (void)sendInviteListenerResult:(TRMeasure *)measure eventMessage:(NSString*)msg;
 
 @end
@@ -392,6 +394,14 @@
     NSLog(@"Adding an invite listener");
 }
 
+- (void)removeInviteListener: (CDVInvokedUrlCommand*)command{
+
+    if(listeners.count > 0){
+        NSLog(@"Removing the invite listener");
+        [ForeSee setInviteDelegate:nil];
+    }
+}
+
 - (void)willNotShowInviteWithEligibilityFailedForMeasure:(TRMeasure *)measure{
     [self sendInviteListenerResult:measure eventMessage:@"onInviteNotShownWithEligibilityFailed"];
 }
@@ -435,7 +445,8 @@
     for(CDVInvokedUrlCommand* command in listeners){
 
         NSLog(@"Returning callback for %@", msg);
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:msg];
+        NSDictionary* eventDictionary = @{@"event":msg, @"surveyId": measure.surveyID};
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:eventDictionary];
 
         [pluginResult setKeepCallback: [NSNumber numberWithBool:YES]];
 

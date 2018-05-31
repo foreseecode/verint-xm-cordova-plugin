@@ -453,10 +453,10 @@ public class ForeSeeAPI extends CordovaPlugin {
                     //1.
                     if (mCallbacks.isEmpty()) {
                         ForeSee.setInviteListener(new FSCordovaInviteListener());
-                    }
-                    //2.
-                    mCallbacks.add(callback);
 
+                        //2.
+                        mCallbacks.add(callback);
+                    }
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
                     callback.error(sTag + "setInviteListener failure");
@@ -465,6 +465,26 @@ public class ForeSeeAPI extends CordovaPlugin {
                 }
             }
         });
+
+        //removeInviteListener
+        /*
+            Clears any inbite listeners that have been set to avoid memory leaks
+         */
+        sActions.put("removeInviteListener", new ForeSeeMethod() {
+            
+        @Override
+        public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
+            try {
+                ForeSee.setInviteListener(null);
+                mCallbacks.clear();
+            } catch (Exception ex) {
+                Log.e(sTag, ex.getMessage());
+                callback.error(sTag + "removeInviteListener failure");
+            } finally {
+                return true;
+            }
+        }
+    });
     }
 
     @Override
