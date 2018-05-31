@@ -40,8 +40,8 @@ public class ForeSeeAPI extends CordovaPlugin {
     private final static String sTag = "FORESEE_CORDOVA";
 
     HashMap<String, ForeSeeMethod> sActions = new HashMap<String, ForeSeeMethod>();
-    Set<WeakReference<CallbackContext>> mCallbacks = Collections
-            .synchronizedSet(new HashSet<WeakReference<CallbackContext>>());
+    Set<CallbackContext> mCallbacks = Collections
+            .synchronizedSet(new HashSet<CallbackContext>());
 
     /**
      * Initialization of all supported ForeSee API methods
@@ -455,7 +455,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                         ForeSee.setInviteListener(new FSCordovaInviteListener());
                     }
                     //2.
-                    mCallbacks.add(new WeakReference<CallbackContext>(callback));
+                    mCallbacks.add(callback);
 
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
@@ -625,9 +625,11 @@ public class ForeSeeAPI extends CordovaPlugin {
         private void onEvent(JSONObject eventMsg) {
             PluginResult result = new PluginResult(PluginResult.Status.OK, eventMsg);
             result.setKeepCallback(true);
-            for (WeakReference<CallbackContext> c : mCallbacks) {
-                if (c.get() != null) {
-                    c.get().sendPluginResult(result);
+            for (CallbackContext c : mCallbacks) {
+                if (c != null) {
+                    c.sendPluginResult(result);
+                }
+                else {
                 }
             }
         }
