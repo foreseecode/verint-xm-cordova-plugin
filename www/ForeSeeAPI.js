@@ -336,3 +336,19 @@ exports.setDebugLogEnabled = function (args, success, error) {
 exports.setInviteListener = function (success, error) {
     exec(success, error, ForeSeeAPI, "setInviteListener", []);
 };
+
+/**
+ * @description
+ * Remove the invite listener
+ *
+ * @example
+ * `cordova.plugins.ForeSeeAPI.removeInviteListener(_onSuccess, _onFailure);`
+ *
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error.
+ * The callback takes one error parameter, containing the details of the error.
+ */
+exports.removeInviteListener = function (success, error) {
+    exec(success, error, ForeSeeAPI, "removeInviteListener", []);
+};

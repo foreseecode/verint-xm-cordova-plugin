@@ -40,8 +40,8 @@ public class ForeSeeAPI extends CordovaPlugin {
     private final static String sTag = "FORESEE_CORDOVA";
 
     HashMap<String, ForeSeeMethod> sActions = new HashMap<String, ForeSeeMethod>();
-    Set<WeakReference<CallbackContext>> mCallbacks = Collections
-            .synchronizedSet(new HashSet<WeakReference<CallbackContext>>());
+    Set<CallbackContext> mCallbacks = Collections
+            .synchronizedSet(new HashSet<CallbackContext>());
 
     /**
      * Initialization of all supported ForeSee API methods
@@ -441,9 +441,9 @@ public class ForeSeeAPI extends CordovaPlugin {
 
         //setInviteListener
         /*
-            1. If list of callback is empty - add a new one
-                1.1 On event return callback with keepAlive = true
-            2. Add a new WeakReferenced callback to list
+            1. Clear current callbacks
+            2. Add a new listener
+            3. Add a new callback to list
          */
         sActions.put("setInviteListener", new ForeSeeMethod() {
 
@@ -451,12 +451,13 @@ public class ForeSeeAPI extends CordovaPlugin {
             public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
                 try {
                     //1.
-                    if (mCallbacks.isEmpty()) {
-                        ForeSee.setInviteListener(new FSCordovaInviteListener());
-                    }
-                    //2.
-                    mCallbacks.add(new WeakReference<CallbackContext>(callback));
+                    mCallbacks.clear();
 
+                    //2. 
+                    ForeSee.setInviteListener(new FSCordovaInviteListener());
+                    
+                    //3.
+                    mCallbacks.add(callback);
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
                     callback.error(sTag + "setInviteListener failure");
@@ -465,6 +466,26 @@ public class ForeSeeAPI extends CordovaPlugin {
                 }
             }
         });
+
+        //removeInviteListener
+        /*
+            Clears any invite listeners that have been set to avoid memory leaks
+         */
+        sActions.put("removeInviteListener", new ForeSeeMethod() {
+            
+        @Override
+        public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
+            try {
+                ForeSee.setInviteListener(null);
+                mCallbacks.clear();
+            } catch (Exception ex) {
+                Log.e(sTag, ex.getMessage());
+                callback.error(sTag + "removeInviteListener failure");
+            } finally {
+                return true;
+            }
+        }
+    });
     }
 
     @Override
@@ -625,9 +646,11 @@ public class ForeSeeAPI extends CordovaPlugin {
         private void onEvent(JSONObject eventMsg) {
             PluginResult result = new PluginResult(PluginResult.Status.OK, eventMsg);
             result.setKeepCallback(true);
-            for (WeakReference<CallbackContext> c : mCallbacks) {
-                if (c.get() != null) {
-                    c.get().sendPluginResult(result);
+            for (CallbackContext c : mCallbacks) {
+                if (c != null) {
+                    c.sendPluginResult(result);
+                }
+                else {
                 }
             }
         }
