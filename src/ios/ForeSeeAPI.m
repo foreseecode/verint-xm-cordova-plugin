@@ -384,22 +384,19 @@
 }
 
 - (void)setInviteListener: (CDVInvokedUrlCommand*)command{
+    [listeners removeAllObjects];
 
-    if(listeners.count < 1){
-        NSLog(@"Initializing the invite listener");
-        [ForeSee setInviteDelegate:self];
-    }
+    NSLog(@"Initializing the invite listener");
+    [ForeSee setInviteDelegate:self];
 
     [listeners addObject:command];
     NSLog(@"Adding an invite listener");
 }
 
-- (void)removeInviteListener: (CDVInvokedUrlCommand*)command{
-
-    if(listeners.count > 0){
-        NSLog(@"Removing the invite listener");
-        [ForeSee setInviteDelegate:nil];
-    }
+- (void)removeInviteListener: (CDVInvokedUrlCommand *)command{
+    NSLog(@"Removing the invite listener");
+    [ForeSee setInviteDelegate:nil];
+    [listeners removeAllObjects];
 }
 
 - (void)willNotShowInviteWithEligibilityFailedForMeasure:(TRMeasure *)measure{
