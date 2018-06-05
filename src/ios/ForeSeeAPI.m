@@ -10,47 +10,47 @@
 }
 
 // methods exposed to JS as API
-- (void)showSurvey: (CDVInvokedUrlCommand*)command;
+- (void)showSurvey: (CDVInvokedUrlCommand *)command;
 
-- (void)showInvite: (CDVInvokedUrlCommand*)command;
+- (void)showInvite: (CDVInvokedUrlCommand *)command;
 
-- (void)checkEligibility: (CDVInvokedUrlCommand*)command;
+- (void)checkEligibility: (CDVInvokedUrlCommand *)command;
 
-- (void)addCPPValue: (CDVInvokedUrlCommand*)command;
+- (void)addCPPValue: (CDVInvokedUrlCommand *)command;
 
-- (void)removeCPPValue: (CDVInvokedUrlCommand*)command;
+- (void)removeCPPValue: (CDVInvokedUrlCommand *)command;
 
-- (void)incrementPageViews: (CDVInvokedUrlCommand*)command;
+- (void)incrementPageViews: (CDVInvokedUrlCommand *)command;
 
-- (void)incrementSignificantEvent: (CDVInvokedUrlCommand*)command;
+- (void)incrementSignificantEvent: (CDVInvokedUrlCommand *)command;
 
-- (void)resetState: (CDVInvokedUrlCommand*)command;
+- (void)resetState: (CDVInvokedUrlCommand *)command;
 
-- (void)start: (CDVInvokedUrlCommand*)command;
+- (void)start: (CDVInvokedUrlCommand *)command;
 
-- (void)startWithConfigurationFile: (CDVInvokedUrlCommand*)command;
+- (void)startWithConfigurationFile: (CDVInvokedUrlCommand *)command;
 
-- (void)startWithConfigurationJson: (CDVInvokedUrlCommand*)command;
+- (void)startWithConfigurationJson: (CDVInvokedUrlCommand *)command;
 
-- (void)isDebugLogEnabled: (CDVInvokedUrlCommand*)command;
+- (void)isDebugLogEnabled: (CDVInvokedUrlCommand *)command;
 
-- (void)getVersion: (CDVInvokedUrlCommand*)command;
+- (void)getVersion: (CDVInvokedUrlCommand *)command;
 
-- (void)getContactDetails: (CDVInvokedUrlCommand*)command;
+- (void)getContactDetails: (CDVInvokedUrlCommand *)command;
 
-- (void)setContactDetails: (CDVInvokedUrlCommand*)command;
+- (void)setContactDetails: (CDVInvokedUrlCommand *)command;
 
-- (void)customInviteDeclined: (CDVInvokedUrlCommand*)command;
+- (void)customInviteDeclined: (CDVInvokedUrlCommand *)command;
 
-- (void)customInviteAccepted: (CDVInvokedUrlCommand*)command;
+- (void)customInviteAccepted: (CDVInvokedUrlCommand *)command;
 
-- (void)setSkipPoolingCheck: (CDVInvokedUrlCommand*)command;
+- (void)setSkipPoolingCheck: (CDVInvokedUrlCommand *)command;
 
-- (void)setDebugLogEnabled: (CDVInvokedUrlCommand*)command;
+- (void)setDebugLogEnabled: (CDVInvokedUrlCommand *)command;
 
-- (void)setInviteListener: (CDVInvokedUrlCommand*)command;
+- (void)setInviteListener: (CDVInvokedUrlCommand *)command;
 
-- (void)removeInviteListener: (CDVInvokedUrlCommand*)command;
+- (void)removeInviteListener: (CDVInvokedUrlCommand *)command;
 
 - (void)sendInviteListenerResult:(TRMeasure *)measure eventMessage:(NSString*)msg;
 
@@ -63,7 +63,7 @@
     listeners = [[NSMutableArray alloc] init];
 }
 
-- (void)checkEligibility: (CDVInvokedUrlCommand*)command
+- (void)checkEligibility: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
 
@@ -98,7 +98,7 @@
 }
 
 
-- (void)showInvite: (CDVInvokedUrlCommand*)command
+- (void)showInvite: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
@@ -121,7 +121,7 @@
 }
 
 
-- (void)addCPPValue: (CDVInvokedUrlCommand*)command
+- (void)addCPPValue: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
@@ -146,7 +146,7 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
--(void)removeCPPValue: (CDVInvokedUrlCommand*)command
+-(void)removeCPPValue: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
@@ -170,7 +170,7 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
--(void)incrementPageViews: (CDVInvokedUrlCommand*)command{
+-(void)incrementPageViews: (CDVInvokedUrlCommand *)command{
     
     CDVPluginResult* pluginResult = nil;
 
@@ -183,7 +183,7 @@
 }
 
 
--(void)incrementSignificantEvent: (CDVInvokedUrlCommand*)command{
+-(void)incrementSignificantEvent: (CDVInvokedUrlCommand *)command{
 
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
@@ -207,7 +207,7 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
--(void)resetState: (CDVInvokedUrlCommand*)command{
+-(void)resetState: (CDVInvokedUrlCommand *)command{
     CDVPluginResult* pluginResult = nil;
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
@@ -218,7 +218,7 @@
 }
 
 
-- (void)start: (CDVInvokedUrlCommand*)command
+- (void)start: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
 
@@ -229,7 +229,7 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)startWithConfigurationFile: (CDVInvokedUrlCommand*)command
+- (void)startWithConfigurationFile: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
@@ -253,7 +253,7 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)startWithConfigurationJson: (CDVInvokedUrlCommand*)command
+- (void)startWithConfigurationJson: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
@@ -276,7 +276,7 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)setDebugLogEnabled: (CDVInvokedUrlCommand*)command{
+- (void)setDebugLogEnabled: (CDVInvokedUrlCommand *)command{
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
 
@@ -293,7 +293,7 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)isDebugLogEnabled: (CDVInvokedUrlCommand*)command{
+- (void)isDebugLogEnabled: (CDVInvokedUrlCommand *)command{
     CDVPluginResult* pluginResult = nil;
 
     BOOL result = [ForeSee isDebugLogEnabled];
@@ -303,7 +303,7 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)getVersion: (CDVInvokedUrlCommand*)command{
+- (void)getVersion: (CDVInvokedUrlCommand *)command{
     CDVPluginResult* pluginResult = nil;
 
     NSString* version = [ForeSee version];
@@ -313,7 +313,7 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)getContactDetails: (CDVInvokedUrlCommand*)command{
+- (void)getContactDetails: (CDVInvokedUrlCommand *)command{
     CDVPluginResult* pluginResult = nil;
 
     NSString* result = [ForeSee contactDetails];
@@ -323,7 +323,7 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)setContactDetails: (CDVInvokedUrlCommand*)command{
+- (void)setContactDetails: (CDVInvokedUrlCommand *)command{
 
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
@@ -356,7 +356,7 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)customInviteAccepted: (CDVInvokedUrlCommand*)command{
+- (void)customInviteAccepted: (CDVInvokedUrlCommand *)command{
     CDVPluginResult* pluginResult = nil;
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
@@ -366,7 +366,7 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)setSkipPoolingCheck: (CDVInvokedUrlCommand*)command{
+- (void)setSkipPoolingCheck: (CDVInvokedUrlCommand *)command{
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
 

@@ -469,7 +469,7 @@ public class ForeSeeAPI extends CordovaPlugin {
 
         //removeInviteListener
         /*
-            Clears any inbite listeners that have been set to avoid memory leaks
+            Clears any invite listeners that have been set to avoid memory leaks
          */
         sActions.put("removeInviteListener", new ForeSeeMethod() {
             
