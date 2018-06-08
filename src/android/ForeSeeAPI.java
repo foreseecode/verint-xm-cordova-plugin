@@ -537,7 +537,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         public void onInviteNotShownWithNetworkError(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onInviteNotShownWithNetworkError");
             try {
-                JSONObject jsonObject = new JSONObject().put("event", "onInviteNotShownWithSamplingFailed");
+                JSONObject jsonObject = new JSONObject().put("event", "onInviteNotShownWithNetworkError");
 
                 // This is intended to enable forwards compatibility; 
                 // eligibleMeasures is null in v5.0.0 of the Android SDK, but will be added in future
@@ -632,7 +632,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         public void onInviteCancelledWithNetworkError(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onInviteCancelledWithNetworkError");
             try {
-                onEvent(new JSONObject().put("event", "onSurveyCancelledWithNetworkError"));
+                onEvent(new JSONObject().put("event", "onInviteCancelledWithNetworkError"));
             } catch (JSONException e) {
                 Log.e(sTag, "Failed to return onInviteCancelledWithNetworkError event");
             }
