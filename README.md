@@ -23,8 +23,8 @@ To set up the plugin in your app, follow these instructions
    cordova plugin add https://github.com/foreseecode/foresee-sdk-cordova-plugin
    ```
 
-   > this will automaticly add `compile "com.foresee.sdk:sdk:+"` to your `build.gradle` file
-   > additionally, it will copy the foresee_configuration.json file to `platform/ios` and `platform/android` if exist
+   This will automatically add `compile "com.foresee.sdk:sdk:+"` to your `build.gradle` file. 
+   It will also copy the foresee_configuration.json file to `platform/ios` and `platform/android` if they exist
 
 3. Within the `deviceready` event handler initialize the ForeSee SDK by invoking 
 
@@ -38,7 +38,7 @@ To set up the plugin in your app, follow these instructions
    cordova.plugins.ForeSeeAPI.checkEligibility(this.onSuccess, this.onFailure);
    ```
 
-5. For all supported methods please check the API docs included in this package, or [online here](http://developer.foresee.com/downloads/sdk/mobile/cordova/current/docs/index.html). Please see the [ForeSee Developer Portal](http://www.developer.foresee.com) for more information
+5. For all supported methods please check the API docs included in this package, or [online here](http://developer.foresee.com/downloads/sdk/mobile/cordova/current/docs/index.html). For general information about the ForeSee SDK, please see the [ForeSee Developer Portal](https://developer.foresee.com/).
    
    
    
