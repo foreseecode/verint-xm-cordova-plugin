@@ -6,6 +6,9 @@
 * Cordova-ios: 4.4.0+
 * Android: 19+
 * iOS: 9.0+
+* ForeSee SDK
+    * iOS 5.0.2
+    * Android 5.0.0
 
 ----
 ## Setting up the plugin
@@ -35,7 +38,7 @@ To set up the plugin in your app, follow these instructions
    cordova.plugins.ForeSeeAPI.checkEligibility(this.onSuccess, this.onFailure);
    ```
 
-5. For all supported methods please check out the official [ForeSee Developer Portal](https://developer.foresee.com)
+5. For all supported methods please check the API docs included in this package, or [online here](http://developer.foresee.com/downloads/sdk/mobile/cordova/current/docs/index.html). Please see the [ForeSee Developer Portal](http://www.developer.foresee.com) for more information
    
    
    
