@@ -2,10 +2,13 @@
 
 ## Support 
 
-* cordova-android": "^6.2.3"
-* cordova-ios": "^4.4.0"
-* minSdkVersion="19"
-* minimum iOS version is `9.0`
+* Cordova-android: 6.2.3+
+* Cordova-ios: 4.4.0+
+* Android: 19+
+* iOS: 9.0+
+* ForeSee SDK
+   * iOS 5.0.2
+   * Android 5.0.0
 
 ----
 
@@ -32,7 +35,7 @@
    cordova.plugins.ForeSeeAPI.checkEligibility(this.onSuccess, this.onFailure);`
    ```
 
-* For all supported methods please check out the official [ForeSee Developer Portal](https://developer.foresee.com)
+* For all supported methods please check out the [API Docs] (https://github.com/foreseecode/foresee-sdk-cordova-plugin/blob/master/out/ForeSeeAPI.js.html)
    
    
    
