@@ -259,7 +259,7 @@ Implementers must explicitly check for eligibility (the SDK does not do this aut
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.checkEligibility(_onSuccess, _onFailure);`</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.checkEligibility(_onSuccess, _onFailure);</code></pre>
 
 
 
@@ -330,7 +330,7 @@ You should call this method whenever a user accepts a custom invitation that you
 
             
 
-            <td class="description last">Callback that is invoked upon receiving the data about the invoked command. 
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
 The callback takes one parameter, containing the message from a command.</td>
         </tr>
 
@@ -354,7 +354,7 @@ The callback takes one parameter, containing the message from a command.</td>
 
             
 
-            <td class="description last">Optional callback that is invoked in the event of an error. 
+            <td class="description last">Optional callback that is invoked in the event of an error.
 The callback takes one error parameter, containing the details of the error.</td>
         </tr>
 
@@ -396,7 +396,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line284">line 284</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line283">line 283</a>
     </li></ul></dd>
     
 
@@ -425,7 +425,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.customInviteAccepted(succes, error);`</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.customInviteAccepted(_onSuccess, _onFailure);</code></pre>
 
 
 
@@ -520,7 +520,7 @@ The callback takes one parameter, containing the message from a command.</td>
 
             
 
-            <td class="description last">Optional callback that is invoked in the event of an error. 
+            <td class="description last">Optional callback that is invoked in the event of an error.
 The callback takes one error parameter, containing the details of the error.</td>
         </tr>
 
@@ -562,7 +562,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line267">line 267</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line266">line 266</a>
     </li></ul></dd>
     
 
@@ -591,7 +591,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.customInviteDeclined(success, error);</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.customInviteDeclined(_onSuccess, _onFailure);</code></pre>
 
 
 
@@ -661,7 +661,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
             
 
-            <td class="description last">Callback that is invoked upon receiving the data about the invoked command. 
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
 The callback takes one parameter, containing the string with a user's contact details (it if was set).</td>
         </tr>
 
@@ -685,7 +685,7 @@ The callback takes one parameter, containing the string with a user's contact de
 
             
 
-            <td class="description last">Optional callback that is invoked in the event of an error. 
+            <td class="description last">Optional callback that is invoked in the event of an error.
 The callback takes one error parameter, containing the details of the error.</td>
         </tr>
 
@@ -727,7 +727,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line232">line 232</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line231">line 231</a>
     </li></ul></dd>
     
 
@@ -756,7 +756,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.getContactDetails(success, error);</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.getContactDetails(_onSuccess, _onFailure);</code></pre>
 
 
 
@@ -850,7 +850,7 @@ The callback takes one parameter, containing the message with the version of the
 
             
 
-            <td class="description last">Optional callback that is invoked in the event of an error. 
+            <td class="description last">Optional callback that is invoked in the event of an error.
 The callback takes one error parameter, containing the details of the error.</td>
         </tr>
 
@@ -892,7 +892,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line216">line 216</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line215">line 215</a>
     </li></ul></dd>
     
 
@@ -921,7 +921,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.getVersion(success, error)</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.getVersion(_onSuccess, _onFailure);</code></pre>
 
 
 
@@ -1016,7 +1016,7 @@ The callback takes one parameter, containing the message from a command.</td>
 
             
 
-            <td class="description last">Optional callback that is invoked in the event of an error. 
+            <td class="description last">Optional callback that is invoked in the event of an error.
 The callback takes one error parameter, containing the details of the error.</td>
         </tr>
 
@@ -1087,7 +1087,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.incrementPageViews(_onSuccess, _onFailure);`</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.incrementPageViews(_onSuccess, _onFailure);</code></pre>
 
 
 
@@ -1204,7 +1204,7 @@ The callback takes one parameter, containing the message from a command.</td>
 
             
 
-            <td class="description last">Optional callback that is invoked in the event of an error. 
+            <td class="description last">Optional callback that is invoked in the event of an error.
 The callback takes one error parameter, containing the details of the error.</td>
         </tr>
 
@@ -1275,7 +1275,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.incrementSignificantEventCount(["yourSignificantEventKey"], _onSuccess, _onFailure);`</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.incrementSignificantEventCount(["yourSignificantEventKey"], _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -1369,7 +1369,7 @@ The callback takes one parameter, containing Boolean value TRUE or FALSE.</td>
 
             
 
-            <td class="description last">Optional callback that is invoked in the event of an error. 
+            <td class="description last">Optional callback that is invoked in the event of an error.
 The callback takes one error parameter, containing the details of the error.</td>
         </tr>
 
@@ -1411,7 +1411,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line200">line 200</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line199">line 199</a>
     </li></ul></dd>
     
 
@@ -1440,7 +1440,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.isDebugLogEnabled(sucess, error)`</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.isDebugLogEnabled(_onSuccess, _onFailure);</code></pre>
 
 
 
@@ -1557,7 +1557,7 @@ The callback takes one parameter, containing the message from a command.</td>
 
             
 
-            <td class="description last">Optional callback that is invoked in the event of an error. 
+            <td class="description last">Optional callback that is invoked in the event of an error.
 The callback takes one error parameter, containing the details of the error.</td>
         </tr>
 
@@ -1628,7 +1628,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.removeCPPValue(["customParam"], _onSuccess, _onFailure);`</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.removeCPPValue(["customParam"], _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -1638,7 +1638,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
 
     
-    <h4 class="name" id="resetState"><span class="type-signature"></span>resetState<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="removeInviteListener"><span class="type-signature"></span>removeInviteListener<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
     
 
     
@@ -1646,7 +1646,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 <div class="description">
-    Reset the state of the tracker and (if applicable) reactivates the Replay module.
+    Remove the invite listener
 </div>
 
 
@@ -1698,7 +1698,172 @@ The callback takes one error parameter, containing the details of the error.</td
 
             
 
-            <td class="description last">Callback that is invoked upon receiving the data about the invoked command 
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing the message from a command.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error.
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line352">line 352</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.removeInviteListener(_onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="resetState"><span class="type-signature"></span>resetState<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Reset the state of the tracker.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command
 The callback takes one parameter, containing the message from a command</td>
         </tr>
 
@@ -1722,7 +1887,7 @@ The callback takes one parameter, containing the message from a command</td>
 
             
 
-            <td class="description last">Optional callback that is invoked in the event of an error. 
+            <td class="description last">Optional callback that is invoked in the event of an error.
 The callback takes one error parameter, containing the details of the error.</td>
         </tr>
 
@@ -1793,7 +1958,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.resetState(_onSuccess, _onFailure);`</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.resetState(_onSuccess, _onFailure);</code></pre>
 
 
 
@@ -1811,7 +1976,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 <div class="description">
-    Sets a user’s contact details. This method can be used to provide a user’s contact information, so that they do not need to enter it manually. 
+    Sets a user’s contact details. This method can be used to provide a user’s contact information, so that they do not need to enter it manually.
 When provided, the default invite skips the user input screen. Only applies to CONTACT surveys.
 </div>
 
@@ -1911,7 +2076,7 @@ The callback takes one parameter, containing the message from a command.</td>
 
             
 
-            <td class="description last">Optional callback that is invoked in the event of an error. 
+            <td class="description last">Optional callback that is invoked in the event of an error.
 The callback takes one error parameter, containing the details of the error.</td>
         </tr>
 
@@ -1953,7 +2118,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line250">line 250</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line249">line 249</a>
     </li></ul></dd>
     
 
@@ -1982,7 +2147,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.setContactDetails(["Bob"], success, error); </code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.setContactDetails(["Bob"], _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -2168,7 +2333,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.setCPPValue(["customParam", "customValue"], _onSuccess, _onFailure);`</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.setCPPValue(["customParam", "customValue"], _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -2186,7 +2351,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 <div class="description">
-    Sets whether or not to enable debug logging. 
+    Sets whether or not to enable debug logging.
 Debug logging prints useful state information to the console for inspection. By default, debug logging is disabled.
 </div>
 
@@ -2286,7 +2451,7 @@ The callback takes one parameter, containing the message from a command.</td>
 
             
 
-            <td class="description last">Optional callback that is invoked in the event of an error. 
+            <td class="description last">Optional callback that is invoked in the event of an error.
 The callback takes one error parameter, containing the details of the error.</td>
         </tr>
 
@@ -2328,7 +2493,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line321">line 321</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line320">line 320</a>
     </li></ul></dd>
     
 
@@ -2357,7 +2522,172 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.setDebugLogEnabled(["true"], success, error);</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.setDebugLogEnabled(["true"], _onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="setInviteListener"><span class="type-signature"></span>setInviteListener<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Set the invite listener
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing the message from a command.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error.
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line336">line 336</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.setInviteListener(_onSuccess, _onFailure);</code></pre>
 
 
 
@@ -2376,7 +2706,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
 <div class="description">
     Disables the pooling check.
-When debugging your implementation of the ForeSee SDK, it may be useful to disable the pooling check. 
+When debugging your implementation of the ForeSee SDK, it may be useful to disable the pooling check.
 This ensures that the invitation will always shows if the loyalty criteria has been fulfilled.
 </div>
 
@@ -2476,7 +2806,7 @@ The callback takes one parameter, containing the message from a command.</td>
 
             
 
-            <td class="description last">Optional callback that is invoked in the event of an error. 
+            <td class="description last">Optional callback that is invoked in the event of an error.
 The callback takes one error parameter, containing the details of the error.</td>
         </tr>
 
@@ -2518,7 +2848,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line303">line 303</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line302">line 302</a>
     </li></ul></dd>
     
 
@@ -2547,7 +2877,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.setSkipPoolingCheck(["true"], succes, error); </code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.setSkipPoolingCheck(["true"], _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -2733,7 +3063,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.showInvite(["app_test_1"], _onSuccess, _onFailure);`</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.showInvite(["app_test_1"], _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -2919,7 +3249,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.showSurvey(["app_test_1"], _onSuccess, _onFailure);`</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.showSurvey(["app_test_1"], _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -2937,9 +3267,8 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 <div class="description">
-    Starts the Trigger and Replay modules (if enabled).
+    Starts the CX Measure module.
 Behavior of the two modules is defined in the foresee_configuration.json file.
-For Replay, a recording starts once this method is called and ends when the app is put into the background.
 </div>
 
 
@@ -3015,7 +3344,7 @@ The callback takes one parameter, containing the message from a command.</td>
 
             
 
-            <td class="description last">Optional callback that is invoked in the event of an error. 
+            <td class="description last">Optional callback that is invoked in the event of an error.
 The callback takes one error parameter, containing the details of the error.</td>
         </tr>
 
@@ -3057,7 +3386,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line147">line 147</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line146">line 146</a>
     </li></ul></dd>
     
 
@@ -3086,7 +3415,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.start(_onSucess, _onFailure )</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.start(_onSucess, _onFailure);</code></pre>
 
 
 
@@ -3104,7 +3433,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 <div class="description">
-    Starts the Trigger and Replay modules using a custom configuration file in your native project.
+    Starts the CX Measure module using a custom configuration file in your native project.
 Behavior of the two modules is defined in the named configuration file in your project.
 </div>
 
@@ -3180,7 +3509,7 @@ Behavior of the two modules is defined in the named configuration file in your p
 
             
 
-            <td class="description last">Callback that is invoked upon receiving the data about the invoked command 
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command
 The callback takes one parameter, containing the message from a command</td>
         </tr>
 
@@ -3204,7 +3533,7 @@ The callback takes one parameter, containing the message from a command</td>
 
             
 
-            <td class="description last">Optional callback that is invoked in the event of an error. 
+            <td class="description last">Optional callback that is invoked in the event of an error.
 The callback takes one error parameter, containing the details of the error.</td>
         </tr>
 
@@ -3246,7 +3575,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line166">line 166</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line165">line 165</a>
     </li></ul></dd>
     
 
@@ -3275,7 +3604,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.startWithConfigurationFile(["my_config.json"], function success(data)`</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.startWithConfigurationFile(["my_config.json"], _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -3293,7 +3622,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 <div class="description">
-    Starts the Trigger and Replay modules using custom configuration JSON.
+    Starts the CX Measure module using custom configuration JSON.
 Behavior of the two modules is defined by the string provided.
 </div>
 
@@ -3393,7 +3722,7 @@ The callback takes one parameter, containing the message from a command.</td>
 
             
 
-            <td class="description last">Optional callback that is invoked in the event of an error. 
+            <td class="description last">Optional callback that is invoked in the event of an error.
 The callback takes one error parameter, containing the details of the error.</td>
         </tr>
 
@@ -3435,7 +3764,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line184">line 184</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line183">line 183</a>
     </li></ul></dd>
     
 
@@ -3464,7 +3793,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>`cordova.plugins.ForeSeeAPI.startWithConfigurationJson([jsonConfig], success, error)`</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.startWithConfigurationJson([jsonConfig], _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -3484,13 +3813,13 @@ The callback takes one error parameter, containing the details of the error.</td
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#checkEligibility">checkEligibility</a></li><li><a href="global.html#customInviteAccepted">customInviteAccepted</a></li><li><a href="global.html#customInviteDeclined">customInviteDeclined</a></li><li><a href="global.html#getContactDetails">getContactDetails</a></li><li><a href="global.html#getVersion">getVersion</a></li><li><a href="global.html#incrementPageViews">incrementPageViews</a></li><li><a href="global.html#incrementSignificantEventCount">incrementSignificantEventCount</a></li><li><a href="global.html#isDebugLogEnabled">isDebugLogEnabled</a></li><li><a href="global.html#removeCPPValue">removeCPPValue</a></li><li><a href="global.html#resetState">resetState</a></li><li><a href="global.html#setContactDetails">setContactDetails</a></li><li><a href="global.html#setCPPValue">setCPPValue</a></li><li><a href="global.html#setDebugLogEnabled">setDebugLogEnabled</a></li><li><a href="global.html#setSkipPoolingCheck">setSkipPoolingCheck</a></li><li><a href="global.html#showInvite">showInvite</a></li><li><a href="global.html#showSurvey">showSurvey</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#startWithConfigurationFile">startWithConfigurationFile</a></li><li><a href="global.html#startWithConfigurationJson">startWithConfigurationJson</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#checkEligibility">checkEligibility</a></li><li><a href="global.html#customInviteAccepted">customInviteAccepted</a></li><li><a href="global.html#customInviteDeclined">customInviteDeclined</a></li><li><a href="global.html#getContactDetails">getContactDetails</a></li><li><a href="global.html#getVersion">getVersion</a></li><li><a href="global.html#incrementPageViews">incrementPageViews</a></li><li><a href="global.html#incrementSignificantEventCount">incrementSignificantEventCount</a></li><li><a href="global.html#isDebugLogEnabled">isDebugLogEnabled</a></li><li><a href="global.html#removeCPPValue">removeCPPValue</a></li><li><a href="global.html#removeInviteListener">removeInviteListener</a></li><li><a href="global.html#resetState">resetState</a></li><li><a href="global.html#setContactDetails">setContactDetails</a></li><li><a href="global.html#setCPPValue">setCPPValue</a></li><li><a href="global.html#setDebugLogEnabled">setDebugLogEnabled</a></li><li><a href="global.html#setInviteListener">setInviteListener</a></li><li><a href="global.html#setSkipPoolingCheck">setSkipPoolingCheck</a></li><li><a href="global.html#showInvite">showInvite</a></li><li><a href="global.html#showSurvey">showSurvey</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#startWithConfigurationFile">startWithConfigurationFile</a></li><li><a href="global.html#startWithConfigurationJson">startWithConfigurationJson</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Oct 26 2017 11:05:38 GMT-0700 (PDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Jun 11 2018 15:30:01 GMT-0700 (PDT)
 </footer>
 
 <script> prettyPrint(); </script>

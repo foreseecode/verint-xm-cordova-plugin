@@ -2,65 +2,68 @@
 
 #import <Cordova/CDV.h>
 #import <ForeSee/ForeSee.h>
+#import <ForeSee/FSInviteDelegate.h>
 
-@interface ForeSeeAPI : CDVPlugin {
+@interface ForeSeeAPI : CDVPlugin <FSInviteDelegate> {
   // Member variables go here.
+    NSMutableArray* listeners;
 }
 
 // methods exposed to JS as API
-- (void)showSurvey: (CDVInvokedUrlCommand*)command;
+- (void)showSurvey: (CDVInvokedUrlCommand *)command;
 
-- (void)showInvite: (CDVInvokedUrlCommand*)command;
+- (void)showInvite: (CDVInvokedUrlCommand *)command;
 
-- (void)checkEligibility: (CDVInvokedUrlCommand*)command;
+- (void)checkEligibility: (CDVInvokedUrlCommand *)command;
 
-- (void)addCPPValue: (CDVInvokedUrlCommand*)command;
+- (void)addCPPValue: (CDVInvokedUrlCommand *)command;
 
-- (void)removeCPPValue: (CDVInvokedUrlCommand*)command;
+- (void)removeCPPValue: (CDVInvokedUrlCommand *)command;
 
-- (void)incrementPageViews: (CDVInvokedUrlCommand*)command;
+- (void)incrementPageViews: (CDVInvokedUrlCommand *)command;
 
-- (void)incrementSignificantEvent: (CDVInvokedUrlCommand*)command;
+- (void)incrementSignificantEvent: (CDVInvokedUrlCommand *)command;
 
-- (void)resetState: (CDVInvokedUrlCommand*)command;
+- (void)resetState: (CDVInvokedUrlCommand *)command;
 
-- (void)start: (CDVInvokedUrlCommand*)command;
+- (void)start: (CDVInvokedUrlCommand *)command;
 
-- (void)startWithConfigurationFile: (CDVInvokedUrlCommand*)command;
+- (void)startWithConfigurationFile: (CDVInvokedUrlCommand *)command;
 
-- (void)startWithConfigurationJson: (CDVInvokedUrlCommand*)command;
+- (void)startWithConfigurationJson: (CDVInvokedUrlCommand *)command;
 
-- (void)isDebugLogEnabled: (CDVInvokedUrlCommand*)command;
+- (void)isDebugLogEnabled: (CDVInvokedUrlCommand *)command;
 
-- (void)getVersion: (CDVInvokedUrlCommand*)command;
+- (void)getVersion: (CDVInvokedUrlCommand *)command;
 
-- (void)getContactDetails: (CDVInvokedUrlCommand*)command;
+- (void)getContactDetails: (CDVInvokedUrlCommand *)command;
 
-- (void)setContactDetails: (CDVInvokedUrlCommand*)command;
+- (void)setContactDetails: (CDVInvokedUrlCommand *)command;
 
-- (void)customInviteDeclined: (CDVInvokedUrlCommand*)command;
+- (void)customInviteDeclined: (CDVInvokedUrlCommand *)command;
 
-- (void)customInviteAccepted: (CDVInvokedUrlCommand*)command;
+- (void)customInviteAccepted: (CDVInvokedUrlCommand *)command;
 
-- (void)setSkipPoolingCheck: (CDVInvokedUrlCommand*)command;
+- (void)setSkipPoolingCheck: (CDVInvokedUrlCommand *)command;
 
-- (void)setDebugLogEnabled: (CDVInvokedUrlCommand*)command;
+- (void)setDebugLogEnabled: (CDVInvokedUrlCommand *)command;
 
-- (void)logReplayPageChange: (CDVInvokedUrlCommand*)command;
+- (void)setInviteListener: (CDVInvokedUrlCommand *)command;
 
-- (void)pauseRecording: (CDVInvokedUrlCommand*)command;
+- (void)removeInviteListener: (CDVInvokedUrlCommand *)command;
 
-- (void)resumeRecording: (CDVInvokedUrlCommand*)command;
-
-- (void)setMaskingDebugEnabled: (CDVInvokedUrlCommand*)command;
-
-- (void)isRecording: (CDVInvokedUrlCommand*)command;
+- (void)sendInviteListenerResult:(TRMeasure *)measure eventMessage:(NSString*)msg;
 
 @end
 
 @implementation ForeSeeAPI
 
-- (void)checkEligibility: (CDVInvokedUrlCommand*)command
+
+- (void)pluginInitialize {
+    listeners = [[NSMutableArray alloc] init];
+}
+
+- (void)checkEligibility: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
 
@@ -95,7 +98,7 @@
 }
 
 
-- (void)showInvite: (CDVInvokedUrlCommand*)command
+- (void)showInvite: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
@@ -118,7 +121,7 @@
 }
 
 
-- (void)addCPPValue: (CDVInvokedUrlCommand*)command
+- (void)addCPPValue: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
@@ -133,7 +136,7 @@
 
         if (key != nil && [key length] > 0 && value != nil && [value length] > 0) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-            [ForeSee setCPPValue:key forKey:key];
+            [ForeSee setCPPValue:value forKey:key];
         } else {
             NSLog(@"Bad key or value for addCPPValue");
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
@@ -143,7 +146,7 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
--(void)removeCPPValue: (CDVInvokedUrlCommand*)command
+-(void)removeCPPValue: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
@@ -167,7 +170,7 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
--(void)incrementPageViews: (CDVInvokedUrlCommand*)command{
+-(void)incrementPageViews: (CDVInvokedUrlCommand *)command{
     
     CDVPluginResult* pluginResult = nil;
 
@@ -180,7 +183,7 @@
 }
 
 
--(void)incrementSignificantEvent: (CDVInvokedUrlCommand*)command{
+-(void)incrementSignificantEvent: (CDVInvokedUrlCommand *)command{
 
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
@@ -204,7 +207,7 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
--(void)resetState: (CDVInvokedUrlCommand*)command{
+-(void)resetState: (CDVInvokedUrlCommand *)command{
     CDVPluginResult* pluginResult = nil;
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
@@ -215,7 +218,7 @@
 }
 
 
-- (void)start: (CDVInvokedUrlCommand*)command
+- (void)start: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
 
@@ -226,7 +229,7 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)startWithConfigurationFile: (CDVInvokedUrlCommand*)command
+- (void)startWithConfigurationFile: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
@@ -250,7 +253,7 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)startWithConfigurationJson: (CDVInvokedUrlCommand*)command
+- (void)startWithConfigurationJson: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
@@ -273,7 +276,24 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)isDebugLogEnabled: (CDVInvokedUrlCommand*)command{
+- (void)setDebugLogEnabled: (CDVInvokedUrlCommand *)command{
+    CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+
+    if(arguments == nil || arguments.count < 1){
+        NSLog(@"No data for setDebugLogEnabled");
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    else{
+        BOOL enable = [command.arguments objectAtIndex:0];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        [ForeSee setDebugLogEnabled:enable];
+    }
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)isDebugLogEnabled: (CDVInvokedUrlCommand *)command{
     CDVPluginResult* pluginResult = nil;
 
     BOOL result = [ForeSee isDebugLogEnabled];
@@ -283,7 +303,7 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)getVersion: (CDVInvokedUrlCommand*)command{
+- (void)getVersion: (CDVInvokedUrlCommand *)command{
     CDVPluginResult* pluginResult = nil;
 
     NSString* version = [ForeSee version];
@@ -293,7 +313,7 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)getContactDetails: (CDVInvokedUrlCommand*)command{
+- (void)getContactDetails: (CDVInvokedUrlCommand *)command{
     CDVPluginResult* pluginResult = nil;
 
     NSString* result = [ForeSee contactDetails];
@@ -303,7 +323,7 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)setContactDetails: (CDVInvokedUrlCommand*)command{
+- (void)setContactDetails: (CDVInvokedUrlCommand *)command{
 
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
@@ -336,7 +356,7 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)customInviteAccepted: (CDVInvokedUrlCommand*)command{
+- (void)customInviteAccepted: (CDVInvokedUrlCommand *)command{
     CDVPluginResult* pluginResult = nil;
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
@@ -346,7 +366,7 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)setSkipPoolingCheck: (CDVInvokedUrlCommand*)command{
+- (void)setSkipPoolingCheck: (CDVInvokedUrlCommand *)command{
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
 
@@ -363,96 +383,72 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
+- (void)setInviteListener: (CDVInvokedUrlCommand*)command{
+    [listeners removeAllObjects];
 
-- (void)setDebugLogEnabled: (CDVInvokedUrlCommand*)command{
-    CDVPluginResult* pluginResult = nil;
-    NSArray* arguments = command.arguments;
+    NSLog(@"Initializing the invite listener");
+    [ForeSee setInviteDelegate:self];
 
-    if(arguments == nil || arguments.count < 1){
-        NSLog(@"No data for setDebugLogEnabled");
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-    }
-    else{
-        BOOL enable = [command.arguments objectAtIndex:0];
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        [ForeSee setDebugLogEnabled:enable];
-    }
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    [listeners addObject:command];
+    NSLog(@"Adding an invite listener");
 }
 
-
-- (void)logReplayPageChange: (CDVInvokedUrlCommand*)command{
-    CDVPluginResult* pluginResult = nil;
-    NSArray* arguments = command.arguments;
-
-    if(arguments == nil || arguments.count < 1){
-        NSLog(@"No page name for logReplayPageChange");
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-    }
-    else{
-        NSString* page = [command.arguments objectAtIndex:0];
-        if (page != nil && [page length] > 0) {
-            [ForeSee logReplayPageChange:page];
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        } else {
-            NSLog(@"Bad page name for logReplayPageChange");
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-        }
-    }
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+- (void)removeInviteListener: (CDVInvokedUrlCommand *)command{
+    NSLog(@"Removing the invite listener");
+    [ForeSee setInviteDelegate:nil];
+    [listeners removeAllObjects];
 }
 
-- (void)setMaskingDebugEnabled: (CDVInvokedUrlCommand*)command{
-    CDVPluginResult* pluginResult = nil;
-    NSArray* arguments = command.arguments;
+- (void)willNotShowInviteWithEligibilityFailedForMeasure:(TRMeasure *)measure{
+    [self sendInviteListenerResult:measure eventMessage:@"onInviteNotShownWithEligibilityFailed"];
+}
 
-    if(arguments == nil || arguments.count < 1){
-        NSLog(@"No data for setMaskingDebugEnabled");
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+- (void)willNotShowInviteWithSamplingFailedForMeasure:(TRMeasure *)measure{
+    [self sendInviteListenerResult:measure eventMessage:@"onInviteNotShownWithSamplingFailed"];
+}
+
+- (void)didShowInviteForMeasure:(TRMeasure *)measure{
+    [self sendInviteListenerResult:measure eventMessage:@"onInvitePresented"];
+}
+
+- (void)didAcceptInviteForMeasure:(TRMeasure *)measure{
+    [self sendInviteListenerResult:measure eventMessage:@"onInviteCompleteWithAccept"];
+}
+
+- (void)didDeclineInviteForMeasure:(TRMeasure *)measure{
+    [self sendInviteListenerResult:measure eventMessage:@"onInviteCompleteWithDecline"];
+}
+
+- (void)didShowSurveyForMeasure:(TRMeasure *)measure{
+    [self sendInviteListenerResult:measure eventMessage:@"onSurveyPresented"];
+}
+
+- (void)didCancelSurveyForMeasure:(TRMeasure *)measure{
+    [self sendInviteListenerResult:measure eventMessage:@"onSurveyCancelledByUser"];
+}
+
+- (void)didCompleteSurveyForMeasure:(TRMeasure *)measure{
+    [self sendInviteListenerResult:measure eventMessage:@"onSurveyCompleted"];
+}
+
+- (void)didFailForMeasure:(TRMeasure *)measure withNetworkError:(NSError *)error{
+    [self sendInviteListenerResult:measure eventMessage:@"onSurveyCancelledWithNetworkError"];
+}
+
+- (void)sendInviteListenerResult:(TRMeasure *)measure eventMessage:(NSString*)msg{
+
+    CDVPluginResult* pluginResult = nil;
+
+    for(CDVInvokedUrlCommand* command in listeners){
+
+        NSLog(@"Returning callback for %@", msg);
+        NSDictionary* eventDictionary = @{@"event":msg, @"surveyId": measure.surveyID};
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:eventDictionary];
+
+        [pluginResult setKeepCallback: [NSNumber numberWithBool:YES]];
+
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }
-    else{
-        BOOL enable = [command.arguments objectAtIndex:0];
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        [ForeSee setMaskingDebugEnabled:enable];
-    }
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-
-- (void)isRecording: (CDVInvokedUrlCommand*)command{
-    CDVPluginResult* pluginResult = nil;
-
-    BOOL result = [ForeSee isRecording];
-    
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:result];
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-- (void)pauseRecording: (CDVInvokedUrlCommand*)command{
-    CDVPluginResult* pluginResult = nil;
-
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-
-    NSLog(@"pauseRecording is not available on iOS and will have no effect");
-    //[ForeSee pauseRecording]; - there is no Pause in Recording for iOS
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-
-- (void)resumeRecording: (CDVInvokedUrlCommand*)command{
-    CDVPluginResult* pluginResult = nil;
-
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-
-    NSLog(@"resumeRecording is not available on iOS and will have no effect");
-    //[ForeSee resumeRecording]; - there is no Resume in Recording for iOS
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 @end
