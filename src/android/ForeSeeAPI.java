@@ -6,6 +6,7 @@ import com.foresee.sdk.ForeSee;
 import com.foresee.sdk.cxMeasure.tracker.listeners.BaseInviteListener;
 import com.foresee.sdk.common.configuration.MeasureConfiguration;
 import com.foresee.sdk.cxMeasure.tracker.listeners.DefaultInviteListener;
+import com.foresee.sdk.common.configuration.EligibleMeasureConfigurations;
 
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
@@ -39,8 +40,8 @@ public class ForeSeeAPI extends CordovaPlugin {
     private final static String sTag = "FORESEE_CORDOVA";
 
     HashMap<String, ForeSeeMethod> sActions = new HashMap<String, ForeSeeMethod>();
-    Set<WeakReference<CallbackContext>> mCallbacks = Collections
-            .synchronizedSet(new HashSet<WeakReference<CallbackContext>>());
+    Set<CallbackContext> mCallbacks = Collections
+            .synchronizedSet(new HashSet<CallbackContext>());
 
     /**
      * Initialization of all supported ForeSee API methods
@@ -440,9 +441,9 @@ public class ForeSeeAPI extends CordovaPlugin {
 
         //setInviteListener
         /*
-            1. If list of callback is empty - add a new one
-                1.1 On event return callback with keepAlive = true
-            2. Add a new WeakReferenced callback to list
+            1. Clear current callbacks
+            2. Add a new listener
+            3. Add a new callback to list
          */
         sActions.put("setInviteListener", new ForeSeeMethod() {
 
@@ -450,12 +451,13 @@ public class ForeSeeAPI extends CordovaPlugin {
             public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
                 try {
                     //1.
-                    if (mCallbacks.isEmpty()) {
-                        ForeSee.setInviteListener(new FSCordovaInviteListener());
-                    }
-                    //2.
-                    mCallbacks.add(new WeakReference<CallbackContext>(callback));
+                    mCallbacks.clear();
 
+                    //2. 
+                    ForeSee.setInviteListener(new FSCordovaInviteListener());
+                    
+                    //3.
+                    mCallbacks.add(callback);
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
                     callback.error(sTag + "setInviteListener failure");
@@ -464,6 +466,26 @@ public class ForeSeeAPI extends CordovaPlugin {
                 }
             }
         });
+
+        //removeInviteListener
+        /*
+            Clears any invite listeners that have been set to avoid memory leaks
+         */
+        sActions.put("removeInviteListener", new ForeSeeMethod() {
+            
+        @Override
+        public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
+            try {
+                ForeSee.setInviteListener(null);
+                mCallbacks.clear();
+            } catch (Exception ex) {
+                Log.e(sTag, ex.getMessage());
+                callback.error(sTag + "removeInviteListener failure");
+            } finally {
+                return true;
+            }
+        }
+    });
     }
 
     @Override
@@ -492,7 +514,7 @@ public class ForeSeeAPI extends CordovaPlugin {
     class FSCordovaInviteListener implements BaseInviteListener, DefaultInviteListener {
 
         @Override
-        public void onInviteCompleteWithAccept() {
+        public void onInviteCompleteWithAccept(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onInviteCompleteWithAccept");
             try {
                 onEvent(new JSONObject().put("event", "onInviteCompleteWithAccept"));
@@ -502,7 +524,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         @Override
-        public void onInviteCompleteWithDecline() {
+        public void onInviteCompleteWithDecline(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onInviteCompleteWithDecline");
             try {
                 onEvent(new JSONObject().put("event", "onInviteCompleteWithDecline"));
@@ -512,18 +534,24 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         @Override
-        public void onInviteNotShownWithNetworkError(MeasureConfiguration measureConfiguration) {
+        public void onInviteNotShownWithNetworkError(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onInviteNotShownWithNetworkError");
             try {
-                onEvent(new JSONObject().put("event", "onSurveyCancelledWithNetworkError").put("surveyId",
-                        measureConfiguration.getSurveyId()));
+                JSONObject jsonObject = new JSONObject().put("event", "onInviteNotShownWithNetworkError");
+
+                // This is intended to enable forwards compatibility; 
+                // eligibleMeasures is null in v5.0.0 of the Android SDK, but will be added in future
+                if (validChosenMeasure(eligibleMeasures)) {
+                    jsonObject.put("surveyId", eligibleMeasures.getChosenEligibleMeasureConfiguration().getSurveyId());
+                }
+                onEvent(jsonObject);
             } catch (JSONException e) {
                 Log.e(sTag, "Failed to return onInviteNotShownWithNetworkError event");
             }
         }
 
         @Override
-        public void onInviteNotShownWithEligibilityFailed(MeasureConfiguration measureConfiguration) {
+        public void onInviteNotShownWithEligibilityFailed(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onInviteNotShownWithEligibilityFailed");
             try {
                 onEvent(new JSONObject().put("event", "onInviteNotShownWithEligibilityFailed"));
@@ -533,18 +561,25 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         @Override
-        public void onInviteNotShownWithSamplingFailed(MeasureConfiguration measureConfiguration) {
+        public void onInviteNotShownWithSamplingFailed(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onInviteNotShownWithSamplingFailed");
             try {
-                onEvent(new JSONObject().put("event", "onInviteNotShownWithSamplingFailed").put("surveyId",
-                        measureConfiguration.getSurveyId()));
+                JSONObject jsonObject = new JSONObject().put("event", "onInviteNotShownWithSamplingFailed");
+                
+                // This is intended to enable forwards compatibility; 
+                // the chosen measure is null in v5.0.0 of the Android SDK, but will be added in future
+                if (validChosenMeasure(eligibleMeasures)) {
+                    jsonObject.put("surveyId", eligibleMeasures.getChosenEligibleMeasureConfiguration().getSurveyId());
+                }
+
+                onEvent(jsonObject);
             } catch (JSONException e) {
                 Log.e(sTag, "Failed to return onInviteNotShownWithSamplingFailed event");
             }
         }
 
         @Override
-        public void onSurveyPresented() {
+        public void onSurveyPresented(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onSurveyPresented");
             try {
                 onEvent(new JSONObject().put("event", "onSurveyPresented"));
@@ -554,7 +589,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         @Override
-        public void onSurveyCompleted() {
+        public void onSurveyCompleted(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onSurveyCompleted");
             try {
                 onEvent(new JSONObject().put("event", "onSurveyCompleted"));
@@ -564,7 +599,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         @Override
-        public void onSurveyCancelledByUser() {
+        public void onSurveyCancelledByUser(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onSurveyCancelledByUser");
             try {
                 onEvent(new JSONObject().put("event", "onSurveyCancelledByUser"));
@@ -574,7 +609,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         @Override
-        public void onSurveyCancelledWithNetworkError() {
+        public void onSurveyCancelledWithNetworkError(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onSurveyCancelledWithNetworkError");
             try {
                 onEvent(new JSONObject().put("event", "onSurveyCancelledWithNetworkError"));
@@ -584,7 +619,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         @Override
-        public void onInvitePresented(MeasureConfiguration measureConfiguration) {
+        public void onInvitePresented(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onInvitePresented");
             try {
                 onEvent(new JSONObject().put("event", "onInvitePresented"));
@@ -594,10 +629,10 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         @Override
-        public void onInviteCancelledWithNetworkError() {
+        public void onInviteCancelledWithNetworkError(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onInviteCancelledWithNetworkError");
             try {
-                onEvent(new JSONObject().put("event", "onSurveyCancelledWithNetworkError"));
+                onEvent(new JSONObject().put("event", "onInviteCancelledWithNetworkError"));
             } catch (JSONException e) {
                 Log.e(sTag, "Failed to return onInviteCancelledWithNetworkError event");
             }
@@ -611,11 +646,20 @@ public class ForeSeeAPI extends CordovaPlugin {
         private void onEvent(JSONObject eventMsg) {
             PluginResult result = new PluginResult(PluginResult.Status.OK, eventMsg);
             result.setKeepCallback(true);
-            for (WeakReference<CallbackContext> c : mCallbacks) {
-                if (c.get() != null) {
-                    c.get().sendPluginResult(result);
+            for (CallbackContext c : mCallbacks) {
+                if (c != null) {
+                    c.sendPluginResult(result);
+                }
+                else {
                 }
             }
+        }
+
+        /** 
+         * Utility method to check for null response on listener
+         */
+        private boolean validChosenMeasure(EligibleMeasureConfigurations eligibleMeasures){
+            return eligibleMeasures != null && eligibleMeasures.getChosenEligibleMeasureConfiguration() != null;
         }
     }
 }

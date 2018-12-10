@@ -7,7 +7,7 @@ const ForeSeeAPI = "ForeSeeAPI";
  * Programmatically present the survey for a given survey ID (sid).
  *
  * @example
- * `cordova.plugins.ForeSeeAPI.showSurvey(["app_test_1"], _onSuccess, _onFailure);`
+ * cordova.plugins.ForeSeeAPI.showSurvey(["app_test_1"], _onSuccess, _onFailure);
  *
  * @param  {array} args - Array of strings, we expect a surveyID inside.
  * @param  {callback} success - A Cordova-style success callback object.
@@ -22,7 +22,7 @@ exports.showSurvey = function (args, success, error) {
  * Programmatically present the invitation for a given survey ID (sid).
  *
  * @example
- * `cordova.plugins.ForeSeeAPI.showInvite(["app_test_1"], _onSuccess, _onFailure);`
+ * cordova.plugins.ForeSeeAPI.showInvite(["app_test_1"], _onSuccess, _onFailure);
  *
  * @param {array} args - Array of strings, we expect a surveyID inside.
  * @param {callback} success - A Cordova-style success callback object.
@@ -39,7 +39,7 @@ exports.showInvite = function (args, success, error) {
  * Implementers must explicitly check for eligibility (the SDK does not do this automatically).
  *
  * @example
- * `cordova.plugins.ForeSeeAPI.checkEligibility(_onSuccess, _onFailure);`
+ * cordova.plugins.ForeSeeAPI.checkEligibility(_onSuccess, _onFailure);
  *
  * @param {callback} success - A Cordova-style success callback object.
  * @param {callback} error - A Cordova-style error callback object.
@@ -53,7 +53,7 @@ exports.checkEligibility = function (success, error) {
  * Sets a CPP key/value pair. CPPs are transmitted along with surveys upon submission.
  *
  * @example
- * `cordova.plugins.ForeSeeAPI.setCPPValue(["customParam", "customValue"], _onSuccess, _onFailure);`
+ * cordova.plugins.ForeSeeAPI.setCPPValue(["customParam", "customValue"], _onSuccess, _onFailure);
  *
  * @param {array} args - Array of parameters, we expect a key/value pair inside. Required by Cordova's plugin EXEC.
  * @param {callback} success - A Cordova-style success callback object.
@@ -68,7 +68,7 @@ exports.setCPPValue = function (args, success, error) {
  * Removes a CPP value.
  *
  * @example
- * `cordova.plugins.ForeSeeAPI.removeCPPValue(["customParam"], _onSuccess, _onFailure);`
+ * cordova.plugins.ForeSeeAPI.removeCPPValue(["customParam"], _onSuccess, _onFailure);
  *
  * @param {array} args - Array of string, we expect a single inside.
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
@@ -86,7 +86,7 @@ exports.removeCPPValue = function (args, success, error) {
  * This can be useful when the user expected a new page to have been shown.
  *
  * @example
- * `cordova.plugins.ForeSeeAPI.incrementPageViews(_onSuccess, _onFailure);`
+ * cordova.plugins.ForeSeeAPI.incrementPageViews(_onSuccess, _onFailure);
  *
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
  * The callback takes one parameter, containing the message from a command.
@@ -102,7 +102,7 @@ exports.incrementPageViews = function (success, error) {
  * Increment the significant event count for a given key.
  *
  * @example
- * `cordova.plugins.ForeSeeAPI.incrementSignificantEventCount(["yourSignificantEventKey"], _onSuccess, _onFailure);`
+ * cordova.plugins.ForeSeeAPI.incrementSignificantEventCount(["yourSignificantEventKey"], _onSuccess, _onFailure);
  *
  * @param {array} args - Array of string, we expect to get a single string inside.
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
@@ -119,7 +119,7 @@ exports.incrementSignificantEventCount = function (args, success, error) {
  * Reset the state of the tracker.
  *
  * @example
- * `cordova.plugins.ForeSeeAPI.resetState(_onSuccess, _onFailure);`
+ * cordova.plugins.ForeSeeAPI.resetState(_onSuccess, _onFailure);
  *
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command
  * The callback takes one parameter, containing the message from a command
@@ -136,7 +136,7 @@ exports.resetState = function (success, error) {
  * Behavior of the two modules is defined in the foresee_configuration.json file.
  *
  * @example
- * `cordova.plugins.ForeSeeAPI.start(_onSucess, _onFailure)`
+ * cordova.plugins.ForeSeeAPI.start(_onSucess, _onFailure);
  *
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
  * The callback takes one parameter, containing the message from a command.
@@ -153,7 +153,7 @@ exports.start = function (success, error) {
  * Behavior of the two modules is defined in the named configuration file in your project.
  *
  * @example
- * `cordova.plugins.ForeSeeAPI.startWithConfigurationFile(["my_config.json"], _onSuccess, _onFailure)`
+ * cordova.plugins.ForeSeeAPI.startWithConfigurationFile(["my_config.json"], _onSuccess, _onFailure);
  *
  * @param {array} args - array. The name of the configuration file to use when loading modules
 
@@ -172,7 +172,7 @@ exports.startWithConfigurationFile = function (args, success, error) {
  * Behavior of the two modules is defined by the string provided.
  *
  * @example
- * `cordova.plugins.ForeSeeAPI.startWithConfigurationJson([jsonConfig], _onSuccess, _onFailure)`
+ * cordova.plugins.ForeSeeAPI.startWithConfigurationJson([jsonConfig], _onSuccess, _onFailure);
  *
  * @param {array} args - array. The configuration string in JSON format to use when loading modules.
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
@@ -189,7 +189,7 @@ exports.startWithConfigurationJson = function (args, success, error) {
  * Returns whether or not debug logging is enabled.
  *
  * @example
- * `cordova.plugins.ForeSeeAPI.isDebugLogEnabled(_onSuccess, _onFailure)`
+ * cordova.plugins.ForeSeeAPI.isDebugLogEnabled(_onSuccess, _onFailure);
  *
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
  * The callback takes one parameter, containing Boolean value TRUE or FALSE.
@@ -205,7 +205,7 @@ exports.isDebugLogEnabled = function (success, error) {
  * Gets the version of the SDK
  *
  * @example
- * `cordova.plugins.ForeSeeAPI.getVersion(_onSuccess, _onFailure)`
+ * cordova.plugins.ForeSeeAPI.getVersion(_onSuccess, _onFailure);
  *
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
  * The callback takes one parameter, containing the message with the version of the SDK.
@@ -221,7 +221,7 @@ exports.getVersion = function (success, error) {
  * Retrieves a user’s contact details.
  *
  * @example
- * `cordova.plugins.ForeSeeAPI.getContactDetails(_onSuccess, _onFailure);`
+ * cordova.plugins.ForeSeeAPI.getContactDetails(_onSuccess, _onFailure);
  *
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
  * The callback takes one parameter, containing the string with a user's contact details (it if was set).
@@ -238,7 +238,7 @@ exports.getContactDetails = function (success, error) {
  * When provided, the default invite skips the user input screen. Only applies to CONTACT surveys.
  *
  * @example
- * `cordova.plugins.ForeSeeAPI.setContactDetails(["Bob"], _onSuccess, _onFailure);`
+ * cordova.plugins.ForeSeeAPI.setContactDetails(["Bob"], _onSuccess, _onFailure);
  *
  * @param {array} args
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
@@ -256,7 +256,7 @@ exports.setContactDetails = function (args, success, error) {
  * You should call this method whenever a user declines a custom invitation that you’ve presented.
  *
  * @example
- * `cordova.plugins.ForeSeeAPI.customInviteDeclined(_onSuccess, _onFailure);`
+ * cordova.plugins.ForeSeeAPI.customInviteDeclined(_onSuccess, _onFailure);
  *
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
  * The callback takes one parameter, containing the message from a command.
@@ -273,7 +273,7 @@ exports.customInviteDeclined = function (success, error) {
  * You should call this method whenever a user accepts a custom invitation that you’ve presented.
  *
  * @example
- * `cordova.plugins.ForeSeeAPI.customInviteAccepted(_onSuccess, _onFailure);`
+ * cordova.plugins.ForeSeeAPI.customInviteAccepted(_onSuccess, _onFailure);
  *
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
  * The callback takes one parameter, containing the message from a command.
@@ -291,7 +291,7 @@ exports.customInviteAccepted = function (success, error) {
  * This ensures that the invitation will always shows if the loyalty criteria has been fulfilled.
  *
  * @example
- * `cordova.plugins.ForeSeeAPI.setSkipPoolingCheck(["true"], _onSuccess, _onFailure);`
+ * cordova.plugins.ForeSeeAPI.setSkipPoolingCheck(["true"], _onSuccess, _onFailure);
  *
  * @param {array} args - array with one element; TRUE of FALSE.
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
@@ -309,7 +309,7 @@ exports.setSkipPoolingCheck = function (args, success, error) {
  * Debug logging prints useful state information to the console for inspection. By default, debug logging is disabled.
  *
  * @example
- * `cordova.plugins.ForeSeeAPI.setDebugLogEnabled(["true"], _onSuccess, _onFailure);`
+ * cordova.plugins.ForeSeeAPI.setDebugLogEnabled(["true"], _onSuccess, _onFailure);
  *
  * @param {array} args - array with one element; TRUE of FALSE.
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
@@ -326,7 +326,7 @@ exports.setDebugLogEnabled = function (args, success, error) {
  * Set the invite listener
  *
  * @example
- * `cordova.plugins.ForeSeeAPI.setInviteListener(_onSuccess, _onFailure);`
+ * cordova.plugins.ForeSeeAPI.setInviteListener(_onSuccess, _onFailure);
  *
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
  * The callback takes one parameter, containing the message from a command.
@@ -335,4 +335,20 @@ exports.setDebugLogEnabled = function (args, success, error) {
  */
 exports.setInviteListener = function (success, error) {
     exec(success, error, ForeSeeAPI, "setInviteListener", []);
+};
+
+/**
+ * @description
+ * Remove the invite listener
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.removeInviteListener(_onSuccess, _onFailure);
+ *
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error.
+ * The callback takes one error parameter, containing the details of the error.
+ */
+exports.removeInviteListener = function (success, error) {
+    exec(success, error, ForeSeeAPI, "removeInviteListener", []);
 };
