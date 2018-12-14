@@ -54,6 +54,8 @@
 
 - (void)sendInviteListenerResult:(TRMeasure *)measure eventMessage:(NSString*)msg;
 
+// Util method
+- (FSContactType)contactTypeForString:(NSString *)string;
 @end
 
 @implementation ForeSeeAPI
@@ -61,6 +63,16 @@
 
 - (void)pluginInitialize {
     listeners = [[NSMutableArray alloc] init];
+}
+
+- (FSContactType)contactTypeForString:(NSString *)string {
+    if ([string isEqualToString:@"Email"]) {
+        return kFSEmail;
+    } else if ([string isEqualToString:@"PhoneNumber"]) {
+        return kFSPhoneNumber;
+    } else {
+        return kFSUnknown;
+    }
 }
 
 - (void)checkEligibility: (CDVInvokedUrlCommand *)command
@@ -315,8 +327,15 @@
 
 - (void)getContactDetails: (CDVInvokedUrlCommand *)command{
     CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+    NSString* result = nil;
 
-    NSString* result = [ForeSee contactDetails];
+    if (arguments == nil || arguments.count < 1) {
+        result = [ForeSee contactDetails];
+    } else {
+        FSContactType contactType = [self contactTypeForString:[command.arguments objectAtIndex:0]];
+        result = [ForeSee contactDetailsForType:contactType];
+    }
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:result];
 
@@ -328,14 +347,17 @@
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
     
-    if(arguments == nil || arguments.count < 1){
-        NSLog(@"No contact for setContactDetails");
+    if(arguments == nil || arguments.count < 1 || arguments.count > 2) {
+        NSLog(@"No, or too many details for setContactDetails");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-    }
-    else{
-        NSString* contact = [command.arguments objectAtIndex:0];
-        if (contact != nil && [contact length] > 0) {
+    } else {
+        NSString* contact = [arguments objectAtIndex:0];
+        if (contact != nil && [contact length] != 0 && arguments.count == 1) {
             [ForeSee setContactDetails:contact];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        } else if (contact != nil && [contact length] != 0 && arguments.count == 2) {
+            FSContactType contactType = [self contactTypeForString:[arguments objectAtIndex:1]];
+            [ForeSee setContactDetails:contact forType:contactType];
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         } else {
             NSLog(@"Bad contact for setContactDetails");
@@ -450,5 +472,4 @@
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }
 }
-
 @end

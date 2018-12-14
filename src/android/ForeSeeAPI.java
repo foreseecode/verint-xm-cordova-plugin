@@ -7,6 +7,7 @@ import com.foresee.sdk.cxMeasure.tracker.listeners.BaseInviteListener;
 import com.foresee.sdk.common.configuration.MeasureConfiguration;
 import com.foresee.sdk.cxMeasure.tracker.listeners.DefaultInviteListener;
 import com.foresee.sdk.common.configuration.EligibleMeasureConfigurations;
+import com.foresee.sdk.common.configuration.ContactType;
 
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
@@ -343,7 +344,12 @@ public class ForeSeeAPI extends CordovaPlugin {
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
                 try {
-                    callback.success(ForeSee.getContactDetails());
+                    if (args == null || args.length() < 1) {
+                        callback.success(ForeSee.getContactDetails());
+                    } else {
+                        ContactType contactType = contactTypeForString(args.getString(0));
+                        callback.success(ForeSee.getContactDetails(contactType));
+                    }
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
                     callback.error(sTag + "getContactDetails failure");
@@ -360,8 +366,8 @@ public class ForeSeeAPI extends CordovaPlugin {
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
                 try {
-                    if (args == null || args.length() < 1) {
-                        callback.error("No details for setContactDetails");
+                    if (args == null || args.length() < 1 || args.length() > 2) {
+                        callback.error("No, or too many details for setContactDetails");
                         return true;
                     }
 
@@ -369,11 +375,14 @@ public class ForeSeeAPI extends CordovaPlugin {
 
                     if (null == contact || contact.isEmpty()) {
                         callback.error("Bad details for setContactDetails");
+                    } else if (args.length() == 2) {
+                        ContactType contactType = contactTypeForString(args.getString(1));
+                        ForeSee.setContactDetails(contactType, contact);
+                        callback.success();
                     } else {
                         ForeSee.setContactDetails(contact);
                         callback.success();
                     }
-
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
                     callback.error(sTag + "setContactDetails failure");
@@ -509,6 +518,17 @@ public class ForeSeeAPI extends CordovaPlugin {
             Log.d(sTag, "init the ForeSee SDK");
             ForeSee.start(cordova.getActivity().getApplication());
         }
+    }
+
+    // Util methods
+    private ContactType contactTypeForString(String string) {
+        ContactType result = ContactType.Unknown;
+        try {
+            result = ContactType.valueOf(string);
+        } catch (IllegalArgumentException ex) {
+            Log.e(sTag, ex.getMessage());
+        }
+        return result;
     }
 
     class FSCordovaInviteListener implements BaseInviteListener, DefaultInviteListener {
