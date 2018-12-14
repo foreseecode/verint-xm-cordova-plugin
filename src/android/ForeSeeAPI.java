@@ -392,6 +392,51 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
+        //getPreferredContactType
+        sActions.put("getPreferredContactType", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    callback.success(ForeSee.getPreferredContactType().name());
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "getPreferredContactType failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        //setPreferredContactType
+        sActions.put("setPreferredContactType", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    if (args == null || args.length() != 1) {
+                        callback.error("Bad contact type for setPreferredContactType");
+                        return true;
+                    }
+
+                    String string = args.getString(0);
+
+                    if (null == string || string.isEmpty()) {
+                        callback.error("Bad contact type for setPreferredContactType");
+                    } else {
+                        ContactType contactType = contactTypeForString(string);
+                        ForeSee.setPreferredContactType(contactType);
+                        callback.success();
+                    }
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "setPreferredContactType failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
         //customInviteDeclined
         sActions.put("customInviteDeclined", new ForeSeeMethod() {
 

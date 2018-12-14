@@ -40,6 +40,10 @@
 
 - (void)setContactDetails: (CDVInvokedUrlCommand *)command;
 
+- (void)getPreferredContactType: (CDVInvokedUrlCommand *)command;
+
+- (void)setPreferredContactType: (CDVInvokedUrlCommand *)command;
+
 - (void)customInviteDeclined: (CDVInvokedUrlCommand *)command;
 
 - (void)customInviteAccepted: (CDVInvokedUrlCommand *)command;
@@ -361,6 +365,38 @@
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         } else {
             NSLog(@"Bad contact for setContactDetails");
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
+    }
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)getPreferredContactType: (CDVInvokedUrlCommand *)command{
+    // Not suported
+    CDVPluginResult* pluginResult = nil;
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)setPreferredContactType: (CDVInvokedUrlCommand *)command{
+
+    CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+    
+    if(arguments == nil || arguments.count < 1) {
+        NSLog(@"Bad contact type for setPreferredContactType");
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    } else {
+        NSString* string = [arguments objectAtIndex:0];
+        if (string != nil && [string length] != 0) {
+            FSContactType contactType = [self contactTypeForString:string];
+            [ForeSee setPreferredContactType:contactType];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        } else {
+            NSLog(@"Bad contact type for setContactDetails");
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
     }

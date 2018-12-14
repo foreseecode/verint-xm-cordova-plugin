@@ -4,11 +4,11 @@
 
 * Cordova-android: 6.2.3+
 * Cordova-ios: 4.4.0+
-* Android: 19+
-* iOS: 9.0+
+* Android: 21+
+* iOS: 10.0+
 * ForeSee SDK
-    * iOS 5.0.2
-    * Android 5.0.0
+    * iOS 5.1.0
+    * Android 5.1.1
 
 ----
 ## Setting up the plugin
