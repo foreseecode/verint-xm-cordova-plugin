@@ -20,7 +20,7 @@ To set up the plugin in your app, follow these instructions
 2. Add the ForeSee plugin to your project 
 
    ```
-   cordova plugin add https://github.com/foreseecode/foresee-sdk-cordova-plugin
+   cordova plugin add https://github.com/foreseecode/foresee-sdk-cordova-plugin.git
    ```
 
    This will automatically add `compile "com.foresee.sdk:sdk:+"` to your `build.gradle` file. 
