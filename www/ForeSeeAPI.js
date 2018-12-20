@@ -221,15 +221,16 @@ exports.getVersion = function (success, error) {
  * Retrieves a user’s contact details.
  *
  * @example
- * cordova.plugins.ForeSeeAPI.getContactDetails(_onSuccess, _onFailure);
+ * cordova.plugins.ForeSeeAPI.getContactDetails(args, _onSuccess, _onFailure);
  *
+ * @param {array} args
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
  * The callback takes one parameter, containing the string with a user's contact details (it if was set).
  * @param {callback} error - Optional callback that is invoked in the event of an error.
  * The callback takes one error parameter, containing the details of the error.
  */
-exports.getContactDetails = function (success, error) {
-    exec(success, error, ForeSeeAPI, "getContactDetails", []);
+exports.getContactDetails = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "getContactDetails", args);
 };
 
 /**
@@ -248,6 +249,40 @@ exports.getContactDetails = function (success, error) {
  */
 exports.setContactDetails = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "setContactDetails", args);
+};
+
+/**
+ * @description
+ * Retrieves a referred contact type.
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.getPreferredContactType(args, _onSuccess, _onFailure);
+ *
+ * @param {array} args
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the string with the referred contact type.
+ * @param {callback} error - Optional callback that is invoked in the event of an error.
+ * The callback takes one error parameter, containing the details of the error.
+ */
+exports.getPreferredContactType = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "getPreferredContactType", args);
+};
+
+/**
+ * @description
+ * Sets a preferred contact type.
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.setPreferredContactType(["Email"], _onSuccess, _onFailure);
+ *
+ * @param {array} args
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error.
+ * The callback takes one error parameter, containing the details of the error.
+ */
+exports.setPreferredContactType = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "setPreferredContactType", args);
 };
 
 /**
