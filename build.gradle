@@ -3,6 +3,7 @@ allprojects {
         maven {
             // This is only required while we're not officially available on the default JCenter
             url "https://foreseemobile.bintray.com/Android"
+            mavenLocal()
         }
    }
 }
