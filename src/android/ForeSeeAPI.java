@@ -159,6 +159,50 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
+        //getCPPValue
+        sActions.put("getCPPValue", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    if (args == null || args.length() < 1) {
+                        callback.error("No key for getCPPValue");
+                        return true;
+                    } else {
+                        String key = args.getString(0);
+                        
+                        if (key == null || key.isEmpty()) {
+                            callback.error("Bad key for getCPPValue");
+                        } else {
+                            callback.success(ForeSee.getCPPValue(key));
+                        }
+                    }
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "getCPPValue failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        //getAllCPPs
+        sActions.put("getAllCPPs", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    callback.success(new JSONObject(ForeSee.getAllCPPs()));
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "getAllCPPs failure");
+                } finally {
+                    return true;
+                }
+                
+            }
+        });
+
         //removeCPP
         sActions.put("removeCPPValue", new ForeSeeMethod() {
 
@@ -167,14 +211,14 @@ public class ForeSeeAPI extends CordovaPlugin {
 
                 try {
                     if (args == null || args.length() < 1) {
-                        callback.error("No value for removeCPPValue");
+                        callback.error("No key for removeCPPValue");
                         return true;
                     }
 
                     String key = args.getString(0);
 
                     if (key == null || key.isEmpty()) {
-                        callback.error("Bad value for removeCPPValue");
+                        callback.error("Bad key for removeCPPValue");
                     } else {
                         ForeSee.removeCPPValue(key);
                         callback.success();

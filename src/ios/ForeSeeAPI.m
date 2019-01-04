@@ -18,6 +18,10 @@
 
 - (void)addCPPValue: (CDVInvokedUrlCommand *)command;
 
+- (void)getCPPValue: (CDVInvokedUrlCommand *)command;
+
+- (void)getAllCPPs: (CDVInvokedUrlCommand *)command;
+
 - (void)removeCPPValue: (CDVInvokedUrlCommand *)command;
 
 - (void)incrementPageViews: (CDVInvokedUrlCommand *)command;
@@ -142,8 +146,8 @@
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
    
-    if(arguments == nil || arguments.count < 1){
-        NSLog(@"No surveyId for addCPPValue");
+    if(arguments == nil || arguments.count < 2){
+        NSLog(@"No key or value for addCPPValue");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else{
@@ -159,6 +163,41 @@
         }
     }
 
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)getCPPValue: (CDVInvokedUrlCommand *)command
+{
+    CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+   
+    if(arguments == nil || arguments.count < 1){
+        NSLog(@"No key for getCPPValue");
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    else{
+        NSString* key = [command.arguments objectAtIndex:0];
+        
+        if (key != nil && [key length] > 0) {
+            NSString* value = [ForeSee CPPValueForKey:key];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:value];
+        } else {
+            NSLog(@"Bad key for getCPPValue");
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
+    }
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)getAllCPPs: (CDVInvokedUrlCommand *)command
+{
+    CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+   
+    NSDictionary* allCPPs = [ForeSee allCPPs];
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:allCPPs];
+    
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
