@@ -70,7 +70,7 @@ exports.setCPPValue = function (args, success, error) {
  * @example
  * cordova.plugins.ForeSeeAPI.removeCPPValue(["customParam"], _onSuccess, _onFailure);
  *
- * @param {array} args - Array of string, we expect a single inside.
+ * @param {array} args - Array of string, we expect a single key inside.
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
  * The callback takes one parameter, containing the message from a command.
  * @param {callback} error - Optional callback that is invoked in the event of an error.
@@ -78,6 +78,39 @@ exports.setCPPValue = function (args, success, error) {
  */
 exports.removeCPPValue = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "removeCPPValue", args);
+};
+
+/**
+ * @description
+ * Gets a CPP value.
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.getCPPValue(["customParam"], _onSuccess, _onFailure);
+ *
+ * @param {array} args - Array of string, we expect a single key inside.
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error.
+ * The callback takes one error parameter, containing the details of the error.
+ */
+exports.getCPPValue = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "getCPPValue", args);
+};
+
+/**
+ * @description
+ * Gets all CPP key/value pairs.
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.getAllCPPs(_onSuccess, _onFailure);
+ *
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error.
+ * The callback takes one error parameter, containing the details of the error.
+ */
+exports.getAllCPPs = function (success, error) {
+    exec(success, error, ForeSeeAPI, "getAllCPPs", []);
 };
 
 /**
