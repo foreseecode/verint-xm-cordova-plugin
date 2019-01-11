@@ -646,7 +646,9 @@ public class ForeSeeAPI extends CordovaPlugin {
         public void onInviteNotShownWithNetworkError(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onInviteNotShownWithNetworkError");
             try {
-                JSONObject jsonObject = new JSONObject().put("event", "onInviteNotShownWithNetworkError");
+                // Here we return a onSurveyCancelledWithNetworkError event instead of a onInviteNotShownWithNetworkError
+                // event to align with iOS's implementation.
+                JSONObject jsonObject = new JSONObject().put("event", "onSurveyCancelledWithNetworkError");
 
                 // This is intended to enable forwards compatibility; 
                 // eligibleMeasures is null in v5.0.0 of the Android SDK, but will be added in future
@@ -655,7 +657,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                 }
                 onEvent(jsonObject);
             } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onInviteNotShownWithNetworkError event");
+                Log.e(sTag, "Failed to return onSurveyCancelledWithNetworkError event");
             }
         }
 
@@ -670,21 +672,20 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         @Override
-        public void onInviteNotShownWithNetworkError(EligibleMeasureConfigurations eligibleMeasures) {
-            Log.d(sTag, "onInviteNotShownWithNetworkError");
+        public void onInviteNotShownWithSamplingFailed(EligibleMeasureConfigurations eligibleMeasures) {
+            Log.d(sTag, "onInviteNotShownWithSamplingFailed");
             try {
-                // Here we return a onSurveyCancelledWithNetworkError event instead of a onInviteNotShownWithNetworkError
-                // event to align with iOS's implementation.
-                JSONObject jsonObject = new JSONObject().put("event", "onSurveyCancelledWithNetworkError");
-
+                JSONObject jsonObject = new JSONObject().put("event", "onInviteNotShownWithSamplingFailed");
+                
                 // This is intended to enable forwards compatibility; 
-                // eligibleMeasures is null in v5.0.0 of the Android SDK, but will be added in future
+                // the chosen measure is null in v5.0.0 of the Android SDK, but will be added in future
                 if (validChosenMeasure(eligibleMeasures)) {
                     jsonObject.put("surveyId", eligibleMeasures.getChosenEligibleMeasureConfiguration().getSurveyId());
                 }
+
                 onEvent(jsonObject);
             } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onSurveyCancelledWithNetworkError event");
+                Log.e(sTag, "Failed to return onInviteNotShownWithSamplingFailed event");
             }
         }
 
