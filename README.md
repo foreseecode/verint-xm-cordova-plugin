@@ -4,11 +4,11 @@
 
 * Cordova-android: 6.2.3+
 * Cordova-ios: 4.4.0+
-* Android: 19+
-* iOS: 9.0+
+* Android: 21+
+* iOS: 10.0+
 * ForeSee SDK
-    * iOS 5.0.2
-    * Android 5.0.0
+    * iOS 5.1.0
+    * Android 5.1.1
 
 ----
 ## Setting up the plugin
@@ -20,7 +20,7 @@ To set up the plugin in your app, follow these instructions
 2. Add the ForeSee plugin to your project 
 
    ```
-   cordova plugin add https://github.com/foreseecode/foresee-sdk-cordova-plugin
+   cordova plugin add https://github.com/foreseecode/foresee-sdk-cordova-plugin.git
    ```
 
    This will automatically add `compile "com.foresee.sdk:sdk:+"` to your `build.gradle` file. 
