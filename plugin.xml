@@ -29,7 +29,7 @@
         </config-file>
 
         <framework src="build.gradle" custom="true" type="gradleReference" />
-        <framework src="com.foresee.sdk:sdk:5.1.1" />
+        <framework src="com.foresee.sdk:sdk:5.2.2" />
         <framework src="com.android.support:appcompat-v7:26.1.0"/>
         <source-file src="src/android/ForeSeeAPI.java" target-dir="src/com/foresee/cordova/plugin/ForeSeeAPI" />
     </platform>
