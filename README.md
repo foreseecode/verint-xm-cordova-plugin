@@ -8,7 +8,7 @@
 * iOS: 10.0+
 * ForeSee SDK
     * iOS 5.1.0
-    * Android 5.1.1
+    * Android 5.2.2
 
 ----
 ## Setting up the plugin
