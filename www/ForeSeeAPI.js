@@ -2,6 +2,13 @@ var exec = require("cordova/exec");
 
 const ForeSeeAPI = "ForeSeeAPI";
 
+function validate(args) {
+    if (args && args.constructor !== Array) {
+        console.log("WARNING: ForeSeeAPI arguments not packed into an array. Method will not behave as expected.");
+    }
+    return args;
+}
+
 /**
  * @description
  * Programmatically present the survey for a given survey ID (sid).
@@ -14,7 +21,7 @@ const ForeSeeAPI = "ForeSeeAPI";
  * @param  {callback} error - A Cordova-style error callback object.
  */
 exports.showSurvey = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "showSurvey", args);
+    exec(success, error, ForeSeeAPI, "showSurvey", validate(args));
 };
 
 /**
@@ -29,7 +36,7 @@ exports.showSurvey = function (args, success, error) {
  * @param {callback} error - A Cordova-style error callback object.
  */
 exports.showInvite = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "showInvite", args);
+    exec(success, error, ForeSeeAPI, "showInvite", validate(args));
 };
 
 /**
@@ -60,7 +67,7 @@ exports.checkEligibility = function (success, error) {
  * @param {callback} error - A Cordova-style error callback object.
  */
 exports.setCPPValue = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "addCPPValue", args);
+    exec(success, error, ForeSeeAPI, "addCPPValue", validate(args));
 };
 
 /**
@@ -77,7 +84,7 @@ exports.setCPPValue = function (args, success, error) {
  * The callback takes one error parameter, containing the details of the error.
  */
 exports.removeCPPValue = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "removeCPPValue", args);
+    exec(success, error, ForeSeeAPI, "removeCPPValue", validate(args));
 };
 
 /**
@@ -94,7 +101,7 @@ exports.removeCPPValue = function (args, success, error) {
  * The callback takes one error parameter, containing the details of the error.
  */
 exports.getCPPValue = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "getCPPValue", args);
+    exec(success, error, ForeSeeAPI, "getCPPValue", validate(args));
 };
 
 /**
@@ -144,7 +151,7 @@ exports.incrementPageViews = function (success, error) {
  * The callback takes one error parameter, containing the details of the error.
  */
 exports.incrementSignificantEventCount = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "incrementSignificantEvent", args);
+    exec(success, error, ForeSeeAPI, "incrementSignificantEvent", validate(args));
 };
 
 /**
@@ -196,7 +203,7 @@ exports.start = function (success, error) {
  * The callback takes one error parameter, containing the details of the error.
  */
 exports.startWithConfigurationFile = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "startWithConfigurationFile", args);
+    exec(success, error, ForeSeeAPI, "startWithConfigurationFile", validate(args));
 };
 
 /**
@@ -214,7 +221,7 @@ exports.startWithConfigurationFile = function (args, success, error) {
  * The callback takes one error parameter, containing the details of the error.
  */
 exports.startWithConfigurationJson = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "startWithConfigurationJson", args);
+    exec(success, error, ForeSeeAPI, "startWithConfigurationJson", validate(args));
 };
 
 /**
@@ -263,7 +270,7 @@ exports.getVersion = function (success, error) {
  * The callback takes one error parameter, containing the details of the error.
  */
 exports.getContactDetails = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "getContactDetails", args);
+    exec(success, error, ForeSeeAPI, "getContactDetails", validate(args));
 };
 
 /**
@@ -281,7 +288,7 @@ exports.getContactDetails = function (args, success, error) {
  * The callback takes one error parameter, containing the details of the error.
  */
 exports.setContactDetails = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "setContactDetails", args);
+    exec(success, error, ForeSeeAPI, "setContactDetails", validate(args));
 };
 
 /**
@@ -298,7 +305,7 @@ exports.setContactDetails = function (args, success, error) {
  * The callback takes one error parameter, containing the details of the error.
  */
 exports.getPreferredContactType = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "getPreferredContactType", args);
+    exec(success, error, ForeSeeAPI, "getPreferredContactType", validate(args));
 };
 
 /**
@@ -315,7 +322,7 @@ exports.getPreferredContactType = function (args, success, error) {
  * The callback takes one error parameter, containing the details of the error.
  */
 exports.setPreferredContactType = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "setPreferredContactType", args);
+    exec(success, error, ForeSeeAPI, "setPreferredContactType", validate(args));
 };
 
 /**
@@ -368,7 +375,7 @@ exports.customInviteAccepted = function (success, error) {
  * The callback takes one error parameter, containing the details of the error.
  */
 exports.setSkipPoolingCheck = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "setSkipPoolingCheck", args);
+    exec(success, error, ForeSeeAPI, "setSkipPoolingCheck", validate(args));
 };
 
 /**
@@ -386,7 +393,7 @@ exports.setSkipPoolingCheck = function (args, success, error) {
  * The callback takes one error parameter, containing the details of the error.
  */
 exports.setDebugLogEnabled = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "setDebugLogEnabled", args);
+    exec(success, error, ForeSeeAPI, "setDebugLogEnabled", validate(args));
 };
 
 /**

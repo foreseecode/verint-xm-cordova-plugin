@@ -646,7 +646,9 @@ public class ForeSeeAPI extends CordovaPlugin {
         public void onInviteNotShownWithNetworkError(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onInviteNotShownWithNetworkError");
             try {
-                JSONObject jsonObject = new JSONObject().put("event", "onInviteNotShownWithNetworkError");
+                // Here we return a onSurveyCancelledWithNetworkError event instead of a onInviteNotShownWithNetworkError
+                // event to align with iOS's implementation.
+                JSONObject jsonObject = new JSONObject().put("event", "onSurveyCancelledWithNetworkError");
 
                 // This is intended to enable forwards compatibility; 
                 // eligibleMeasures is null in v5.0.0 of the Android SDK, but will be added in future
@@ -655,7 +657,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                 }
                 onEvent(jsonObject);
             } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onInviteNotShownWithNetworkError event");
+                Log.e(sTag, "Failed to return onSurveyCancelledWithNetworkError event");
             }
         }
 
@@ -741,9 +743,11 @@ public class ForeSeeAPI extends CordovaPlugin {
         public void onInviteCancelledWithNetworkError(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onInviteCancelledWithNetworkError");
             try {
-                onEvent(new JSONObject().put("event", "onInviteCancelledWithNetworkError"));
+                // Here we return a onSurveyCancelledWithNetworkError event instead of a onInviteCancelledWithNetworkError
+                // event to align with iOS's implementation.
+                onEvent(new JSONObject().put("event", "onSurveyCancelledWithNetworkError"));
             } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onInviteCancelledWithNetworkError event");
+                Log.e(sTag, "Failed to return onSurveyCancelledWithNetworkError event");
             }
         }
 
