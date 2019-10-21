@@ -3,6 +3,8 @@ package com.foresee.cordova.plugin;
 import android.util.Log;
 
 import com.foresee.sdk.ForeSee;
+import com.foresee.sdk.ForeSeeFeedback;
+import com.foresee.sdk.ForeSeeFeedbackListener;
 import com.foresee.sdk.cxMeasure.tracker.listeners.BaseInviteListener;
 import com.foresee.sdk.common.configuration.MeasureConfiguration;
 import com.foresee.sdk.cxMeasure.tracker.listeners.DefaultInviteListener;
