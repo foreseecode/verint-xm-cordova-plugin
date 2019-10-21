@@ -695,7 +695,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-        // setFeedbackListener
+        // set Feedback Listener
         /*
             1. Clear current callbacks
             2. Add a new listener
