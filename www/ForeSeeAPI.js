@@ -427,3 +427,17 @@ exports.setInviteListener = function (success, error) {
 exports.removeInviteListener = function (success, error) {
     exec(success, error, ForeSeeAPI, "removeInviteListener", []);
 };
+
+/**
+ * @description
+ * Programmatically present the default Feedback survey (the first one in the configuration json).
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.showFeedback(["feedback_1"], _onSuccess, _onFailure);
+ *
+ * @param  {callback} success - A Cordova-style success callback object.
+ * @param  {callback} error - A Cordova-style error callback object.
+ */
+exports.showFeedback = function (success, error) {
+    exec(success, error, ForeSeeAPI, "showFeedback", []);
+};

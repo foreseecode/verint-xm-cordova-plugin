@@ -710,7 +710,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                     mFeedbackCallbacks.clear();
 
                     //2. 
-                    ForeSeeFeedback.setFeedbackListener(new FSCordovaInviteListener());
+                    ForeSeeFeedback.setFeedbackListener(new FSCordovaFeedbackListener());
                     
                     //3.
                     mFeedbackCallbacks.add(callback);
