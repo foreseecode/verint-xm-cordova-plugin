@@ -564,87 +564,57 @@
 
 - (void)showFeedback: (CDVInvokedUrlCommand *)command
 {
+    // Not suported
     CDVPluginResult* pluginResult = nil;
 
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-
-    [ForeSeeFeedback showFeedbackSurvey];
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void)showFeedbackForName: (CDVInvokedUrlCommand *)command{
+    // Not suported
     CDVPluginResult* pluginResult = nil;
-    NSArray* arguments = command.arguments;
-    
-    if(arguments == nil || arguments.count < 1){
-        NSLog(@"Bad name for showFeedbackForName");
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-    }
-    else{
-        NSString* name = [command.arguments objectAtIndex:0];
-        if (name != nil && [name length] > 0) {
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-            [ForeSeeFeedback showFeedbackForName:name];
-        } else {
-            NSLog(@"Bad name for showFeedbackForName");
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-        }
-    }
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void)checkIfFeedbackEnabledForName: (CDVInvokedUrlCommand *)command{
+    // Not suported
     CDVPluginResult* pluginResult = nil;
-    NSArray* arguments = command.arguments;
-    
-    if(arguments == nil || arguments.count < 1){
-        NSLog(@"Bad name for checkIfFeedbackEnabledForName");
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-    }
-    else{
-        NSString* name = [command.arguments objectAtIndex:0];
-        if (name != nil && [name length] > 0) {
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-            [ForeSeeFeedback checkIfFeedbackEnabledForName:name];
-        } else {
-            NSLog(@"Bad name for checkIfFeedbackEnabledForName");
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-        }
-    }
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void)getAvailableFeedbackNames: (CDVInvokedUrlCommand *)command {
+    // Not suported
     CDVPluginResult* pluginResult = nil;
 
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-
-    [ForeSeeFeedback getAvailableFeedbackNames];
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void)checkIfFeedbackEnabled: (CDVInvokedUrlCommand *)command { 
+    // Not suported
     CDVPluginResult* pluginResult = nil;
 
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-
-    [ForeSeeFeedback getAvailableFeedbackNames];
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void)setFeedbackListener: (CDVInvokedUrlCommand*)command{
-    [feedbackListeners removeAllObjects];
+    // Not suported
+    CDVPluginResult* pluginResult = nil;
 
-    NSLog(@"Initializing the feedback listener");
-    [ForeSee ForeSeeFeedback:self];
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
 
-    [feedbackListeners addObject:command];
-    NSLog(@"Adding an feedback listener");
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void)feedbackPresented:(NSString *)feedbackName{
@@ -680,21 +650,6 @@
 }
 
 - (void)sendFeedbackListenerResult:(NSString *)feedbackName withStatus:(NSNumber*)status eventMessage:(NSString*)msg{
-
-    CDVPluginResult* pluginResult = nil;
-
-    for(CDVInvokedUrlCommand* command in listeners){
-
-        NSLog(@"Returning callback for %@", msg);
-        NSMutableDictionary* eventDictionary = @{@"event":msg, @"feedbackName": feedbackName};
-        if (status != nil) {
-            [eventDictionary setObject:@"status" forKey:[status boolValue] ? @"true" : @"false"];
-        }
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:eventDictionary];
-
-        [pluginResult setKeepCallback: [NSNumber numberWithBool:YES]];
-
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    }
+    // Not supported
 }
 @end
