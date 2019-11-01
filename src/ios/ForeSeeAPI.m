@@ -62,6 +62,20 @@
 
 - (void)sendInviteListenerResult:(TRMeasure *)measure eventMessage:(NSString*)msg;
 
+- (void)showFeedback:(CDVInvokedUrlCommand *)command;
+
+- (void)showFeedbackForName:(CDVInvokedUrlCommand *)command;
+
+- (void)checkIfFeedbackEnabledForName:(CDVInvokedUrlCommand *)command;
+
+- (void)getAvailableFeedbackNames:(CDVInvokedUrlCommand *)command;
+
+- (void)checkIfFeedbackEnabled:(CDVInvokedUrlCommand *)command;
+
+- (void)setFeedbackListener:(CDVInvokedUrlCommand *)command;
+
+- (void)sendFeedbackListenerResult:(TRMeasure *)measure eventMessage:(NSString*)msg;
+
 // Util method
 - (FSContactType)contactTypeForString:(NSString *)string;
 @end
@@ -540,6 +554,142 @@
 
         NSLog(@"Returning callback for %@", msg);
         NSDictionary* eventDictionary = @{@"event":msg, @"surveyId": measure.surveyID};
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:eventDictionary];
+
+        [pluginResult setKeepCallback: [NSNumber numberWithBool:YES]];
+
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }
+}
+
+- (void)showFeedback: (CDVInvokedUrlCommand *)command
+{
+    CDVPluginResult* pluginResult = nil;
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+
+    [ForeSeeFeedback showFeedbackSurvey];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)showFeedbackForName: (CDVInvokedUrlCommand *)command{
+    CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+    
+    if(arguments == nil || arguments.count < 1){
+        NSLog(@"Bad name for showFeedbackForName");
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    else{
+        NSString* name = [command.arguments objectAtIndex:0];
+        if (name != nil && [name length] > 0) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+            [ForeSeeFeedback showFeedbackForName:name];
+        } else {
+            NSLog(@"Bad name for showFeedbackForName");
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
+    }
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)checkIfFeedbackEnabledForName: (CDVInvokedUrlCommand *)command{
+    CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+    
+    if(arguments == nil || arguments.count < 1){
+        NSLog(@"Bad name for checkIfFeedbackEnabledForName");
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    else{
+        NSString* name = [command.arguments objectAtIndex:0];
+        if (name != nil && [name length] > 0) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+            [ForeSeeFeedback checkIfFeedbackEnabledForName:name];
+        } else {
+            NSLog(@"Bad name for checkIfFeedbackEnabledForName");
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
+    }
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)getAvailableFeedbackNames: (CDVInvokedUrlCommand *)command {
+    CDVPluginResult* pluginResult = nil;
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+
+    [ForeSeeFeedback getAvailableFeedbackNames];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)checkIfFeedbackEnabled: (CDVInvokedUrlCommand *)command { 
+    CDVPluginResult* pluginResult = nil;
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+
+    [ForeSeeFeedback getAvailableFeedbackNames];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)setFeedbackListener: (CDVInvokedUrlCommand*)command{
+    [feedbackListeners removeAllObjects];
+
+    NSLog(@"Initializing the feedback listener");
+    [ForeSee ForeSeeFeedback:self];
+
+    [feedbackListeners addObject:command];
+    NSLog(@"Adding an feedback listener");
+}
+
+- (void)feedbackPresented:(NSString *)feedbackName{
+    [self sendFeedbackListenerResult:feedbackName eventMessage:@"onFeedbackPresented"];
+}
+
+- (void)feedbackSubmitted:(NSString *)feedbackName {
+    [self sendFeedbackListenerResult:feedbackName eventMessage:@"feedbackSubmitted"];
+}
+
+- (void)feedbackStatusRetrieved:(NSString *)feedbackName enabled:(BOOL)enabled {
+    [self sendFeedbackListenerResult:feedbackName withStatus:[NSNumber numberWithBool:enabled] eventMessage:@"feedbackStatusRetrieved"];
+}
+
+- (void)feedbackNotPresentedWithDisabled:(NSString *)feedbackName {
+    [self sendFeedbackListenerResult:feedbackName eventMessage:@"feedbackNotPresentedWithDisabled"];
+}
+
+- (void)feedbackNotPresentedWithNetworkError:(NSString *)feedbackName {
+    [self sendFeedbackListenerResult:feedbackName eventMessage:@"feedbackNotPresentedWithNetworkError"];
+}
+
+- (void)feedbackNotSubmittedWithNetworkError:(NSString *)feedbackName {
+    [self sendFeedbackListenerResult:feedbackName eventMessage:@"feedbackNotSubmittedWithNetworkError"];
+}
+
+- (void)feedbackNotSubmittedWithAbort:(NSString *)feedbackName {
+    [self sendFeedbackListenerResult:feedbackName eventMessage:@"feedbackNotSubmittedWithAbort"];
+}
+
+- (void)sendFeedbackListenerResult:(NSString *)feedbackName eventMessage:(NSString*)msg{
+    [self sendFeedbackListenerResult:feedbackName withStatus:nil eventMessage:@"feedbackNotSubmittedWithAbort"];    
+}
+
+- (void)sendFeedbackListenerResult:(NSString *)feedbackName withStatus:(NSNumber*)status eventMessage:(NSString*)msg{
+
+    CDVPluginResult* pluginResult = nil;
+
+    for(CDVInvokedUrlCommand* command in listeners){
+
+        NSLog(@"Returning callback for %@", msg);
+        NSMutableDictionary* eventDictionary = @{@"event":msg, @"feedbackName": feedbackName};
+        if (status != nil) {
+            [eventDictionary setObject:@"status" forKey:[status boolValue] ? @"true" : @"false"];
+        }
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:eventDictionary];
 
         [pluginResult setKeepCallback: [NSNumber numberWithBool:YES]];

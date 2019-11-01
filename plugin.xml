@@ -49,7 +49,6 @@
         <resource-file src="src/foresee_configuration.json"/>
         <source-file src="src/ios/ForeSeeAPI.m" />
         <framework src="ForeSee" type="podspec" spec="5.3.3" />
-        <framework src="ForeSeeFeedback" type="podspec" spec="5.3.3" />
         <framework src="ForeSee/ForeSeeFeedback" type="podspec" spec="5.3.3" />
     </platform>
 
