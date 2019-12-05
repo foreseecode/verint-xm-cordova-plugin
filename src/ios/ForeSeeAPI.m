@@ -426,7 +426,7 @@
 }
 
 - (void)getPreferredContactType: (CDVInvokedUrlCommand *)command{
-    // Not suported
+    // Not supported
     CDVPluginResult* pluginResult = nil;
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
@@ -564,7 +564,7 @@
 
 - (void)showFeedback: (CDVInvokedUrlCommand *)command
 {
-    // Not suported
+    // Not supported
     CDVPluginResult* pluginResult = nil;
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
@@ -573,7 +573,7 @@
 }
 
 - (void)showFeedbackForName: (CDVInvokedUrlCommand *)command{
-    // Not suported
+    // Not supported
     CDVPluginResult* pluginResult = nil;
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
@@ -582,7 +582,7 @@
 }
 
 - (void)checkIfFeedbackEnabledForName: (CDVInvokedUrlCommand *)command{
-    // Not suported
+    // Not supported
     CDVPluginResult* pluginResult = nil;
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
@@ -591,7 +591,7 @@
 }
 
 - (void)getAvailableFeedbackNames: (CDVInvokedUrlCommand *)command {
-    // Not suported
+    // Not supported
     CDVPluginResult* pluginResult = nil;
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
@@ -600,7 +600,7 @@
 }
 
 - (void)checkIfFeedbackEnabled: (CDVInvokedUrlCommand *)command { 
-    // Not suported
+    // Not supported
     CDVPluginResult* pluginResult = nil;
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
@@ -609,7 +609,7 @@
 }
 
 - (void)setFeedbackListener: (CDVInvokedUrlCommand*)command{
-    // Not suported
+    // Not supported
     CDVPluginResult* pluginResult = nil;
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
