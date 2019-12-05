@@ -62,6 +62,20 @@
 
 - (void)sendInviteListenerResult:(TRMeasure *)measure eventMessage:(NSString*)msg;
 
+- (void)showFeedback:(CDVInvokedUrlCommand *)command;
+
+- (void)showFeedbackForName:(CDVInvokedUrlCommand *)command;
+
+- (void)checkIfFeedbackEnabledForName:(CDVInvokedUrlCommand *)command;
+
+- (void)getAvailableFeedbackNames:(CDVInvokedUrlCommand *)command;
+
+- (void)checkIfFeedbackEnabled:(CDVInvokedUrlCommand *)command;
+
+- (void)setFeedbackListener:(CDVInvokedUrlCommand *)command;
+
+- (void)sendFeedbackListenerResult:(TRMeasure *)measure eventMessage:(NSString*)msg;
+
 // Util method
 - (FSContactType)contactTypeForString:(NSString *)string;
 @end
@@ -412,7 +426,7 @@
 }
 
 - (void)getPreferredContactType: (CDVInvokedUrlCommand *)command{
-    // Not suported
+    // Not supported
     CDVPluginResult* pluginResult = nil;
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
@@ -546,5 +560,96 @@
 
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }
+}
+
+- (void)showFeedback: (CDVInvokedUrlCommand *)command
+{
+    // Not supported
+    CDVPluginResult* pluginResult = nil;
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)showFeedbackForName: (CDVInvokedUrlCommand *)command{
+    // Not supported
+    CDVPluginResult* pluginResult = nil;
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)checkIfFeedbackEnabledForName: (CDVInvokedUrlCommand *)command{
+    // Not supported
+    CDVPluginResult* pluginResult = nil;
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)getAvailableFeedbackNames: (CDVInvokedUrlCommand *)command {
+    // Not supported
+    CDVPluginResult* pluginResult = nil;
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)checkIfFeedbackEnabled: (CDVInvokedUrlCommand *)command { 
+    // Not supported
+    CDVPluginResult* pluginResult = nil;
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)setFeedbackListener: (CDVInvokedUrlCommand*)command{
+    // Not supported
+    CDVPluginResult* pluginResult = nil;
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)feedbackPresented:(NSString *)feedbackName{
+    [self sendFeedbackListenerResult:feedbackName eventMessage:@"onFeedbackPresented"];
+}
+
+- (void)feedbackSubmitted:(NSString *)feedbackName {
+    [self sendFeedbackListenerResult:feedbackName eventMessage:@"feedbackSubmitted"];
+}
+
+- (void)feedbackStatusRetrieved:(NSString *)feedbackName enabled:(BOOL)enabled {
+    [self sendFeedbackListenerResult:feedbackName withStatus:[NSNumber numberWithBool:enabled] eventMessage:@"feedbackStatusRetrieved"];
+}
+
+- (void)feedbackNotPresentedWithDisabled:(NSString *)feedbackName {
+    [self sendFeedbackListenerResult:feedbackName eventMessage:@"feedbackNotPresentedWithDisabled"];
+}
+
+- (void)feedbackNotPresentedWithNetworkError:(NSString *)feedbackName {
+    [self sendFeedbackListenerResult:feedbackName eventMessage:@"feedbackNotPresentedWithNetworkError"];
+}
+
+- (void)feedbackNotSubmittedWithNetworkError:(NSString *)feedbackName {
+    [self sendFeedbackListenerResult:feedbackName eventMessage:@"feedbackNotSubmittedWithNetworkError"];
+}
+
+- (void)feedbackNotSubmittedWithAbort:(NSString *)feedbackName {
+    [self sendFeedbackListenerResult:feedbackName eventMessage:@"feedbackNotSubmittedWithAbort"];
+}
+
+- (void)sendFeedbackListenerResult:(NSString *)feedbackName eventMessage:(NSString*)msg{
+    [self sendFeedbackListenerResult:feedbackName withStatus:nil eventMessage:@"feedbackNotSubmittedWithAbort"];    
+}
+
+- (void)sendFeedbackListenerResult:(NSString *)feedbackName withStatus:(NSNumber*)status eventMessage:(NSString*)msg{
+    // Not supported
 }
 @end
