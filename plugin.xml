@@ -29,8 +29,8 @@
         </config-file>
 
         <framework src="build.gradle" custom="true" type="gradleReference" />
-        <framework src="com.foresee.sdk:sdk:5.3.2" />
-        <framework src="com.foresee.sdk:feedback:5.3.2" />
+        <framework src="com.foresee.sdk:sdk:5.3.3" />
+        <framework src="com.foresee.sdk:feedback:5.3.3" />
         <framework src="com.android.support:appcompat-v7:26.1.0"/>
         <source-file src="src/android/ForeSeeAPI.java" target-dir="src/com/foresee/cordova/plugin/ForeSeeAPI" />
     </platform>
@@ -48,8 +48,7 @@
 
         <resource-file src="src/foresee_configuration.json"/>
         <source-file src="src/ios/ForeSeeAPI.m" />
-        <framework src="ForeSee" type="podspec" spec="5.3.3" />
-        <framework src="ForeSee/ForeSeeFeedback" type="podspec" spec="5.3.3" />
+        <framework src="ForeSee" type="podspec" spec="5.3.4" />
     </platform>
 
     <info>
