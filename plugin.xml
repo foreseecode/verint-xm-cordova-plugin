@@ -47,6 +47,7 @@
         </config-file>
 
         <resource-file src="src/foresee_configuration.json"/>
+        <header-file src="src/ios/ForeSeeAPI.h" />
         <source-file src="src/ios/ForeSeeAPI.m" />
         <framework src="ForeSee" type="podspec" spec="5.3.4" />
     </platform>

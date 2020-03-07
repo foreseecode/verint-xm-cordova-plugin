@@ -1,16 +1,8 @@
-/** ForeSeeAPI.m Cordova Plugin Implementation
+/** ForeSeeAPI.m 
+ *  ForeSee Cordova Plugin Implementation
  */
 
-#import <Cordova/CDV.h>
-#import <ForeSee/ForeSee.h>
-#import <ForeSee/FSInviteDelegate.h>
-
-@interface ForeSeeAPI : CDVPlugin <FSInviteDelegate> {
-  // Member variables go here.
-  NSMutableArray *listeners;
-}
-
-@end
+#import "ForeSeeAPI.h"
 
 @implementation ForeSeeAPI
 
