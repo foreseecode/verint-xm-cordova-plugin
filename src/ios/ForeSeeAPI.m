@@ -74,7 +74,7 @@
   if (arguments == nil || arguments.count < 1) {
     NSLog(@"No surveyId for showInvite");
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-  }else {
+  } else {
     NSString *surveyId = [command.arguments objectAtIndex:0];
     
     if (surveyId != nil && [surveyId length] > 0) {
@@ -96,8 +96,7 @@
   if (arguments == nil || arguments.count < 2) {
     NSLog(@"No key or value for addCPPValue");
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-  }
-  else {
+  } else {
     NSString *key = [command.arguments objectAtIndex:0];
     NSString *value = [command.arguments objectAtIndex:1];
     
@@ -120,8 +119,7 @@
   if (arguments == nil || arguments.count < 1) {
     NSLog(@"No key for getCPPValue");
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-  }
-  else {
+  } else {
     NSString *key = [command.arguments objectAtIndex:0];
     
     if (key != nil && [key length] > 0) {
@@ -146,15 +144,14 @@
   [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
--(void)removeCPPValue:(CDVInvokedUrlCommand *)command {
+- (void)removeCPPValue:(CDVInvokedUrlCommand *)command {
   CDVPluginResult *pluginResult = nil;
   NSArray *arguments = command.arguments;
   
   if (arguments == nil || arguments.count < 1) {
     NSLog(@"No surveyId for removeCPPValue");
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-  }
-  else {
+  } else {
     NSString *key = [command.arguments objectAtIndex:0];
     
     if (key != nil && [key length] > 0) {
@@ -169,7 +166,7 @@
   [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
--(void)incrementPageViews:(CDVInvokedUrlCommand *)command {
+- (void)incrementPageViews:(CDVInvokedUrlCommand *)command {
   
   CDVPluginResult *pluginResult = nil;
   
@@ -182,7 +179,7 @@
 }
 
 
--(void)incrementSignificantEvent:(CDVInvokedUrlCommand *)command {
+- (void)incrementSignificantEvent:(CDVInvokedUrlCommand *)command {
   
   CDVPluginResult *pluginResult = nil;
   NSArray *arguments = command.arguments;
@@ -190,8 +187,7 @@
   if (arguments == nil || arguments.count < 1) {
     NSLog(@"No surveyId for incrementSignificantEvent");
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-  }
-  else {
+  } else {
     NSString *key = [command.arguments objectAtIndex:0];
     
     if (key != nil && [key length] > 0 ) {
@@ -206,7 +202,7 @@
   [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
--(void)resetState:(CDVInvokedUrlCommand *)command {
+- (void)resetState:(CDVInvokedUrlCommand *)command {
   CDVPluginResult *pluginResult = nil;
   
   pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
@@ -234,8 +230,7 @@
   if (arguments == nil || arguments.count < 1) {
     NSLog(@"No config for startWithConfigurationFile");
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-  }
-  else {
+  } else {
     NSString *configFile = [command.arguments objectAtIndex:0];
     if (configFile != nil && [configFile length] > 0) {
       pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
@@ -257,8 +252,7 @@
   if (arguments == nil || arguments.count < 1) {
     NSLog(@"No configJson for startWithConfigurationJson");
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-  }
-  else {
+  } else {
     NSString *jsonConfig = [command.arguments objectAtIndex:0];
     if (jsonConfig != nil && [jsonConfig length] > 0) {
       pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
@@ -279,8 +273,7 @@
   if (arguments == nil || arguments.count < 1) {
     NSLog(@"No data for setDebugLogEnabled");
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-  }
-  else {
+  } else {
     BOOL enable = [command.arguments objectAtIndex:0];
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [ForeSee setDebugLogEnabled:enable];
@@ -411,8 +404,7 @@
   if (arguments == nil || arguments.count < 1) {
     NSLog(@"No data for setSkipPoolingCheck");
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-  }
-  else {
+  } else {
     BOOL skip = [command.arguments objectAtIndex:0];
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [ForeSee setSkipPoolingCheck:skip];
@@ -477,7 +469,7 @@
   
   CDVPluginResult *pluginResult = nil;
   
-  for(CDVInvokedUrlCommand  *command in listeners) {
+  for (CDVInvokedUrlCommand  *command in listeners) {
     
     NSLog(@"Returning callback for %@", msg);
     NSDictionary *eventDictionary = @{@"event":msg, @"surveyId": measure.surveyID};
