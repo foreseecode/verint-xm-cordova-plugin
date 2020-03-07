@@ -50,6 +50,7 @@
         <header-file src="src/ios/ForeSeeAPI.h" />
         <source-file src="src/ios/ForeSeeAPI.m" />
         <framework src="ForeSee" type="podspec" spec="5.3.4" />
+        <framework src="ForeSee/ForeSeeFeedback" type="podspec" spec="5.3.4" />
     </platform>
 
     <info>
