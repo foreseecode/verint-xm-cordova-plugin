@@ -5,6 +5,7 @@
 #import <Cordova/CDV.h>
 #import <ForeSee/ForeSee.h>
 #import <ForeSee/FSInviteDelegate.h>
+#import <ForeSeeFeedback/ForeSeeFeedback.h>
 
 @interface ForeSeeAPI : CDVPlugin <FSInviteDelegate> {
   NSMutableArray *listeners;
