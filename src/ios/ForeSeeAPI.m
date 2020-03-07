@@ -51,8 +51,7 @@
   if (arguments == nil || arguments.count < 1) {
     NSLog(@"Bad surveyId for showSurvey");
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-  }
-  else {
+  } else {
     NSString *surveyId = [command.arguments objectAtIndex:0];
     if (surveyId != nil && [surveyId length] > 0) {
       pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
@@ -175,7 +174,6 @@
   [ForeSee incrementPageViews];
   
   [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-  
 }
 
 
@@ -215,11 +213,8 @@
 
 - (void)start:(CDVInvokedUrlCommand *)command {
   CDVPluginResult *pluginResult = nil;
-  
   pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-  
   [ForeSee start];
-  
   [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
@@ -240,7 +235,6 @@
       pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
   }
-  
   
   [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -315,7 +309,6 @@
   }
   
   pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:result];
-  
   [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
@@ -348,7 +341,6 @@
 - (void)getPreferredContactType:(CDVInvokedUrlCommand *)command {
   // Not supported
   CDVPluginResult *pluginResult = nil;
-  
   pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
   
   [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -379,7 +371,6 @@
 
 - (void)customInviteDeclined:(CDVInvokedUrlCommand *)command {
   CDVPluginResult *pluginResult = nil;
-  
   pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
   
   [ForeSee customInviteAccepted];
@@ -389,7 +380,6 @@
 
 - (void)customInviteAccepted:(CDVInvokedUrlCommand *)command {
   CDVPluginResult *pluginResult = nil;
-  
   pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
   
   [ForeSee customInviteDeclined];
