@@ -403,6 +403,8 @@
   [listeners removeAllObjects];
 }
 
+#pragma mark - <FSInviteDelegate>
+
 - (void)willNotShowInviteWithEligibilityFailedForMeasure:(TRMeasure *)measure {
   [self sendInviteListenerResult:measure eventMessage:@"onInviteNotShownWithEligibilityFailed"];
 }
@@ -439,6 +441,8 @@
   [self sendInviteListenerResult:measure eventMessage:@"onSurveyCancelledWithNetworkError"];
 }
 
+#pragma mark - Invite listener helpers
+
 - (void)sendInviteListenerResult:(TRMeasure *)measure eventMessage:(NSString*)msg {
   
   CDVPluginResult *pluginResult = nil;
@@ -454,6 +458,8 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
   }
 }
+
+#pragma mark - Feedback
 
 - (void)showFeedback:(CDVInvokedUrlCommand *)command {
   // Not supported
@@ -509,6 +515,8 @@
   [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
+#pragma mark - <ForeSeeFeedbackDelegate>
+
 - (void)feedbackPresented:(NSString *)feedbackName {
   [self sendFeedbackListenerResult:feedbackName eventMessage:@"onFeedbackPresented"];
 }
@@ -536,6 +544,8 @@
 - (void)feedbackNotSubmittedWithAbort:(NSString *)feedbackName {
   [self sendFeedbackListenerResult:feedbackName eventMessage:@"feedbackNotSubmittedWithAbort"];
 }
+
+#pragma mark - Feedback listener helpers
 
 - (void)sendFeedbackListenerResult:(NSString *)feedbackName eventMessage:(NSString*)msg {
   [self sendFeedbackListenerResult:feedbackName withStatus:nil eventMessage:@"feedbackNotSubmittedWithAbort"];
