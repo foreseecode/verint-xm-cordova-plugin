@@ -166,10 +166,7 @@
 }
 
 - (void)incrementPageViews:(CDVInvokedUrlCommand *)command {
-  
-  CDVPluginResult *pluginResult = nil;
-  
-  pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+  CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
   
   [ForeSee incrementPageViews];
   
@@ -201,19 +198,14 @@
 }
 
 - (void)resetState:(CDVInvokedUrlCommand *)command {
-  CDVPluginResult *pluginResult = nil;
-  
-  pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-  
+  CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
   [ForeSee resetState];
-  
   [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 
 - (void)start:(CDVInvokedUrlCommand *)command {
-  CDVPluginResult *pluginResult = nil;
-  pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+  CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
   [ForeSee start];
   [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -277,21 +269,15 @@
 }
 
 - (void)isDebugLogEnabled:(CDVInvokedUrlCommand *)command {
-  CDVPluginResult *pluginResult = nil;
-  
   BOOL result = [ForeSee isDebugLogEnabled];
-  
-  pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:result];
+  CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:result];
   
   [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void)getVersion:(CDVInvokedUrlCommand *)command {
-  CDVPluginResult *pluginResult = nil;
-  
   NSString *version = [ForeSee version];
-  
-  pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:version];
+  CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:version];
   
   [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -309,6 +295,7 @@
   }
   
   pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:result];
+  
   [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
@@ -340,8 +327,7 @@
 
 - (void)getPreferredContactType:(CDVInvokedUrlCommand *)command {
   // Not supported
-  CDVPluginResult *pluginResult = nil;
-  pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
+  CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
   
   [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -370,17 +356,15 @@
 }
 
 - (void)customInviteDeclined:(CDVInvokedUrlCommand *)command {
-  CDVPluginResult *pluginResult = nil;
-  pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-  
+  CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+
   [ForeSee customInviteAccepted];
   
   [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void)customInviteAccepted:(CDVInvokedUrlCommand *)command {
-  CDVPluginResult *pluginResult = nil;
-  pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+  CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
   
   [ForeSee customInviteDeclined];
   
