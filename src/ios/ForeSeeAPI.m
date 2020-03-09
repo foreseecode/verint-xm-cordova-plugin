@@ -474,6 +474,11 @@
                               callbackId:command.callbackId];
 }
 
+- (void)sendNoResultResultForCommand:(CDVInvokedUrlCommand *)command {
+  [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_NO_RESULT]
+                              callbackId:command.callbackId];
+}
+
 - (void)sendErrorResultForCommand:(CDVInvokedUrlCommand *)command {
   [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR]
                               callbackId:command.callbackId];
@@ -496,20 +501,20 @@
   if ([self validate:command argCount:1]) {
     NSString *feedbackName = command.arguments[0];
     [ForeSeeFeedback showFeedbackForName:feedbackName];
-    [self sendOKResultForCommand:command];
+    [self sendNoResultResultForCommand:command];
   }
 }
 
 - (void)checkIfFeedbackEnabled:(CDVInvokedUrlCommand *)command {
   [ForeSeeFeedback checkIfFeedbackEnabled];
-  [self sendOKResultForCommand:command];
+  [self sendNoResultResultForCommand:command];
 }
 
 - (void)checkIfFeedbackEnabledForName:(CDVInvokedUrlCommand *)command {
   if ([self validate:command argCount:1]) {
     NSString *feedbackName = command.arguments[0];
     [ForeSeeFeedback checkIfFeedbackEnabledForName:feedbackName];
-    [self sendOKResultForCommand:command];
+    [self sendNoResultResultForCommand:command];
   }
 }
 
