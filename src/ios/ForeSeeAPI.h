@@ -7,9 +7,7 @@
 #import <ForeSee/FSInviteDelegate.h>
 #import <ForeSeeFeedback/ForeSeeFeedback.h>
 
-@interface ForeSeeAPI : CDVPlugin <FSInviteDelegate> {
-  NSMutableArray *listeners;
-}
+@interface ForeSeeAPI : CDVPlugin <FSInviteDelegate, ForeSeeFeedbackDelegate>
 
 - (void)showSurvey:(CDVInvokedUrlCommand *)command;
 - (void)showInvite:(CDVInvokedUrlCommand *)command;

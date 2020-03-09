@@ -4,12 +4,20 @@
 
 #import "ForeSeeAPI.h"
 
+@interface ForeSeeAPI ()
+
+@property (nonatomic) CDVInvokedUrlCommand *inviteListenerCommand;
+@property (nonatomic) CDVInvokedUrlCommand *feedbackListenerCommand;
+
+@end
+
 @implementation ForeSeeAPI
 
 #pragma mark - Cordova
 
 - (void)pluginInitialize {
-  listeners = [[NSMutableArray alloc] init];
+  [ForeSee setInviteDelegate:self];
+  [ForeSeeFeedback setDelegate:self];
 }
 
 #pragma mark - Helpers
@@ -127,7 +135,6 @@
 
 - (void)getAllCPPs:(CDVInvokedUrlCommand *)command {
   CDVPluginResult *pluginResult = nil;
-  NSArray *arguments = command.arguments;
   
   NSDictionary *allCPPs = [ForeSee allCPPs];
   pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:allCPPs];
@@ -380,19 +387,11 @@
 }
 
 - (void)setInviteListener:(CDVInvokedUrlCommand *)command {
-  [listeners removeAllObjects];
-  
-  NSLog(@"Initializing the invite listener");
-  [ForeSee setInviteDelegate:self];
-  
-  [listeners addObject:command];
-  NSLog(@"Adding an invite listener");
+  self.inviteListenerCommand = command;
 }
 
 - (void)removeInviteListener:(CDVInvokedUrlCommand *)command {
-  NSLog(@"Removing the invite listener");
-  [ForeSee setInviteDelegate:nil];
-  [listeners removeAllObjects];
+  self.inviteListenerCommand = nil;
 }
 
 #pragma mark - <FSInviteDelegate>
@@ -435,20 +434,14 @@
 
 #pragma mark - Invite listener helpers
 
-- (void)sendInviteListenerResult:(TRMeasure *)measure eventMessage:(NSString*)msg {
-  
-  CDVPluginResult *pluginResult = nil;
-  
-  for (CDVInvokedUrlCommand  *command in listeners) {
-    
-    NSLog(@"Returning callback for %@", msg);
-    NSDictionary *eventDictionary = @{@"event":msg, @"surveyId": measure.surveyID};
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:eventDictionary];
-    
-    [pluginResult setKeepCallback: [NSNumber numberWithBool:YES]];
-    
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+- (void)sendInviteListenerResult:(TRMeasure *)measure eventMessage:(NSString *)msg {
+  if (!self.inviteListenerCommand) {
+    return;
   }
+  NSDictionary *eventDictionary = @{@"event":msg, @"surveyId": measure.surveyID};
+  CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:eventDictionary];
+  [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
+  [self.commandDelegate sendPluginResult:pluginResult callbackId:self.inviteListenerCommand.callbackId];
 }
 
 #pragma mark - Feedback
@@ -539,11 +532,11 @@
 
 #pragma mark - Feedback listener helpers
 
-- (void)sendFeedbackListenerResult:(NSString *)feedbackName eventMessage:(NSString*)msg {
+- (void)sendFeedbackListenerResult:(NSString *)feedbackName eventMessage:(NSString *)msg {
   [self sendFeedbackListenerResult:feedbackName withStatus:nil eventMessage:@"feedbackNotSubmittedWithAbort"];
 }
 
-- (void)sendFeedbackListenerResult:(NSString *)feedbackName withStatus:(NSNumber*)status eventMessage:(NSString*)msg{
+- (void)sendFeedbackListenerResult:(NSString *)feedbackName withStatus:(NSNumber*)status eventMessage:(NSString *)msg {
   // Not supported
 }
 
