@@ -501,7 +501,7 @@
   if ([self validate:command argCount:1]) {
     NSString *feedbackName = command.arguments[0];
     [ForeSeeFeedback showFeedbackForName:feedbackName];
-    [self sendNoResultResultForCommand:command];
+    [self sendOKResultForCommand:command];
   }
 }
 
