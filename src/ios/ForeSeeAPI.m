@@ -1,4 +1,4 @@
-/** ForeSeeAPI.m 
+/** ForeSeeAPI.m
  *  ForeSee Cordova Plugin Implementation
  */
 
@@ -444,51 +444,83 @@
   [self.commandDelegate sendPluginResult:pluginResult callbackId:self.inviteListenerCommand.callbackId];
 }
 
+#pragma mark - Validation
+
+- (BOOL)validate:(CDVInvokedUrlCommand *)command argCount:(int)count {
+  return [self validate:command argCount:count sendErrorResult:YES];
+}
+
+- (BOOL)validate:(CDVInvokedUrlCommand *)command argCount:(int)count sendErrorResult:(BOOL)sendError {
+  if (command && command.arguments && command.arguments.count >= count) {
+    BOOL foundEmptyArg = NO;
+    for (id arg in command.arguments) {
+      if ([arg respondsToSelector:@selector(length)] && [arg length] <= 0) {
+        foundEmptyArg = YES;
+        break;
+      }
+    }
+    if (!foundEmptyArg) {
+      return YES;
+    }
+  }
+  if (sendError) {
+    [self sendErrorResultForCommand:command message:@"Invalid argument array"];
+  }
+  return NO;
+}
+
+- (void)sendOKResultForCommand:(CDVInvokedUrlCommand *)command {
+  [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK]
+                              callbackId:command.callbackId];
+}
+
+- (void)sendErrorResultForCommand:(CDVInvokedUrlCommand *)command {
+  [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR]
+                              callbackId:command.callbackId];
+}
+
+- (void)sendErrorResultForCommand:(CDVInvokedUrlCommand *)command message:(NSString *)message {
+  [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                                           messageAsString:message]
+                              callbackId:command.callbackId];
+}
+
 #pragma mark - Feedback
 
 - (void)showFeedback:(CDVInvokedUrlCommand *)command {
-  // Not supported
-  CDVPluginResult *pluginResult = nil;
-  
-  pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
-  
-  [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+  [ForeSeeFeedback showFeedbackSurvey];
+  [self sendOKResultForCommand:command];
 }
 
 - (void)showFeedbackForName:(CDVInvokedUrlCommand *)command {
-  // Not supported
-  CDVPluginResult *pluginResult = nil;
-  
-  pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
-  
-  [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-- (void)checkIfFeedbackEnabledForName:(CDVInvokedUrlCommand *)command {
-  // Not supported
-  CDVPluginResult *pluginResult = nil;
-  
-  pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
-  
-  [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-- (void)getAvailableFeedbackNames:(CDVInvokedUrlCommand *)command {
-  // Not supported
-  CDVPluginResult *pluginResult = nil;
-  
-  pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
-  
-  [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+  if ([self validate:command argCount:1]) {
+    NSString *feedbackName = command.arguments[0];
+    [ForeSeeFeedback showFeedbackForName:feedbackName];
+    [self sendOKResultForCommand:command];
+  }
 }
 
 - (void)checkIfFeedbackEnabled:(CDVInvokedUrlCommand *)command {
-  // Not supported
-  CDVPluginResult *pluginResult = nil;
-  
-  pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
-  
-  [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+  [ForeSeeFeedback checkIfFeedbackEnabled];
+  [self sendOKResultForCommand:command];
+}
+
+- (void)checkIfFeedbackEnabledForName:(CDVInvokedUrlCommand *)command {
+  if ([self validate:command argCount:1]) {
+    NSString *feedbackName = command.arguments[0];
+    [ForeSeeFeedback checkIfFeedbackEnabledForName:feedbackName];
+    [self sendOKResultForCommand:command];
+  }
+}
+
+- (void)getAvailableFeedbackNames:(CDVInvokedUrlCommand *)command {
+  NSArray<NSString *> *result = [ForeSeeFeedback availableFeedbackNames];
+  if (result) {
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:result];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+  } else {
+    [self sendErrorResultForCommand:command];
+  }
 }
 
 - (void)setFeedbackListener:(CDVInvokedUrlCommand *)command {
