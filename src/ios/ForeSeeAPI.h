@@ -41,6 +41,7 @@
 - (void)getAvailableFeedbackNames:(CDVInvokedUrlCommand *)command;
 - (void)checkIfFeedbackEnabled:(CDVInvokedUrlCommand *)command;
 - (void)setFeedbackListener:(CDVInvokedUrlCommand *)command;
+- (void)removeFeedbackListener:(CDVInvokedUrlCommand *)command;
 - (void)sendFeedbackListenerResult:(NSString *)feedbackName eventMessage:(NSString*)msg;
 
 @end
