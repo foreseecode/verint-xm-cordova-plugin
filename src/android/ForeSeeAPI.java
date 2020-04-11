@@ -3,6 +3,8 @@ package com.foresee.cordova.plugin;
 import android.util.Log;
 
 import com.foresee.sdk.ForeSee;
+import com.foresee.sdk.ForeSeeFeedback;
+import com.foresee.sdk.ForeSeeFeedbackListener;
 import com.foresee.sdk.cxMeasure.tracker.listeners.BaseInviteListener;
 import com.foresee.sdk.common.configuration.MeasureConfiguration;
 import com.foresee.sdk.cxMeasure.tracker.listeners.DefaultInviteListener;
@@ -42,6 +44,8 @@ public class ForeSeeAPI extends CordovaPlugin {
 
     HashMap<String, ForeSeeMethod> sActions = new HashMap<String, ForeSeeMethod>();
     Set<CallbackContext> mCallbacks = Collections
+            .synchronizedSet(new HashSet<CallbackContext>());
+    Set<CallbackContext> mFeedbackCallbacks = Collections
             .synchronizedSet(new HashSet<CallbackContext>());
 
     /**
@@ -571,19 +575,153 @@ public class ForeSeeAPI extends CordovaPlugin {
          */
         sActions.put("removeInviteListener", new ForeSeeMethod() {
             
-        @Override
-        public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
-            try {
-                ForeSee.setInviteListener(null);
-                mCallbacks.clear();
-            } catch (Exception ex) {
-                Log.e(sTag, ex.getMessage());
-                callback.error(sTag + "removeInviteListener failure");
-            } finally {
-                return true;
+            @Override
+            public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    ForeSee.setInviteListener(null);
+                    mCallbacks.clear();
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "removeInviteListener failure");
+                } finally {
+                    return true;
+                }
             }
-        }
-    });
+        });
+
+        // Check if a feedback is enabled.
+        sActions.put("checkIfFeedbackEnabledForName", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+
+                try {
+                    if (args == null || args.length() < 1) {
+                        callback.error("No feedback name for checkIfFeedbackEnabledForName");
+                        return true;
+                    }
+
+                    String name = args.getString(0);
+
+                    if (null == name || name.isEmpty()) {
+                        callback.error("Bad name for checkIfFeedbackEnabledForName");
+                    } else {
+                        ForeSeeFeedback.checkIfFeedbackEnabledForName(name);
+                        callback.success();
+                    }
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "checkIfFeedbackEnabledForName failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        // Get all available feedback names defined in the Configuration.
+        sActions.put("getAvailableFeedbackNames", new ForeSeeMethod() {
+            
+            @Override
+            public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    ForeSeeFeedback.getAvailableFeedbackNames();
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "getAvailableFeedbackNames failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        // Check if the default feedback is enabled. 
+        sActions.put("checkIfFeedbackEnabled", new ForeSeeMethod() {
+            
+            @Override
+            public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    ForeSeeFeedback.checkIfFeedbackEnabled();
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "checkIfFeedbackEnabled failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        // Show the feedback for a given feedback name.
+        sActions.put("showFeedbackForName", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+
+                try {
+                    if (args == null || args.length() < 1) {
+                        callback.error("No feedback name for showFeedbackForName");
+                        return true;
+                    }
+
+                    String name = args.getString(0);
+
+                    if (null == name || name.isEmpty()) {
+                        callback.error("Bad name for showFeedbackForName");
+                    } else {
+                        ForeSeeFeedback.showFeedbackForName(name);
+                        callback.success();
+                    }
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "showFeedbackForName failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        // Show the default feedback.
+        sActions.put("showFeedback", new ForeSeeMethod() {
+            
+            @Override
+            public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    ForeSeeFeedback.showFeedback();
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "showFeedback failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        // set Feedback Listener
+        /*
+            1. Clear current callbacks
+            2. Add a new listener
+            3. Add a new callback to list
+         */
+        sActions.put("setFeedbackListener", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    //1.
+                    mFeedbackCallbacks.clear();
+
+                    //2. 
+                    ForeSeeFeedback.setFeedbackListener(new FSCordovaFeedbackListener());
+                    
+                    //3.
+                    mFeedbackCallbacks.add(callback);
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "setFeedbackListener failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
     }
 
     @Override
@@ -773,6 +911,125 @@ public class ForeSeeAPI extends CordovaPlugin {
          */
         private boolean validChosenMeasure(EligibleMeasureConfigurations eligibleMeasures){
             return eligibleMeasures != null && eligibleMeasures.getChosenEligibleMeasureConfiguration() != null;
+        }
+    }
+
+    class FSCordovaFeedbackListener implements ForeSeeFeedbackListener {
+
+        @Override
+        public void onFeedbackPresented(String feedbackName) {
+            Log.d(sTag, "onFeedbackPresented");
+            try {
+                JSONObject jsonObject = new JSONObject().put("event", "onFeedbackPresented");
+                
+                jsonObject.put("feedbackName", feedbackName);
+                
+                onEvent(new JSONObject().put("event", "onFeedbackPresented"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onFeedbackPresented event");
+            }
+        }
+
+        @Override
+        public void onFeedbackNotPresentedWithNetworkError(String feedbackName) {
+            Log.d(sTag, "onFeedbackNotPresentedWithNetworkError");
+            try {
+                JSONObject jsonObject = new JSONObject().put("event", "onFeedbackNotPresentedWithNetworkError");
+                
+                jsonObject.put("feedbackName", feedbackName);
+                
+                onEvent(new JSONObject().put("event", "onFeedbackNotPresentedWithNetworkError"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onFeedbackNotPresentedWithNetworkError event");
+            }
+        }
+
+        @Override
+        public void onFeedbackNotPresentedWithDisabled(String feedbackName) {
+            Log.d(sTag, "onFeedbackNotPresentedWithDisabled");
+            try {
+                JSONObject jsonObject = new JSONObject().put("event", "onFeedbackNotPresentedWithDisabled");
+                
+                jsonObject.put("feedbackName", feedbackName);
+                
+                onEvent(new JSONObject().put("event", "onFeedbackNotPresentedWithDisabled"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onFeedbackNotPresentedWithDisabled event");
+            }
+        }
+
+        @Override
+        public void onFeedbackSubmitted(String feedbackName) {
+            Log.d(sTag, "onFeedbackSubmitted");
+            try {
+                JSONObject jsonObject = new JSONObject().put("event", "onFeedbackSubmitted");
+                
+                jsonObject.put("feedbackName", feedbackName);
+                
+                onEvent(new JSONObject().put("event", "onFeedbackSubmitted"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onFeedbackSubmitted event");
+            }
+        }
+
+        @Override
+        public void onFeedbackNotSubmittedWithAbort(String feedbackName) {
+            Log.d(sTag, "onFeedbackNotSubmittedWithAbort");
+            try {
+                JSONObject jsonObject = new JSONObject().put("event", "onFeedbackNotSubmittedWithAbort");
+                
+                jsonObject.put("feedbackName", feedbackName);
+                
+                onEvent(new JSONObject().put("event", "onFeedbackNotSubmittedWithAbort"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onFeedbackNotSubmittedWithAbort event");
+            }
+        }
+
+        @Override
+        public void onFeedbackNotSubmittedWithNetworkError(String feedbackName) {
+            Log.d(sTag, "onFeedbackNotSubmittedWithNetworkError");
+            try {
+                JSONObject jsonObject = new JSONObject().put("event", "onFeedbackNotSubmittedWithNetworkError");
+                
+                jsonObject.put("feedbackName", feedbackName);
+                
+                onEvent(new JSONObject().put("event", "onFeedbackNotSubmittedWithNetworkError"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onFeedbackNotSubmittedWithNetworkError event");
+            }
+        }
+
+        @Override
+        public void onFeedbackStatusRetrieved(String feedbackName, boolean enabled) {
+            Log.d(sTag, "onFeedbackStatusRetrieved");
+            try {
+                JSONObject jsonObject = new JSONObject().put("event", "onFeedbackStatusRetrieved");
+                
+                jsonObject.put("feedbackName", feedbackName);
+                jsonObject.put("enabled", enabled ? "true" : "false");
+                
+                onEvent(new JSONObject().put("event", "onFeedbackStatusRetrieved"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onFeedbackStatusRetrieved event");
+            }
+        }
+
+        /**
+         * Dispatch event results
+         *
+         * @param eventMsg
+         */
+        private void onEvent(JSONObject eventMsg) {
+            PluginResult result = new PluginResult(PluginResult.Status.OK, eventMsg);
+            result.setKeepCallback(true);
+            for (CallbackContext c : mFeedbackCallbacks) {
+                if (c != null) {
+                    c.sendPluginResult(result);
+                }
+                else {
+                }
+            }
         }
     }
 }

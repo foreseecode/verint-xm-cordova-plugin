@@ -427,3 +427,91 @@ exports.setInviteListener = function (success, error) {
 exports.removeInviteListener = function (success, error) {
     exec(success, error, ForeSeeAPI, "removeInviteListener", []);
 };
+
+/**
+ * @description
+ * Programmatically present the default Feedback survey (the first one in the configuration json).
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.showFeedback(_onSuccess, _onFailure);
+ *
+ * @param  {callback} success - A Cordova-style success callback object.
+ * @param  {callback} error - A Cordova-style error callback object.
+ */
+exports.showFeedback = function (success, error) {
+    exec(success, error, ForeSeeAPI, "showFeedback", []);
+};
+
+/**
+ * @description
+ * Programmatically present the Feedback survey for a given name
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.showFeedbackForName(["feedback_1"], _onSuccess, _onFailure);
+ *
+ * @param {array} args - array with one string element.
+ * @param {callback} success - A Cordova-style success callback object.
+ * @param {callback} error - A Cordova-style error callback object.
+ */
+exports.showFeedbackForName = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "showFeedbackForName", validate(args));
+};
+
+/**
+ * @description
+ * Check if a Feedback survey is enabled
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.checkIfFeedbackEnabledForName(["feedback_1"], _onSuccess, _onFailure);
+ *
+ * @param {array} args - array with one string element.
+ * @param {callback} success - A Cordova-style success callback object.
+ * @param {callback} error - A Cordova-style error callback object.
+ */
+exports.checkIfFeedbackEnabledForName = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "checkIfFeedbackEnabledForName", validate(args));
+};
+
+/**
+ * @description
+ * Get all available feedback names defined in the Configuration.
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.getAvailableFeedbackNames(["feedback_1"], _onSuccess, _onFailure);
+ *
+ * @param {callback} success - A Cordova-style success callback object.
+ * @param {callback} error - A Cordova-style error callback object.
+ */
+exports.getAvailableFeedbackNames = function (success, error) {
+    exec(success, error, ForeSeeAPI, "getAvailableFeedbackNames", []);
+};
+
+/**
+ * @description
+ * Check if the default feedback is enabled. 
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.checkIfFeedbackEnabled(["feedback_1"], _onSuccess, _onFailure);
+ *
+ * @param {callback} success - A Cordova-style success callback object.
+ * @param {callback} error - A Cordova-style error callback object.
+ */
+exports.checkIfFeedbackEnabled = function (success, error) {
+    exec(success, error, ForeSeeAPI, "checkIfFeedbackEnabled", []);
+};
+
+/**
+ * @description
+ * Set the Feedback Listener
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.setFeedbackListener(_onSuccess, _onFailure);
+ *
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error.
+ * The callback takes one error parameter, containing the details of the error.
+ */
+exports.setFeedbackListener = function (success, error) {
+    exec(success, error, ForeSeeAPI, "setFeedbackListener", []);
+};
