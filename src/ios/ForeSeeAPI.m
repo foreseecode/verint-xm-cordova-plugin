@@ -2,7 +2,7 @@
 
 #import <Cordova/CDV.h>
 #import <ForeSee/ForeSee.h>
-#import <ForeSee/FSInviteDelegate.h>
+#import <ForeSeeCxMeasure/FSInviteDelegate.h>
 
 @interface ForeSeeAPI : CDVPlugin <FSInviteDelegate> {
   // Member variables go here.
@@ -103,7 +103,7 @@
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
 
-    [ForeSee checkIfEligibleForSurvey];
+    [ForeSeeCxMeasure checkIfEligibleForSurvey];
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -121,7 +121,7 @@
         NSString* surveyId = [command.arguments objectAtIndex:0];
         if (surveyId != nil && [surveyId length] > 0) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-            [ForeSee showSurveyForSurveyID:surveyId];
+            [ForeSeeCxMeasure showSurveyForSurveyID:surveyId];
         } else {
             NSLog(@"Bad surveyId for showSurvey");
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
@@ -145,7 +145,7 @@
         
         if (surveyId != nil && [surveyId length] > 0) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-            [ForeSee showInviteForSurveyID:surveyId];
+            [ForeSeeCxMeasure showInviteForSurveyID:surveyId];
         } else {
             NSLog(@"Bad surveyId for showInvite");
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
@@ -245,7 +245,7 @@
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
 
-    [ForeSee incrementPageViews];
+    [ForeSeeCxMeasure incrementPageViews];
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 
@@ -266,7 +266,7 @@
 
         if (key != nil && [key length] > 0 ) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-            [ForeSee incrementSignificantEventCountWithKey:key];
+            [ForeSeeCxMeasure incrementSignificantEventCountWithKey:key];
         } else {
             NSLog(@"Bad value in incrementSignificantEvent");
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
@@ -388,10 +388,10 @@
     NSString* result = nil;
 
     if (arguments == nil || arguments.count < 1) {
-        result = [ForeSee contactDetails];
+        NSLog(@"No data for contactType");
     } else {
         FSContactType contactType = [self contactTypeForString:[command.arguments objectAtIndex:0]];
-        result = [ForeSee contactDetailsForType:contactType];
+        result = [ForeSeeCxMeasure contactDetailsForType:contactType];
     }
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:result];
@@ -404,17 +404,14 @@
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
     
-    if(arguments == nil || arguments.count < 1 || arguments.count > 2) {
+    if(arguments == nil || arguments.count < 2 || arguments.count > 2) {
         NSLog(@"No, or too many details for setContactDetails");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     } else {
         NSString* contact = [arguments objectAtIndex:0];
-        if (contact != nil && [contact length] != 0 && arguments.count == 1) {
-            [ForeSee setContactDetails:contact];
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        } else if (contact != nil && [contact length] != 0 && arguments.count == 2) {
+        if (contact != nil && [contact length] != 0 && arguments.count == 2) {
             FSContactType contactType = [self contactTypeForString:[arguments objectAtIndex:1]];
-            [ForeSee setContactDetails:contact forType:contactType];
+            [ForeSeeCxMeasure setContactDetails:contact forType:contactType];
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         } else {
             NSLog(@"Bad contact for setContactDetails");
@@ -446,7 +443,7 @@
         NSString* string = [arguments objectAtIndex:0];
         if (string != nil && [string length] != 0) {
             FSContactType contactType = [self contactTypeForString:string];
-            [ForeSee setPreferredContactType:contactType];
+            [ForeSeeCxMeasure setPreferredContactType:contactType];
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         } else {
             NSLog(@"Bad contact type for setContactDetails");
@@ -462,7 +459,7 @@
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
 
-    [ForeSee customInviteAccepted];
+    [ForeSeeCxMeasure customInviteAccepted];
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -472,7 +469,7 @@
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
 
-    [ForeSee customInviteDeclined];
+    [ForeSeeCxMeasure customInviteDeclined];
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -488,7 +485,7 @@
     else{
         BOOL skip = [command.arguments objectAtIndex:0];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        [ForeSee setSkipPoolingCheck:skip];
+        [ForeSeeCxMeasure setSkipPoolingCheck:skip];
     }
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -498,7 +495,7 @@
     [listeners removeAllObjects];
 
     NSLog(@"Initializing the invite listener");
-    [ForeSee setInviteDelegate:self];
+    [ForeSeeCxMeasure setInviteDelegate:self];
 
     [listeners addObject:command];
     NSLog(@"Adding an invite listener");
@@ -506,7 +503,7 @@
 
 - (void)removeInviteListener: (CDVInvokedUrlCommand *)command{
     NSLog(@"Removing the invite listener");
-    [ForeSee setInviteDelegate:nil];
+    [ForeSeeCxMeasure setInviteDelegate:nil];
     [listeners removeAllObjects];
 }
 

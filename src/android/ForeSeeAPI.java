@@ -3,6 +3,7 @@ package com.foresee.cordova.plugin;
 import android.util.Log;
 
 import com.foresee.sdk.ForeSee;
+import com.foresee.sdk.ForeSeeCxMeasure;
 import com.foresee.sdk.ForeSeeFeedback;
 import com.foresee.sdk.ForeSeeFeedbackListener;
 import com.foresee.sdk.cxMeasure.tracker.listeners.BaseInviteListener;
@@ -74,7 +75,7 @@ public class ForeSeeAPI extends CordovaPlugin {
 
                     cordova.getActivity().runOnUiThread(new Runnable() {
                         public void run() {
-                            ForeSee.showSurveyForSurveyID(id);
+                            ForeSeeCxMeasure.showSurveyForSurveyID(id);
                             callbackContext.success();
                         }
                     });
@@ -108,7 +109,7 @@ public class ForeSeeAPI extends CordovaPlugin {
 
                     cordova.getActivity().runOnUiThread(new Runnable() {
                         public void run() {
-                            ForeSee.showInviteForSurveyID(id);
+                            ForeSeeCxMeasure.showInviteForSurveyID(id);
                             callbackContext.success();
                         }
                     });
@@ -127,7 +128,7 @@ public class ForeSeeAPI extends CordovaPlugin {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callbackContext, CordovaInterface cordova) {
-                ForeSee.checkIfEligibleForSurvey();
+                ForeSeeCxMeasure.checkIfEligibleForSurvey();
                 callbackContext.success();
                 return true;
             }
@@ -241,7 +242,7 @@ public class ForeSeeAPI extends CordovaPlugin {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callaback, CordovaInterface cordova) {
-                ForeSee.incrementPageViews();
+                ForeSeeCxMeasure.incrementPageViews();
                 callaback.success();
                 return true;
             }
@@ -264,7 +265,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                     if (null == key || key.isEmpty()) {
                         callback.error("Bad key for incrementSignificantEvent");
                     } else {
-                        ForeSee.incrementSignificantEventCountWithKey(key);
+                        ForeSeeCxMeasure.incrementSignificantEventCountWithKey(key);
                         callback.success();
                     }
                 } catch (Exception ex) {
@@ -392,12 +393,8 @@ public class ForeSeeAPI extends CordovaPlugin {
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
                 try {
-                    if (args == null || args.length() < 1) {
-                        callback.success(ForeSee.getContactDetails());
-                    } else {
-                        ContactType contactType = contactTypeForString(args.getString(0));
-                        callback.success(ForeSee.getContactDetails(contactType));
-                    }
+                    ContactType contactType = contactTypeForString(args.getString(0));
+                    callback.success(ForeSeeCxMeasure.getContactDetails(contactType));
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
                     callback.error(sTag + "getContactDetails failure");
@@ -425,10 +422,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                         callback.error("Bad details for setContactDetails");
                     } else if (args.length() == 2) {
                         ContactType contactType = contactTypeForString(args.getString(1));
-                        ForeSee.setContactDetails(contactType, contact);
-                        callback.success();
-                    } else {
-                        ForeSee.setContactDetails(contact);
+                        ForeSeeCxMeasure.setContactDetails(contactType, contact);
                         callback.success();
                     }
                 } catch (Exception ex) {
@@ -446,7 +440,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
                 try {
-                    callback.success(ForeSee.getPreferredContactType().name());
+                    callback.success(ForeSeeCxMeasure.getPreferredContactType().name());
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
                     callback.error(sTag + "getPreferredContactType failure");
@@ -473,7 +467,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                         callback.error("Bad contact type for setPreferredContactType");
                     } else {
                         ContactType contactType = contactTypeForString(string);
-                        ForeSee.setPreferredContactType(contactType);
+                        ForeSeeCxMeasure.setPreferredContactType(contactType);
                         callback.success();
                     }
                 } catch (Exception ex) {
@@ -491,7 +485,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
                 try {
-                    ForeSee.customInviteDeclined();
+                    ForeSeeCxMeasure.customInviteDeclined();
                     callback.success();
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
@@ -508,7 +502,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
                 try {
-                    ForeSee.customInviteAccepted();
+                    ForeSeeCxMeasure.customInviteAccepted();
                     callback.success();
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
@@ -556,7 +550,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                     mCallbacks.clear();
 
                     //2. 
-                    ForeSee.setInviteListener(new FSCordovaInviteListener());
+                    ForeSeeCxMeasure.setInviteListener(new FSCordovaInviteListener());
                     
                     //3.
                     mCallbacks.add(callback);
@@ -578,7 +572,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             @Override
             public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
                 try {
-                    ForeSee.setInviteListener(null);
+                    ForeSeeCxMeasure.setInviteListener(null);
                     mCallbacks.clear();
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
