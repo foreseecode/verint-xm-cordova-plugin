@@ -1,6 +1,6 @@
 {
   "name": "ForeSeeAPI",
-  "version": "1.2.1",
+  "version": "2.0.0",
   "description": "ForeSee Cordova Plugin",
   "cordova": {
     "id": "cordova-plugin-foresee",
