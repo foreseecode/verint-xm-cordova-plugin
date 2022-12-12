@@ -13,17 +13,17 @@ var appName = getValue(config, 'name');
 
 var PLATFORM = {
     IOS: {
-        dest: 'platforms/ios/' + appName +  '/Resources/foresee_configuration.json',
+        dest: 'platforms/ios/' + appName +  '/Resources/exp_configuration.json',
         src: [
-            'foresee_configuration.json',
-            'www/foresee_configuration.json'
+            'exp_configuration.json',
+            'www/exp_configuration.json'
         ]
     },
     ANDROID: {
-        dest: 'platforms/android/app/src/main/res/raw/foresee_configuration.json',
+        dest: 'platforms/android/app/src/main/res/raw/exp_configuration.json',
         src: [
-            'foresee_configuration.json',
-            'www/foresee_configuration.json'
+            'exp_configuration.json',
+            'www/exp_configuration.json'
         ]
     }
 };
@@ -57,7 +57,7 @@ function createConfigFile(platform) {
                 }
             break;
         }else{
-            console.log("Could not find the config file ./www/foresee_configuration.json");
+            console.log("Could not find the config file ./www/exp_configuration.json");
         }
     }
 }
@@ -96,11 +96,11 @@ module.exports = function(context) {
  
   // Copy key files to their platform specific folders
   if (platforms.indexOf('ios') !== -1 && directoryExists("platforms/ios")) {
-    console.log('Creating the foreesee_configuration.json file for iOS');
+    console.log('Creating the exp_configuration.json file for iOS');
     createConfigFile(PLATFORM.IOS);
   }
   if (platforms.indexOf('android') !== -1 && directoryExists("platforms/android")) {
-    console.log('Creating the foreesee_configuration.json file for ANDROID');
+    console.log('Creating the exp_configuration.json file for ANDROID');
     createConfigFile(PLATFORM.ANDROID);
   }
 };

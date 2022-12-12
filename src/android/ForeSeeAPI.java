@@ -2,15 +2,15 @@ package com.foresee.cordova.plugin;
 
 import android.util.Log;
 
-import com.foresee.sdk.ForeSee;
-import com.foresee.sdk.ForeSeeCxMeasure;
-import com.foresee.sdk.ForeSeeFeedback;
-import com.foresee.sdk.ForeSeeFeedbackListener;
-import com.foresee.sdk.cxMeasure.tracker.listeners.BaseInviteListener;
-import com.foresee.sdk.common.configuration.MeasureConfiguration;
-import com.foresee.sdk.cxMeasure.tracker.listeners.DefaultInviteListener;
-import com.foresee.sdk.common.configuration.EligibleMeasureConfigurations;
-import com.foresee.sdk.common.configuration.ContactType;
+import com.verint.xm.sdk.Core;
+import com.verint.xm.sdk.Predictive;
+import com.verint.xm.sdk.Digital;
+import com.verint.xm.sdk.ExpDigitalListener;
+import com.verint.xm.sdk.predictive.tracker.listeners.BaseInviteListener;
+import com.verint.xm.sdk.common.configuration.MeasureConfiguration;
+import com.verint.xm.sdk.predictive.tracker.listeners.DefaultInviteListener;
+import com.verint.xm.sdk.common.configuration.EligibleMeasureConfigurations;
+import com.verint.xm.sdk.common.configuration.ContactType;
 
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
@@ -46,7 +46,7 @@ public class ForeSeeAPI extends CordovaPlugin {
     HashMap<String, ForeSeeMethod> sActions = new HashMap<String, ForeSeeMethod>();
     Set<CallbackContext> mCallbacks = Collections
             .synchronizedSet(new HashSet<CallbackContext>());
-    Set<CallbackContext> mFeedbackCallbacks = Collections
+    Set<CallbackContext> mDigitalCallbacks = Collections
             .synchronizedSet(new HashSet<CallbackContext>());
 
     /**
@@ -75,7 +75,7 @@ public class ForeSeeAPI extends CordovaPlugin {
 
                     cordova.getActivity().runOnUiThread(new Runnable() {
                         public void run() {
-                            ForeSeeCxMeasure.showSurveyForSurveyID(id);
+                            Predictive.showSurveyForSurveyID(id);
                             callbackContext.success();
                         }
                     });
@@ -109,7 +109,7 @@ public class ForeSeeAPI extends CordovaPlugin {
 
                     cordova.getActivity().runOnUiThread(new Runnable() {
                         public void run() {
-                            ForeSeeCxMeasure.showInviteForSurveyID(id);
+                            Predictive.showInviteForSurveyID(id);
                             callbackContext.success();
                         }
                     });
@@ -128,7 +128,7 @@ public class ForeSeeAPI extends CordovaPlugin {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callbackContext, CordovaInterface cordova) {
-                ForeSeeCxMeasure.checkIfEligibleForSurvey();
+                Predictive.checkIfEligibleForSurvey();
                 callbackContext.success();
                 return true;
             }
@@ -152,7 +152,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                     if (key == null || key.isEmpty() || value == null || value.isEmpty()) {
                         callback.error("Bad key or value for addCPPValue");
                     } else {
-                        ForeSee.addCPPValue(key, value);
+                        Core.addCPPValue(key, value);
                         callback.success();
                     }
                 } catch (Exception ex) {
@@ -179,7 +179,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                         if (key == null || key.isEmpty()) {
                             callback.error("Bad key for getCPPValue");
                         } else {
-                            callback.success(ForeSee.getCPPValue(key));
+                            callback.success(Core.getCPPValue(key));
                         }
                     }
                 } catch (Exception ex) {
@@ -197,7 +197,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
                 try {
-                    callback.success(new JSONObject(ForeSee.getAllCPPs()));
+                    callback.success(new JSONObject(Core.getAllCPPs()));
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
                     callback.error(sTag + "getAllCPPs failure");
@@ -225,7 +225,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                     if (key == null || key.isEmpty()) {
                         callback.error("Bad key for removeCPPValue");
                     } else {
-                        ForeSee.removeCPPValue(key);
+                        Core.removeCPPValue(key);
                         callback.success();
                     }
                 } catch (Exception ex) {
@@ -242,7 +242,7 @@ public class ForeSeeAPI extends CordovaPlugin {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callaback, CordovaInterface cordova) {
-                ForeSeeCxMeasure.incrementPageViews();
+                Predictive.incrementPageViews();
                 callaback.success();
                 return true;
             }
@@ -265,7 +265,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                     if (null == key || key.isEmpty()) {
                         callback.error("Bad key for incrementSignificantEvent");
                     } else {
-                        ForeSeeCxMeasure.incrementSignificantEventCountWithKey(key);
+                        Predictive.incrementSignificantEventCountWithKey(key);
                         callback.success();
                     }
                 } catch (Exception ex) {
@@ -284,7 +284,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
                 try {
-                    ForeSee.resetState();
+                    Core.resetState();
                     callback.success();
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
@@ -338,7 +338,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
                 try {
-                    callback.success(String.valueOf(ForeSee.isDebugLogEnabled()));
+                    callback.success(String.valueOf(Core.isDebugLogEnabled()));
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
                     callback.error(sTag + "isDebugLogEnabled failure");
@@ -359,7 +359,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                         return true;
                     }
 
-                    ForeSee.setDebugLogEnabled(args.getBoolean(0));
+                    Core.setDebugLogEnabled(args.getBoolean(0));
                     callback.success();
 
                 } catch (Exception ex) {
@@ -377,7 +377,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
                 try {
-                    callback.success(ForeSee.getVersion());
+                    callback.success(Core.getVersion());
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
                     callback.error(sTag + "getVersion failure");
@@ -394,7 +394,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
                 try {
                     ContactType contactType = contactTypeForString(args.getString(0));
-                    callback.success(ForeSeeCxMeasure.getContactDetails(contactType));
+                    callback.success(Predictive.getContactDetails(contactType));
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
                     callback.error(sTag + "getContactDetails failure");
@@ -422,7 +422,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                         callback.error("Bad details for setContactDetails");
                     } else if (args.length() == 2) {
                         ContactType contactType = contactTypeForString(args.getString(1));
-                        ForeSeeCxMeasure.setContactDetails(contactType, contact);
+                        Predictive.setContactDetails(contactType, contact);
                         callback.success();
                     }
                 } catch (Exception ex) {
@@ -440,7 +440,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
                 try {
-                    callback.success(ForeSeeCxMeasure.getPreferredContactType().name());
+                    callback.success(Predictive.getPreferredContactType().name());
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
                     callback.error(sTag + "getPreferredContactType failure");
@@ -467,7 +467,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                         callback.error("Bad contact type for setPreferredContactType");
                     } else {
                         ContactType contactType = contactTypeForString(string);
-                        ForeSeeCxMeasure.setPreferredContactType(contactType);
+                        Predictive.setPreferredContactType(contactType);
                         callback.success();
                     }
                 } catch (Exception ex) {
@@ -485,7 +485,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
                 try {
-                    ForeSeeCxMeasure.customInviteDeclined();
+                    Predictive.customInviteDeclined();
                     callback.success();
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
@@ -502,7 +502,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
                 try {
-                    ForeSeeCxMeasure.customInviteAccepted();
+                    Predictive.customInviteAccepted();
                     callback.success();
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
@@ -523,7 +523,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                         callback.error("No value for setSkipPoolingCheck");
                         return true;
                     }
-                    ForeSee.setSkipPoolingCheck(args.getBoolean(0));
+                    Core.setSkipPoolingCheck(args.getBoolean(0));
                     callback.success();
 
                 } catch (Exception ex) {
@@ -550,7 +550,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                     mCallbacks.clear();
 
                     //2. 
-                    ForeSeeCxMeasure.setInviteListener(new FSCordovaInviteListener());
+                    Predictive.setInviteListener(new FSCordovaInviteListener());
                     
                     //3.
                     mCallbacks.add(callback);
@@ -572,7 +572,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             @Override
             public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
                 try {
-                    ForeSeeCxMeasure.setInviteListener(null);
+                    Predictive.setInviteListener(null);
                     mCallbacks.clear();
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
@@ -584,28 +584,28 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
 
         // Check if a feedback is enabled.
-        sActions.put("checkIfFeedbackEnabledForName", new ForeSeeMethod() {
+        sActions.put("checkIfDigitalSurveyEnabledForName", new ForeSeeMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
                 try {
                     if (args == null || args.length() < 1) {
-                        callback.error("No feedback name for checkIfFeedbackEnabledForName");
+                        callback.error("No feedback name for checkIfDigitalSurveyEnabledForName");
                         return true;
                     }
 
                     String name = args.getString(0);
 
                     if (null == name || name.isEmpty()) {
-                        callback.error("Bad name for checkIfFeedbackEnabledForName");
+                        callback.error("Bad name for checkIfDigitalSurveyEnabledForName");
                     } else {
-                        ForeSeeFeedback.checkIfFeedbackEnabledForName(name);
+                        Digital.checkIfDigitalSurveyEnabledForName(name);
                         callback.success();
                     }
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "checkIfFeedbackEnabledForName failure");
+                    callback.error(sTag + "checkIfDigitalSurveyEnabledForName failure");
                 } finally {
                     return true;
                 }
@@ -613,15 +613,15 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
 
         // Get all available feedback names defined in the Configuration.
-        sActions.put("getAvailableFeedbackNames", new ForeSeeMethod() {
+        sActions.put("getAvailableDigitalSurveyNames", new ForeSeeMethod() {
             
             @Override
             public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
                 try {
-                    ForeSeeFeedback.getAvailableFeedbackNames();
+                    Digital.getAvailableDigitalSurveyNames();
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "getAvailableFeedbackNames failure");
+                    callback.error(sTag + "getAvailableDigitalSurveyNames failure");
                 } finally {
                     return true;
                 }
@@ -629,15 +629,15 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
 
         // Check if the default feedback is enabled. 
-        sActions.put("checkIfFeedbackEnabled", new ForeSeeMethod() {
+        sActions.put("checkIfDigitalSurveyEnabled", new ForeSeeMethod() {
             
             @Override
             public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
                 try {
-                    ForeSeeFeedback.checkIfFeedbackEnabled();
+                    Digital.checkIfDigitalSurveyEnabled();
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "checkIfFeedbackEnabled failure");
+                    callback.error(sTag + "checkIfDigitalSurveyEnabled failure");
                 } finally {
                     return true;
                 }
@@ -645,28 +645,28 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
 
         // Show the feedback for a given feedback name.
-        sActions.put("showFeedbackForName", new ForeSeeMethod() {
+        sActions.put("showDigitalSurveyForName", new ForeSeeMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
                 try {
                     if (args == null || args.length() < 1) {
-                        callback.error("No feedback name for showFeedbackForName");
+                        callback.error("No feedback name for showDigitalSurveyForName");
                         return true;
                     }
 
                     String name = args.getString(0);
 
                     if (null == name || name.isEmpty()) {
-                        callback.error("Bad name for showFeedbackForName");
+                        callback.error("Bad name for showDigitalSurveyForName");
                     } else {
-                        ForeSeeFeedback.showFeedbackForName(name);
+                        Digital.showDigitalSurveyForName(name);
                         callback.success();
                     }
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "showFeedbackForName failure");
+                    callback.error(sTag + "showDigitalSurveyForName failure");
                 } finally {
                     return true;
                 }
@@ -674,43 +674,43 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
 
         // Show the default feedback.
-        sActions.put("showFeedback", new ForeSeeMethod() {
+        sActions.put("showDigitalSurvey", new ForeSeeMethod() {
             
             @Override
             public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
                 try {
-                    ForeSeeFeedback.showFeedback();
+                    Digital.showDigitalSurvey();
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "showFeedback failure");
+                    callback.error(sTag + "showDigitalSurvey failure");
                 } finally {
                     return true;
                 }
             }
         });
 
-        // set Feedback Listener
+        // set Digital Listener
         /*
             1. Clear current callbacks
             2. Add a new listener
             3. Add a new callback to list
          */
-        sActions.put("setFeedbackListener", new ForeSeeMethod() {
+        sActions.put("setDigitalListener", new ForeSeeMethod() {
 
             @Override
             public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
                 try {
                     //1.
-                    mFeedbackCallbacks.clear();
+                    mDigitalCallbacks.clear();
 
                     //2. 
-                    ForeSeeFeedback.setFeedbackListener(new FSCordovaFeedbackListener());
+                    Digital.setDigitalListener(new FSCordovaDigitalListener());
                     
                     //3.
-                    mFeedbackCallbacks.add(callback);
+                    mDigitalCallbacks.add(callback);
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "setFeedbackListener failure");
+                    callback.error(sTag + "setDigitalListener failure");
                 } finally {
                     return true;
                 }
@@ -735,9 +735,9 @@ public class ForeSeeAPI extends CordovaPlugin {
     @Override
     public void onStart() {
         super.onStart();
-        if (!ForeSee.isForeSeeStarted()) {
+        if (!Core.isCoreStarted()) {
             Log.d(sTag, "init the ForeSee SDK");
-            ForeSee.start(cordova.getActivity().getApplication());
+            Core.start(cordova.getActivity().getApplication());
         }
     }
 
@@ -908,104 +908,104 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
     }
 
-    class FSCordovaFeedbackListener implements ForeSeeFeedbackListener {
+    class FSCordovaDigitalListener implements ExpDigitalListener {
 
         @Override
-        public void onFeedbackPresented(String feedbackName) {
-            Log.d(sTag, "onFeedbackPresented");
+        public void onDigitalSurveyPresented(String feedbackName) {
+            Log.d(sTag, "onDigitalSurveyPresented");
             try {
-                JSONObject jsonObject = new JSONObject().put("event", "onFeedbackPresented");
+                JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveyPresented");
                 
                 jsonObject.put("feedbackName", feedbackName);
                 
-                onEvent(new JSONObject().put("event", "onFeedbackPresented"));
+                onEvent(new JSONObject().put("event", "onDigitalSurveyPresented"));
             } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onFeedbackPresented event");
+                Log.e(sTag, "Failed to return onDigitalSurveyPresented event");
             }
         }
 
         @Override
-        public void onFeedbackNotPresentedWithNetworkError(String feedbackName) {
-            Log.d(sTag, "onFeedbackNotPresentedWithNetworkError");
+        public void onDigitalSurveyNotPresentedWithNetworkError(String feedbackName) {
+            Log.d(sTag, "onDigitalSurveyNotPresentedWithNetworkError");
             try {
-                JSONObject jsonObject = new JSONObject().put("event", "onFeedbackNotPresentedWithNetworkError");
+                JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveyNotPresentedWithNetworkError");
                 
                 jsonObject.put("feedbackName", feedbackName);
                 
-                onEvent(new JSONObject().put("event", "onFeedbackNotPresentedWithNetworkError"));
+                onEvent(new JSONObject().put("event", "onDigitalSurveyNotPresentedWithNetworkError"));
             } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onFeedbackNotPresentedWithNetworkError event");
+                Log.e(sTag, "Failed to return onDigitalSurveyNotPresentedWithNetworkError event");
             }
         }
 
         @Override
-        public void onFeedbackNotPresentedWithDisabled(String feedbackName) {
-            Log.d(sTag, "onFeedbackNotPresentedWithDisabled");
+        public void onDigitalSurveyNotPresentedWithDisabled(String feedbackName) {
+            Log.d(sTag, "onDigitalSurveyNotPresentedWithDisabled");
             try {
-                JSONObject jsonObject = new JSONObject().put("event", "onFeedbackNotPresentedWithDisabled");
+                JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveyNotPresentedWithDisabled");
                 
                 jsonObject.put("feedbackName", feedbackName);
                 
-                onEvent(new JSONObject().put("event", "onFeedbackNotPresentedWithDisabled"));
+                onEvent(new JSONObject().put("event", "onDigitalSurveyNotPresentedWithDisabled"));
             } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onFeedbackNotPresentedWithDisabled event");
+                Log.e(sTag, "Failed to return onDigitalSurveyNotPresentedWithDisabled event");
             }
         }
 
         @Override
-        public void onFeedbackSubmitted(String feedbackName) {
-            Log.d(sTag, "onFeedbackSubmitted");
+        public void onDigitalSurveySubmitted(String feedbackName) {
+            Log.d(sTag, "onDigitalSurveySubmitted");
             try {
-                JSONObject jsonObject = new JSONObject().put("event", "onFeedbackSubmitted");
+                JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveySubmitted");
                 
                 jsonObject.put("feedbackName", feedbackName);
                 
-                onEvent(new JSONObject().put("event", "onFeedbackSubmitted"));
+                onEvent(new JSONObject().put("event", "onDigitalSurveySubmitted"));
             } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onFeedbackSubmitted event");
+                Log.e(sTag, "Failed to return onDigitalSurveySubmitted event");
             }
         }
 
         @Override
-        public void onFeedbackNotSubmittedWithAbort(String feedbackName) {
-            Log.d(sTag, "onFeedbackNotSubmittedWithAbort");
+        public void onDigitalSurveyNotSubmittedWithAbort(String feedbackName) {
+            Log.d(sTag, "onDigitalSurveyNotSubmittedWithAbort");
             try {
-                JSONObject jsonObject = new JSONObject().put("event", "onFeedbackNotSubmittedWithAbort");
+                JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveyNotSubmittedWithAbort");
                 
                 jsonObject.put("feedbackName", feedbackName);
                 
-                onEvent(new JSONObject().put("event", "onFeedbackNotSubmittedWithAbort"));
+                onEvent(new JSONObject().put("event", "onDigitalSurveyNotSubmittedWithAbort"));
             } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onFeedbackNotSubmittedWithAbort event");
+                Log.e(sTag, "Failed to return onDigitalSurveyNotSubmittedWithAbort event");
             }
         }
 
         @Override
-        public void onFeedbackNotSubmittedWithNetworkError(String feedbackName) {
-            Log.d(sTag, "onFeedbackNotSubmittedWithNetworkError");
+        public void onDigitalSurveyNotSubmittedWithNetworkError(String feedbackName) {
+            Log.d(sTag, "onDigitalSurveyNotSubmittedWithNetworkError");
             try {
-                JSONObject jsonObject = new JSONObject().put("event", "onFeedbackNotSubmittedWithNetworkError");
+                JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveyNotSubmittedWithNetworkError");
                 
                 jsonObject.put("feedbackName", feedbackName);
                 
-                onEvent(new JSONObject().put("event", "onFeedbackNotSubmittedWithNetworkError"));
+                onEvent(new JSONObject().put("event", "onDigitalSurveyNotSubmittedWithNetworkError"));
             } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onFeedbackNotSubmittedWithNetworkError event");
+                Log.e(sTag, "Failed to return onDigitalSurveyNotSubmittedWithNetworkError event");
             }
         }
 
         @Override
-        public void onFeedbackStatusRetrieved(String feedbackName, boolean enabled) {
-            Log.d(sTag, "onFeedbackStatusRetrieved");
+        public void onDigitalSurveyStatusRetrieved(String feedbackName, boolean enabled) {
+            Log.d(sTag, "onDigitalSurveyStatusRetrieved");
             try {
-                JSONObject jsonObject = new JSONObject().put("event", "onFeedbackStatusRetrieved");
+                JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveyStatusRetrieved");
                 
                 jsonObject.put("feedbackName", feedbackName);
                 jsonObject.put("enabled", enabled ? "true" : "false");
                 
-                onEvent(new JSONObject().put("event", "onFeedbackStatusRetrieved"));
+                onEvent(new JSONObject().put("event", "onDigitalSurveyStatusRetrieved"));
             } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onFeedbackStatusRetrieved event");
+                Log.e(sTag, "Failed to return onDigitalSurveyStatusRetrieved event");
             }
         }
 
@@ -1017,7 +1017,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         private void onEvent(JSONObject eventMsg) {
             PluginResult result = new PluginResult(PluginResult.Status.OK, eventMsg);
             result.setKeepCallback(true);
-            for (CallbackContext c : mFeedbackCallbacks) {
+            for (CallbackContext c : mDigitalCallbacks) {
                 if (c != null) {
                     c.sendPluginResult(result);
                 }
