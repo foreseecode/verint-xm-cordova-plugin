@@ -45,12 +45,18 @@
                 <param name="onload" value="true" />
             </feature>
         </config-file>
-
         <resource-file src="src/exp_configuration.json"/>
         <header-file src="src/ios/ForeSeeAPI.h" />
         <source-file src="src/ios/ForeSeeAPI.m" />
-        <framework src="Verint-XM" type="podspec" spec="7.0.0" />
-        <framework src="Verint-XM/Digital" type="podspec" spec="7.0.0" />
+        <podspec>
+            <config>
+                <source url="https://github.com/CocoaPods/Specs.git"/>
+            </config>
+            <pods use-frameworks="true">
+                <pod name="Verint-XM" spec="7.0.0" />
+                <pod name="Verint-XM/Digital" spec="7.0.0" />
+            </pods>
+        </podspec>
     </platform>
 
     <info>
