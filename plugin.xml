@@ -46,9 +46,11 @@
             </feature>
         </config-file>
 
-        <resource-file src="src/foresee_configuration.json"/>
+        <resource-file src="src/exp_configuration.json"/>
+        <header-file src="src/ios/ForeSeeAPI.h" />
         <source-file src="src/ios/ForeSeeAPI.m" />
-        <framework src="ForeSee" type="podspec" spec="6.0.6" />
+        <framework src="Verint-XM" type="podspec" spec="7.0.0" />
+        <framework src="Verint-XM/Digital" type="podspec" spec="7.0.0" />
     </platform>
 
     <info>

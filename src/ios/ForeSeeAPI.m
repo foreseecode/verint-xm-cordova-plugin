@@ -1,84 +1,6 @@
 /********* ForeSeeAPI.m Cordova Plugin Implementation *******/
 
-#import <Cordova/CDV.h>
-#import <ForeSee/ForeSee.h>
-#import <ForeSeeCxMeasure/FSInviteDelegate.h>
-
-@interface ForeSeeAPI : CDVPlugin <FSInviteDelegate> {
-  // Member variables go here.
-    NSMutableArray* listeners;
-}
-
-// methods exposed to JS as API
-- (void)showSurvey: (CDVInvokedUrlCommand *)command;
-
-- (void)showInvite: (CDVInvokedUrlCommand *)command;
-
-- (void)checkEligibility: (CDVInvokedUrlCommand *)command;
-
-- (void)addCPPValue: (CDVInvokedUrlCommand *)command;
-
-- (void)getCPPValue: (CDVInvokedUrlCommand *)command;
-
-- (void)getAllCPPs: (CDVInvokedUrlCommand *)command;
-
-- (void)removeCPPValue: (CDVInvokedUrlCommand *)command;
-
-- (void)incrementPageViews: (CDVInvokedUrlCommand *)command;
-
-- (void)incrementSignificantEvent: (CDVInvokedUrlCommand *)command;
-
-- (void)resetState: (CDVInvokedUrlCommand *)command;
-
-- (void)start: (CDVInvokedUrlCommand *)command;
-
-- (void)startWithConfigurationFile: (CDVInvokedUrlCommand *)command;
-
-- (void)startWithConfigurationJson: (CDVInvokedUrlCommand *)command;
-
-- (void)isDebugLogEnabled: (CDVInvokedUrlCommand *)command;
-
-- (void)getVersion: (CDVInvokedUrlCommand *)command;
-
-- (void)getContactDetails: (CDVInvokedUrlCommand *)command;
-
-- (void)setContactDetails: (CDVInvokedUrlCommand *)command;
-
-- (void)getPreferredContactType: (CDVInvokedUrlCommand *)command;
-
-- (void)setPreferredContactType: (CDVInvokedUrlCommand *)command;
-
-- (void)customInviteDeclined: (CDVInvokedUrlCommand *)command;
-
-- (void)customInviteAccepted: (CDVInvokedUrlCommand *)command;
-
-- (void)setSkipPoolingCheck: (CDVInvokedUrlCommand *)command;
-
-- (void)setDebugLogEnabled: (CDVInvokedUrlCommand *)command;
-
-- (void)setInviteListener: (CDVInvokedUrlCommand *)command;
-
-- (void)removeInviteListener: (CDVInvokedUrlCommand *)command;
-
-- (void)sendInviteListenerResult:(TRMeasure *)measure eventMessage:(NSString*)msg;
-
-- (void)showFeedback:(CDVInvokedUrlCommand *)command;
-
-- (void)showFeedbackForName:(CDVInvokedUrlCommand *)command;
-
-- (void)checkIfFeedbackEnabledForName:(CDVInvokedUrlCommand *)command;
-
-- (void)getAvailableFeedbackNames:(CDVInvokedUrlCommand *)command;
-
-- (void)checkIfFeedbackEnabled:(CDVInvokedUrlCommand *)command;
-
-- (void)setFeedbackListener:(CDVInvokedUrlCommand *)command;
-
-- (void)sendFeedbackListenerResult:(TRMeasure *)measure eventMessage:(NSString*)msg;
-
-// Util method
-- (FSContactType)contactTypeForString:(NSString *)string;
-@end
+#import "ForeSeeAPI.h"
 
 @implementation ForeSeeAPI
 
@@ -87,13 +9,13 @@
     listeners = [[NSMutableArray alloc] init];
 }
 
-- (FSContactType)contactTypeForString:(NSString *)string {
+- (EXPContactType)contactTypeForString:(NSString *)string {
     if ([string isEqualToString:@"Email"]) {
-        return kFSEmail;
+        return kEXPEmail;
     } else if ([string isEqualToString:@"PhoneNumber"]) {
-        return kFSPhoneNumber;
+        return kEXPPhoneNumber;
     } else {
-        return kFSUnknown;
+        return kEXPUnknown;
     }
 }
 
@@ -103,7 +25,7 @@
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
 
-    [ForeSeeCxMeasure checkIfEligibleForSurvey];
+    [EXPPredictive checkIfEligibleForSurvey];
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -112,7 +34,7 @@
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
-    
+
     if(arguments == nil || arguments.count < 1){
         NSLog(@"Bad surveyId for showSurvey");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
@@ -121,7 +43,7 @@
         NSString* surveyId = [command.arguments objectAtIndex:0];
         if (surveyId != nil && [surveyId length] > 0) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-            [ForeSeeCxMeasure showSurveyForSurveyID:surveyId];
+            [EXPPredictive showSurveyForSurveyID:surveyId];
         } else {
             NSLog(@"Bad surveyId for showSurvey");
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
@@ -142,10 +64,10 @@
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }else{
         NSString* surveyId = [command.arguments objectAtIndex:0];
-        
+
         if (surveyId != nil && [surveyId length] > 0) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-            [ForeSeeCxMeasure showInviteForSurveyID:surveyId];
+            [EXPPredictive showInviteForSurveyID:surveyId];
         } else {
             NSLog(@"Bad surveyId for showInvite");
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
@@ -159,7 +81,7 @@
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
-   
+
     if(arguments == nil || arguments.count < 2){
         NSLog(@"No key or value for addCPPValue");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
@@ -170,7 +92,7 @@
 
         if (key != nil && [key length] > 0 && value != nil && [value length] > 0) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-            [ForeSee setCPPValue:value forKey:key];
+            [EXPCore setCPPValue:value forKey:key];
         } else {
             NSLog(@"Bad key or value for addCPPValue");
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
@@ -184,16 +106,16 @@
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
-   
+
     if(arguments == nil || arguments.count < 1){
         NSLog(@"No key for getCPPValue");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else{
         NSString* key = [command.arguments objectAtIndex:0];
-        
+
         if (key != nil && [key length] > 0) {
-            NSString* value = [ForeSee CPPValueForKey:key];
+            NSString* value = [EXPCore CPPValueForKey:key];
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:value];
         } else {
             NSLog(@"Bad key for getCPPValue");
@@ -208,10 +130,10 @@
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
-   
-    NSDictionary* allCPPs = [ForeSee allCPPs];
+
+    NSDictionary* allCPPs = [EXPCore allCPPs];
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:allCPPs];
-    
+
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
@@ -219,7 +141,7 @@
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
-   
+
     if(arguments == nil || arguments.count < 1){
         NSLog(@"No surveyId for removeCPPValue");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
@@ -229,7 +151,7 @@
 
         if (key != nil && [key length] > 0) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-            [ForeSee removeCPPValueForKey:key];
+            [EXPCore removeCPPValueForKey:key];
         } else {
             NSLog(@"Bad value in removeCPPValue");
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
@@ -240,12 +162,12 @@
 }
 
 -(void)incrementPageViews: (CDVInvokedUrlCommand *)command{
-    
+
     CDVPluginResult* pluginResult = nil;
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
 
-    [ForeSeeCxMeasure incrementPageViews];
+    [EXPPredictive incrementPageViews];
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 
@@ -256,7 +178,7 @@
 
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
-   
+
     if(arguments == nil || arguments.count < 1){
         NSLog(@"No surveyId for incrementSignificantEvent");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
@@ -266,7 +188,7 @@
 
         if (key != nil && [key length] > 0 ) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-            [ForeSeeCxMeasure incrementSignificantEventCountWithKey:key];
+            [EXPPredictive incrementSignificantEventCountWithKey:key];
         } else {
             NSLog(@"Bad value in incrementSignificantEvent");
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
@@ -281,7 +203,7 @@
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
 
-    [ForeSee resetState];
+    [EXPCore resetState];
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -293,7 +215,7 @@
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
 
-    [ForeSee start];
+    [EXPCore start];
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -302,7 +224,7 @@
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
-    
+
     if(arguments == nil || arguments.count < 1){
         NSLog(@"No config for startWithConfigurationFile");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
@@ -311,7 +233,7 @@
         NSString* configFile = [command.arguments objectAtIndex:0];
         if (configFile != nil && [configFile length] > 0) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-            [ForeSee startWithConfigurationFile:configFile];
+            [EXPCore startWithConfigurationFile:configFile];
         } else {
             NSLog(@"Bad config for startWithConfigurationFile");
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
@@ -326,7 +248,7 @@
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
-    
+
     if(arguments == nil || arguments.count < 1){
         NSLog(@"No configJson for startWithConfigurationJson");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
@@ -335,7 +257,7 @@
         NSString* jsonConfig = [command.arguments objectAtIndex:0];
         if (jsonConfig != nil && [jsonConfig length] > 0) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-            [ForeSee startWithConfigurationJson:jsonConfig];
+            [EXPCore startWithConfigurationJson:jsonConfig];
         } else {
             NSLog(@"Bad configJson for startWithConfigurationJson");
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
@@ -356,7 +278,7 @@
     else{
         BOOL enable = [command.arguments objectAtIndex:0];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        [ForeSee setDebugLogEnabled:enable];
+        [EXPCore setDebugLogEnabled:enable];
     }
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -365,8 +287,8 @@
 - (void)isDebugLogEnabled: (CDVInvokedUrlCommand *)command{
     CDVPluginResult* pluginResult = nil;
 
-    BOOL result = [ForeSee isDebugLogEnabled];
-    
+    BOOL result = [EXPCore isDebugLogEnabled];
+
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:result];
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -375,7 +297,7 @@
 - (void)getVersion: (CDVInvokedUrlCommand *)command{
     CDVPluginResult* pluginResult = nil;
 
-    NSString* version = [ForeSee version];
+    NSString* version = [EXPCore version];
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:version];
 
@@ -390,8 +312,8 @@
     if (arguments == nil || arguments.count < 1) {
         NSLog(@"No data for contactType");
     } else {
-        FSContactType contactType = [self contactTypeForString:[command.arguments objectAtIndex:0]];
-        result = [ForeSeeCxMeasure contactDetailsForType:contactType];
+        EXPContactType contactType = [self contactTypeForString:[command.arguments objectAtIndex:0]];
+        result = [EXPPredictive contactDetailsForType:contactType];
     }
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:result];
@@ -403,15 +325,15 @@
 
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
-    
+
     if(arguments == nil || arguments.count < 2 || arguments.count > 2) {
         NSLog(@"No, or too many details for setContactDetails");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     } else {
         NSString* contact = [arguments objectAtIndex:0];
         if (contact != nil && [contact length] != 0 && arguments.count == 2) {
-            FSContactType contactType = [self contactTypeForString:[arguments objectAtIndex:1]];
-            [ForeSeeCxMeasure setContactDetails:contact forType:contactType];
+            EXPContactType contactType = [self contactTypeForString:[arguments objectAtIndex:1]];
+            [EXPPredictive setContactDetails:contact forType:contactType];
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         } else {
             NSLog(@"Bad contact for setContactDetails");
@@ -435,15 +357,15 @@
 
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
-    
+
     if(arguments == nil || arguments.count < 1) {
         NSLog(@"Bad contact type for setPreferredContactType");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     } else {
         NSString* string = [arguments objectAtIndex:0];
         if (string != nil && [string length] != 0) {
-            FSContactType contactType = [self contactTypeForString:string];
-            [ForeSeeCxMeasure setPreferredContactType:contactType];
+            EXPContactType contactType = [self contactTypeForString:string];
+            [EXPPredictive setPreferredContactType:contactType];
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         } else {
             NSLog(@"Bad contact type for setContactDetails");
@@ -459,7 +381,7 @@
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
 
-    [ForeSeeCxMeasure customInviteAccepted];
+    [EXPPredictive customInviteAccepted];
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -469,7 +391,7 @@
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
 
-    [ForeSeeCxMeasure customInviteDeclined];
+    [EXPPredictive customInviteDeclined];
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -485,7 +407,7 @@
     else{
         BOOL skip = [command.arguments objectAtIndex:0];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        [ForeSeeCxMeasure setSkipPoolingCheck:skip];
+        [EXPPredictive setSkipPoolingCheck:skip];
     }
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -495,7 +417,7 @@
     [listeners removeAllObjects];
 
     NSLog(@"Initializing the invite listener");
-    [ForeSeeCxMeasure setInviteDelegate:self];
+    [EXPPredictive setInviteDelegate:self];
 
     [listeners addObject:command];
     NSLog(@"Adding an invite listener");
@@ -503,47 +425,47 @@
 
 - (void)removeInviteListener: (CDVInvokedUrlCommand *)command{
     NSLog(@"Removing the invite listener");
-    [ForeSeeCxMeasure setInviteDelegate:nil];
+    [EXPPredictive setInviteDelegate:nil];
     [listeners removeAllObjects];
 }
 
-- (void)willNotShowInviteWithEligibilityFailedForMeasure:(TRMeasure *)measure{
+- (void)willNotShowInviteWithEligibilityFailedForMeasure:(EXPMeasure *)measure{
     [self sendInviteListenerResult:measure eventMessage:@"onInviteNotShownWithEligibilityFailed"];
 }
 
-- (void)willNotShowInviteWithSamplingFailedForMeasure:(TRMeasure *)measure{
+- (void)willNotShowInviteWithSamplingFailedForMeasure:(EXPMeasure *)measure{
     [self sendInviteListenerResult:measure eventMessage:@"onInviteNotShownWithSamplingFailed"];
 }
 
-- (void)didShowInviteForMeasure:(TRMeasure *)measure{
+- (void)didShowInviteForMeasure:(EXPMeasure *)measure{
     [self sendInviteListenerResult:measure eventMessage:@"onInvitePresented"];
 }
 
-- (void)didAcceptInviteForMeasure:(TRMeasure *)measure{
+- (void)didAcceptInviteForMeasure:(EXPMeasure *)measure{
     [self sendInviteListenerResult:measure eventMessage:@"onInviteCompleteWithAccept"];
 }
 
-- (void)didDeclineInviteForMeasure:(TRMeasure *)measure{
+- (void)didDeclineInviteForMeasure:(EXPMeasure *)measure{
     [self sendInviteListenerResult:measure eventMessage:@"onInviteCompleteWithDecline"];
 }
 
-- (void)didShowSurveyForMeasure:(TRMeasure *)measure{
+- (void)didShowSurveyForMeasure:(EXPMeasure *)measure{
     [self sendInviteListenerResult:measure eventMessage:@"onSurveyPresented"];
 }
 
-- (void)didCancelSurveyForMeasure:(TRMeasure *)measure{
+- (void)didCancelSurveyForMeasure:(EXPMeasure *)measure{
     [self sendInviteListenerResult:measure eventMessage:@"onSurveyCancelledByUser"];
 }
 
-- (void)didCompleteSurveyForMeasure:(TRMeasure *)measure{
+- (void)didCompleteSurveyForMeasure:(EXPMeasure *)measure{
     [self sendInviteListenerResult:measure eventMessage:@"onSurveyCompleted"];
 }
 
-- (void)didFailForMeasure:(TRMeasure *)measure withNetworkError:(NSError *)error{
+- (void)didFailForMeasure:(EXPMeasure *)measure withNetworkError:(NSError *)error{
     [self sendInviteListenerResult:measure eventMessage:@"onSurveyCancelledWithNetworkError"];
 }
 
-- (void)sendInviteListenerResult:(TRMeasure *)measure eventMessage:(NSString*)msg{
+- (void)sendInviteListenerResult:(EXPMeasure *)measure eventMessage:(NSString*)msg{
 
     CDVPluginResult* pluginResult = nil;
 
@@ -596,7 +518,7 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)checkIfFeedbackEnabled: (CDVInvokedUrlCommand *)command { 
+- (void)checkIfFeedbackEnabled: (CDVInvokedUrlCommand *)command {
     // Not supported
     CDVPluginResult* pluginResult = nil;
 
@@ -643,7 +565,7 @@
 }
 
 - (void)sendFeedbackListenerResult:(NSString *)feedbackName eventMessage:(NSString*)msg{
-    [self sendFeedbackListenerResult:feedbackName withStatus:nil eventMessage:@"feedbackNotSubmittedWithAbort"];    
+    [self sendFeedbackListenerResult:feedbackName withStatus:nil eventMessage:@"feedbackNotSubmittedWithAbort"];
 }
 
 - (void)sendFeedbackListenerResult:(NSString *)feedbackName withStatus:(NSNumber*)status eventMessage:(NSString*)msg{
