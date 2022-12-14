@@ -11,13 +11,12 @@
 #import <Cordova/CDV.h>
 #import <EXPCore/EXPCore.h>
 #import <EXPPredictive/EXPInviteDelegate.h>
+#import <EXPDigital/EXPDigital-Swift.h>
 
-@interface ForeSeeAPI : CDVPlugin <EXPInviteDelegate> {
-  // Member variables go here.
-    NSMutableArray* listeners;
-}
+@interface ForeSeeAPI : CDVPlugin <EXPInviteDelegate, DigitalDelegate>
 
-// methods exposed to JS as API
+#pragma mark - Verint-XM interface
+
 - (void)showSurvey:(CDVInvokedUrlCommand *)command;
 - (void)showInvite:(CDVInvokedUrlCommand *)command;
 - (void)checkEligibility:(CDVInvokedUrlCommand *)command;
@@ -41,19 +40,21 @@
 - (void)customInviteAccepted:(CDVInvokedUrlCommand *)command;
 - (void)setSkipPoolingCheck:(CDVInvokedUrlCommand *)command;
 - (void)setDebugLogEnabled:(CDVInvokedUrlCommand *)command;
+- (void)showDigitalSurvey:(CDVInvokedUrlCommand *)command;
+- (void)showDigitalSurveyForName:(CDVInvokedUrlCommand *)command;
+- (void)checkIfDigitalSurveyEnabledForName:(CDVInvokedUrlCommand *)command;
+- (void)getAvailableDigitalSurveyNames:(CDVInvokedUrlCommand *)command;
+- (void)checkIfDigitalSurveyEnabled:(CDVInvokedUrlCommand *)command;
+
+#pragma mark - Plugin-specific public methods
+
 - (void)setInviteListener:(CDVInvokedUrlCommand *)command;
 - (void)removeInviteListener:(CDVInvokedUrlCommand *)command;
-- (void)sendInviteListenerResult:(EXPMeasure *)measure eventMessage:(NSString*)msg;
-- (void)showFeedback:(CDVInvokedUrlCommand *)command;
-- (void)showFeedbackForName:(CDVInvokedUrlCommand *)command;
-- (void)checkIfFeedbackEnabledForName:(CDVInvokedUrlCommand *)command;
-- (void)getAvailableFeedbackNames:(CDVInvokedUrlCommand *)command;
-- (void)checkIfFeedbackEnabled:(CDVInvokedUrlCommand *)command;
-- (void)setFeedbackListener:(CDVInvokedUrlCommand *)command;
-- (void)sendFeedbackListenerResult:(NSString *)measure eventMessage:(NSString*)msg;
-
-// Util method
+- (void)setDigitalListener:(CDVInvokedUrlCommand *)command;
+- (void)removeDigitalListener:(CDVInvokedUrlCommand *)command;
 - (EXPContactType)contactTypeForString:(NSString *)string;
 @end
 
 #endif /* ForeSeeAPI_h */
+
+

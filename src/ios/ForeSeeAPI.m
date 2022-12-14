@@ -2,12 +2,23 @@
 
 #import "ForeSeeAPI.h"
 
+@interface ForeSeeAPI ()
+
+@property (nonatomic) CDVInvokedUrlCommand *inviteListenerCommand;
+@property (nonatomic) CDVInvokedUrlCommand *feedbackListenerCommand;
+
+@end
+
 @implementation ForeSeeAPI
 
+#pragma mark - Cordova
 
 - (void)pluginInitialize {
-    listeners = [[NSMutableArray alloc] init];
+    [EXPPredictive setInviteDelegate:self];
+    [DigitalComponent setDelegate:self];
 }
+
+#pragma mark - Helpers
 
 - (EXPContactType)contactTypeForString:(NSString *)string {
     if ([string isEqualToString:@"Email"]) {
@@ -18,6 +29,8 @@
         return kEXPUnknown;
     }
 }
+
+#pragma mark - Public interface
 
 - (void)checkEligibility: (CDVInvokedUrlCommand *)command
 {
@@ -129,8 +142,6 @@
 - (void)getAllCPPs: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
-    NSArray* arguments = command.arguments;
-
     NSDictionary* allCPPs = [EXPCore allCPPs];
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:allCPPs];
 
@@ -413,22 +424,6 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)setInviteListener: (CDVInvokedUrlCommand*)command{
-    [listeners removeAllObjects];
-
-    NSLog(@"Initializing the invite listener");
-    [EXPPredictive setInviteDelegate:self];
-
-    [listeners addObject:command];
-    NSLog(@"Adding an invite listener");
-}
-
-- (void)removeInviteListener: (CDVInvokedUrlCommand *)command{
-    NSLog(@"Removing the invite listener");
-    [EXPPredictive setInviteDelegate:nil];
-    [listeners removeAllObjects];
-}
-
 - (void)willNotShowInviteWithEligibilityFailedForMeasure:(EXPMeasure *)measure{
     [self sendInviteListenerResult:measure eventMessage:@"onInviteNotShownWithEligibilityFailed"];
 }
@@ -465,110 +460,164 @@
     [self sendInviteListenerResult:measure eventMessage:@"onSurveyCancelledWithNetworkError"];
 }
 
-- (void)sendInviteListenerResult:(EXPMeasure *)measure eventMessage:(NSString*)msg{
+#pragma mark - Invite listener helpers
 
-    CDVPluginResult* pluginResult = nil;
+- (void)setInviteListener:(CDVInvokedUrlCommand *)command {
+    self.inviteListenerCommand = command;
+}
 
-    for(CDVInvokedUrlCommand* command in listeners){
+- (void)removeInviteListener:(CDVInvokedUrlCommand *)command {
+    self.inviteListenerCommand = nil;
+}
 
-        NSLog(@"Returning callback for %@", msg);
-        NSDictionary* eventDictionary = @{@"event":msg, @"surveyId": measure.surveyID};
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:eventDictionary];
+- (void)sendInviteListenerResult:(EXPMeasure *)measure eventMessage:(NSString *)msg {
+    if (!self.inviteListenerCommand) {
+        return;
+    }
+    NSDictionary *eventDictionary = @{@"event":msg, @"surveyId": measure.surveyID};
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:eventDictionary];
+    [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.inviteListenerCommand.callbackId];
+}
 
-        [pluginResult setKeepCallback: [NSNumber numberWithBool:YES]];
+#pragma mark - Digital Surveys
 
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+- (void)showDigitalSurvey:(CDVInvokedUrlCommand *)command {
+    [DigitalComponent showDigitalSurvey];
+    [self sendOKResultForCommand:command];
+}
+
+- (void)showDigitalSurveyForName:(CDVInvokedUrlCommand *)command {
+    if ([self validate:command argCount:1]) {
+        NSString *feedbackName = command.arguments[0];
+        [DigitalComponent showDigitalSurveyForName:feedbackName];
+        [self sendOKResultForCommand:command];
     }
 }
 
-- (void)showFeedback: (CDVInvokedUrlCommand *)command
-{
-    // Not supported
-    CDVPluginResult* pluginResult = nil;
-
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+- (void)checkIfDigitalSurveyEnabled:(CDVInvokedUrlCommand *)command {
+    [DigitalComponent checkIfDigitalSurveyEnabled];
+    [self sendNoResultResultForCommand:command];
 }
 
-- (void)showFeedbackForName: (CDVInvokedUrlCommand *)command{
-    // Not supported
-    CDVPluginResult* pluginResult = nil;
-
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+- (void)checkIfDigitalSurveyEnabledForName:(CDVInvokedUrlCommand *)command {
+    if ([self validate:command argCount:1]) {
+        NSString *feedbackName = command.arguments[0];
+        [DigitalComponent checkIfDigitalSurveyEnabledForName:feedbackName];
+        [self sendNoResultResultForCommand:command];
+    }
 }
 
-- (void)checkIfFeedbackEnabledForName: (CDVInvokedUrlCommand *)command{
-    // Not supported
-    CDVPluginResult* pluginResult = nil;
-
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+- (void)getAvailableDigitalSurveyNames:(CDVInvokedUrlCommand *)command {
+    NSArray<NSString *> *result = [DigitalComponent availableDigitalSurveyNames];
+    if (result) {
+        CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:result];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    } else {
+        [self sendErrorResultForCommand:command];
+    }
 }
 
-- (void)getAvailableFeedbackNames: (CDVInvokedUrlCommand *)command {
-    // Not supported
-    CDVPluginResult* pluginResult = nil;
+#pragma mark - <DigitalDelegate>
 
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+- (void)digitalSurveyPresented:(NSString *)surveyName {
+    [self sendDigitalListenerResult:surveyName eventMessage:@"digitalSurveyPresented"];
 }
 
-- (void)checkIfFeedbackEnabled: (CDVInvokedUrlCommand *)command {
-    // Not supported
-    CDVPluginResult* pluginResult = nil;
-
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+- (void)digitalSurveySubmitted:(NSString *)surveyName {
+    [self sendDigitalListenerResult:surveyName eventMessage:@"digitalSurveySubmitted"];
 }
 
-- (void)setFeedbackListener: (CDVInvokedUrlCommand*)command{
-    // Not supported
-    CDVPluginResult* pluginResult = nil;
-
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+- (void)digitalSurveyStatusRetrieved:(NSString *)surveyName enabled:(BOOL)enabled {
+    [self sendDigitalListenerResult:surveyName withStatus:[NSNumber numberWithBool:enabled] eventMessage:@"digitalSurveyStatusRetrieved"];
 }
 
-- (void)feedbackPresented:(NSString *)feedbackName{
-    [self sendFeedbackListenerResult:feedbackName eventMessage:@"onFeedbackPresented"];
+- (void)digitalSurveyNotPresentedWithDisabled:(NSString *)surveyName {
+    [self sendDigitalListenerResult:surveyName eventMessage:@"digitalSurveyNotPresentedWithDisabled"];
 }
 
-- (void)feedbackSubmitted:(NSString *)feedbackName {
-    [self sendFeedbackListenerResult:feedbackName eventMessage:@"feedbackSubmitted"];
+- (void)digitalSurveyNotPresentedWithNetworkError:(NSString *)surveyName {
+    [self sendDigitalListenerResult:surveyName eventMessage:@"digitalSurveyNotPresentedWithNetworkError"];
 }
 
-- (void)feedbackStatusRetrieved:(NSString *)feedbackName enabled:(BOOL)enabled {
-    [self sendFeedbackListenerResult:feedbackName withStatus:[NSNumber numberWithBool:enabled] eventMessage:@"feedbackStatusRetrieved"];
+- (void)digitalSurveyNotSubmittedWithNetworkError:(NSString *)surveyName {
+    [self sendDigitalListenerResult:surveyName eventMessage:@"digitalSurveyNotSubmittedWithNetworkError"];
 }
 
-- (void)feedbackNotPresentedWithDisabled:(NSString *)feedbackName {
-    [self sendFeedbackListenerResult:feedbackName eventMessage:@"feedbackNotPresentedWithDisabled"];
+- (void)digitalSurveyNotSubmittedWithAbort:(NSString *)surveyName {
+    [self sendDigitalListenerResult:surveyName eventMessage:@"digitalSurveyNotSubmittedWithAbort"];
 }
 
-- (void)feedbackNotPresentedWithNetworkError:(NSString *)feedbackName {
-    [self sendFeedbackListenerResult:feedbackName eventMessage:@"feedbackNotPresentedWithNetworkError"];
+#pragma mark - Digital Survey listener helpers
+
+- (void)setDigitalListener:(CDVInvokedUrlCommand *)command {
+    self.feedbackListenerCommand = command;
 }
 
-- (void)feedbackNotSubmittedWithNetworkError:(NSString *)feedbackName {
-    [self sendFeedbackListenerResult:feedbackName eventMessage:@"feedbackNotSubmittedWithNetworkError"];
+- (void)removeDigitalListener:(CDVInvokedUrlCommand *)command {
+    self.feedbackListenerCommand = nil;
 }
 
-- (void)feedbackNotSubmittedWithAbort:(NSString *)feedbackName {
-    [self sendFeedbackListenerResult:feedbackName eventMessage:@"feedbackNotSubmittedWithAbort"];
+- (void)sendDigitalListenerResult:(NSString *)surveyName eventMessage:(NSString *)msg {
+    [self sendDigitalListenerResult:surveyName withStatus:nil eventMessage:msg];
 }
 
-- (void)sendFeedbackListenerResult:(NSString *)feedbackName eventMessage:(NSString*)msg{
-    [self sendFeedbackListenerResult:feedbackName withStatus:nil eventMessage:@"feedbackNotSubmittedWithAbort"];
+- (void)sendDigitalListenerResult:(NSString *)surveyName withStatus:(NSNumber*)status eventMessage:(NSString *)msg {
+    if (!self.feedbackListenerCommand) {
+        return;
+    }
+    NSDictionary *eventDictionary = @{@"event":msg, @"feedbackName":surveyName, @"status":status};
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
+                                                  messageAsDictionary:eventDictionary];
+    [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.feedbackListenerCommand.callbackId];
 }
 
-- (void)sendFeedbackListenerResult:(NSString *)feedbackName withStatus:(NSNumber*)status eventMessage:(NSString*)msg{
-    // Not supported
+#pragma mark - Cordova command validation
+
+- (BOOL)validate:(CDVInvokedUrlCommand *)command argCount:(int)count {
+    return [self validate:command argCount:count sendErrorResult:YES];
 }
+
+- (BOOL)validate:(CDVInvokedUrlCommand *)command argCount:(int)count sendErrorResult:(BOOL)sendError {
+    if (command && command.arguments && command.arguments.count >= count) {
+        BOOL foundEmptyArg = NO;
+        for (id arg in command.arguments) {
+            if ([arg respondsToSelector:@selector(length)] && [arg length] <= 0) {
+                foundEmptyArg = YES;
+                break;
+            }
+        }
+        if (!foundEmptyArg) {
+            return YES;
+        }
+    }
+    if (sendError) {
+        [self sendErrorResultForCommand:command message:@"Invalid argument array"];
+    }
+    return NO;
+}
+
+- (void)sendOKResultForCommand:(CDVInvokedUrlCommand *)command {
+    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK]
+                                callbackId:command.callbackId];
+}
+
+- (void)sendNoResultResultForCommand:(CDVInvokedUrlCommand *)command {
+    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_NO_RESULT]
+                                callbackId:command.callbackId];
+}
+
+- (void)sendErrorResultForCommand:(CDVInvokedUrlCommand *)command {
+    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR]
+                                callbackId:command.callbackId];
+}
+
+- (void)sendErrorResultForCommand:(CDVInvokedUrlCommand *)command message:(NSString *)message {
+    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                                             messageAsString:message]
+                                callbackId:command.callbackId];
+}
+
 @end
+
