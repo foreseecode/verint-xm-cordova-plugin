@@ -59,10 +59,6 @@
         </podspec>
     </platform>
 
-    <info>
-        For iOS don't forget to run pod install, to include ForeSee iOS SDK 
-    </info>
-
     <hook src="scripts/foresee_config.js" type="after_prepare" />
 
 </plugin>
