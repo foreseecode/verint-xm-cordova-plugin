@@ -4,5 +4,13 @@ allprojects {
             url "https://mvnrepository.com/artifact"
             mavenLocal()
         }
-   }
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/foreseecode/public-packages")
+            credentials {
+                username = System.getenv("GITHUB_USERNAME")
+                password = System.getenv("GITHUB_PERSONAL_KEY")
+            }
+        }
+    }
 }
