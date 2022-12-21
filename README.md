@@ -26,6 +26,12 @@ To set up the plugin in your app, follow these instructions
    This will automatically add `compile "com.foresee.sdk:sdk:+"` to your `build.gradle` file. 
    It will also copy the exp_configuration.json file to `platform/ios` and `platform/android` if they exist
 
+   If you have a copy of this repo on disk, then you can also add the plugin to your app by pointing directly to it, like this:
+
+   ```
+   cordova plugin add <PATH_TO_THE_PLUGIN_REPO> --nofetch
+   ```
+
 3. Within the `deviceready` event handler initialize the Verint-XM SDK by invoking 
 
     ```
