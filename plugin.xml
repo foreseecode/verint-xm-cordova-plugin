@@ -29,8 +29,8 @@
         </config-file>
 
         <framework src="build.gradle" custom="true" type="gradleReference" />
-        <framework src="com.foresee.sdk:cxMeasure:6.0.3" />
-        <framework src="com.foresee.sdk:feedback:6.0.3" />
+        <framework src="com.verint.xm.sdk:predictive:7.0.0" />
+        <framework src="com.verint.xm.sdk:digital:7.0.0" />
         <framework src="com.android.support:appcompat-v7:26.1.0"/>
         <source-file src="src/android/ForeSeeAPI.java" target-dir="src/com/foresee/cordova/plugin/ForeSeeAPI" />
     </platform>
@@ -45,16 +45,20 @@
                 <param name="onload" value="true" />
             </feature>
         </config-file>
-
-        <resource-file src="src/foresee_configuration.json"/>
+        <resource-file src="src/exp_configuration.json"/>
+        <header-file src="src/ios/ForeSeeAPI.h" />
         <source-file src="src/ios/ForeSeeAPI.m" />
-        <framework src="ForeSee" type="podspec" spec="6.0.6" />
+        <podspec>
+            <config>
+                <source url="https://github.com/CocoaPods/Specs.git"/>
+            </config>
+            <pods use-frameworks="true">
+                <pod name="Verint-XM" spec="7.0.0" />
+                <pod name="Verint-XM/Digital" spec="7.0.0" />
+            </pods>
+        </podspec>
     </platform>
 
-    <info>
-        For iOS don't forget to run pod install, to include ForeSee iOS SDK 
-    </info>
-
-     <hook src="scripts/foresee_config.js" type="after_prepare" />
+    <hook src="scripts/foresee_config.js" type="after_prepare" />
 
 </plugin>

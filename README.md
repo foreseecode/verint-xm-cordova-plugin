@@ -2,20 +2,20 @@
 
 ## Requirements 
 
-* Cordova-android: 6.2.3+
-* Cordova-ios: 4.4.0+
+* cordova-android: 10.1.2
+* cordova-ios: 6.2.0
 * Android: 21+
 * iOS: 11.0+
-* ForeSee SDK
-    * iOS 6.0.6
-    * Android 6.0.3
+* Verint-XM SDK
+    * iOS 7.0.0
+    * Android 7.0.0
 
 ----
 ## Setting up the plugin
 
 To set up the plugin in your app, follow these instructions
 
-1. Add `foresee_configuration.json` file in your `www` folder. For more information please check [Configuration Options](https://developer.foresee.com/docs/configuration-1)
+1. Add `exp_configuration.json` file in your `www` folder. For more information please check [Configuration Options](https://developer.foresee.com/docs/configuration-1)
 
 2. Add the ForeSee plugin to your project 
 
@@ -24,15 +24,21 @@ To set up the plugin in your app, follow these instructions
    ```
 
    This will automatically add `compile "com.foresee.sdk:sdk:+"` to your `build.gradle` file. 
-   It will also copy the foresee_configuration.json file to `platform/ios` and `platform/android` if they exist
+   It will also copy the exp_configuration.json file to `platform/ios` and `platform/android` if they exist
 
-3. Within the `deviceready` event handler initialize the ForeSee SDK by invoking 
+   If you have a copy of this repo on disk, then you can also add the plugin to your app by pointing directly to it, like this:
+
+   ```
+   cordova plugin add <PATH_TO_THE_PLUGIN_REPO> --nofetch
+   ```
+
+3. Within the `deviceready` event handler initialize the Verint-XM SDK by invoking 
 
     ```
     cordova.plugins.ForeSeeAPI.start(this.onSuccess, this.onFailure);
     ```
 
-4. Now you can use `cordova.plugins.ForeSeeAPI` in your JavaScript code for example:
+4. Now you can use `cordova.plugins.ForeSeeAPI` in your JavaScript code. For example:
 
    ```
    cordova.plugins.ForeSeeAPI.checkEligibility(this.onSuccess, this.onFailure);
