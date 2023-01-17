@@ -51,6 +51,8 @@ To set up the plugin in your app, follow these instructions
    ```
 
 5. For all supported methods please check the API docs included in this package, or [online here](http://developer.foresee.com/downloads/sdk/mobile/cordova/current/docs/index.html). For general information about the ForeSee SDK, please see the [ForeSee Developer Portal](https://developer.foresee.com/).
+
+6. Add `foresee_logo.png` file in your `www/img/` folder. To include a logo for the survey.
    
    
    
