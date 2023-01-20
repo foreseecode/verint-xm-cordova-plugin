@@ -740,8 +740,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             Log.d(sTag, "init the ForeSee SDK");
             Core.start(cordova.getActivity().getApplication());
             Core.addCPPValue("crossPlatformName", "Cordova Android");
-            Core.addCPPValue("crossPlatformSDKVersion", String.valueOf(android.os.Build.VERSION.SDK_INT));
-            Core.addCPPValue("crossPlatformVersion", CordovaWebView.CORDOVA_VERSION);
+            Core.addCPPValue("crossPlatformSDKVersion", CordovaWebView.CORDOVA_VERSION);
             Core.addCPPValue("crossPlatformOSVersion", android.os.Build.VERSION.RELEASE);
         }
     }
