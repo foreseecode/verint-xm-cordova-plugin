@@ -1,6 +1,7 @@
 package com.foresee.cordova.plugin;
 
 import android.util.Log;
+import android.os.Build;
 
 import com.verint.xm.sdk.Core;
 import com.verint.xm.sdk.Predictive;
@@ -22,7 +23,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.cordova.CallbackContext;
-
+import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -738,6 +739,9 @@ public class ForeSeeAPI extends CordovaPlugin {
         if (!Core.isCoreStarted()) {
             Log.d(sTag, "init the ForeSee SDK");
             Core.start(cordova.getActivity().getApplication());
+            Core.addCPPValue("crossPlatformName", "Cordova Android");
+            Core.addCPPValue("crossPlatformSDKVersion", CordovaWebView.CORDOVA_VERSION);
+            Core.addCPPValue("crossPlatformOSVersion", android.os.Build.VERSION.RELEASE);
         }
     }
 

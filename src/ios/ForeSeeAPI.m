@@ -2,6 +2,10 @@
 
 #import "ForeSeeAPI.h"
 
+NSString* const platformNameKey = @"crossPlatformName";
+NSString* const platformSDKVersionKey = @"crossPlatformSDKVersion";
+NSString* const platformOSVersionKey = @"crossPlatformOSVersion";
+
 @interface ForeSeeAPI ()
 
 @property (nonatomic) CDVInvokedUrlCommand *inviteListenerCommand;
@@ -219,6 +223,11 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
+- (void)addCrossPlatformCPPs {
+  [EXPCore setCPPValue:@"Cordova iOS" forKey:platformNameKey];
+  [EXPCore setCPPValue:[CDVDevice cordovaVersion] forKey:platformSDKVersionKey];
+  [EXPCore setCPPValue:[[UIDevice currentDevice] systemVersion] forKey:platformOSVersionKey];
+}
 
 - (void)start: (CDVInvokedUrlCommand *)command
 {
@@ -228,6 +237,7 @@
 
     [EXPCore start];
 
+    [self addCrossPlatformCPPs];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
@@ -251,7 +261,7 @@
         }
     }
 
-
+    [self addCrossPlatformCPPs];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
@@ -275,6 +285,7 @@
         }
     }
 
+    [self addCrossPlatformCPPs];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 

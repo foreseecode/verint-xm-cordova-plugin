@@ -9,6 +9,7 @@
 #define ForeSeeAPI_h
 
 #import <Cordova/CDV.h>
+#import "CDVDevice.h"
 #import <EXPCore/EXPCore.h>
 #import <EXPPredictive/EXPInviteDelegate.h>
 #import <EXPDigital/EXPDigital-Swift.h>
