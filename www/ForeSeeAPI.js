@@ -1,5 +1,8 @@
 var exec = require("cordova/exec");
+var pjson = require('./package.json');
+var version = pjson.version
 const ForeSeeAPI = "ForeSeeAPI";
+const PlatformVersionKey = "crossPlatformVersion";
 
 function validate(args) {
     if (args && args.constructor !== Array) {
@@ -184,6 +187,7 @@ exports.resetState = function (success, error) {
  */
 exports.start = function (success, error) {
     exec(success, error, ForeSeeAPI, "start", []);
+    exec(success, error, ForeSeeAPI, "addCPPValue", [PlatformVersionKey, version]);
 };
 
 /**
@@ -203,6 +207,7 @@ exports.start = function (success, error) {
  */
 exports.startWithConfigurationFile = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "startWithConfigurationFile", validate(args));
+    exec(success, error, ForeSeeAPI, "addCPPValue", [PlatformVersionKey, version]);
 };
 
 /**
@@ -221,6 +226,7 @@ exports.startWithConfigurationFile = function (args, success, error) {
  */
 exports.startWithConfigurationJson = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "startWithConfigurationJson", validate(args));
+    exec(success, error, ForeSeeAPI, "addCPPValue", [PlatformVersionKey, version]);
 };
 
 /**
