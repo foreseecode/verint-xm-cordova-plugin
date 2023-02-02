@@ -302,7 +302,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
-                Log.i(sTag, "start() JS API for ANDROID is not available");
+                Log.i(sTag, "The start() API for ANDROID is not available in Cordova implementations. The SDK will start automatically on app launch");
                 callback.success(sTag + "start() is not available");
                 return true;
             }
@@ -314,7 +314,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
-                Log.i(sTag, "startWithConfigurationFile() JS API for ANDROID is not available");
+                Log.i(sTag, "The startWithConfigurationFile() API for ANDROID is not available in Cordova implementations. The SDK will start automatically on app launch");
                 callback.success(sTag + "start() is not available");
                 return true;
 
@@ -327,7 +327,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
-                Log.i(sTag, "startWithConfigurationJson() JS API for ANDROID is not available");
+                Log.i(sTag, "The startWithConfigurationJson() API for ANDROID is not available in Cordova implementations. The SDK will start automatically on app launch");
                 callback.success(sTag + "start() is not available");
                 return true;
             }
