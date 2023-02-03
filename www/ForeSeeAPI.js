@@ -1,6 +1,5 @@
 var exec = require("cordova/exec");
 const ForeSeeAPI = "ForeSeeAPI";
-const PlatformVersionKey = "crossPlatformVersion";
 
 function validate(args) {
     if (args && args.constructor !== Array) {

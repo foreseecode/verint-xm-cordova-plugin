@@ -5,6 +5,8 @@
 NSString* const platformNameKey = @"crossPlatformName";
 NSString* const platformSDKVersionKey = @"crossPlatformSDKVersion";
 NSString* const platformOSVersionKey = @"crossPlatformOSVersion";
+NSString* const platformVersionKey = @"crossPlatformVersion";
+NSString* const version = @"2.0.0";
 
 @interface ForeSeeAPI ()
 
@@ -20,10 +22,8 @@ NSString* const platformOSVersionKey = @"crossPlatformOSVersion";
 - (void)pluginInitialize {
     [EXPPredictive setInviteDelegate:self];
     [DigitalComponent setDelegate:self];
-    if ([EXPCore isSupported] && ![EXPCore isStarted]) {
-        [EXPCore start];
-        [self addCrossPlatformCPPs];
-    }
+    [EXPCore start];
+    [self addCrossPlatformCPPs];
 }
 
 #pragma mark - Helpers
@@ -231,6 +231,7 @@ NSString* const platformOSVersionKey = @"crossPlatformOSVersion";
   [EXPCore setCPPValue:@"Cordova iOS" forKey:platformNameKey];
   [EXPCore setCPPValue:[CDVDevice cordovaVersion] forKey:platformSDKVersionKey];
   [EXPCore setCPPValue:[[UIDevice currentDevice] systemVersion] forKey:platformOSVersionKey];
+  [EXPCore setCPPValue:version forKey:platformVersionKey];
 }
 
 - (void)start: (CDVInvokedUrlCommand *)command
