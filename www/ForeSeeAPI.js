@@ -1,6 +1,5 @@
 var exec = require("cordova/exec");
-var pjson = require('./package.json');
-var version = pjson.version
+var version = "2.0.0"
 const ForeSeeAPI = "ForeSeeAPI";
 const PlatformVersionKey = "crossPlatformVersion";
 
