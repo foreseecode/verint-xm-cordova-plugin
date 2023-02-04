@@ -43,6 +43,7 @@ public class ForeSeeAPI extends CordovaPlugin {
 
     /* Class tag for logs */
     private final static String sTag = "FORESEE_CORDOVA";
+    private final String version = "2.0.0";
 
     HashMap<String, ForeSeeMethod> sActions = new HashMap<String, ForeSeeMethod>();
     Set<CallbackContext> mCallbacks = Collections
@@ -302,7 +303,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
-                Log.i(sTag, "start() JS API for ANDROID is not available");
+                Log.i(sTag, "The start() API for ANDROID is not available in Cordova implementations. The SDK will start automatically on app launch");
                 callback.success(sTag + "start() is not available");
                 return true;
             }
@@ -314,7 +315,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
-                Log.i(sTag, "startWithConfigurationFile() JS API for ANDROID is not available");
+                Log.i(sTag, "The startWithConfigurationFile() API for ANDROID is not available in Cordova implementations. The SDK will start automatically on app launch");
                 callback.success(sTag + "start() is not available");
                 return true;
 
@@ -327,7 +328,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
-                Log.i(sTag, "startWithConfigurationJson() JS API for ANDROID is not available");
+                Log.i(sTag, "The startWithConfigurationJson() API for ANDROID is not available in Cordova implementations. The SDK will start automatically on app launch");
                 callback.success(sTag + "start() is not available");
                 return true;
             }
@@ -742,6 +743,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             Core.addCPPValue("crossPlatformName", "Cordova Android");
             Core.addCPPValue("crossPlatformSDKVersion", CordovaWebView.CORDOVA_VERSION);
             Core.addCPPValue("crossPlatformOSVersion", android.os.Build.VERSION.RELEASE);
+            Core.addCPPValue("crossPlatformVersion", version);
         }
     }
 
