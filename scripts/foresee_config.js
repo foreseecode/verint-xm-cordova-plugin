@@ -30,10 +30,10 @@ var PLATFORM = {
 
 var LOGO = {
     IOS: {
-        dest: 'platforms/ios/' + appName +  '/Resources/exp_configuration.json',
+        dest: 'platforms/ios/' + appName +  '/foresee_logo.png',
         src: [
-            'exp_configuration.json',
-            'www/exp_configuration.json'
+            'foresee_logo.png',
+            'www/img/foresee_logo.png'
         ]
     },
     ANDROID: {
@@ -84,11 +84,10 @@ function moveLogoToDirectories(platform) {
         var file = platform.src[i];
         if (fileExists(file)) {
                 try {
-                    console.log("Moving file: "+file);
                     var fileSource = fs.createReadStream(file);
                     var fileDestination = fs.createWriteStream(platform.dest)
                     fileSource.pipe(fileDestination);
-                    console.log("Successfully moved logo to platforms res folder");
+                    console.log("Successfully moved " +platform.src[i] + "to destination: " + platform.dest);
                 } catch (err) {
                     console.log("Error moving logo to directory " + platform.src[i] + " " +  err);
                 }
@@ -134,7 +133,7 @@ module.exports = function(context) {
   // Copy key files to their platform specific folders
   if (platforms.indexOf('ios') !== -1 && directoryExists("platforms/ios")) {
     console.log('Creating the exp_configuration.json file for iOS');
-    //moveLogoToDirectories(PLATFORM.IOS);
+    moveLogoToDirectories(LOGO.IOS);
     createConfigFile(PLATFORM.IOS);
   }
   if (platforms.indexOf('android') !== -1 && directoryExists("platforms/android")) {
