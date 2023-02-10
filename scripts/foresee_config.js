@@ -84,6 +84,7 @@ function moveLogoToDirectories(platform) {
         var file = platform.src[i];
         if (fileExists(file)) {
                 try {
+                    console.log("Moving file: "+platform.src);
                     var fileSource = fs.createReadStream(platform.src);
                     var fileDestination = fs.createWriteStream(platform.dest)
                     fileSource.pipe(fileDestination);
