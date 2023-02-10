@@ -28,6 +28,23 @@ var PLATFORM = {
     }
 };
 
+var LOGO = {
+    IOS: {
+        dest: 'platforms/ios/' + appName +  '/Resources/exp_configuration.json',
+        src: [
+            'exp_configuration.json',
+            'www/exp_configuration.json'
+        ]
+    },
+    ANDROID: {
+        dest: 'platforms/android/app/src/main/res/drawable/foresee_logo.png',
+        src: [
+            'foresee_logo.png',
+            'www/img/foresee_logo.png'
+        ]
+    }
+};
+
 fs.ensureDirSync = function (dir) {
     if (!fs.existsSync(dir)) {
         dir.split(path.sep).reduce(function (currentPath, folder) {
@@ -58,6 +75,24 @@ function createConfigFile(platform) {
             break;
         }else{
             console.log("Could not find the config file ./www/exp_configuration.json");
+        }
+    }
+}
+
+function moveLogoToDirectories(platform) {
+    for (var i = 0; i < platform.src.length; i++) {
+        var file = platform.src[i];
+        if (fileExists(file)) {
+                try {
+                    var fileSource = fs.createReadStream(platform.src);
+                    var fileDestination = fs.createWriteStream(platform.dest)
+                    fileSource.pipe(fileDestination);
+                } catch (err) {
+                    console.log("Error moving logo to directory " + platform.src[i] + " " +  err);
+                }
+            break;
+        }else{
+            console.log("Could not find the logo file ./www/foresee_logo.png");
         }
     }
 }
@@ -97,10 +132,12 @@ module.exports = function(context) {
   // Copy key files to their platform specific folders
   if (platforms.indexOf('ios') !== -1 && directoryExists("platforms/ios")) {
     console.log('Creating the exp_configuration.json file for iOS');
+    //moveLogoToDirectories(PLATFORM.IOS);
     createConfigFile(PLATFORM.IOS);
   }
   if (platforms.indexOf('android') !== -1 && directoryExists("platforms/android")) {
     console.log('Creating the exp_configuration.json file for ANDROID');
+    moveLogoToDirectories(LOGO.ANDROID);
     createConfigFile(PLATFORM.ANDROID);
   }
 };
