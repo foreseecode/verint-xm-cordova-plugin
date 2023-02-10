@@ -1,5 +1,5 @@
 var exec = require("cordova/exec");
-
+var version = "2.0.0"
 const ForeSeeAPI = "ForeSeeAPI";
 
 function validate(args) {
