@@ -30,7 +30,7 @@ var PLATFORM = {
 
 var LOGO = {
     IOS: {
-        dest: 'platforms/ios/' + appName +  '/foresee_logo.png',
+        dest: 'platforms/ios/' + appName +  '/Resources/foresee_logo.png',
         src: [
             'foresee_logo.png',
             'www/img/foresee_logo.png'
