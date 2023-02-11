@@ -30,17 +30,17 @@ var PLATFORM = {
 
 var LOGO = {
     IOS: {
-        dest: 'platforms/ios/' + appName +  '/Resources/foresee_logo.png',
+        dest: 'platforms/ios/' + appName +  '/Resources/exp_logo.png',
         src: [
-            'foresee_logo.png',
-            'www/img/foresee_logo.png'
+            'exp_logo.png',
+            'www/img/exp_logo.png'
         ]
     },
     ANDROID: {
-        dest: 'platforms/android/app/src/main/res/drawable/foresee_logo.png',
+        dest: 'platforms/android/app/src/main/res/drawable/exp_logo.png',
         src: [
-            'foresee_logo.png',
-            'www/img/foresee_logo.png'
+            'exp_logo.png',
+            'www/img/exp_logo.png'
         ]
     }
 };
@@ -87,13 +87,13 @@ function moveLogoToDirectories(platform) {
                     var fileSource = fs.createReadStream(file);
                     var fileDestination = fs.createWriteStream(platform.dest)
                     fileSource.pipe(fileDestination);
-                    console.log("Successfully moved " +platform.src[i] + "to destination: " + platform.dest);
+                    console.log("Successfully moved " +platform.src[i] + " to destination: " + platform.dest);
                 } catch (err) {
                     console.log("Error moving logo to directory " + platform.src[i] + " " +  err);
                 }
             break;
         }else{
-            console.log("Could not find the logo file ./www/foresee_logo.png");
+            console.log("Could not find the logo file: "+file);
         }
     }
 }

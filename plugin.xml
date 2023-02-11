@@ -46,6 +46,7 @@
             </feature>
         </config-file>
         <resource-file src="src/exp_configuration.json"/>
+        <resource-file src="src/exp_logo.png"/>
         <header-file src="src/ios/ForeSeeAPI.h" />
         <source-file src="src/ios/ForeSeeAPI.m" />
         <podspec>
