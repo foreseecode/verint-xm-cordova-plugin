@@ -29,8 +29,9 @@
         </config-file>
 
         <framework src="build.gradle" custom="true" type="gradleReference" />
-        <framework src="com.verint.xm.sdk:predictive:7.0.0" />
-        <framework src="com.verint.xm.sdk:digital:7.0.0" />
+        <framework src="com.google.code.gson:gson:2.2.4"/>
+        <framework src="libs/digital-prod-release.aar" />
+        <framework src="libs/predictive-prod-release.aar" />
         <framework src="com.android.support:appcompat-v7:26.1.0"/>
         <source-file src="src/android/ForeSeeAPI.java" target-dir="src/com/foresee/cordova/plugin/ForeSeeAPI" />
     </platform>
