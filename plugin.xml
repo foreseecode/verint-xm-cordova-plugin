@@ -30,6 +30,9 @@
 
         <framework src="build.gradle" custom="true" type="gradleReference" />
         <framework src="com.android.support:appcompat-v7:26.1.0"/>
+        <framework src="com.google.code.gson:gson:2.2.4"/>
+        <resource-file src="myaars/digital-prod-release.aar" target="libs/digital-prod-release.aar" />
+        <resource-file src="myaars/predictive-prod-release.aar" target="libs/predictive-prod-release.aar" />
         <source-file src="src/android/ForeSeeAPI.java" target-dir="src/com/foresee/cordova/plugin/ForeSeeAPI" />
     </platform>
 
