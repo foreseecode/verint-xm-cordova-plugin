@@ -56,6 +56,34 @@ public class ForeSeeAPI extends CordovaPlugin {
      */
     {
 
+        //get device state
+        sActions.put("getDeviceState", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    if (args == null || args.length() < 1) {
+                        callback.error("No args for getDeviceState");
+                        return true;
+                    } else {
+                        String surveyId = args.getString(0);
+                        String sigEventKey = args.getString(1);
+
+                        if (surveyId == null || surveyId.isEmpty()) {
+                            callback.error("Bad args for getDeviceState");
+                        } else {
+                            callback.success(Predictive.getDeviceState(surveyId, sigEventKey));
+                        }
+                    }
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "getDeviceState failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
         //showSurvey
         sActions.put("showSurvey", new ForeSeeMethod() {
 
