@@ -14,8 +14,3 @@ allprojects {
         }
     }
 }
-
-dependencies {
-    implementation fileTree(dir: '../libs', include: ['*.aar'])
-    implementation 'com.google.code.gson:gson:2.2.4'
-}
