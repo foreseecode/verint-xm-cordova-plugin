@@ -1,8 +1,8 @@
 allprojects {
     repositories {
         maven {
-            url "https://mvnrepository.com/artifact"
             mavenLocal()
+            url "https://mvnrepository.com/artifact"
         }
         maven {
             name = "GitHubPackages"
