@@ -14,8 +14,3 @@ allprojects {
         }
     }
 }
-
-dependencies {
-    compile(name:'digital-prod-release', ext:'aar')
-    compile(name:'predictive-prod-release', ext:'aar')
-}
