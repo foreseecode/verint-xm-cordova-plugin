@@ -104,6 +104,10 @@ exports.getCPPValue = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "getCPPValue", validate(args));
 };
 
+exports.getDeviceState = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "getDeviceState", validate(args));
+};
+
 /**
  * @description
  * Gets all CPP key/value pairs.
