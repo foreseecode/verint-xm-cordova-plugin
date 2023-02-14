@@ -40,30 +40,30 @@ NSString* const version = @"2.0.0";
 
 #pragma mark - Public interface
 
-// - (void)getDeviceState: (CDVInvokedUrlCommand *)command
-// {
-//     CDVPluginResult* pluginResult = nil;
-//     NSArray* arguments = command.arguments;
+- (void)getDeviceState: (CDVInvokedUrlCommand *)command
+{
+    CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
 
-//     if(arguments == nil || arguments.count < 1){
-//         NSLog(@"No args for getDeviceState");
-//         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-//     }
-//     else{
-//         NSString* surveyID = [command.arguments objectAtIndex:0];
-//         NSString* sigEventKey = [command.arguments objectAtIndex:1];
+    if(arguments == nil || arguments.count < 1){
+        NSLog(@"No args for getDeviceState");
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    else{
+        NSString* surveyID = [command.arguments objectAtIndex:0];
+        NSString* sigEventKey = [command.arguments objectAtIndex:1];
 
-//         if (surveyID != nil && [surveyID length] > 0) {
-//             NSString* value = [EXPPredictive getDeviceState:surveyID significantEventKey:sigEventKey];
-//             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:value];
-//         } else {
-//             NSLog(@"Bad args for getDeviceState");
-//             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-//         }
-//     }
+        if (surveyID != nil && [surveyID length] > 0) {
+            NSString* value = [EXPPredictive getDeviceState:surveyID significantEventKey:sigEventKey];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:value];
+        } else {
+            NSLog(@"Bad args for getDeviceState");
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
+    }
 
-//     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-// }
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
 
 
 - (void)checkEligibility: (CDVInvokedUrlCommand *)command
