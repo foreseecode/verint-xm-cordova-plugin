@@ -53,7 +53,7 @@
                 <source url="https://github.com/CocoaPods/Specs.git"/>
             </config>
             <pods use-frameworks="true">
-                <pod name="Verint-XM" spec="7.0.0" />
+                <pod name="Verint-XM" spec="7.0.3-alpha0" />
                 <pod name="Verint-XM/Digital" spec="7.0.0" />
             </pods>
         </podspec>

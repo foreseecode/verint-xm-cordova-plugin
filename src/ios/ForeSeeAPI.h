@@ -18,6 +18,7 @@
 
 #pragma mark - Verint-XM interface
 
+- (void)getDeviceState:(CDVInvokedUrlCommand *)command;
 - (void)showSurvey:(CDVInvokedUrlCommand *)command;
 - (void)showInvite:(CDVInvokedUrlCommand *)command;
 - (void)checkEligibility:(CDVInvokedUrlCommand *)command;
