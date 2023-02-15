@@ -108,6 +108,10 @@ exports.getDeviceState = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "getDeviceState", validate(args));
 };
 
+exports.setInviteMode = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "setInviteMode", validate(args));
+};
+
 /**
  * @description
  * Gets all CPP key/value pairs.

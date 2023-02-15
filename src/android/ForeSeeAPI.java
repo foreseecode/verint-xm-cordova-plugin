@@ -84,6 +84,33 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
+                //get device state
+        sActions.put("setInviteMode", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    if (args == null || args.length() < 1) {
+                        callback.error("No args for setInviteMode");
+                        return true;
+                    } else {
+                        String inviteMode = args.getString(0);
+
+                        if (inviteMode == null || inviteMode.isEmpty()) {
+                            callback.error("Bad args for setInviteMode");
+                        } else {
+                            callback.success(Predictive.setInviteMode(inviteMode));
+                        }
+                    }
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "setInviteMode failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
         //showSurvey
         sActions.put("showSurvey", new ForeSeeMethod() {
 
