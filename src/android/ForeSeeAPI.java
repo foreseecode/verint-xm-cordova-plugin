@@ -99,7 +99,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                         if (inviteMode == null || inviteMode.isEmpty()) {
                             callback.error("Bad args for setInviteMode");
                         } else {
-                            callback.success(Predictive.setInviteMode(inviteMode));
+                            Predictive.setInviteMode(inviteMode);
+                            callback.success();
                         }
                     }
                 } catch (Exception ex) {
