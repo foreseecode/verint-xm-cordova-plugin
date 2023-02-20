@@ -84,16 +84,16 @@ function moveLogoToDirectories(platform) {
         var file = platform.src[i];
         if (fileExists(file)) {
                 try {
-                    var fileSource = fs.createReadStream(file);
-                    var fileDestination = fs.createWriteStream(platform.dest)
-                    fileSource.pipe(fileDestination);
+                    var destFolder = platform.dest.substring(0, platform.dest.lastIndexOf("/"));
+                    fs.ensureDirSync(destFolder)
+                    fs.copyFileSync(platform.src[i], platform.dest)
                     console.log("Successfully moved " +platform.src[i] + " to destination: " + platform.dest);
                 } catch (err) {
                     console.log("Error moving logo to directory " + platform.src[i] + " " +  err);
                 }
             break;
         }else{
-            console.log("Could not find the logo file: "+file);
+            console.log(`Could not find the logo file: ${file} in platform ${i}`);
         }
     }
 }
