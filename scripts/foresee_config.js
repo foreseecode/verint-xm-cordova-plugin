@@ -28,6 +28,23 @@ var PLATFORM = {
     }
 };
 
+var LOGO = {
+    IOS: {
+        dest: 'platforms/ios/' + appName +  '/Resources/exp_logo.png',
+        src: [
+            'exp_logo.png',
+            'www/img/exp_logo.png'
+        ]
+    },
+    ANDROID: {
+        dest: 'platforms/android/app/src/main/res/drawable/exp_logo.png',
+        src: [
+            'exp_logo.png',
+            'www/img/exp_logo.png'
+        ]
+    }
+};
+
 fs.ensureDirSync = function (dir) {
     if (!fs.existsSync(dir)) {
         dir.split(path.sep).reduce(function (currentPath, folder) {
@@ -58,6 +75,25 @@ function createConfigFile(platform) {
             break;
         }else{
             console.log("Could not find the config file ./www/exp_configuration.json");
+        }
+    }
+}
+
+function moveLogoToDirectories(platform) {
+    for (var i = 0; i < platform.src.length; i++) {
+        var file = platform.src[i];
+        if (fileExists(file)) {
+                try {
+                    var destFolder = platform.dest.substring(0, platform.dest.lastIndexOf("/"));
+                    fs.ensureDirSync(destFolder)
+                    fs.copyFileSync(platform.src[i], platform.dest)
+                    console.log("Successfully moved " +platform.src[i] + " to destination: " + platform.dest);
+                } catch (err) {
+                    console.log("Error moving logo to directory " + platform.src[i] + " " +  err);
+                }
+            break;
+        }else{
+            console.log(`Could not find the logo file: ${file} in platform ${i}`);
         }
     }
 }
@@ -97,10 +133,12 @@ module.exports = function(context) {
   // Copy key files to their platform specific folders
   if (platforms.indexOf('ios') !== -1 && directoryExists("platforms/ios")) {
     console.log('Creating the exp_configuration.json file for iOS');
+    moveLogoToDirectories(LOGO.IOS);
     createConfigFile(PLATFORM.IOS);
   }
   if (platforms.indexOf('android') !== -1 && directoryExists("platforms/android")) {
     console.log('Creating the exp_configuration.json file for ANDROID');
+    moveLogoToDirectories(LOGO.ANDROID);
     createConfigFile(PLATFORM.ANDROID);
   }
 };
