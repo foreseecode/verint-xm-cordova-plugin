@@ -36,6 +36,7 @@
 - (void)getContactDetails:(CDVInvokedUrlCommand *)command;
 - (void)setContactDetails:(CDVInvokedUrlCommand *)command;
 - (void)getPreferredContactType:(CDVInvokedUrlCommand *)command;
+- (void)getAllContactDetails:(CDVInvokedUrlCommand *)command;
 - (void)setPreferredContactType:(CDVInvokedUrlCommand *)command;
 - (void)customInviteDeclined:(CDVInvokedUrlCommand *)command;
 - (void)customInviteAccepted:(CDVInvokedUrlCommand *)command;

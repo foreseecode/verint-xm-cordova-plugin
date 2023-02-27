@@ -310,6 +310,22 @@ exports.getPreferredContactType = function (args, success, error) {
 
 /**
  * @description
+ * Gets all key/value pairs of the configured contact details for the user.
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.getAllContactDetails(_onSuccess, _onFailure);
+ *
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing key/value pairs with all contact details configured for user.
+ * @param {callback} error - Optional callback that is invoked in the event of an error.
+ * The callback takes one error parameter, containing the details of the error.
+ */
+exports.getAllContactDetails = function (success, error) {
+    exec(success, error, ForeSeeAPI, "getAllContactDetails", []);
+};
+
+/**
+ * @description
  * Sets a preferred contact type.
  *
  * @example
@@ -488,7 +504,7 @@ exports.getAvailableDigitalSurveyNames = function (success, error) {
 
 /**
  * @description
- * Check if the default Digital Survey is enabled. 
+ * Check if the default Digital Survey is enabled.
  *
  * @example
  * cordova.plugins.ForeSeeAPI.checkIfDigitalSurveyEnabled(["digital_1"], _onSuccess, _onFailure);

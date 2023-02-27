@@ -452,6 +452,24 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
+        //getAllContactDetails
+        sActions.put("getAllContactDetails", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    callback.success(new JSONObject(Predictive.getAllContactDetails()));
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "getAllContactDetails failure");
+                } finally {
+                    return true;
+                }
+
+            }
+
+        });
+
         //setPreferredContactType
         sActions.put("setPreferredContactType", new ForeSeeMethod() {
 

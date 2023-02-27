@@ -341,6 +341,16 @@ NSString* const version = @"2.0.0";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
+- (void)getAllContactDetails:(CDVInvokedUrlCommand *)command{
+  NSDictionary<NSNumber *, NSString *> *result = [EXPPredictive allContactDetails];
+  if (result) {
+      CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:result];
+      [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+  } else {
+      [self sendErrorResultForCommand:command];
+  }
+}
+
 - (void)setPreferredContactType: (CDVInvokedUrlCommand *)command{
 
     CDVPluginResult* pluginResult = nil;
