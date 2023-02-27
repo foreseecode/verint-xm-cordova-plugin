@@ -60,13 +60,13 @@ exports.checkEligibility = function (success, error) {
  * Sets a CPP key/value pair. CPPs are transmitted along with surveys upon submission.
  *
  * @example
- * cordova.plugins.ForeSeeAPI.setCPPValue(["customParam", "customValue"], _onSuccess, _onFailure);
+ * cordova.plugins.ForeSeeAPI.setCPP(["customParam", "customValue"], _onSuccess, _onFailure);
  *
  * @param {array} args - Array of parameters, we expect a key/value pair inside. Required by Cordova's plugin EXEC.
  * @param {callback} success - A Cordova-style success callback object.
  * @param {callback} error - A Cordova-style error callback object.
  */
-exports.setCPPValue = function (args, success, error) {
+exports.setCPP = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "addCPPValue", validate(args));
 };
 
@@ -75,7 +75,7 @@ exports.setCPPValue = function (args, success, error) {
  * Removes a CPP value.
  *
  * @example
- * cordova.plugins.ForeSeeAPI.removeCPPValue(["customParam"], _onSuccess, _onFailure);
+ * cordova.plugins.ForeSeeAPI.removeCPP(["customParam"], _onSuccess, _onFailure);
  *
  * @param {array} args - Array of string, we expect a single key inside.
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
@@ -83,8 +83,8 @@ exports.setCPPValue = function (args, success, error) {
  * @param {callback} error - Optional callback that is invoked in the event of an error.
  * The callback takes one error parameter, containing the details of the error.
  */
-exports.removeCPPValue = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "removeCPPValue", validate(args));
+exports.removeCPP = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "removeCPP", validate(args));
 };
 
 /**
@@ -92,7 +92,7 @@ exports.removeCPPValue = function (args, success, error) {
  * Gets a CPP value.
  *
  * @example
- * cordova.plugins.ForeSeeAPI.getCPPValue(["customParam"], _onSuccess, _onFailure);
+ * cordova.plugins.ForeSeeAPI.getCPP(["customParam"], _onSuccess, _onFailure);
  *
  * @param {array} args - Array of string, we expect a single key inside.
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
@@ -100,8 +100,8 @@ exports.removeCPPValue = function (args, success, error) {
  * @param {callback} error - Optional callback that is invoked in the event of an error.
  * The callback takes one error parameter, containing the details of the error.
  */
-exports.getCPPValue = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "getCPPValue", validate(args));
+exports.getCPP = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "getCPP", validate(args));
 };
 
 /**
@@ -142,7 +142,7 @@ exports.incrementPageViews = function (success, error) {
  * Increment the significant event count for a given key.
  *
  * @example
- * cordova.plugins.ForeSeeAPI.incrementSignificantEventCount(["yourSignificantEventKey"], _onSuccess, _onFailure);
+ * cordova.plugins.ForeSeeAPI.incrementSignificantEvent(["yourSignificantEventKey"], _onSuccess, _onFailure);
  *
  * @param {array} args - Array of string, we expect to get a single string inside.
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
@@ -150,7 +150,7 @@ exports.incrementPageViews = function (success, error) {
  * @param {callback} error - Optional callback that is invoked in the event of an error.
  * The callback takes one error parameter, containing the details of the error.
  */
-exports.incrementSignificantEventCount = function (args, success, error) {
+exports.incrementSignificantEvent = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "incrementSignificantEvent", validate(args));
 };
 

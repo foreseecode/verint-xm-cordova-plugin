@@ -123,13 +123,13 @@ NSString* const version = @"2.0.0";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)getCPPValue: (CDVInvokedUrlCommand *)command
+- (void)getCPP: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
 
     if(arguments == nil || arguments.count < 1){
-        NSLog(@"No key for getCPPValue");
+        NSLog(@"No key for getCPP");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else{
@@ -139,7 +139,7 @@ NSString* const version = @"2.0.0";
             NSString* value = [EXPCore CPPValueForKey:key];
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:value];
         } else {
-            NSLog(@"Bad key for getCPPValue");
+            NSLog(@"Bad key for getCPP");
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
     }
@@ -156,13 +156,13 @@ NSString* const version = @"2.0.0";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
--(void)removeCPPValue: (CDVInvokedUrlCommand *)command
+-(void)removeCPP: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
 
     if(arguments == nil || arguments.count < 1){
-        NSLog(@"No surveyId for removeCPPValue");
+        NSLog(@"No surveyId for removeCPP");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else{
@@ -172,7 +172,7 @@ NSString* const version = @"2.0.0";
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
             [EXPCore removeCPPValueForKey:key];
         } else {
-            NSLog(@"Bad value in removeCPPValue");
+            NSLog(@"Bad value in removeCPP");
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
     }

@@ -166,27 +166,27 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-        //getCPPValue
-        sActions.put("getCPPValue", new ForeSeeMethod() {
+        //getCPP
+        sActions.put("getCPP", new ForeSeeMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
                 try {
                     if (args == null || args.length() < 1) {
-                        callback.error("No key for getCPPValue");
+                        callback.error("No key for getCPP");
                         return true;
                     } else {
                         String key = args.getString(0);
                         
                         if (key == null || key.isEmpty()) {
-                            callback.error("Bad key for getCPPValue");
+                            callback.error("Bad key for getCPP");
                         } else {
                             callback.success(Core.getCPPValue(key));
                         }
                     }
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "getCPPValue failure");
+                    callback.error(sTag + "getCPP failure");
                 } finally {
                     return true;
                 }
@@ -211,28 +211,28 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
 
         //removeCPP
-        sActions.put("removeCPPValue", new ForeSeeMethod() {
+        sActions.put("removeCPP", new ForeSeeMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
                 try {
                     if (args == null || args.length() < 1) {
-                        callback.error("No key for removeCPPValue");
+                        callback.error("No key for removeCPP");
                         return true;
                     }
 
                     String key = args.getString(0);
 
                     if (key == null || key.isEmpty()) {
-                        callback.error("Bad key for removeCPPValue");
+                        callback.error("Bad key for removeCPP");
                     } else {
                         Core.removeCPPValue(key);
                         callback.success();
                     }
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + " show removeCPPValue failure");
+                    callback.error(sTag + " show removeCPP failure");
                 } finally {
                     return true;
                 }

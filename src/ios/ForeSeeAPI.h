@@ -22,9 +22,9 @@
 - (void)showInvite:(CDVInvokedUrlCommand *)command;
 - (void)checkEligibility:(CDVInvokedUrlCommand *)command;
 - (void)addCPPValue:(CDVInvokedUrlCommand *)command;
-- (void)getCPPValue:(CDVInvokedUrlCommand *)command;
+- (void)getCPP:(CDVInvokedUrlCommand *)command;
 - (void)getAllCPPs:(CDVInvokedUrlCommand *)command;
-- (void)removeCPPValue:(CDVInvokedUrlCommand *)command;
+- (void)removeCPP:(CDVInvokedUrlCommand *)command;
 - (void)incrementPageViews:(CDVInvokedUrlCommand *)command;
 - (void)incrementSignificantEvent:(CDVInvokedUrlCommand *)command;
 - (void)resetState:(CDVInvokedUrlCommand *)command;
