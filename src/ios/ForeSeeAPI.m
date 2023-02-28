@@ -38,10 +38,22 @@ NSString* const version = @"2.0.0";
     }
 }
 
+- (NSString *)stringForContactType:(EXPContactType)contactType {
+    switch (contactType) {
+        case kEXPEmail:
+            return @"Email";
+        case kEXPPhoneNumber:
+            return @"PhoneNumber";
+        default:
+            return @"Unknown";
+    }
+}
+
 - (NSDictionary<NSString *, NSString *> *)convertFrom:(NSDictionary<NSNumber *, NSString *> *)fromDictionary {
     NSMutableDictionary<NSString *, NSString *> *toDictionary = [NSMutableDictionary dictionaryWithCapacity:[fromDictionary count]];
     [fromDictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, NSString *obj, BOOL *stop) {
-        [toDictionary setObject:obj forKey:[key stringValue]];
+        NSString *convertedKey = [self stringForContactType:[key unsignedIntegerValue]];
+        [toDictionary setObject:obj forKey:convertedKey];
     }];
     return toDictionary;
 }
