@@ -27,8 +27,15 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>var exec = require("cordova/exec");
-
+var version = "2.0.0"
 const ForeSeeAPI = "ForeSeeAPI";
+
+function validate(args) {
+    if (args &amp;&amp; args.constructor !== Array) {
+        console.log("WARNING: ForeSeeAPI arguments not packed into an array. Method will not behave as expected.");
+    }
+    return args;
+}
 
 /**
  * @description
@@ -42,7 +49,7 @@ const ForeSeeAPI = "ForeSeeAPI";
  * @param  {callback} error - A Cordova-style error callback object.
  */
 exports.showSurvey = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "showSurvey", args);
+    exec(success, error, ForeSeeAPI, "showSurvey", validate(args));
 };
 
 /**
@@ -57,7 +64,7 @@ exports.showSurvey = function (args, success, error) {
  * @param {callback} error - A Cordova-style error callback object.
  */
 exports.showInvite = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "showInvite", args);
+    exec(success, error, ForeSeeAPI, "showInvite", validate(args));
 };
 
 /**
@@ -81,14 +88,14 @@ exports.checkEligibility = function (success, error) {
  * Sets a CPP key/value pair. CPPs are transmitted along with surveys upon submission.
  *
  * @example
- * cordova.plugins.ForeSeeAPI.setCPPValue(["customParam", "customValue"], _onSuccess, _onFailure);
+ * cordova.plugins.ForeSeeAPI.setCPP(["customParam", "customValue"], _onSuccess, _onFailure);
  *
  * @param {array} args - Array of parameters, we expect a key/value pair inside. Required by Cordova's plugin EXEC.
  * @param {callback} success - A Cordova-style success callback object.
  * @param {callback} error - A Cordova-style error callback object.
  */
-exports.setCPPValue = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "addCPPValue", args);
+exports.setCPP = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "addCPPValue", validate(args));
 };
 
 /**
@@ -96,7 +103,7 @@ exports.setCPPValue = function (args, success, error) {
  * Removes a CPP value.
  *
  * @example
- * cordova.plugins.ForeSeeAPI.removeCPPValue(["customParam"], _onSuccess, _onFailure);
+ * cordova.plugins.ForeSeeAPI.removeCPP(["customParam"], _onSuccess, _onFailure);
  *
  * @param {array} args - Array of string, we expect a single key inside.
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
@@ -104,8 +111,8 @@ exports.setCPPValue = function (args, success, error) {
  * @param {callback} error - Optional callback that is invoked in the event of an error.
  * The callback takes one error parameter, containing the details of the error.
  */
-exports.removeCPPValue = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "removeCPPValue", args);
+exports.removeCPP = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "removeCPP", validate(args));
 };
 
 /**
@@ -113,7 +120,7 @@ exports.removeCPPValue = function (args, success, error) {
  * Gets a CPP value.
  *
  * @example
- * cordova.plugins.ForeSeeAPI.getCPPValue(["customParam"], _onSuccess, _onFailure);
+ * cordova.plugins.ForeSeeAPI.getCPP(["customParam"], _onSuccess, _onFailure);
  *
  * @param {array} args - Array of string, we expect a single key inside.
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
@@ -121,8 +128,8 @@ exports.removeCPPValue = function (args, success, error) {
  * @param {callback} error - Optional callback that is invoked in the event of an error.
  * The callback takes one error parameter, containing the details of the error.
  */
-exports.getCPPValue = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "getCPPValue", args);
+exports.getCPP = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "getCPP", validate(args));
 };
 
 /**
@@ -163,7 +170,7 @@ exports.incrementPageViews = function (success, error) {
  * Increment the significant event count for a given key.
  *
  * @example
- * cordova.plugins.ForeSeeAPI.incrementSignificantEventCount(["yourSignificantEventKey"], _onSuccess, _onFailure);
+ * cordova.plugins.ForeSeeAPI.incrementSignificantEvent(["yourSignificantEventKey"], _onSuccess, _onFailure);
  *
  * @param {array} args - Array of string, we expect to get a single string inside.
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
@@ -171,8 +178,8 @@ exports.incrementPageViews = function (success, error) {
  * @param {callback} error - Optional callback that is invoked in the event of an error.
  * The callback takes one error parameter, containing the details of the error.
  */
-exports.incrementSignificantEventCount = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "incrementSignificantEvent", args);
+exports.incrementSignificantEvent = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "incrementSignificantEvent", validate(args));
 };
 
 /**
@@ -224,7 +231,7 @@ exports.start = function (success, error) {
  * The callback takes one error parameter, containing the details of the error.
  */
 exports.startWithConfigurationFile = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "startWithConfigurationFile", args);
+    exec(success, error, ForeSeeAPI, "startWithConfigurationFile", validate(args));
 };
 
 /**
@@ -242,7 +249,7 @@ exports.startWithConfigurationFile = function (args, success, error) {
  * The callback takes one error parameter, containing the details of the error.
  */
 exports.startWithConfigurationJson = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "startWithConfigurationJson", args);
+    exec(success, error, ForeSeeAPI, "startWithConfigurationJson", validate(args));
 };
 
 /**
@@ -291,7 +298,7 @@ exports.getVersion = function (success, error) {
  * The callback takes one error parameter, containing the details of the error.
  */
 exports.getContactDetails = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "getContactDetails", args);
+    exec(success, error, ForeSeeAPI, "getContactDetails", validate(args));
 };
 
 /**
@@ -309,7 +316,7 @@ exports.getContactDetails = function (args, success, error) {
  * The callback takes one error parameter, containing the details of the error.
  */
 exports.setContactDetails = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "setContactDetails", args);
+    exec(success, error, ForeSeeAPI, "setContactDetails", validate(args));
 };
 
 /**
@@ -326,7 +333,23 @@ exports.setContactDetails = function (args, success, error) {
  * The callback takes one error parameter, containing the details of the error.
  */
 exports.getPreferredContactType = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "getPreferredContactType", args);
+    exec(success, error, ForeSeeAPI, "getPreferredContactType", validate(args));
+};
+
+/**
+ * @description
+ * Gets all key/value pairs of the configured contact details for the user.
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.getAllContactDetails(_onSuccess, _onFailure);
+ *
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing key/value pairs with all contact details configured for user.
+ * @param {callback} error - Optional callback that is invoked in the event of an error.
+ * The callback takes one error parameter, containing the details of the error.
+ */
+exports.getAllContactDetails = function (success, error) {
+    exec(success, error, ForeSeeAPI, "getAllContactDetails", []);
 };
 
 /**
@@ -343,7 +366,7 @@ exports.getPreferredContactType = function (args, success, error) {
  * The callback takes one error parameter, containing the details of the error.
  */
 exports.setPreferredContactType = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "setPreferredContactType", args);
+    exec(success, error, ForeSeeAPI, "setPreferredContactType", validate(args));
 };
 
 /**
@@ -396,7 +419,7 @@ exports.customInviteAccepted = function (success, error) {
  * The callback takes one error parameter, containing the details of the error.
  */
 exports.setSkipPoolingCheck = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "setSkipPoolingCheck", args);
+    exec(success, error, ForeSeeAPI, "setSkipPoolingCheck", validate(args));
 };
 
 /**
@@ -414,7 +437,7 @@ exports.setSkipPoolingCheck = function (args, success, error) {
  * The callback takes one error parameter, containing the details of the error.
  */
 exports.setDebugLogEnabled = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "setDebugLogEnabled", args);
+    exec(success, error, ForeSeeAPI, "setDebugLogEnabled", validate(args));
 };
 
 /**
@@ -447,7 +470,96 @@ exports.setInviteListener = function (success, error) {
  */
 exports.removeInviteListener = function (success, error) {
     exec(success, error, ForeSeeAPI, "removeInviteListener", []);
-};</code></pre>
+};
+
+/**
+ * @description
+ * Programmatically present the default Digital survey (the first one in the configuration json).
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.showDigitalSurvey(_onSuccess, _onFailure);
+ *
+ * @param  {callback} success - A Cordova-style success callback object.
+ * @param  {callback} error - A Cordova-style error callback object.
+ */
+exports.showDigitalSurvey = function (success, error) {
+    exec(success, error, ForeSeeAPI, "showDigitalSurvey", []);
+};
+
+/**
+ * @description
+ * Programmatically present the Digital survey for a given name
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.showDigitalSurveyForName(["digital_1"], _onSuccess, _onFailure);
+ *
+ * @param {array} args - array with one string element.
+ * @param {callback} success - A Cordova-style success callback object.
+ * @param {callback} error - A Cordova-style error callback object.
+ */
+exports.showDigitalSurveyForName = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "showDigitalSurveyForName", validate(args));
+};
+
+/**
+ * @description
+ * Check if a Digital survey is enabled
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.checkIfDigitalSurveyEnabledForName(["digital_1"], _onSuccess, _onFailure);
+ *
+ * @param {array} args - array with one string element.
+ * @param {callback} success - A Cordova-style success callback object.
+ * @param {callback} error - A Cordova-style error callback object.
+ */
+exports.checkIfDigitalSurveyEnabledForName = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "checkIfDigitalSurveyEnabledForName", validate(args));
+};
+
+/**
+ * @description
+ * Get all available Digital Survey names defined in the Configuration.
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.getAvailableDigitalSurveyNames(["digital_1"], _onSuccess, _onFailure);
+ *
+ * @param {callback} success - A Cordova-style success callback object.
+ * @param {callback} error - A Cordova-style error callback object.
+ */
+exports.getAvailableDigitalSurveyNames = function (success, error) {
+    exec(success, error, ForeSeeAPI, "getAvailableDigitalSurveyNames", []);
+};
+
+/**
+ * @description
+ * Check if the default Digital Survey is enabled.
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.checkIfDigitalSurveyEnabled(["digital_1"], _onSuccess, _onFailure);
+ *
+ * @param {callback} success - A Cordova-style success callback object.
+ * @param {callback} error - A Cordova-style error callback object.
+ */
+exports.checkIfDigitalSurveyEnabled = function (success, error) {
+    exec(success, error, ForeSeeAPI, "checkIfDigitalSurveyEnabled", []);
+};
+
+/**
+ * @description
+ * Set the Digital Listener
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.setDigitalListener(_onSuccess, _onFailure);
+ *
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error.
+ * The callback takes one error parameter, containing the details of the error.
+ */
+exports.setDigitalListener = function (success, error) {
+    exec(success, error, ForeSeeAPI, "setDigitalListener", []);
+};
+</code></pre>
         </article>
     </section>
 
@@ -457,13 +569,13 @@ exports.removeInviteListener = function (success, error) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#checkEligibility">checkEligibility</a></li><li><a href="global.html#customInviteAccepted">customInviteAccepted</a></li><li><a href="global.html#customInviteDeclined">customInviteDeclined</a></li><li><a href="global.html#getAllCPPs">getAllCPPs</a></li><li><a href="global.html#getContactDetails">getContactDetails</a></li><li><a href="global.html#getCPPValue">getCPPValue</a></li><li><a href="global.html#getPreferredContactType">getPreferredContactType</a></li><li><a href="global.html#getVersion">getVersion</a></li><li><a href="global.html#incrementPageViews">incrementPageViews</a></li><li><a href="global.html#incrementSignificantEventCount">incrementSignificantEventCount</a></li><li><a href="global.html#isDebugLogEnabled">isDebugLogEnabled</a></li><li><a href="global.html#removeCPPValue">removeCPPValue</a></li><li><a href="global.html#removeInviteListener">removeInviteListener</a></li><li><a href="global.html#resetState">resetState</a></li><li><a href="global.html#setContactDetails">setContactDetails</a></li><li><a href="global.html#setCPPValue">setCPPValue</a></li><li><a href="global.html#setDebugLogEnabled">setDebugLogEnabled</a></li><li><a href="global.html#setInviteListener">setInviteListener</a></li><li><a href="global.html#setPreferredContactType">setPreferredContactType</a></li><li><a href="global.html#setSkipPoolingCheck">setSkipPoolingCheck</a></li><li><a href="global.html#showInvite">showInvite</a></li><li><a href="global.html#showSurvey">showSurvey</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#startWithConfigurationFile">startWithConfigurationFile</a></li><li><a href="global.html#startWithConfigurationJson">startWithConfigurationJson</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#checkEligibility">checkEligibility</a></li><li><a href="global.html#checkIfDigitalSurveyEnabled">checkIfDigitalSurveyEnabled</a></li><li><a href="global.html#checkIfDigitalSurveyEnabledForName">checkIfDigitalSurveyEnabledForName</a></li><li><a href="global.html#customInviteAccepted">customInviteAccepted</a></li><li><a href="global.html#customInviteDeclined">customInviteDeclined</a></li><li><a href="global.html#getAllCPPs">getAllCPPs</a></li><li><a href="global.html#getAllContactDetails">getAllContactDetails</a></li><li><a href="global.html#getAvailableDigitalSurveyNames">getAvailableDigitalSurveyNames</a></li><li><a href="global.html#getCPP">getCPP</a></li><li><a href="global.html#getContactDetails">getContactDetails</a></li><li><a href="global.html#getPreferredContactType">getPreferredContactType</a></li><li><a href="global.html#getVersion">getVersion</a></li><li><a href="global.html#incrementPageViews">incrementPageViews</a></li><li><a href="global.html#incrementSignificantEvent">incrementSignificantEvent</a></li><li><a href="global.html#isDebugLogEnabled">isDebugLogEnabled</a></li><li><a href="global.html#removeCPP">removeCPP</a></li><li><a href="global.html#removeInviteListener">removeInviteListener</a></li><li><a href="global.html#resetState">resetState</a></li><li><a href="global.html#setCPP">setCPP</a></li><li><a href="global.html#setContactDetails">setContactDetails</a></li><li><a href="global.html#setDebugLogEnabled">setDebugLogEnabled</a></li><li><a href="global.html#setDigitalListener">setDigitalListener</a></li><li><a href="global.html#setInviteListener">setInviteListener</a></li><li><a href="global.html#setPreferredContactType">setPreferredContactType</a></li><li><a href="global.html#setSkipPoolingCheck">setSkipPoolingCheck</a></li><li><a href="global.html#showDigitalSurvey">showDigitalSurvey</a></li><li><a href="global.html#showDigitalSurveyForName">showDigitalSurveyForName</a></li><li><a href="global.html#showInvite">showInvite</a></li><li><a href="global.html#showSurvey">showSurvey</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#startWithConfigurationFile">startWithConfigurationFile</a></li><li><a href="global.html#startWithConfigurationJson">startWithConfigurationJson</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Jan 04 2019 13:12:19 GMT-0800 (PST)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Feb 28 2023 16:52:21 GMT+0100 (Central European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

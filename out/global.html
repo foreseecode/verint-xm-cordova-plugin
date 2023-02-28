@@ -230,7 +230,7 @@ Implementers must explicitly check for eligibility (the SDK does not do this aut
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line47">line 47</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line54">line 54</a>
     </li></ul></dd>
     
 
@@ -257,9 +257,364 @@ Implementers must explicitly check for eligibility (the SDK does not do this aut
 
 
 
+
+
     <h5>Example</h5>
     
     <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.checkEligibility(_onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="checkIfDigitalSurveyEnabled"><span class="type-signature"></span>checkIfDigitalSurveyEnabled<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Check if the default Digital Survey is enabled.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A Cordova-style success callback object.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A Cordova-style error callback object.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line515">line 515</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.checkIfDigitalSurveyEnabled(["digital_1"], _onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="checkIfDigitalSurveyEnabledForName"><span class="type-signature"></span>checkIfDigitalSurveyEnabledForName<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Check if a Digital survey is enabled
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">array with one string element.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A Cordova-style success callback object.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A Cordova-style error callback object.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line487">line 487</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.checkIfDigitalSurveyEnabledForName(["digital_1"], _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -396,7 +751,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line351">line 351</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line374">line 374</a>
     </li></ul></dd>
     
 
@@ -406,6 +761,8 @@ The callback takes one error parameter, containing the details of the error.</td
 
     
 </dl>
+
+
 
 
 
@@ -562,7 +919,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line334">line 334</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line357">line 357</a>
     </li></ul></dd>
     
 
@@ -572,6 +929,8 @@ The callback takes one error parameter, containing the details of the error.</td
 
     
 </dl>
+
+
 
 
 
@@ -727,7 +1086,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line112">line 112</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line119">line 119</a>
     </li></ul></dd>
     
 
@@ -754,9 +1113,533 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 
+
+
     <h5>Example</h5>
     
     <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.getAllCPPs(_onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getAllContactDetails"><span class="type-signature"></span>getAllContactDetails<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Gets all key/value pairs of the configured contact details for the user.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing key/value pairs with all contact details configured for user.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error.
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line323">line 323</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.getAllContactDetails(_onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getAvailableDigitalSurveyNames"><span class="type-signature"></span>getAvailableDigitalSurveyNames<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Get all available Digital Survey names defined in the Configuration.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A Cordova-style success callback object.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A Cordova-style error callback object.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line501">line 501</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.getAvailableDigitalSurveyNames(["digital_1"], _onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getCPP"><span class="type-signature"></span>getCPP<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Gets a CPP value.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Array of string, we expect a single key inside.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing the message from a command.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error.
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line103">line 103</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.getCPP(["customParam"], _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -915,7 +1798,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line265">line 265</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line272">line 272</a>
     </li></ul></dd>
     
 
@@ -925,6 +1808,8 @@ The callback takes one error parameter, containing the details of the error.</td
 
     
 </dl>
+
+
 
 
 
@@ -945,194 +1830,6 @@ The callback takes one error parameter, containing the details of the error.</td
     <h5>Example</h5>
     
     <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.getContactDetails(args, _onSuccess, _onFailure);</code></pre>
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="getCPPValue"><span class="type-signature"></span>getCPPValue<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Gets a CPP value.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>args</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Array of string, we expect a single key inside.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>success</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
-The callback takes one parameter, containing the message from a command.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>error</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional callback that is invoked in the event of an error.
-The callback takes one error parameter, containing the details of the error.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line96">line 96</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.getCPPValue(["customParam"], _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -1291,7 +1988,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line300">line 300</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line307">line 307</a>
     </li></ul></dd>
     
 
@@ -1301,6 +1998,8 @@ The callback takes one error parameter, containing the details of the error.</td
 
     
 </dl>
+
+
 
 
 
@@ -1456,7 +2155,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line248">line 248</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line255">line 255</a>
     </li></ul></dd>
     
 
@@ -1466,6 +2165,8 @@ The callback takes one error parameter, containing the details of the error.</td
 
     
 </dl>
+
+
 
 
 
@@ -1622,7 +2323,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line129">line 129</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line136">line 136</a>
     </li></ul></dd>
     
 
@@ -1632,6 +2333,8 @@ The callback takes one error parameter, containing the details of the error.</td
 
     
 </dl>
+
+
 
 
 
@@ -1661,7 +2364,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
 
     
-    <h4 class="name" id="incrementSignificantEventCount"><span class="type-signature"></span>incrementSignificantEventCount<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="incrementSignificantEvent"><span class="type-signature"></span>incrementSignificantEvent<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
     
 
     
@@ -1810,7 +2513,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line146">line 146</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line153">line 153</a>
     </li></ul></dd>
     
 
@@ -1837,9 +2540,11 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 
+
+
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.incrementSignificantEventCount(["yourSignificantEventKey"], _onSuccess, _onFailure);</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.incrementSignificantEvent(["yourSignificantEventKey"], _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -1975,7 +2680,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line232">line 232</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line239">line 239</a>
     </li></ul></dd>
     
 
@@ -1985,6 +2690,8 @@ The callback takes one error parameter, containing the details of the error.</td
 
     
 </dl>
+
+
 
 
 
@@ -2014,7 +2721,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
 
     
-    <h4 class="name" id="removeCPPValue"><span class="type-signature"></span>removeCPPValue<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="removeCPP"><span class="type-signature"></span>removeCPP<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
     
 
     
@@ -2163,7 +2870,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line79">line 79</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line86">line 86</a>
     </li></ul></dd>
     
 
@@ -2190,9 +2897,11 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 
+
+
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.removeCPPValue(["customParam"], _onSuccess, _onFailure);</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.removeCPP(["customParam"], _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -2328,7 +3037,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line420">line 420</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line443">line 443</a>
     </li></ul></dd>
     
 
@@ -2338,6 +3047,8 @@ The callback takes one error parameter, containing the details of the error.</td
 
     
 </dl>
+
+
 
 
 
@@ -2493,7 +3204,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line162">line 162</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line169">line 169</a>
     </li></ul></dd>
     
 
@@ -2520,9 +3231,199 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 
+
+
     <h5>Example</h5>
     
     <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.resetState(_onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="setCPP"><span class="type-signature"></span>setCPP<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Sets a CPP key/value pair. CPPs are transmitted along with surveys upon submission.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Array of parameters, we expect a key/value pair inside. Required by Cordova's plugin EXEC.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A Cordova-style success callback object.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A Cordova-style error callback object.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line69">line 69</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.setCPP(["customParam", "customValue"], _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -2682,7 +3583,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line283">line 283</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line290">line 290</a>
     </li></ul></dd>
     
 
@@ -2692,6 +3593,8 @@ The callback takes one error parameter, containing the details of the error.</td
 
     
 </dl>
+
+
 
 
 
@@ -2712,192 +3615,6 @@ The callback takes one error parameter, containing the details of the error.</td
     <h5>Example</h5>
     
     <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.setContactDetails(["Bob"], _onSuccess, _onFailure);</code></pre>
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="setCPPValue"><span class="type-signature"></span>setCPPValue<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Sets a CPP key/value pair. CPPs are transmitted along with surveys upon submission.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>args</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Array of parameters, we expect a key/value pair inside. Required by Cordova's plugin EXEC.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>success</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">A Cordova-style success callback object.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>error</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">A Cordova-style error callback object.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line62">line 62</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.setCPPValue(["customParam", "customValue"], _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -3057,7 +3774,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line388">line 388</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line411">line 411</a>
     </li></ul></dd>
     
 
@@ -3084,9 +3801,178 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 
+
+
     <h5>Example</h5>
     
     <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.setDebugLogEnabled(["true"], _onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="setDigitalListener"><span class="type-signature"></span>setDigitalListener<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Set the Digital Listener
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing the message from a command.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error.
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line531">line 531</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.setDigitalListener(_onSuccess, _onFailure);</code></pre>
 
 
 
@@ -3222,7 +4108,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line404">line 404</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line427">line 427</a>
     </li></ul></dd>
     
 
@@ -3232,6 +4118,8 @@ The callback takes one error parameter, containing the details of the error.</td
 
     
 </dl>
+
+
 
 
 
@@ -3410,7 +4298,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line317">line 317</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line340">line 340</a>
     </li></ul></dd>
     
 
@@ -3420,6 +4308,8 @@ The callback takes one error parameter, containing the details of the error.</td
 
     
 </dl>
+
+
 
 
 
@@ -3600,7 +4490,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line370">line 370</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line393">line 393</a>
     </li></ul></dd>
     
 
@@ -3627,9 +4517,364 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 
+
+
     <h5>Example</h5>
     
     <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.setSkipPoolingCheck(["true"], _onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="showDigitalSurvey"><span class="type-signature"></span>showDigitalSurvey<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Programmatically present the default Digital survey (the first one in the configuration json).
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A Cordova-style success callback object.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A Cordova-style error callback object.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line457">line 457</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.showDigitalSurvey(_onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="showDigitalSurveyForName"><span class="type-signature"></span>showDigitalSurveyForName<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Programmatically present the Digital survey for a given name
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">array with one string element.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A Cordova-style success callback object.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A Cordova-style error callback object.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line472">line 472</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.ForeSeeAPI.showDigitalSurveyForName(["digital_1"], _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -3786,7 +5031,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line31">line 31</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line38">line 38</a>
     </li></ul></dd>
     
 
@@ -3796,6 +5041,8 @@ The callback takes one error parameter, containing the details of the error.</td
 
     
 </dl>
+
+
 
 
 
@@ -3972,7 +5219,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line16">line 16</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line23">line 23</a>
     </li></ul></dd>
     
 
@@ -3982,6 +5229,8 @@ The callback takes one error parameter, containing the details of the error.</td
 
     
 </dl>
+
+
 
 
 
@@ -4138,7 +5387,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line179">line 179</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line186">line 186</a>
     </li></ul></dd>
     
 
@@ -4148,6 +5397,8 @@ The callback takes one error parameter, containing the details of the error.</td
 
     
 </dl>
+
+
 
 
 
@@ -4327,7 +5578,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line198">line 198</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line205">line 205</a>
     </li></ul></dd>
     
 
@@ -4337,6 +5588,8 @@ The callback takes one error parameter, containing the details of the error.</td
 
     
 </dl>
+
+
 
 
 
@@ -4516,7 +5769,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line216">line 216</a>
+        <a href="ForeSeeAPI.js.html">ForeSeeAPI.js</a>, <a href="ForeSeeAPI.js.html#line223">line 223</a>
     </li></ul></dd>
     
 
@@ -4526,6 +5779,8 @@ The callback takes one error parameter, containing the details of the error.</td
 
     
 </dl>
+
+
 
 
 
@@ -4565,13 +5820,13 @@ The callback takes one error parameter, containing the details of the error.</td
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#checkEligibility">checkEligibility</a></li><li><a href="global.html#customInviteAccepted">customInviteAccepted</a></li><li><a href="global.html#customInviteDeclined">customInviteDeclined</a></li><li><a href="global.html#getAllCPPs">getAllCPPs</a></li><li><a href="global.html#getContactDetails">getContactDetails</a></li><li><a href="global.html#getCPPValue">getCPPValue</a></li><li><a href="global.html#getPreferredContactType">getPreferredContactType</a></li><li><a href="global.html#getVersion">getVersion</a></li><li><a href="global.html#incrementPageViews">incrementPageViews</a></li><li><a href="global.html#incrementSignificantEventCount">incrementSignificantEventCount</a></li><li><a href="global.html#isDebugLogEnabled">isDebugLogEnabled</a></li><li><a href="global.html#removeCPPValue">removeCPPValue</a></li><li><a href="global.html#removeInviteListener">removeInviteListener</a></li><li><a href="global.html#resetState">resetState</a></li><li><a href="global.html#setContactDetails">setContactDetails</a></li><li><a href="global.html#setCPPValue">setCPPValue</a></li><li><a href="global.html#setDebugLogEnabled">setDebugLogEnabled</a></li><li><a href="global.html#setInviteListener">setInviteListener</a></li><li><a href="global.html#setPreferredContactType">setPreferredContactType</a></li><li><a href="global.html#setSkipPoolingCheck">setSkipPoolingCheck</a></li><li><a href="global.html#showInvite">showInvite</a></li><li><a href="global.html#showSurvey">showSurvey</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#startWithConfigurationFile">startWithConfigurationFile</a></li><li><a href="global.html#startWithConfigurationJson">startWithConfigurationJson</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#checkEligibility">checkEligibility</a></li><li><a href="global.html#checkIfDigitalSurveyEnabled">checkIfDigitalSurveyEnabled</a></li><li><a href="global.html#checkIfDigitalSurveyEnabledForName">checkIfDigitalSurveyEnabledForName</a></li><li><a href="global.html#customInviteAccepted">customInviteAccepted</a></li><li><a href="global.html#customInviteDeclined">customInviteDeclined</a></li><li><a href="global.html#getAllCPPs">getAllCPPs</a></li><li><a href="global.html#getAllContactDetails">getAllContactDetails</a></li><li><a href="global.html#getAvailableDigitalSurveyNames">getAvailableDigitalSurveyNames</a></li><li><a href="global.html#getCPP">getCPP</a></li><li><a href="global.html#getContactDetails">getContactDetails</a></li><li><a href="global.html#getPreferredContactType">getPreferredContactType</a></li><li><a href="global.html#getVersion">getVersion</a></li><li><a href="global.html#incrementPageViews">incrementPageViews</a></li><li><a href="global.html#incrementSignificantEvent">incrementSignificantEvent</a></li><li><a href="global.html#isDebugLogEnabled">isDebugLogEnabled</a></li><li><a href="global.html#removeCPP">removeCPP</a></li><li><a href="global.html#removeInviteListener">removeInviteListener</a></li><li><a href="global.html#resetState">resetState</a></li><li><a href="global.html#setCPP">setCPP</a></li><li><a href="global.html#setContactDetails">setContactDetails</a></li><li><a href="global.html#setDebugLogEnabled">setDebugLogEnabled</a></li><li><a href="global.html#setDigitalListener">setDigitalListener</a></li><li><a href="global.html#setInviteListener">setInviteListener</a></li><li><a href="global.html#setPreferredContactType">setPreferredContactType</a></li><li><a href="global.html#setSkipPoolingCheck">setSkipPoolingCheck</a></li><li><a href="global.html#showDigitalSurvey">showDigitalSurvey</a></li><li><a href="global.html#showDigitalSurveyForName">showDigitalSurveyForName</a></li><li><a href="global.html#showInvite">showInvite</a></li><li><a href="global.html#showSurvey">showSurvey</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#startWithConfigurationFile">startWithConfigurationFile</a></li><li><a href="global.html#startWithConfigurationJson">startWithConfigurationJson</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Jan 04 2019 13:12:19 GMT-0800 (PST)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Feb 28 2023 16:52:21 GMT+0100 (Central European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
