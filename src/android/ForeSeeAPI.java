@@ -458,7 +458,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
                 try {
-                    callback.success(new JSONObject(Predictive.getAllContactDetails()));
+                    callback.success(new JSONObject(convert(Predictive.getAllContactDetails())));
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
                     callback.error(sTag + "getAllContactDetails failure");
@@ -774,6 +774,16 @@ public class ForeSeeAPI extends CordovaPlugin {
             Log.e(sTag, ex.getMessage());
         }
         return result;
+    }
+
+    private Map<String, String> convert(Map<ContactType, String> from) {
+        Map<String, String> to = new Map<String, String>();
+        for (Map.Entry<ContactType, String> entry : from.entrySet()) {
+            String key = entry.getKey().toString();
+            String value = entry.getValue();
+            to.put(key: key, value: value);
+        }
+        return to;
     }
 
     class FSCordovaInviteListener implements BaseInviteListener, DefaultInviteListener {
