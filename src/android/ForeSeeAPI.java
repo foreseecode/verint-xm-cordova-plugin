@@ -778,7 +778,7 @@ public class ForeSeeAPI extends CordovaPlugin {
     }
 
     private Map<String, String> convert(Map<ContactType, String> from) {
-        Map<String, String> to = new Map<String, String>();
+        Map<String, String> to = new HashMap<String, String>();
         for (Map.Entry<ContactType, String> entry : from.entrySet()) {
             String key = entry.getKey().toString();
             String value = entry.getValue();
