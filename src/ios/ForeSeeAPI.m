@@ -38,6 +38,14 @@ NSString* const version = @"2.0.0";
     }
 }
 
+- (NSDictionary<NSString *, NSString *> *)convertFrom:(NSDictionary<NSNumber *, NSString *> *)fromDictionary {
+    NSMutableDictionary<NSString *, NSString *> *toDictionary = [NSMutableDictionary dictionaryWithCapacity:[fromDictionary count]];
+    [fromDictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, NSString *obj, BOOL *stop) {
+        [toDictionary setObject:obj forKey:[key stringValue]];
+    }];
+    return toDictionary;
+}
+
 #pragma mark - Public interface
 
 - (void)checkEligibility: (CDVInvokedUrlCommand *)command
@@ -342,7 +350,7 @@ NSString* const version = @"2.0.0";
 }
 
 - (void)getAllContactDetails:(CDVInvokedUrlCommand *)command{
-  NSDictionary<NSNumber *, NSString *> *result = [EXPPredictive allContactDetails];
+  NSDictionary<NSString *, NSString *> *result = [self convertFrom:[EXPPredictive allContactDetails]];
   if (result) {
       CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:result];
       [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
