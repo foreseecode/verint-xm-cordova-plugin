@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Map;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaWebView;
@@ -166,27 +167,27 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-        //getCPPValue
-        sActions.put("getCPPValue", new ForeSeeMethod() {
+        //getCPP
+        sActions.put("getCPP", new ForeSeeMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
                 try {
                     if (args == null || args.length() < 1) {
-                        callback.error("No key for getCPPValue");
+                        callback.error("No key for getCPP");
                         return true;
                     } else {
                         String key = args.getString(0);
                         
                         if (key == null || key.isEmpty()) {
-                            callback.error("Bad key for getCPPValue");
+                            callback.error("Bad key for getCPP");
                         } else {
                             callback.success(Core.getCPPValue(key));
                         }
                     }
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "getCPPValue failure");
+                    callback.error(sTag + "getCPP failure");
                 } finally {
                     return true;
                 }
@@ -211,28 +212,28 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
 
         //removeCPP
-        sActions.put("removeCPPValue", new ForeSeeMethod() {
+        sActions.put("removeCPP", new ForeSeeMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
                 try {
                     if (args == null || args.length() < 1) {
-                        callback.error("No key for removeCPPValue");
+                        callback.error("No key for removeCPP");
                         return true;
                     }
 
                     String key = args.getString(0);
 
                     if (key == null || key.isEmpty()) {
-                        callback.error("Bad key for removeCPPValue");
+                        callback.error("Bad key for removeCPP");
                     } else {
                         Core.removeCPPValue(key);
                         callback.success();
                     }
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + " show removeCPPValue failure");
+                    callback.error(sTag + " show removeCPP failure");
                 } finally {
                     return true;
                 }
@@ -450,6 +451,24 @@ public class ForeSeeAPI extends CordovaPlugin {
                     return true;
                 }
             }
+        });
+
+        //getAllContactDetails
+        sActions.put("getAllContactDetails", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    callback.success(new JSONObject(convert(Predictive.getAllContactDetails())));
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "getAllContactDetails failure");
+                } finally {
+                    return true;
+                }
+
+            }
+
         });
 
         //setPreferredContactType
@@ -756,6 +775,16 @@ public class ForeSeeAPI extends CordovaPlugin {
             Log.e(sTag, ex.getMessage());
         }
         return result;
+    }
+
+    private Map<String, String> convert(Map<ContactType, String> from) {
+        Map<String, String> to = new HashMap<String, String>();
+        for (Map.Entry<ContactType, String> entry : from.entrySet()) {
+            String key = entry.getKey().toString();
+            String value = entry.getValue();
+            to.put(key, value);
+        }
+        return to;
     }
 
     class FSCordovaInviteListener implements BaseInviteListener, DefaultInviteListener {

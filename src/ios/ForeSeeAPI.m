@@ -38,6 +38,26 @@ NSString* const version = @"2.0.0";
     }
 }
 
+- (NSString *)stringForContactType:(EXPContactType)contactType {
+    switch (contactType) {
+        case kEXPEmail:
+            return @"Email";
+        case kEXPPhoneNumber:
+            return @"PhoneNumber";
+        default:
+            return @"Unknown";
+    }
+}
+
+- (NSDictionary<NSString *, NSString *> *)convertFrom:(NSDictionary<NSNumber *, NSString *> *)fromDictionary {
+    NSMutableDictionary<NSString *, NSString *> *toDictionary = [NSMutableDictionary dictionaryWithCapacity:[fromDictionary count]];
+    [fromDictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, NSString *obj, BOOL *stop) {
+        NSString *convertedKey = [self stringForContactType:[key unsignedIntegerValue]];
+        [toDictionary setObject:obj forKey:convertedKey];
+    }];
+    return toDictionary;
+}
+
 #pragma mark - Public interface
 
 - (void)checkEligibility: (CDVInvokedUrlCommand *)command
@@ -123,13 +143,13 @@ NSString* const version = @"2.0.0";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)getCPPValue: (CDVInvokedUrlCommand *)command
+- (void)getCPP: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
 
     if(arguments == nil || arguments.count < 1){
-        NSLog(@"No key for getCPPValue");
+        NSLog(@"No key for getCPP");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else{
@@ -139,7 +159,7 @@ NSString* const version = @"2.0.0";
             NSString* value = [EXPCore CPPValueForKey:key];
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:value];
         } else {
-            NSLog(@"Bad key for getCPPValue");
+            NSLog(@"Bad key for getCPP");
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
     }
@@ -156,13 +176,13 @@ NSString* const version = @"2.0.0";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
--(void)removeCPPValue: (CDVInvokedUrlCommand *)command
+-(void)removeCPP: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
 
     if(arguments == nil || arguments.count < 1){
-        NSLog(@"No surveyId for removeCPPValue");
+        NSLog(@"No surveyId for removeCPP");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else{
@@ -172,7 +192,7 @@ NSString* const version = @"2.0.0";
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
             [EXPCore removeCPPValueForKey:key];
         } else {
-            NSLog(@"Bad value in removeCPPValue");
+            NSLog(@"Bad value in removeCPP");
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
     }
@@ -339,6 +359,16 @@ NSString* const version = @"2.0.0";
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)getAllContactDetails:(CDVInvokedUrlCommand *)command{
+  NSDictionary<NSString *, NSString *> *result = [self convertFrom:[EXPPredictive allContactDetails]];
+  if (result) {
+      CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:result];
+      [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+  } else {
+      [self sendErrorResultForCommand:command];
+  }
 }
 
 - (void)setPreferredContactType: (CDVInvokedUrlCommand *)command{

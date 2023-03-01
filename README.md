@@ -55,7 +55,13 @@ To set up the plugin in your app, follow these instructions
 6. Add `exp_logo.png` file in your `www/img/` folder. To include a logo for the survey.
    
    
-   
+## API Documentation generation
+
+The JSDoc tool is used to generate API documentaion. 
+Make sure to update documentation after any API changes.
+See: https://github.com/jsdoc/jsdoc
+
+
 ## License 
 Apache License, Version 2.0 
 https://www.apache.org/licenses/LICENSE-2.0
