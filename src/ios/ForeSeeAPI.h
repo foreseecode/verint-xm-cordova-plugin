@@ -13,6 +13,8 @@
 #import <EXPCore/EXPCore.h>
 #import <EXPPredictive/EXPInviteDelegate.h>
 #import <EXPDigital/EXPDigital-Swift.h>
+#import <EXPUtilities/EXPFileUtilities.h>
+#import <EXPCore/EXPConfiguration.h>
 
 @interface ForeSeeAPI : CDVPlugin <EXPInviteDelegate, DigitalDelegate>
 
@@ -31,6 +33,7 @@
 - (void)start:(CDVInvokedUrlCommand *)command;
 - (void)startWithConfigurationFile:(CDVInvokedUrlCommand *)command;
 - (void)startWithConfigurationJson:(CDVInvokedUrlCommand *)command;
+- (void)startWithAppId:(CDVInvokedUrlCommand *)command;
 - (void)isDebugLogEnabled:(CDVInvokedUrlCommand *)command;
 - (void)getVersion:(CDVInvokedUrlCommand *)command;
 - (void)getContactDetails:(CDVInvokedUrlCommand *)command;

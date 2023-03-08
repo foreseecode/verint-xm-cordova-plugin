@@ -22,8 +22,36 @@ NSString* const version = @"2.0.0";
 - (void)pluginInitialize {
     [EXPPredictive setInviteDelegate:self];
     [DigitalComponent setDelegate:self];
-    [EXPCore start];
+
+    NSString *appId = [self getAppIdFromJSON];
+
+    
+    if (appId != nil) {
+        [EXPCore startWithAppId:appId
+                    version:@"mobsdk"];
+        NSLog(@"FCP startup with appId: %@", appId);            
+    } else {
+        [EXPCore start];
+        NSLog(@"Regular startup");
+    }
+
     [self addCrossPlatformCPPs];
+}
+
+- (NSString *)getAppIdFromJSON {
+    NSString *file = [EXPFileUtilities pathForResource:@"exp_fcp.json"
+                                       inBundle:[NSBundle mainBundle]];
+
+    NSDictionary *fcpConfig = [self loadFromFile:file error:nil];
+
+    NSString *appId = fcpConfig[@"appId"];
+
+    if (!appId) {
+        NSLog(@"exp_fcp.json file does not exist");
+        return nil;
+    } 
+
+    return appId;                                    
 }
 
 #pragma mark - Helpers
@@ -47,6 +75,40 @@ NSString* const version = @"2.0.0";
         default:
             return @"Unknown";
     }
+}
+
+- (NSDictionary *)loadFromFile:(NSString *)path error:(NSError **)error {
+  NSError *fileError = nil;
+  NSString *fileContents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&fileError];
+  if (fileError) {
+    if (error) {
+      *error = [[NSError alloc] initWithDomain:EXPConfigurationErrorDomain
+                                          code:EXPConfigurationErrorFileNotFound
+                                      userInfo:@{NSLocalizedDescriptionKey:@"Configuration not found"}];      
+    }
+    return nil;
+  }
+  return [self loadFromString:fileContents error:error];
+}
+
+
+- (NSDictionary *)loadFromString:(NSString *)json error:(NSError **)error {
+  NSError *jsonError = nil;
+  
+  NSData *jsonData = [json dataUsingEncoding:NSUTF8StringEncoding];
+  NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                    options:NSJSONReadingMutableContainers
+                                                      error:&jsonError];
+  if (jsonError) {
+    if (error) {
+      *error = [[NSError alloc] initWithDomain:EXPConfigurationErrorDomain
+                                          code:EXPConfigurationErrorMalformedJSON
+                                      userInfo:@{NSLocalizedDescriptionKey : jsonError.description}];
+    }
+    return nil;
+  }
+   
+  return jsonObject;
 }
 
 - (NSDictionary<NSString *, NSString *> *)convertFrom:(NSDictionary<NSNumber *, NSString *> *)fromDictionary {
@@ -259,6 +321,12 @@ NSString* const version = @"2.0.0";
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     NSLog(@"The start() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch");
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)startWithAppId: (CDVInvokedUrlCommand *)command
+{
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    NSLog(@"The startWithAppId() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch");
 }
 
 - (void)startWithConfigurationFile: (CDVInvokedUrlCommand *)command

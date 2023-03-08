@@ -11,7 +11,8 @@ var config = fs.readFileSync('config.xml').toString();
 //application name
 var appName = getValue(config, 'name');
 
-var PLATFORM = {
+
+var FILES = [{
     IOS: {
         dest: 'platforms/ios/' + appName +  '/Resources/exp_configuration.json',
         src: [
@@ -26,9 +27,8 @@ var PLATFORM = {
             'www/exp_configuration.json'
         ]
     }
-};
-
-var LOGO = {
+},
+{
     IOS: {
         dest: 'platforms/ios/' + appName +  '/Resources/exp_logo.png',
         src: [
@@ -43,7 +43,23 @@ var LOGO = {
             'www/img/exp_logo.png'
         ]
     }
-};
+},
+{
+    IOS: {
+        dest: 'platforms/ios/' + appName +  '/Resources/exp_fcp.json',
+        src: [
+            'exp_fcp.json',
+            'www/exp_fcp.json'
+        ]
+    },
+    ANDROID: {
+        dest: 'platforms/android/app/src/main/res/raw/exp_fcp.json',
+        src: [
+            'exp_fcp.json',
+            'www/exp_fcp.json'
+        ]
+    }
+}]
 
 fs.ensureDirSync = function (dir) {
     if (!fs.existsSync(dir)) {
@@ -57,29 +73,7 @@ fs.ensureDirSync = function (dir) {
     }
 };
 
-function createConfigFile(platform) {
-    for (var i = 0; i < platform.src.length; i++) {
-        var file = platform.src[i];
-        if (fileExists(file)) {
-                try {
-                    var contents = fs.readFileSync(file).toString();
-                    console.log("Adding " + platform.src[i] + " contents " + contents + '\n' 
-                        + " dest " + platform.dest);
-                    var folder = platform.dest.substring(0, platform.dest.lastIndexOf('/'));
-                    fs.ensureDirSync(folder);
-                    fs.writeFileSync(platform.dest, contents);
-
-                } catch (err) {
-                    console.log("Error adding " + platform.src[i] + " " +  err);
-                }
-            break;
-        }else{
-            console.log("Could not find the config file ./www/exp_configuration.json");
-        }
-    }
-}
-
-function moveLogoToDirectories(platform) {
+function moveFile(platform) {
     for (var i = 0; i < platform.src.length; i++) {
         var file = platform.src[i];
         if (fileExists(file)) {
@@ -89,11 +83,11 @@ function moveLogoToDirectories(platform) {
                     fs.copyFileSync(platform.src[i], platform.dest)
                     console.log("Successfully moved " +platform.src[i] + " to destination: " + platform.dest);
                 } catch (err) {
-                    console.log("Error moving logo to directory " + platform.src[i] + " " +  err);
+                    console.log("Error moving file to directory " + platform.src[i] + " " +  err);
                 }
             break;
         }else{
-            console.log(`Could not find the logo file: ${file} in platform ${i}`);
+            console.log(`Could not find the file: ${file} in src ${i}`);
         }
     }
 }
@@ -133,12 +127,14 @@ module.exports = function(context) {
   // Copy key files to their platform specific folders
   if (platforms.indexOf('ios') !== -1 && directoryExists("platforms/ios")) {
     console.log('Creating the exp_configuration.json file for iOS');
-    moveLogoToDirectories(LOGO.IOS);
-    createConfigFile(PLATFORM.IOS);
+    FILES.forEach ((file) => {
+        moveFile(file.IOS);
+    })
   }
   if (platforms.indexOf('android') !== -1 && directoryExists("platforms/android")) {
     console.log('Creating the exp_configuration.json file for ANDROID');
-    moveLogoToDirectories(LOGO.ANDROID);
-    createConfigFile(PLATFORM.ANDROID);
+    FILES.forEach ((file) => {
+        moveFile(file.ANDROID);
+    })
   }
 };

@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Map;
+import java.io.*;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaWebView;
@@ -45,6 +46,9 @@ public class ForeSeeAPI extends CordovaPlugin {
     /* Class tag for logs */
     private final static String sTag = "FORESEE_CORDOVA";
     private final String version = "2.0.0";
+
+    private final String EXP_FCP_JSON_FILE_NAME = "exp_fcp";
+    private final String APP_VERSION = "mobsdk";
 
     HashMap<String, ForeSeeMethod> sActions = new HashMap<String, ForeSeeMethod>();
     Set<CallbackContext> mCallbacks = Collections
@@ -757,13 +761,61 @@ public class ForeSeeAPI extends CordovaPlugin {
     public void onStart() {
         super.onStart();
         if (!Core.isCoreStarted()) {
+            String appId = getAppIdFromJSON();
             Log.d(sTag, "init the ForeSee SDK");
-            Core.start(cordova.getActivity().getApplication());
+
+            if (appId != null) {
+                Log.d(sTag, "FCP startup with appId: "+appId);
+                Core.startWithAppId(cordova.getActivity().getApplication(), appId, APP_VERSION);
+            } else {
+                Log.d(sTag, "Regular startup");
+                Core.start(cordova.getActivity().getApplication());
+            }
+
             Core.addCPPValue("crossPlatformName", "Cordova Android");
             Core.addCPPValue("crossPlatformSDKVersion", CordovaWebView.CORDOVA_VERSION);
             Core.addCPPValue("crossPlatformOSVersion", android.os.Build.VERSION.RELEASE);
             Core.addCPPValue("crossPlatformVersion", version);
         }
+    }
+
+    public String getAppIdFromJSON() {
+        int identifier = cordova.getActivity().getResources().getIdentifier(EXP_FCP_JSON_FILE_NAME, "raw", cordova.getActivity().getPackageName());
+        if (identifier == 0) {
+            Log.d(sTag, "exp_fcp.json file does not exist");
+            return null;
+        }
+
+        InputStream inputStream = cordova.getActivity().getResources().openRawResource(cordova.getActivity().getResources().getIdentifier(EXP_FCP_JSON_FILE_NAME, "raw", cordova.getActivity().getPackageName()));
+        Writer writer = new StringWriter();
+        char[] buffer = new char[1024];
+        try {
+            Reader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+            int number;
+            while ((number = reader.read(buffer)) != -1) {
+                writer.write(buffer, 0, number);
+            }
+        } catch(IOException e) {
+            Log.d(sTag, "IOException: "+e);
+        } finally {
+            try {
+                inputStream.close();
+            } catch (Exception e) {
+                Log.e(sTag, "Exception: "+e);
+            }
+        }
+
+        String jsonString = writer.toString();
+
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            String appId = jsonObject.getString("appId");
+            Log.d(sTag, "appId: "+appId);
+            return appId;
+        } catch (JSONException e) {
+            Log.d(sTag, "JSONException: "+e);
+        }
+        return null;
     }
 
     // Util methods
