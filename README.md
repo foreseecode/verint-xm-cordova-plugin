@@ -7,8 +7,8 @@
 * Android: 21+
 * iOS: 11.0+
 * Verint-XM SDK
-    * iOS 7.0.0
-    * Android 7.0.0
+    * iOS 7.0.1
+    * Android 7.0.1
 
 ----
 ## Setting up the plugin
