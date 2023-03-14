@@ -56,7 +56,7 @@ To set up the plugin in your app, follow these instructions
 
 7. Add `exp_fcp.json` file in your `www` folder. To use a FCP configuration on startup. 
 
-    The structure of the `exp_fcp.json` file should include an `appId` as followed: 
+    The structure of the `exp_fcp.json` file should include an `appId` as follows: 
 
    ```
     {

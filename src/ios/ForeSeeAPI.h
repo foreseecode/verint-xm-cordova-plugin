@@ -33,7 +33,6 @@
 - (void)start:(CDVInvokedUrlCommand *)command;
 - (void)startWithConfigurationFile:(CDVInvokedUrlCommand *)command;
 - (void)startWithConfigurationJson:(CDVInvokedUrlCommand *)command;
-- (void)startWithAppId:(CDVInvokedUrlCommand *)command;
 - (void)isDebugLogEnabled:(CDVInvokedUrlCommand *)command;
 - (void)getVersion:(CDVInvokedUrlCommand *)command;
 - (void)getContactDetails:(CDVInvokedUrlCommand *)command;

@@ -786,6 +786,22 @@ public class ForeSeeAPI extends CordovaPlugin {
             return null;
         }
 
+        String jsonString = getWriter();
+
+        Log.d(sTag, "From json file: "+jsonString);
+
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            String appId = jsonObject.getString("appId");
+            Log.d(sTag, "appId: "+appId);
+            return appId;
+        } catch (JSONException e) {
+            Log.d(sTag, "JSONException: "+e);
+        }
+        return null;
+    }
+
+    private String getWriter() {
         InputStream inputStream = cordova.getActivity().getResources().openRawResource(cordova.getActivity().getResources().getIdentifier(EXP_FCP_JSON_FILE_NAME, "raw", cordova.getActivity().getPackageName()));
         Writer writer = new StringWriter();
         char[] buffer = new char[1024];
@@ -804,18 +820,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                 Log.e(sTag, "Exception: "+e);
             }
         }
-
-        String jsonString = writer.toString();
-
-        try {
-            JSONObject jsonObject = new JSONObject(jsonString);
-            String appId = jsonObject.getString("appId");
-            Log.d(sTag, "appId: "+appId);
-            return appId;
-        } catch (JSONException e) {
-            Log.d(sTag, "JSONException: "+e);
-        }
-        return null;
+        return writer.toString();
     }
 
     // Util methods

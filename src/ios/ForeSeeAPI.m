@@ -323,12 +323,6 @@ NSString* const version = @"2.0.0";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)startWithAppId: (CDVInvokedUrlCommand *)command
-{
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    NSLog(@"The startWithAppId() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch");
-}
-
 - (void)startWithConfigurationFile: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
