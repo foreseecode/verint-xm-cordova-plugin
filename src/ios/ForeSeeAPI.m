@@ -22,10 +22,9 @@ NSString* const version = @"2.0.0";
 - (void)pluginInitialize {
     [EXPPredictive setInviteDelegate:self];
     [DigitalComponent setDelegate:self];
+    [EXPCore setDelegate:self];
 
     NSString *appId = [self getAppIdFromJSON];
-
-    
     if (appId != nil) {
         [EXPCore startWithAppId:appId
                     version:@"mobsdk"];
@@ -52,6 +51,20 @@ NSString* const version = @"2.0.0";
     } 
 
     return appId;                                    
+}
+
+#pragma mark - VerintDelegate
+
+- (void)didStartSDK {
+  NSLog(@"ForeSeeCordova::didStartSDK");
+}
+
+-(void) didStartSDKWithError:(EXPErrorCode)error message:(NSString *)message {
+  NSLog(@"ForeSeeCordova::didStartSDKWithError: %lu / %@", (unsigned long) error, message);
+}
+
+- (void)didFailToStartSDKWithError:(EXPErrorCode)error message:(NSString *)message {
+  NSLog(@"ForeSeeCordova::didFailToStartSDKWithError: %lu / %@", (unsigned long) error, message);
 }
 
 #pragma mark - Helpers
