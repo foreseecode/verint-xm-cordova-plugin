@@ -111,7 +111,6 @@ function fileExists(path) {
 
 function directoryExists(path) {
     try {
-        console.log(fs + ' fs ' +  'isDirectory ' + fs.statSync(path).isDirectory());
         return fs.statSync(path).isDirectory();
     } catch (e) {
         return false;
@@ -126,13 +125,11 @@ module.exports = function(context) {
  
   // Copy key files to their platform specific folders
   if (platforms.indexOf('ios') !== -1 && directoryExists("platforms/ios")) {
-    console.log('Creating the exp_configuration.json file for iOS');
     FILES.forEach ((file) => {
         moveFile(file.IOS);
     })
   }
   if (platforms.indexOf('android') !== -1 && directoryExists("platforms/android")) {
-    console.log('Creating the exp_configuration.json file for ANDROID');
     FILES.forEach ((file) => {
         moveFile(file.ANDROID);
     })
