@@ -74,9 +74,7 @@ fs.ensureDirSync = function (dir) {
 };
 
 function moveFile(platform) {
-    var foundFileInSrc = false;
     for (var i = 0; i < platform.src.length; i++) {
-        if (foundFileInSrc) break;
         var file = platform.src[i];
         if (fileExists(file)) {
                 try {
