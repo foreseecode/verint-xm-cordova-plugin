@@ -74,7 +74,9 @@ fs.ensureDirSync = function (dir) {
 };
 
 function moveFile(platform) {
+    var foundFileInSrc = false;
     for (var i = 0; i < platform.src.length; i++) {
+        if (foundFileInSrc) break;
         var file = platform.src[i];
         if (fileExists(file)) {
                 try {
@@ -82,6 +84,7 @@ function moveFile(platform) {
                     fs.ensureDirSync(destFolder)
                     fs.copyFileSync(platform.src[i], platform.dest)
                     console.log("Successfully moved " +platform.src[i] + " to destination: " + platform.dest);
+                    foundFileInSrc = true;
                 } catch (err) {
                     console.log("Error moving file to directory " + platform.src[i] + " " +  err);
                 }
