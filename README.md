@@ -7,8 +7,8 @@
 * Android: 21+
 * iOS: 11.0+
 * Verint-XM SDK
-    * iOS 7.0.0
-    * Android 7.0.0
+    * iOS 7.0.1
+    * Android 7.0.1
 
 ----
 ## Setting up the plugin
@@ -52,7 +52,18 @@ To set up the plugin in your app, follow these instructions
 
 5. For all supported methods please check the API docs included in this package, or [online here](http://developer.foresee.com/downloads/sdk/mobile/cordova/current/docs/index.html). For general information about the ForeSee SDK, please see the [ForeSee Developer Portal](https://developer.foresee.com/).
 
-6. Add `exp_logo.png` file in your `www/img/` folder. To include a logo for the survey.
+6. Add `exp_logo.png` file in your `www/img/` folder to include a logo for the survey.
+
+7. Add `exp_fcp.json` file in your `www` folder to use FCP configuration on startup. The structure of the `exp_fcp.json` file should include your `appId` as follows: 
+
+   ```
+   {
+       "appId":"mobilesdkdevstgtest"
+   }   
+   ```
+
+
+
    
    
 ## API Documentation generation

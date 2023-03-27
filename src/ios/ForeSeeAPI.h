@@ -13,6 +13,8 @@
 #import <EXPCore/EXPCore.h>
 #import <EXPPredictive/EXPInviteDelegate.h>
 #import <EXPDigital/EXPDigital-Swift.h>
+#import <EXPUtilities/EXPFileUtilities.h>
+#import <EXPCore/EXPConfiguration.h>
 
 @interface ForeSeeAPI : CDVPlugin <EXPInviteDelegate, DigitalDelegate>
 
