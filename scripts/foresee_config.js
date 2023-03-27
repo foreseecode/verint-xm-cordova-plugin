@@ -81,13 +81,13 @@ function moveFile(platform) {
                     var destFolder = platform.dest.substring(0, platform.dest.lastIndexOf("/"));
                     fs.ensureDirSync(destFolder)
                     fs.copyFileSync(platform.src[i], platform.dest)
-                    console.log("Successfully moved " +platform.src[i] + " to destination: " + platform.dest);
+                    console.log("Successfully moved " + platform.src[i] + " to destination: " + platform.dest);
                 } catch (err) {
                     console.log("Error moving file to directory " + platform.src[i] + " " +  err);
                 }
             break;
-        }else{
-            console.log(`Could not find the file: ${file} in src ${i}`);
+        } else {
+            console.log(`Could not find the file: ${file}`);
         }
     }
 }
