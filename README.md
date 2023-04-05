@@ -62,9 +62,75 @@ To set up the plugin in your app, follow these instructions
    }   
    ```
 
+## Handling local notifications on iOS
+
+The `EXIT_SURVEY` and `EXIT_INVITE` notification modes use local notifications to send surveys to the user. There are two ways to handle notifications in Cordova on iOS:
+
+1. In your app’s native iOS classes
+2. Using the `cordova-plugin-local-notification` plugin
+
+### Native classes
+
+#### Import `UserNotifications` and adopt the `UNUserNotificationCenterDelegate` protocol
+
+```
+#import <Cordova/CDVViewController.h>
+#import <Cordova/CDVAppDelegate.h>
+#import <UserNotifications/UserNotifications.h>
+
+@interface AppDelegate : CDVAppDelegate <UNUserNotificationCenterDelegate>
+@end
+```
+
+#### Register `self` as the `UNUserNotificationCenterDelegate`
+
+```
+[UNUserNotificationCenter currentNotificationCenter].delegate = self;
+```
+
+#### Handle incoming notifications
+
+```
+#pragma mark - UNUserNotificationCenterDelegate
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center
+didReceiveNotificationResponse:(UNNotificationResponse *)response
+         withCompletionHandler:(nonnull void (^)(void))completionHandler
+{
+  [EXPPredictive showSurveyForNotificationResponse:response];
+  completionHandler();
+}
+```
+
+### Using the `cordova-plugin-local-notification` plugin
+
+Add the plugin to your project:
+
+```
+cordova plugin add cordova-plugin-local-notification
+```
+
+And then handle notifications in your app’s Javascript:
+
+```
+if (device.platform == "iOS") {
+    cordova.plugins.notification.local.on("click", function (notification) {
+        if (notification.EXPLocalNotificationMeasureKey != null) {
+            cordova.plugins.ForeSeeAPI.showSurvey([notification.EXPLocalNotificationMeasureKey], this.onSuccess, this.onFailure);
+        }
+    }, this);
+}
+```
+
+#### Limitations
+
+There is a documented negative interaction when using this plugin alongside other Cordova plugins that use local notifications (e.g. Firebase Cloud Messaging.) This can cause a crash in apps that use both plugins.
+
+[The issue has been raised](https://github.com/katzer/cordova-plugin-local-notifications/issues/1937) in the `cordova-plugin-local-notification` repository, but has no updates at the time of writing. (This issue seems to appear between the beta.2 and beta.3 versions.)
+
+As of this moment, there is not a known workaround, and we suggest using the `CONTACT` notification method, instead, if you are a user of one of those other plugins.
 
 
-   
    
 ## API Documentation generation
 
