@@ -200,7 +200,7 @@ exports.resetSignificantEventCount = function (args, success, error) {
  * @param {callback} error - Optional callback that is invoked in the event of an error.
  * The callback takes one error parameter, containing the details of the error.
  */
-exports.resetSignificantEvents = function (args, success, error) {
+exports.resetSignificantEvents = function (success, error) {
     exec(success, error, ForeSeeAPI, "resetSignificantEvents", []);
 };
 
@@ -216,7 +216,7 @@ exports.resetSignificantEvents = function (args, success, error) {
  * @param {callback} error - Optional callback that is invoked in the event of an error.
  * The callback takes one error parameter, containing the details of the error.
  */
-exports.cancelPendingInvites = function (args, success, error) {
+exports.cancelPendingInvites = function (success, error) {
     exec(success, error, ForeSeeAPI, "cancelPendingInvites", []);
 };
 
@@ -232,7 +232,7 @@ exports.cancelPendingInvites = function (args, success, error) {
  * @param {callback} error - Optional callback that is invoked in the event of an error.
  * The callback takes one error parameter, containing the details of the error.
  */
-exports.refreshPendingInvites = function (args, success, error) {
+exports.refreshPendingInvites = function (success, error) {
     exec(success, error, ForeSeeAPI, "refreshPendingInvites", []);
 };
 
