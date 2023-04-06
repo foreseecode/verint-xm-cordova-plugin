@@ -387,8 +387,8 @@ NSString* const version = @"2.0.0";
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
 
-    //TODO: Add public method in EXPPredictive, currently only exists in Android because 
-    // this is done automatically in iOS
+    //TODO: Uncomment with 7.0.3 artefacts released
+    //[EXPPredictive refreshPendingInvites];
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
