@@ -201,7 +201,7 @@ exports.resetSignificantEventCount = function (args, success, error) {
  * The callback takes one error parameter, containing the details of the error.
  */
 exports.resetSignificantEvents = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "resetSignificantEvents", validate(args));
+    exec(success, error, ForeSeeAPI, "resetSignificantEvents", []);
 };
 
 /**
@@ -217,7 +217,7 @@ exports.resetSignificantEvents = function (args, success, error) {
  * The callback takes one error parameter, containing the details of the error.
  */
 exports.cancelPendingInvites = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "cancelPendingInvites", validate(args));
+    exec(success, error, ForeSeeAPI, "cancelPendingInvites", []);
 };
 
 /**
@@ -233,7 +233,7 @@ exports.cancelPendingInvites = function (args, success, error) {
  * The callback takes one error parameter, containing the details of the error.
  */
 exports.refreshPendingInvites = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "refreshPendingInvites", validate(args));
+    exec(success, error, ForeSeeAPI, "refreshPendingInvites", []);
 };
 
 
