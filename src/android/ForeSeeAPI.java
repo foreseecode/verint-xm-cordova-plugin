@@ -284,6 +284,114 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
+        sActions.put("setSignificantEventCount", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+
+                try {
+                    if (args == null || args.length() < 2) {
+                        callback.error("Not enough args for setSignificantEventCount");
+                        return true;
+                    }
+
+                    String key = args.getString(0);
+                    int value = Integer.parseInt(args.getString(1));
+
+                    if (null == key || key.isEmpty()) {
+                        callback.error("Bad key for setSignificantEventCount");
+                    } else {
+                        Predictive.setSignificantEventCount(key, value);
+                        callback.success();
+                    }
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "setSignificantEventCount failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        sActions.put("resetSignificantEventCount", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+
+                try {
+                    if (args == null || args.length() < 1) {
+                        callback.error("No key arg for resetSignificantEventCount");
+                        return true;
+                    }
+
+                    String key = args.getString(0);
+
+                    if (null == key || key.isEmpty()) {
+                        callback.error("Bad key for resetSignificantEventCount");
+                    } else {
+                        Predictive.resetSignificantEventCount(key);
+                        callback.success();
+                    }
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "resetSignificantEventCount failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        sActions.put("resetSignificantEvents", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+
+                try {
+                    Predictive.resetSignificantEvents();
+                    callback.success();
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "resetSignificantEvents failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        sActions.put("cancelPendingInvites", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+
+                try {
+                    Predictive.cancelPendingInvites();
+                    callback.success();
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "cancelPendingInvites failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        sActions.put("refreshPendingInvites", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+
+                try {
+                    Predictive.refreshPendingInvites();
+                    callback.success();
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "refreshPendingInvites failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
         //resetState
         sActions.put("resetState", new ForeSeeMethod() {
 

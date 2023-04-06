@@ -312,6 +312,87 @@ NSString* const version = @"2.0.0";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
+-(void)setSignificantEventCount: (CDVInvokedUrlCommand *)command{
+
+    CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+
+    if(arguments == nil || arguments.count < 2){
+        NSLog(@"Not enough args for setSignificantEventCount");
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    else{
+        NSString* key = [command.arguments objectAtIndex:0];
+        NSString* value = [command.arguments objectAtIndex:1];
+
+        if (key != nil && [key length] > 0 ) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+            [EXPPredictive setSignificantEventCount:[value intValue] forKey:key];
+        } else {
+            NSLog(@"Bad value in setSignificantEventCount");
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
+    }
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+-(void)resetSignificantEventCount: (CDVInvokedUrlCommand *)command{
+
+    CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+
+    if(arguments == nil || arguments.count < 1){
+        NSLog(@"No key arg for resetSignificantEventCount");
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    else{
+        NSString* key = [command.arguments objectAtIndex:0];
+
+        if (key != nil && [key length] > 0 ) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+            [EXPPredictive resetSignificantEventCountForKey:key];
+        } else {
+            NSLog(@"Bad value in resetSignificantEventCount");
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
+    }
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+-(void)resetSignificantEvents: (CDVInvokedUrlCommand *)command{
+    CDVPluginResult* pluginResult = nil;
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+
+    [EXPPredictive resetSignificantEvents];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+-(void)cancelPendingInvites: (CDVInvokedUrlCommand *)command{
+    CDVPluginResult* pluginResult = nil;
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+
+    [EXPPredictive cancelPendingInvites];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+
+-(void)refreshPendingInvites: (CDVInvokedUrlCommand *)command{
+    CDVPluginResult* pluginResult = nil;
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+
+    //TODO: Add public method in EXPPredictive, currently only exists in Android because 
+    // this is done automatically in iOS
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
 -(void)resetState: (CDVInvokedUrlCommand *)command{
     CDVPluginResult* pluginResult = nil;
 
