@@ -381,7 +381,8 @@ public class ForeSeeAPI extends CordovaPlugin {
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
                 try {
-                    Predictive.refreshPendingInvites();
+                    //TODO: Uncomment when 7.0.3 artefacts are released
+                    //Predictive.refreshPendingInvites();
                     callback.success();
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
