@@ -387,7 +387,7 @@ NSString* const version = @"2.0.0";
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
 
-    //TODO: Uncomment with 7.0.3 artefacts released
+    //TODO: Uncomment when the 7.0.3 artefacts are released
     //[EXPPredictive refreshPendingInvites];
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
