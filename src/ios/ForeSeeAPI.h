@@ -29,11 +29,11 @@
 - (void)removeCPP:(CDVInvokedUrlCommand *)command;
 - (void)incrementPageViews:(CDVInvokedUrlCommand *)command;
 - (void)incrementSignificantEvent:(CDVInvokedUrlCommand *)command;
-- (void)setSignificantEventCount: (CDVInvokedUrlCommand *)command;
-- (void)resetSignificantEventCount: (CDVInvokedUrlCommand *)command;
-- (void)resetSignificantEvents: (CDVInvokedUrlCommand *)command;
-- (void)cancelPendingInvites: (CDVInvokedUrlCommand *)command;
-- (void)refreshPendingInvites: (CDVInvokedUrlCommand *)command;
+- (void)setSignificantEventCount:(CDVInvokedUrlCommand *)command;
+- (void)resetSignificantEventCount:(CDVInvokedUrlCommand *)command;
+- (void)resetSignificantEvents:(CDVInvokedUrlCommand *)command;
+- (void)cancelPendingInvites:(CDVInvokedUrlCommand *)command;
+- (void)refreshPendingInvites:(CDVInvokedUrlCommand *)command;
 - (void)resetState:(CDVInvokedUrlCommand *)command;
 - (void)start:(CDVInvokedUrlCommand *)command;
 - (void)startWithConfigurationFile:(CDVInvokedUrlCommand *)command;

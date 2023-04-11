@@ -29,26 +29,6 @@ var FILES = [{
     }
 },
 {
-    IOS: {},
-    ANDROID: {
-        dest: 'platforms/android/app/src/main/res/raw-fr/exp_configuration.json',
-        src: [
-            'exp_configuration.json',
-            'www/exp_configuration.json'
-        ]
-    }
-},
-{
-    IOS: {},
-    ANDROID: {
-        dest: 'platforms/android/app/src/main/res/raw-es/exp_configuration.json',
-        src: [
-            'exp_configuration.json',
-            'www/exp_configuration.json'
-        ]
-    }
-},
-{
     IOS: {
         dest: 'platforms/ios/' + appName +  '/Resources/exp_logo.png',
         src: [
