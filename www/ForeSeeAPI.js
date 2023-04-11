@@ -156,6 +156,89 @@ exports.incrementSignificantEvent = function (args, success, error) {
 
 /**
  * @description
+ * Increment the significant event count for a given key.
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.setSignificantEventCount(["yourSignificantEventKey", "yourSignificantEventCount"], _onSuccess, _onFailure);
+ *
+ * @param {array} args - Array of string, we expect to get two string inside.
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error.
+ * The callback takes one error parameter, containing the details of the error.
+ */
+exports.setSignificantEventCount = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "setSignificantEventCount", validate(args));
+};
+
+/**
+ * @description
+ * Reset the significant event count for a given key.
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.resetSignificantEventCount(["yourSignificantEventKey"], _onSuccess, _onFailure);
+ *
+ * @param {array} args - Array of string, we expect to get one string inside.
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error.
+ * The callback takes one error parameter, containing the details of the error.
+ */
+exports.resetSignificantEventCount = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "resetSignificantEventCount", validate(args));
+};
+
+/**
+ * @description
+ * Resets all significant events.
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.resetSignificantEvents(_onSuccess, _onFailure);
+ *
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error.
+ * The callback takes one error parameter, containing the details of the error.
+ */
+exports.resetSignificantEvents = function (success, error) {
+    exec(success, error, ForeSeeAPI, "resetSignificantEvents", []);
+};
+
+/**
+ * @description
+ * Programmatically cancel any pending invites for the user when the type is EXIT_INVITE or EXIT_SURVEY
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.cancelPendingInvites(_onSuccess, _onFailure);
+ *
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error.
+ * The callback takes one error parameter, containing the details of the error.
+ */
+exports.cancelPendingInvites = function (success, error) {
+    exec(success, error, ForeSeeAPI, "cancelPendingInvites", []);
+};
+
+/**
+ * @description
+ * Programmatically refresh any pending invites for the user when the type is EXIT_INVITE or EXIT_SURVEY
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.refreshPendingInvites(_onSuccess, _onFailure);
+ *
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error.
+ * The callback takes one error parameter, containing the details of the error.
+ */
+exports.refreshPendingInvites = function (success, error) {
+    exec(success, error, ForeSeeAPI, "refreshPendingInvites", []);
+};
+
+
+/**
+ * @description
  * Reset the state of the tracker.
  *
  * @example

@@ -151,11 +151,11 @@ NSString* const version = @"2.0.0";
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
 
-    if(arguments == nil || arguments.count < 1){
+    if (arguments == nil || arguments.count < 1) {
         NSLog(@"Bad surveyId for showSurvey");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
-    else{
+    else {
         NSString* surveyId = [command.arguments objectAtIndex:0];
         if (surveyId != nil && [surveyId length] > 0) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
@@ -175,10 +175,10 @@ NSString* const version = @"2.0.0";
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
 
-    if(arguments == nil || arguments.count < 1){
+    if (arguments == nil || arguments.count < 1) {
         NSLog(@"No surveyId for showInvite");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-    }else{
+    } else {
         NSString* surveyId = [command.arguments objectAtIndex:0];
 
         if (surveyId != nil && [surveyId length] > 0) {
@@ -198,7 +198,7 @@ NSString* const version = @"2.0.0";
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
 
-    if(arguments == nil || arguments.count < 2){
+    if (arguments == nil || arguments.count < 2) {
         NSLog(@"No key or value for addCPPValue");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
@@ -223,11 +223,11 @@ NSString* const version = @"2.0.0";
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
 
-    if(arguments == nil || arguments.count < 1){
+    if (arguments == nil || arguments.count < 1){
         NSLog(@"No key for getCPP");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
-    else{
+    else {
         NSString* key = [command.arguments objectAtIndex:0];
 
         if (key != nil && [key length] > 0) {
@@ -251,16 +251,16 @@ NSString* const version = @"2.0.0";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
--(void)removeCPP: (CDVInvokedUrlCommand *)command
+- (void)removeCPP: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
 
-    if(arguments == nil || arguments.count < 1){
+    if (arguments == nil || arguments.count < 1) {
         NSLog(@"No surveyId for removeCPP");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
-    else{
+    else {
         NSString* key = [command.arguments objectAtIndex:0];
 
         if (key != nil && [key length] > 0) {
@@ -275,7 +275,7 @@ NSString* const version = @"2.0.0";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
--(void)incrementPageViews: (CDVInvokedUrlCommand *)command{
+- (void)incrementPageViews: (CDVInvokedUrlCommand *)command{
 
     CDVPluginResult* pluginResult = nil;
 
@@ -288,16 +288,16 @@ NSString* const version = @"2.0.0";
 }
 
 
--(void)incrementSignificantEvent: (CDVInvokedUrlCommand *)command{
+- (void)incrementSignificantEvent: (CDVInvokedUrlCommand *)command{
 
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
 
-    if(arguments == nil || arguments.count < 1){
+    if (arguments == nil || arguments.count < 1) {
         NSLog(@"No surveyId for incrementSignificantEvent");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
-    else{
+    else {
         NSString* key = [command.arguments objectAtIndex:0];
 
         if (key != nil && [key length] > 0 ) {
@@ -312,7 +312,88 @@ NSString* const version = @"2.0.0";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
--(void)resetState: (CDVInvokedUrlCommand *)command{
+- (void)setSignificantEventCount: (CDVInvokedUrlCommand *)command{
+
+    CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+
+    if (arguments == nil || arguments.count < 2) {
+        NSLog(@"Not enough args for setSignificantEventCount");
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    else {
+        NSString* key = [command.arguments objectAtIndex:0];
+        NSString* value = [command.arguments objectAtIndex:1];
+
+        if (key != nil && [key length] > 0 ) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+            [EXPPredictive setSignificantEventCount:[value intValue] forKey:key];
+        } else {
+            NSLog(@"Bad value in setSignificantEventCount");
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
+    }
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)resetSignificantEventCount: (CDVInvokedUrlCommand *)command{
+
+    CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+
+    if (arguments == nil || arguments.count < 1) {
+        NSLog(@"No key arg for resetSignificantEventCount");
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    else {
+        NSString* key = [command.arguments objectAtIndex:0];
+
+        if (key != nil && [key length] > 0 ) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+            [EXPPredictive resetSignificantEventCountForKey:key];
+        } else {
+            NSLog(@"Bad value in resetSignificantEventCount");
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
+    }
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)resetSignificantEvents: (CDVInvokedUrlCommand *)command{
+    CDVPluginResult* pluginResult = nil;
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+
+    [EXPPredictive resetSignificantEvents];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)cancelPendingInvites: (CDVInvokedUrlCommand *)command{
+    CDVPluginResult* pluginResult = nil;
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+
+    [EXPPredictive cancelPendingInvites];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+
+- (void)refreshPendingInvites: (CDVInvokedUrlCommand *)command{
+    CDVPluginResult* pluginResult = nil;
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+
+    //TODO: Uncomment when the 7.0.3 artefacts are released
+    //[EXPPredictive refreshPendingInvites];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)resetState: (CDVInvokedUrlCommand *)command{
     CDVPluginResult* pluginResult = nil;
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
@@ -354,11 +435,11 @@ NSString* const version = @"2.0.0";
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
 
-    if(arguments == nil || arguments.count < 1){
+    if (arguments == nil || arguments.count < 1) {
         NSLog(@"No data for setDebugLogEnabled");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
-    else{
+    else {
         BOOL enable = [command.arguments objectAtIndex:0];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         [EXPCore setDebugLogEnabled:enable];
@@ -409,7 +490,7 @@ NSString* const version = @"2.0.0";
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
 
-    if(arguments == nil || arguments.count < 2 || arguments.count > 2) {
+    if (arguments == nil || arguments.count < 2 || arguments.count > 2) {
         NSLog(@"No, or too many details for setContactDetails");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     } else {
@@ -451,7 +532,7 @@ NSString* const version = @"2.0.0";
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
 
-    if(arguments == nil || arguments.count < 1) {
+    if (arguments == nil || arguments.count < 1) {
         NSLog(@"Bad contact type for setPreferredContactType");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     } else {
@@ -493,11 +574,11 @@ NSString* const version = @"2.0.0";
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
 
-    if(arguments == nil || arguments.count < 1){
+    if (arguments == nil || arguments.count < 1) {
         NSLog(@"No data for setSkipPoolingCheck");
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
-    else{
+    else {
         BOOL skip = [command.arguments objectAtIndex:0];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         [EXPPredictive setSkipPoolingCheck:skip];
