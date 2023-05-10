@@ -11,32 +11,72 @@ function validate(args) {
 
 /**
  * @description
- * Programmatically present the survey for a given survey ID (sid).
+ * Starts the CX Measure module.
+ * Behavior of the two modules is defined in the foresee_configuration.json file.
  *
  * @example
- * cordova.plugins.ForeSeeAPI.showSurvey(["app_test_1"], _onSuccess, _onFailure);
+ * cordova.plugins.ForeSeeAPI.start(_onSucess, _onFailure);
  *
- * @param  {array} args - Array of strings, we expect a surveyID inside.
- * @param  {callback} success - A Cordova-style success callback object.
- * @param  {callback} error - A Cordova-style error callback object.
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error.
+ * The callback takes one error parameter, containing the details of the error.
  */
-exports.showSurvey = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "showSurvey", validate(args));
+exports.start = function (success, error) {
+    exec(success, error, ForeSeeAPI, "start", []);
 };
 
 /**
  * @description
- * Programmatically present the invitation for a given survey ID (sid).
+ * Starts the CX Measure module using a custom configuration file in your native project.
+ * Behavior of the two modules is defined in the named configuration file in your project.
  *
  * @example
- * cordova.plugins.ForeSeeAPI.showInvite(["app_test_1"], _onSuccess, _onFailure);
+ * cordova.plugins.ForeSeeAPI.startWithConfigurationFile(["my_config.json"], _onSuccess, _onFailure);
  *
- * @param {array} args - Array of strings, we expect a surveyID inside.
- * @param {callback} success - A Cordova-style success callback object.
- * @param {callback} error - A Cordova-style error callback object.
+ * @param {array} args - array. The name of the configuration file to use when loading modules
+
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command
+ * The callback takes one parameter, containing the message from a command
+ * @param {callback} error - Optional callback that is invoked in the event of an error.
+ * The callback takes one error parameter, containing the details of the error.
  */
-exports.showInvite = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "showInvite", validate(args));
+exports.startWithConfigurationFile = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "startWithConfigurationFile", validate(args));
+};
+
+/**
+ * @description
+ * Starts the CX Measure module using custom configuration JSON.
+ * Behavior of the two modules is defined by the string provided.
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.startWithConfigurationJson([jsonConfig], _onSuccess, _onFailure);
+ *
+ * @param {array} args - array. The configuration string in JSON format to use when loading modules.
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error.
+ * The callback takes one error parameter, containing the details of the error.
+ */
+exports.startWithConfigurationJson = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "startWithConfigurationJson", validate(args));
+};
+
+/**
+ * @description
+ * Reset the state of the tracker.
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.resetState(_onSuccess, _onFailure);
+ *
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command
+ * The callback takes one parameter, containing the message from a command
+ * @param {callback} error - Optional callback that is invoked in the event of an error.
+ * The callback takes one error parameter, containing the details of the error.
+ */
+exports.resetState = function (success, error) {
+    exec(success, error, ForeSeeAPI, "resetState", []);
 };
 
 /**
@@ -57,6 +97,36 @@ exports.checkEligibility = function (success, error) {
 
 /**
  * @description
+ * Programmatically present the invitation for a given survey ID (sid).
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.showInvite(["app_test_1"], _onSuccess, _onFailure);
+ *
+ * @param {array} args - Array of strings, we expect a surveyID inside.
+ * @param {callback} success - A Cordova-style success callback object.
+ * @param {callback} error - A Cordova-style error callback object.
+ */
+exports.showInvite = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "showInvite", validate(args));
+};
+
+/**
+ * @description
+ * Programmatically present the survey for a given survey ID (sid).
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.showSurvey(["app_test_1"], _onSuccess, _onFailure);
+ *
+ * @param  {array} args - Array of strings, we expect a surveyID inside.
+ * @param  {callback} success - A Cordova-style success callback object.
+ * @param  {callback} error - A Cordova-style error callback object.
+ */
+exports.showSurvey = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "showSurvey", validate(args));
+};
+
+/**
+ * @description
  * Sets a CPP key/value pair. CPPs are transmitted along with surveys upon submission.
  *
  * @example
@@ -68,23 +138,6 @@ exports.checkEligibility = function (success, error) {
  */
 exports.setCPP = function (args, success, error) {
     exec(success, error, ForeSeeAPI, "addCPPValue", validate(args));
-};
-
-/**
- * @description
- * Removes a CPP value.
- *
- * @example
- * cordova.plugins.ForeSeeAPI.removeCPP(["customParam"], _onSuccess, _onFailure);
- *
- * @param {array} args - Array of string, we expect a single key inside.
- * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
- * The callback takes one parameter, containing the message from a command.
- * @param {callback} error - Optional callback that is invoked in the event of an error.
- * The callback takes one error parameter, containing the details of the error.
- */
-exports.removeCPP = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "removeCPP", validate(args));
 };
 
 /**
@@ -118,6 +171,23 @@ exports.getCPP = function (args, success, error) {
  */
 exports.getAllCPPs = function (success, error) {
     exec(success, error, ForeSeeAPI, "getAllCPPs", []);
+};
+
+/**
+ * @description
+ * Removes a CPP value.
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.removeCPP(["customParam"], _onSuccess, _onFailure);
+ *
+ * @param {array} args - Array of string, we expect a single key inside.
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error.
+ * The callback takes one error parameter, containing the details of the error.
+ */
+exports.removeCPP = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "removeCPP", validate(args));
 };
 
 /**
@@ -236,75 +306,22 @@ exports.refreshPendingInvites = function (success, error) {
     exec(success, error, ForeSeeAPI, "refreshPendingInvites", []);
 };
 
-
 /**
  * @description
- * Reset the state of the tracker.
+ * Sets whether or not to enable debug logging.
+ * Debug logging prints useful state information to the console for inspection. By default, debug logging is disabled.
  *
  * @example
- * cordova.plugins.ForeSeeAPI.resetState(_onSuccess, _onFailure);
+ * cordova.plugins.ForeSeeAPI.setDebugLogEnabled(["true"], _onSuccess, _onFailure);
  *
- * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command
- * The callback takes one parameter, containing the message from a command
- * @param {callback} error - Optional callback that is invoked in the event of an error.
- * The callback takes one error parameter, containing the details of the error.
- */
-exports.resetState = function (success, error) {
-    exec(success, error, ForeSeeAPI, "resetState", []);
-};
-
-/**
- * @description
- * Starts the CX Measure module.
- * Behavior of the two modules is defined in the foresee_configuration.json file.
- *
- * @example
- * cordova.plugins.ForeSeeAPI.start(_onSucess, _onFailure);
- *
+ * @param {array} args - array with one element; TRUE of FALSE.
  * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
  * The callback takes one parameter, containing the message from a command.
  * @param {callback} error - Optional callback that is invoked in the event of an error.
  * The callback takes one error parameter, containing the details of the error.
  */
-exports.start = function (success, error) {
-    exec(success, error, ForeSeeAPI, "start", []);
-};
-
-/**
- * @description
- * Starts the CX Measure module using a custom configuration file in your native project.
- * Behavior of the two modules is defined in the named configuration file in your project.
- *
- * @example
- * cordova.plugins.ForeSeeAPI.startWithConfigurationFile(["my_config.json"], _onSuccess, _onFailure);
- *
- * @param {array} args - array. The name of the configuration file to use when loading modules
-
- * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command
- * The callback takes one parameter, containing the message from a command
- * @param {callback} error - Optional callback that is invoked in the event of an error.
- * The callback takes one error parameter, containing the details of the error.
- */
-exports.startWithConfigurationFile = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "startWithConfigurationFile", validate(args));
-};
-
-/**
- * @description
- * Starts the CX Measure module using custom configuration JSON.
- * Behavior of the two modules is defined by the string provided.
- *
- * @example
- * cordova.plugins.ForeSeeAPI.startWithConfigurationJson([jsonConfig], _onSuccess, _onFailure);
- *
- * @param {array} args - array. The configuration string in JSON format to use when loading modules.
- * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
- * The callback takes one parameter, containing the message from a command.
- * @param {callback} error - Optional callback that is invoked in the event of an error.
- * The callback takes one error parameter, containing the details of the error.
- */
-exports.startWithConfigurationJson = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "startWithConfigurationJson", validate(args));
+exports.setDebugLogEnabled = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "setDebugLogEnabled", validate(args));
 };
 
 /**
@@ -337,6 +354,59 @@ exports.isDebugLogEnabled = function (success, error) {
  */
 exports.getVersion = function (success, error) {
     exec(success, error, ForeSeeAPI, "getVersion", []);
+};
+
+/**
+ * @description
+ * Disables the pooling check.
+ * When debugging your implementation of the ForeSee SDK, it may be useful to disable the pooling check.
+ * This ensures that the invitation will always shows if the loyalty criteria has been fulfilled.
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.setSkipPoolingCheck(["true"], _onSuccess, _onFailure);
+ *
+ * @param {array} args - array with one element; TRUE of FALSE.
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error.
+ * The callback takes one error parameter, containing the details of the error.
+ */
+exports.setSkipPoolingCheck = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "setSkipPoolingCheck", validate(args));
+};
+
+/**
+ * @description
+ * Tells the SDK that a custom invitation was accepted.
+ * You should call this method whenever a user accepts a custom invitation that you’ve presented.
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.customInviteAccepted(_onSuccess, _onFailure);
+ *
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error.
+ * The callback takes one error parameter, containing the details of the error.
+ */
+exports.customInviteAccepted = function (success, error) {
+    exec(success, error, ForeSeeAPI, "customInviteAccepted", []);
+};
+
+/**
+ * @description
+ * Tells the SDK that a custom invitation was declined.
+ * You should call this method whenever a user declines a custom invitation that you’ve presented.
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.customInviteDeclined(_onSuccess, _onFailure);
+ *
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error.
+ * The callback takes one error parameter, containing the details of the error.
+ */
+exports.customInviteDeclined = function (success, error) {
+    exec(success, error, ForeSeeAPI, "customInviteDeclined", []);
 };
 
 /**
@@ -376,6 +446,23 @@ exports.setContactDetails = function (args, success, error) {
 
 /**
  * @description
+ * Sets a preferred contact type.
+ *
+ * @example
+ * cordova.plugins.ForeSeeAPI.setPreferredContactType(["Email"], _onSuccess, _onFailure);
+ *
+ * @param {array} args
+ * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+ * The callback takes one parameter, containing the message from a command.
+ * @param {callback} error - Optional callback that is invoked in the event of an error.
+ * The callback takes one error parameter, containing the details of the error.
+ */
+exports.setPreferredContactType = function (args, success, error) {
+    exec(success, error, ForeSeeAPI, "setPreferredContactType", validate(args));
+};
+
+/**
+ * @description
  * Retrieves a referred contact type.
  *
  * @example
@@ -405,94 +492,6 @@ exports.getPreferredContactType = function (args, success, error) {
  */
 exports.getAllContactDetails = function (success, error) {
     exec(success, error, ForeSeeAPI, "getAllContactDetails", []);
-};
-
-/**
- * @description
- * Sets a preferred contact type.
- *
- * @example
- * cordova.plugins.ForeSeeAPI.setPreferredContactType(["Email"], _onSuccess, _onFailure);
- *
- * @param {array} args
- * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
- * The callback takes one parameter, containing the message from a command.
- * @param {callback} error - Optional callback that is invoked in the event of an error.
- * The callback takes one error parameter, containing the details of the error.
- */
-exports.setPreferredContactType = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "setPreferredContactType", validate(args));
-};
-
-/**
- * @description
- * Tells the SDK that a custom invitation was declined.
- * You should call this method whenever a user declines a custom invitation that you’ve presented.
- *
- * @example
- * cordova.plugins.ForeSeeAPI.customInviteDeclined(_onSuccess, _onFailure);
- *
- * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
- * The callback takes one parameter, containing the message from a command.
- * @param {callback} error - Optional callback that is invoked in the event of an error.
- * The callback takes one error parameter, containing the details of the error.
- */
-exports.customInviteDeclined = function (success, error) {
-    exec(success, error, ForeSeeAPI, "customInviteDeclined", []);
-};
-
-/**
- * @description
- * Tells the SDK that a custom invitation was accepted.
- * You should call this method whenever a user accepts a custom invitation that you’ve presented.
- *
- * @example
- * cordova.plugins.ForeSeeAPI.customInviteAccepted(_onSuccess, _onFailure);
- *
- * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
- * The callback takes one parameter, containing the message from a command.
- * @param {callback} error - Optional callback that is invoked in the event of an error.
- * The callback takes one error parameter, containing the details of the error.
- */
-exports.customInviteAccepted = function (success, error) {
-    exec(success, error, ForeSeeAPI, "customInviteAccepted", []);
-};
-
-/**
- * @description
- * Disables the pooling check.
- * When debugging your implementation of the ForeSee SDK, it may be useful to disable the pooling check.
- * This ensures that the invitation will always shows if the loyalty criteria has been fulfilled.
- *
- * @example
- * cordova.plugins.ForeSeeAPI.setSkipPoolingCheck(["true"], _onSuccess, _onFailure);
- *
- * @param {array} args - array with one element; TRUE of FALSE.
- * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
- * The callback takes one parameter, containing the message from a command.
- * @param {callback} error - Optional callback that is invoked in the event of an error.
- * The callback takes one error parameter, containing the details of the error.
- */
-exports.setSkipPoolingCheck = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "setSkipPoolingCheck", validate(args));
-};
-
-/**
- * @description
- * Sets whether or not to enable debug logging.
- * Debug logging prints useful state information to the console for inspection. By default, debug logging is disabled.
- *
- * @example
- * cordova.plugins.ForeSeeAPI.setDebugLogEnabled(["true"], _onSuccess, _onFailure);
- *
- * @param {array} args - array with one element; TRUE of FALSE.
- * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
- * The callback takes one parameter, containing the message from a command.
- * @param {callback} error - Optional callback that is invoked in the event of an error.
- * The callback takes one error parameter, containing the details of the error.
- */
-exports.setDebugLogEnabled = function (args, success, error) {
-    exec(success, error, ForeSeeAPI, "setDebugLogEnabled", validate(args));
 };
 
 /**
