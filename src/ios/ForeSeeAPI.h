@@ -33,7 +33,6 @@
 - (void)resetSignificantEventCount:(CDVInvokedUrlCommand *)command;
 - (void)resetSignificantEvents:(CDVInvokedUrlCommand *)command;
 - (void)cancelPendingInvites:(CDVInvokedUrlCommand *)command;
-- (void)refreshPendingInvites:(CDVInvokedUrlCommand *)command;
 - (void)resetState:(CDVInvokedUrlCommand *)command;
 - (void)start:(CDVInvokedUrlCommand *)command;
 - (void)startWithConfigurationFile:(CDVInvokedUrlCommand *)command;

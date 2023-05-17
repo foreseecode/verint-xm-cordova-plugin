@@ -364,29 +364,12 @@ public class ForeSeeAPI extends CordovaPlugin {
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
                 try {
+                    //TODO: Update to cancelPendingNotifications when 7.0.3 artefacts are released
                     Predictive.cancelPendingInvites();
                     callback.success();
                 } catch (Exception ex) {
                     Log.e(sTag, ex.getMessage());
                     callback.error(sTag + "cancelPendingInvites failure");
-                } finally {
-                    return true;
-                }
-            }
-        });
-
-        sActions.put("refreshPendingInvites", new ForeSeeMethod() {
-
-            @Override
-            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
-
-                try {
-                    //TODO: Uncomment when 7.0.3 artefacts are released
-                    //Predictive.refreshPendingInvites();
-                    callback.success();
-                } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "refreshPendingInvites failure");
                 } finally {
                     return true;
                 }
@@ -717,7 +700,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-        // Check if a feedback is enabled.
+        // Check if a survey is enabled.
         sActions.put("checkIfDigitalSurveyEnabledForName", new ForeSeeMethod() {
 
             @Override
@@ -725,7 +708,7 @@ public class ForeSeeAPI extends CordovaPlugin {
 
                 try {
                     if (args == null || args.length() < 1) {
-                        callback.error("No feedback name for checkIfDigitalSurveyEnabledForName");
+                        callback.error("No survey name for checkIfDigitalSurveyEnabledForName");
                         return true;
                     }
 
@@ -746,7 +729,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-        // Get all available feedback names defined in the Configuration.
+        // Get all available survey names defined in the Configuration.
         sActions.put("getAvailableDigitalSurveyNames", new ForeSeeMethod() {
             
             @Override
@@ -762,7 +745,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-        // Check if the default feedback is enabled. 
+        // Check if the default survey is enabled. 
         sActions.put("checkIfDigitalSurveyEnabled", new ForeSeeMethod() {
             
             @Override
@@ -778,7 +761,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-        // Show the feedback for a given feedback name.
+        // Show the survey for a given name.
         sActions.put("showDigitalSurveyForName", new ForeSeeMethod() {
 
             @Override
@@ -786,7 +769,7 @@ public class ForeSeeAPI extends CordovaPlugin {
 
                 try {
                     if (args == null || args.length() < 1) {
-                        callback.error("No feedback name for showDigitalSurveyForName");
+                        callback.error("No survey name for showDigitalSurveyForName");
                         return true;
                     }
 
@@ -807,7 +790,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-        // Show the default feedback.
+        // Show the default survey
         sActions.put("showDigitalSurvey", new ForeSeeMethod() {
             
             @Override
@@ -1112,12 +1095,12 @@ public class ForeSeeAPI extends CordovaPlugin {
     class FSCordovaDigitalListener implements ExpDigitalListener {
 
         @Override
-        public void onDigitalSurveyPresented(String feedbackName) {
+        public void onDigitalSurveyPresented(String surveyName) {
             Log.d(sTag, "onDigitalSurveyPresented");
             try {
                 JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveyPresented");
                 
-                jsonObject.put("feedbackName", feedbackName);
+                jsonObject.put("feedbackName", surveyName);
                 
                 onEvent(new JSONObject().put("event", "onDigitalSurveyPresented"));
             } catch (JSONException e) {
@@ -1126,12 +1109,12 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         @Override
-        public void onDigitalSurveyNotPresentedWithNetworkError(String feedbackName) {
+        public void onDigitalSurveyNotPresentedWithNetworkError(String surveyName) {
             Log.d(sTag, "onDigitalSurveyNotPresentedWithNetworkError");
             try {
                 JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveyNotPresentedWithNetworkError");
                 
-                jsonObject.put("feedbackName", feedbackName);
+                jsonObject.put("feedbackName", surveyName);
                 
                 onEvent(new JSONObject().put("event", "onDigitalSurveyNotPresentedWithNetworkError"));
             } catch (JSONException e) {
@@ -1140,12 +1123,12 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         @Override
-        public void onDigitalSurveyNotPresentedWithDisabled(String feedbackName) {
+        public void onDigitalSurveyNotPresentedWithDisabled(String surveyName) {
             Log.d(sTag, "onDigitalSurveyNotPresentedWithDisabled");
             try {
                 JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveyNotPresentedWithDisabled");
                 
-                jsonObject.put("feedbackName", feedbackName);
+                jsonObject.put("feedbackName", surveyName);
                 
                 onEvent(new JSONObject().put("event", "onDigitalSurveyNotPresentedWithDisabled"));
             } catch (JSONException e) {
@@ -1154,12 +1137,12 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         @Override
-        public void onDigitalSurveySubmitted(String feedbackName) {
+        public void onDigitalSurveySubmitted(String surveyName) {
             Log.d(sTag, "onDigitalSurveySubmitted");
             try {
                 JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveySubmitted");
                 
-                jsonObject.put("feedbackName", feedbackName);
+                jsonObject.put("feedbackName", surveyName);
                 
                 onEvent(new JSONObject().put("event", "onDigitalSurveySubmitted"));
             } catch (JSONException e) {
@@ -1168,26 +1151,12 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         @Override
-        public void onDigitalSurveyNotSubmittedWithAbort(String feedbackName) {
-            Log.d(sTag, "onDigitalSurveyNotSubmittedWithAbort");
-            try {
-                JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveyNotSubmittedWithAbort");
-                
-                jsonObject.put("feedbackName", feedbackName);
-                
-                onEvent(new JSONObject().put("event", "onDigitalSurveyNotSubmittedWithAbort"));
-            } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onDigitalSurveyNotSubmittedWithAbort event");
-            }
-        }
-
-        @Override
-        public void onDigitalSurveyNotSubmittedWithNetworkError(String feedbackName) {
+        public void onDigitalSurveyNotSubmittedWithNetworkError(String surveyName) {
             Log.d(sTag, "onDigitalSurveyNotSubmittedWithNetworkError");
             try {
                 JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveyNotSubmittedWithNetworkError");
                 
-                jsonObject.put("feedbackName", feedbackName);
+                jsonObject.put("feedbackName", surveyName);
                 
                 onEvent(new JSONObject().put("event", "onDigitalSurveyNotSubmittedWithNetworkError"));
             } catch (JSONException e) {
@@ -1196,12 +1165,26 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         @Override
-        public void onDigitalSurveyStatusRetrieved(String feedbackName, boolean enabled) {
+        public void onDigitalSurveyNotSubmittedWithAbort(String surveyName) {
+            Log.d(sTag, "onDigitalSurveyNotSubmittedWithAbort");
+            try {
+                JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveyNotSubmittedWithAbort");
+                
+                jsonObject.put("feedbackName", surveyName);
+                
+                onEvent(new JSONObject().put("event", "onDigitalSurveyNotSubmittedWithAbort"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onDigitalSurveyNotSubmittedWithAbort event");
+            }
+        }
+
+        @Override
+        public void onDigitalSurveyStatusRetrieved(String surveyName, boolean enabled) {
             Log.d(sTag, "onDigitalSurveyStatusRetrieved");
             try {
                 JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveyStatusRetrieved");
                 
-                jsonObject.put("feedbackName", feedbackName);
+                jsonObject.put("feedbackName", surveyName);
                 jsonObject.put("enabled", enabled ? "true" : "false");
                 
                 onEvent(new JSONObject().put("event", "onDigitalSurveyStatusRetrieved"));

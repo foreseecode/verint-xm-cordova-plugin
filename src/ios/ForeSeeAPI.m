@@ -59,7 +59,7 @@ NSString* const version = @"2.0.0";
   NSLog(@"ForeSeeCordova::didStartSDK");
 }
 
--(void) didStartSDKWithError:(EXPErrorCode)error message:(NSString *)message {
+-(void)didStartSDKWithError:(EXPErrorCode)error message:(NSString *)message {
   NSLog(@"ForeSeeCordova::didStartSDKWithError: %lu / %@", (unsigned long) error, message);
 }
 
@@ -327,7 +327,7 @@ NSString* const version = @"2.0.0";
 
         if (key != nil && [key length] > 0 ) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-            [EXPPredictive setSignificantEventCount:[value intValue] forKey:key];
+            [EXPPredictive setSignificantEventCount:[value integerValue] forKey:key];
         } else {
             NSLog(@"Bad value in setSignificantEventCount");
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
@@ -376,19 +376,8 @@ NSString* const version = @"2.0.0";
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
 
+    //TODO: Update to cancelPendingNotifications when the 7.0.3 artefacts are released
     [EXPPredictive cancelPendingInvites];
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-
-- (void)refreshPendingInvites: (CDVInvokedUrlCommand *)command{
-    CDVPluginResult* pluginResult = nil;
-
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-
-    //TODO: Uncomment when the 7.0.3 artefacts are released
-    //[EXPPredictive refreshPendingInvites];
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -587,39 +576,41 @@ NSString* const version = @"2.0.0";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)willNotShowInviteWithEligibilityFailedForMeasure:(EXPMeasure *)measure{
+#pragma mark - EXPInviteDelegate
+
+- (void)willNotShowInviteWithEligibilityFailedForMeasure:(EXPMeasure *)measure {
     [self sendInviteListenerResult:measure eventMessage:@"onInviteNotShownWithEligibilityFailed"];
 }
 
-- (void)willNotShowInviteWithSamplingFailedForMeasure:(EXPMeasure *)measure{
+- (void)willNotShowInviteWithSamplingFailedForMeasure:(EXPMeasure *)measure {
     [self sendInviteListenerResult:measure eventMessage:@"onInviteNotShownWithSamplingFailed"];
 }
 
-- (void)didShowInviteForMeasure:(EXPMeasure *)measure{
+- (void)didShowInviteForMeasure:(EXPMeasure *)measure {
     [self sendInviteListenerResult:measure eventMessage:@"onInvitePresented"];
 }
 
-- (void)didAcceptInviteForMeasure:(EXPMeasure *)measure{
+- (void)didAcceptInviteForMeasure:(EXPMeasure *)measure {
     [self sendInviteListenerResult:measure eventMessage:@"onInviteCompleteWithAccept"];
 }
 
-- (void)didDeclineInviteForMeasure:(EXPMeasure *)measure{
+- (void)didDeclineInviteForMeasure:(EXPMeasure *)measure {
     [self sendInviteListenerResult:measure eventMessage:@"onInviteCompleteWithDecline"];
 }
 
-- (void)didShowSurveyForMeasure:(EXPMeasure *)measure{
+- (void)didShowSurveyForMeasure:(EXPMeasure *)measure {
     [self sendInviteListenerResult:measure eventMessage:@"onSurveyPresented"];
 }
 
-- (void)didCancelSurveyForMeasure:(EXPMeasure *)measure{
+- (void)didCancelSurveyForMeasure:(EXPMeasure *)measure {
     [self sendInviteListenerResult:measure eventMessage:@"onSurveyCancelledByUser"];
 }
 
-- (void)didCompleteSurveyForMeasure:(EXPMeasure *)measure{
+- (void)didCompleteSurveyForMeasure:(EXPMeasure *)measure {
     [self sendInviteListenerResult:measure eventMessage:@"onSurveyCompleted"];
 }
 
-- (void)didFailForMeasure:(EXPMeasure *)measure withNetworkError:(NSError *)error{
+- (void)didFailForMeasure:(EXPMeasure *)measure withNetworkError:(NSError *)error {
     [self sendInviteListenerResult:measure eventMessage:@"onSurveyCancelledWithNetworkError"];
 }
 
@@ -637,7 +628,8 @@ NSString* const version = @"2.0.0";
     if (!self.inviteListenerCommand) {
         return;
     }
-    NSDictionary *eventDictionary = @{@"event":msg, @"surveyId": measure.surveyID};
+    NSDictionary *eventDictionary = @{@"event": msg,
+                                      @"surveyId": (measure != nil) ? measure.surveyID : @""};
     CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:eventDictionary];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:self.inviteListenerCommand.callbackId];
@@ -652,21 +644,25 @@ NSString* const version = @"2.0.0";
 
 - (void)showDigitalSurveyForName:(CDVInvokedUrlCommand *)command {
     if ([self validate:command argCount:1]) {
-        NSString *feedbackName = command.arguments[0];
-        [DigitalComponent showDigitalSurveyForName:feedbackName];
+        NSString *surveyName = command.arguments[0];
+        [DigitalComponent showDigitalSurveyForName:surveyName];
         [self sendOKResultForCommand:command];
     }
 }
 
 - (void)checkIfDigitalSurveyEnabled:(CDVInvokedUrlCommand *)command {
     [DigitalComponent checkIfDigitalSurveyEnabled];
+    // No return
+    // -digitalSurveyStatusRetrieved:enabled: DigitalDelegate function will be called
     [self sendNoResultResultForCommand:command];
 }
 
 - (void)checkIfDigitalSurveyEnabledForName:(CDVInvokedUrlCommand *)command {
     if ([self validate:command argCount:1]) {
-        NSString *feedbackName = command.arguments[0];
-        [DigitalComponent checkIfDigitalSurveyEnabledForName:feedbackName];
+        NSString *surveyName = command.arguments[0];
+        [DigitalComponent checkIfDigitalSurveyEnabledForName:surveyName];
+      // No return
+      // -digitalSurveyStatusRetrieved:enabled: DigitalDelegate function will be called
         [self sendNoResultResultForCommand:command];
     }
 }
@@ -681,26 +677,22 @@ NSString* const version = @"2.0.0";
     }
 }
 
-#pragma mark - <DigitalDelegate>
+#pragma mark - DigitalDelegate
 
 - (void)digitalSurveyPresented:(NSString *)surveyName {
     [self sendDigitalListenerResult:surveyName eventMessage:@"digitalSurveyPresented"];
 }
 
-- (void)digitalSurveySubmitted:(NSString *)surveyName {
-    [self sendDigitalListenerResult:surveyName eventMessage:@"digitalSurveySubmitted"];
-}
-
-- (void)digitalSurveyStatusRetrieved:(NSString *)surveyName enabled:(BOOL)enabled {
-    [self sendDigitalListenerResult:surveyName withStatus:[NSNumber numberWithBool:enabled] eventMessage:@"digitalSurveyStatusRetrieved"];
+- (void)digitalSurveyNotPresentedWithNetworkError:(NSString *)surveyName {
+    [self sendDigitalListenerResult:surveyName eventMessage:@"digitalSurveyNotPresentedWithNetworkError"];
 }
 
 - (void)digitalSurveyNotPresentedWithDisabled:(NSString *)surveyName {
     [self sendDigitalListenerResult:surveyName eventMessage:@"digitalSurveyNotPresentedWithDisabled"];
 }
 
-- (void)digitalSurveyNotPresentedWithNetworkError:(NSString *)surveyName {
-    [self sendDigitalListenerResult:surveyName eventMessage:@"digitalSurveyNotPresentedWithNetworkError"];
+- (void)digitalSurveySubmitted:(NSString *)surveyName {
+    [self sendDigitalListenerResult:surveyName eventMessage:@"digitalSurveySubmitted"];
 }
 
 - (void)digitalSurveyNotSubmittedWithNetworkError:(NSString *)surveyName {
@@ -709,6 +701,10 @@ NSString* const version = @"2.0.0";
 
 - (void)digitalSurveyNotSubmittedWithAbort:(NSString *)surveyName {
     [self sendDigitalListenerResult:surveyName eventMessage:@"digitalSurveyNotSubmittedWithAbort"];
+}
+
+- (void)digitalSurveyStatusRetrieved:(NSString *)surveyName enabled:(BOOL)enabled {
+    [self sendDigitalListenerResult:surveyName withStatus:[NSNumber numberWithBool:enabled] eventMessage:@"digitalSurveyStatusRetrieved"];
 }
 
 #pragma mark - Digital Survey listener helpers
@@ -725,11 +721,13 @@ NSString* const version = @"2.0.0";
     [self sendDigitalListenerResult:surveyName withStatus:nil eventMessage:msg];
 }
 
-- (void)sendDigitalListenerResult:(NSString *)surveyName withStatus:(NSNumber*)status eventMessage:(NSString *)msg {
+- (void)sendDigitalListenerResult:(NSString *)surveyName withStatus:(NSNumber *_Nullable)status eventMessage:(NSString *)msg {
     if (!self.feedbackListenerCommand) {
         return;
     }
-    NSDictionary *eventDictionary = @{@"event":msg, @"feedbackName":surveyName, @"status":status};
+    NSDictionary *eventDictionary = @{@"event": msg,
+                                      @"feedbackName": surveyName,
+                                      @"status": status != nil ? status : @""};
     CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
                                                   messageAsDictionary:eventDictionary];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
