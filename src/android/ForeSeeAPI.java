@@ -7,7 +7,6 @@ import com.verint.xm.sdk.Core;
 import com.verint.xm.sdk.Predictive;
 import com.verint.xm.sdk.Digital;
 import com.verint.xm.sdk.ExpDigitalListener;
-import com.verint.xm.sdk.predictive.tracker.listeners.BaseInviteListener;
 import com.verint.xm.sdk.common.configuration.MeasureConfiguration;
 import com.verint.xm.sdk.predictive.tracker.listeners.DefaultInviteListener;
 import com.verint.xm.sdk.common.configuration.EligibleMeasureConfigurations;
@@ -56,45 +55,149 @@ public class ForeSeeAPI extends CordovaPlugin {
     Set<CallbackContext> mDigitalCallbacks = Collections
             .synchronizedSet(new HashSet<CallbackContext>());
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (!Core.isCoreStarted()) {
+            String appId = getAppIdFromJSON();
+            Log.d(sTag, "init the ForeSee SDK");
+
+            if (appId != null) {
+                Log.d(sTag, "FCP startup with appId: "+appId);
+                Core.startWithAppId(cordova.getActivity().getApplication(), appId, APP_VERSION);
+            } else {
+                Log.d(sTag, "Regular startup");
+                Core.start(cordova.getActivity().getApplication());
+            }
+
+            Core.addCPPValue("crossPlatformName", "Cordova Android");
+            Core.addCPPValue("crossPlatformSDKVersion", CordovaWebView.CORDOVA_VERSION);
+            Core.addCPPValue("crossPlatformOSVersion", android.os.Build.VERSION.RELEASE);
+            Core.addCPPValue("crossPlatformVersion", version);
+        }
+    }
+
+    public String getAppIdFromJSON() {
+        int identifier = cordova.getActivity().getResources().getIdentifier(EXP_FCP_JSON_FILE_NAME, "raw", cordova.getActivity().getPackageName());
+        if (identifier == 0) {
+            Log.d(sTag, "exp_fcp.json file does not exist");
+            return null;
+        }
+
+        String jsonString = getWriter();
+
+        Log.d(sTag, "From json file: "+jsonString);
+
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            String appId = jsonObject.getString("appId");
+            Log.d(sTag, "appId: "+appId);
+            return appId;
+        } catch (JSONException e) {
+            Log.d(sTag, "JSONException: "+e);
+        }
+        return null;
+    }
+
+    private String getWriter() {
+        InputStream inputStream = cordova.getActivity().getResources().openRawResource(cordova.getActivity().getResources().getIdentifier(EXP_FCP_JSON_FILE_NAME, "raw", cordova.getActivity().getPackageName()));
+        Writer writer = new StringWriter();
+        char[] buffer = new char[1024];
+        try {
+            Reader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+            int number;
+            while ((number = reader.read(buffer)) != -1) {
+                writer.write(buffer, 0, number);
+            }
+        } catch(IOException e) {
+            Log.d(sTag, "IOException: "+e);
+        } finally {
+            try {
+                inputStream.close();
+            } catch (Exception e) {
+                Log.e(sTag, "Exception: "+e);
+            }
+        }
+        return writer.toString();
+    }        
+    
     /**
      * Initialization of all supported ForeSee API methods
      */
     {
 
-        //showSurvey
-        sActions.put("showSurvey", new ForeSeeMethod() {
+        // Start
+
+        //start
+        sActions.put("start", new ForeSeeMethod() {
 
             @Override
-            public boolean invoke(JSONArray args, final CallbackContext callbackContext, CordovaInterface cordova) {
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
-                try {
-                    if (args == null || args.length() < 1) {
-                        callbackContext.error("No Survey ID provided for showInvite");
-                        return true;
-                    }
-
-                    final String id = args.getString(0);
-
-                    if (null == id || id.isEmpty()) {
-                        callbackContext.error("Bad surveyId for showSurvey");
-                        return true;
-                    }
-
-                    cordova.getActivity().runOnUiThread(new Runnable() {
-                        public void run() {
-                            Predictive.showSurveyForSurveyID(id);
-                            callbackContext.success();
-                        }
-                    });
-                } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callbackContext.error(sTag + " showSurvey failure");
-                }
-
+                Log.i(sTag, "The start() API for ANDROID is not available in Cordova implementations. The SDK will start automatically on app launch");
+                callback.success(sTag + "start() is not available");
                 return true;
             }
         });
 
+        //startWithConfigurationFile
+        sActions.put("startWithConfigurationFile", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+
+                Log.i(sTag, "The startWithConfigurationFile() API for ANDROID is not available in Cordova implementations. The SDK will start automatically on app launch");
+                callback.success(sTag + "start() is not available");
+                return true;
+
+            }
+        });
+
+        //startWithConfigurationJson
+        sActions.put("startWithConfigurationJson", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+
+                Log.i(sTag, "The startWithConfigurationJson() API for ANDROID is not available in Cordova implementations. The SDK will start automatically on app launch");
+                callback.success(sTag + "start() is not available");
+                return true;
+            }
+        });
+
+        // Reset
+
+        //resetState
+        sActions.put("resetState", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+
+                try {
+                    Core.resetState();
+                    callback.success();
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "incrementSignificantEvent failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        // Check eligibility and show invites/surveys
+        
+        //checkEligibility
+        sActions.put("checkEligibility", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callbackContext, CordovaInterface cordova) {
+                Predictive.checkIfEligibleForSurvey();
+                callbackContext.success();
+                return true;
+            }
+        });
+        
         //showInivite
         sActions.put("showInvite", new ForeSeeMethod() {
 
@@ -129,17 +232,42 @@ public class ForeSeeAPI extends CordovaPlugin {
                 return true;
             }
         });
-
-        //checkEligibility
-        sActions.put("checkEligibility", new ForeSeeMethod() {
+        
+        //showSurvey
+        sActions.put("showSurvey", new ForeSeeMethod() {
 
             @Override
-            public boolean invoke(JSONArray args, CallbackContext callbackContext, CordovaInterface cordova) {
-                Predictive.checkIfEligibleForSurvey();
-                callbackContext.success();
+            public boolean invoke(JSONArray args, final CallbackContext callbackContext, CordovaInterface cordova) {
+
+                try {
+                    if (args == null || args.length() < 1) {
+                        callbackContext.error("No Survey ID provided for showInvite");
+                        return true;
+                    }
+
+                    final String id = args.getString(0);
+
+                    if (null == id || id.isEmpty()) {
+                        callbackContext.error("Bad surveyId for showSurvey");
+                        return true;
+                    }
+
+                    cordova.getActivity().runOnUiThread(new Runnable() {
+                        public void run() {
+                            Predictive.showSurveyForSurveyID(id);
+                            callbackContext.success();
+                        }
+                    });
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callbackContext.error(sTag + " showSurvey failure");
+                }
+
                 return true;
             }
         });
+
+        // CPPs
 
         //addCPP
         sActions.put("addCPPValue", new ForeSeeMethod() {
@@ -244,6 +372,8 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
+        // Criteria
+
         //increment page views
         sActions.put("incrementPageViews", new ForeSeeMethod() {
 
@@ -296,12 +426,12 @@ public class ForeSeeAPI extends CordovaPlugin {
                     }
 
                     String key = args.getString(0);
-                    int value = Integer.parseInt(args.getString(1));
+                    int count = Integer.parseInt(args.getString(1));
 
                     if (null == key || key.isEmpty()) {
                         callback.error("Bad key for setSignificantEventCount");
                     } else {
-                        Predictive.setSignificantEventCount(key, value);
+                        Predictive.setSignificantEventCount(key, count);
                         callback.success();
                     }
                 } catch (Exception ex) {
@@ -376,76 +506,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-        //resetState
-        sActions.put("resetState", new ForeSeeMethod() {
-
-            @Override
-            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
-
-                try {
-                    Core.resetState();
-                    callback.success();
-                } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "incrementSignificantEvent failure");
-                } finally {
-                    return true;
-                }
-            }
-        });
-
-        //start
-        sActions.put("start", new ForeSeeMethod() {
-
-            @Override
-            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
-
-                Log.i(sTag, "The start() API for ANDROID is not available in Cordova implementations. The SDK will start automatically on app launch");
-                callback.success(sTag + "start() is not available");
-                return true;
-            }
-        });
-
-        //startWithConfigurationFile
-        sActions.put("startWithConfigurationFile", new ForeSeeMethod() {
-
-            @Override
-            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
-
-                Log.i(sTag, "The startWithConfigurationFile() API for ANDROID is not available in Cordova implementations. The SDK will start automatically on app launch");
-                callback.success(sTag + "start() is not available");
-                return true;
-
-            }
-        });
-
-        //startWithConfigurationJson
-        sActions.put("startWithConfigurationJson", new ForeSeeMethod() {
-
-            @Override
-            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
-
-                Log.i(sTag, "The startWithConfigurationJson() API for ANDROID is not available in Cordova implementations. The SDK will start automatically on app launch");
-                callback.success(sTag + "start() is not available");
-                return true;
-            }
-        });
-
-        //isDebugLogEnabled
-        sActions.put("isDebugLogEnabled", new ForeSeeMethod() {
-
-            @Override
-            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
-                try {
-                    callback.success(String.valueOf(Core.isDebugLogEnabled()));
-                } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "isDebugLogEnabled failure");
-                } finally {
-                    return true;
-                }
-            }
-        });
+        // Debugging
 
         //setDebugLogEnabled
         sActions.put("setDebugLogEnabled", new ForeSeeMethod() {
@@ -469,6 +530,22 @@ public class ForeSeeAPI extends CordovaPlugin {
                 }
             }
         });
+        
+        //isDebugLogEnabled
+        sActions.put("isDebugLogEnabled", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    callback.success(String.valueOf(Core.isDebugLogEnabled()));
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "isDebugLogEnabled failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
 
         //getVersion
         sActions.put("getVersion", new ForeSeeMethod() {
@@ -485,6 +562,66 @@ public class ForeSeeAPI extends CordovaPlugin {
                 }
             }
         });
+
+        //setSkipPoolingCheck
+        sActions.put("setSkipPoolingCheck", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    if (args == null || args.length() < 1) {
+                        callback.error("No value for setSkipPoolingCheck");
+                        return true;
+                    }
+                    Core.setSkipPoolingCheck(args.getBoolean(0));
+                    callback.success();
+
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "setSkipPoolingCheck failure");
+                } finally {
+                    return true;
+                }
+            }
+        });        
+
+        // Custom invites
+
+        //customInviteAccepted
+        sActions.put("customInviteAccepted", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    Predictive.customInviteAccepted();
+                    callback.success();
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "customInviteAccepted failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+        
+        //customInviteDeclined
+        sActions.put("customInviteDeclined", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    Predictive.customInviteDeclined();
+                    callback.success();
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "customInviteDeclined failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        // Contact details
 
         //getContactDetails
         sActions.put("getContactDetails", new ForeSeeMethod() {
@@ -533,6 +670,35 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
+        //setPreferredContactType
+        sActions.put("setPreferredContactType", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    if (args == null || args.length() != 1) {
+                        callback.error("Bad contact type for setPreferredContactType");
+                        return true;
+                    }
+
+                    String string = args.getString(0);
+
+                    if (null == string || string.isEmpty()) {
+                        callback.error("Bad contact type for setPreferredContactType");
+                    } else {
+                        ContactType contactType = contactTypeForString(string);
+                        Predictive.setPreferredContactType(contactType);
+                        callback.success();
+                    }
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "setPreferredContactType failure");
+                } finally {
+                    return true;
+                }
+            }
+        });        
+
         //getPreferredContactType
         sActions.put("getPreferredContactType", new ForeSeeMethod() {
 
@@ -567,90 +733,7 @@ public class ForeSeeAPI extends CordovaPlugin {
 
         });
 
-        //setPreferredContactType
-        sActions.put("setPreferredContactType", new ForeSeeMethod() {
-
-            @Override
-            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
-                try {
-                    if (args == null || args.length() != 1) {
-                        callback.error("Bad contact type for setPreferredContactType");
-                        return true;
-                    }
-
-                    String string = args.getString(0);
-
-                    if (null == string || string.isEmpty()) {
-                        callback.error("Bad contact type for setPreferredContactType");
-                    } else {
-                        ContactType contactType = contactTypeForString(string);
-                        Predictive.setPreferredContactType(contactType);
-                        callback.success();
-                    }
-                } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "setPreferredContactType failure");
-                } finally {
-                    return true;
-                }
-            }
-        });
-
-        //customInviteDeclined
-        sActions.put("customInviteDeclined", new ForeSeeMethod() {
-
-            @Override
-            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
-                try {
-                    Predictive.customInviteDeclined();
-                    callback.success();
-                } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "customInviteDeclined failure");
-                } finally {
-                    return true;
-                }
-            }
-        });
-
-        //customInviteAccepted
-        sActions.put("customInviteAccepted", new ForeSeeMethod() {
-
-            @Override
-            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
-                try {
-                    Predictive.customInviteAccepted();
-                    callback.success();
-                } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "customInviteAccepted failure");
-                } finally {
-                    return true;
-                }
-            }
-        });
-
-        //setSkipPoolingCheck
-        sActions.put("setSkipPoolingCheck", new ForeSeeMethod() {
-
-            @Override
-            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
-                try {
-                    if (args == null || args.length() < 1) {
-                        callback.error("No value for setSkipPoolingCheck");
-                        return true;
-                    }
-                    Core.setSkipPoolingCheck(args.getBoolean(0));
-                    callback.success();
-
-                } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "setSkipPoolingCheck failure");
-                } finally {
-                    return true;
-                }
-            }
-        });
+        // Invite Listener
 
         //setInviteListener
         /*
@@ -700,6 +783,69 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
+        // Digital Surveys
+
+        // Show the default survey
+        sActions.put("showDigitalSurvey", new ForeSeeMethod() {
+    
+            @Override
+            public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    Digital.showDigitalSurvey();
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "showDigitalSurvey failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        // Show the survey for a given name.
+        sActions.put("showDigitalSurveyForName", new ForeSeeMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+
+                try {
+                    if (args == null || args.length() < 1) {
+                        callback.error("No survey name for showDigitalSurveyForName");
+                        return true;
+                    }
+
+                    String name = args.getString(0);
+
+                    if (null == name || name.isEmpty()) {
+                        callback.error("Bad name for showDigitalSurveyForName");
+                    } else {
+                        Digital.showDigitalSurveyForName(name);
+                        callback.success();
+                    }
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "showDigitalSurveyForName failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+        
+        // Check if the default survey is enabled. 
+        sActions.put("checkIfDigitalSurveyEnabled", new ForeSeeMethod() {
+    
+            @Override
+            public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    Digital.checkIfDigitalSurveyEnabled();
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "checkIfDigitalSurveyEnabled failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+        
         // Check if a survey is enabled.
         sActions.put("checkIfDigitalSurveyEnabledForName", new ForeSeeMethod() {
 
@@ -745,66 +891,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-        // Check if the default survey is enabled. 
-        sActions.put("checkIfDigitalSurveyEnabled", new ForeSeeMethod() {
-            
-            @Override
-            public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
-                try {
-                    Digital.checkIfDigitalSurveyEnabled();
-                } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "checkIfDigitalSurveyEnabled failure");
-                } finally {
-                    return true;
-                }
-            }
-        });
-
-        // Show the survey for a given name.
-        sActions.put("showDigitalSurveyForName", new ForeSeeMethod() {
-
-            @Override
-            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
-
-                try {
-                    if (args == null || args.length() < 1) {
-                        callback.error("No survey name for showDigitalSurveyForName");
-                        return true;
-                    }
-
-                    String name = args.getString(0);
-
-                    if (null == name || name.isEmpty()) {
-                        callback.error("Bad name for showDigitalSurveyForName");
-                    } else {
-                        Digital.showDigitalSurveyForName(name);
-                        callback.success();
-                    }
-                } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "showDigitalSurveyForName failure");
-                } finally {
-                    return true;
-                }
-            }
-        });
-
-        // Show the default survey
-        sActions.put("showDigitalSurvey", new ForeSeeMethod() {
-            
-            @Override
-            public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
-                try {
-                    Digital.showDigitalSurvey();
-                } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "showDigitalSurvey failure");
-                } finally {
-                    return true;
-                }
-            }
-        });
+        // Digital Listener
 
         // set Digital Listener
         /*
@@ -849,73 +936,8 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (!Core.isCoreStarted()) {
-            String appId = getAppIdFromJSON();
-            Log.d(sTag, "init the ForeSee SDK");
-
-            if (appId != null) {
-                Log.d(sTag, "FCP startup with appId: "+appId);
-                Core.startWithAppId(cordova.getActivity().getApplication(), appId, APP_VERSION);
-            } else {
-                Log.d(sTag, "Regular startup");
-                Core.start(cordova.getActivity().getApplication());
-            }
-
-            Core.addCPPValue("crossPlatformName", "Cordova Android");
-            Core.addCPPValue("crossPlatformSDKVersion", CordovaWebView.CORDOVA_VERSION);
-            Core.addCPPValue("crossPlatformOSVersion", android.os.Build.VERSION.RELEASE);
-            Core.addCPPValue("crossPlatformVersion", version);
-        }
-    }
-
-    public String getAppIdFromJSON() {
-        int identifier = cordova.getActivity().getResources().getIdentifier(EXP_FCP_JSON_FILE_NAME, "raw", cordova.getActivity().getPackageName());
-        if (identifier == 0) {
-            Log.d(sTag, "exp_fcp.json file does not exist");
-            return null;
-        }
-
-        String jsonString = getWriter();
-
-        Log.d(sTag, "From json file: "+jsonString);
-
-        try {
-            JSONObject jsonObject = new JSONObject(jsonString);
-            String appId = jsonObject.getString("appId");
-            Log.d(sTag, "appId: "+appId);
-            return appId;
-        } catch (JSONException e) {
-            Log.d(sTag, "JSONException: "+e);
-        }
-        return null;
-    }
-
-    private String getWriter() {
-        InputStream inputStream = cordova.getActivity().getResources().openRawResource(cordova.getActivity().getResources().getIdentifier(EXP_FCP_JSON_FILE_NAME, "raw", cordova.getActivity().getPackageName()));
-        Writer writer = new StringWriter();
-        char[] buffer = new char[1024];
-        try {
-            Reader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-            int number;
-            while ((number = reader.read(buffer)) != -1) {
-                writer.write(buffer, 0, number);
-            }
-        } catch(IOException e) {
-            Log.d(sTag, "IOException: "+e);
-        } finally {
-            try {
-                inputStream.close();
-            } catch (Exception e) {
-                Log.e(sTag, "Exception: "+e);
-            }
-        }
-        return writer.toString();
-    }
-
-    // Util methods
+    // Contact Type
+    
     private ContactType contactTypeForString(String string) {
         ContactType result = ContactType.Unknown;
         try {
@@ -936,46 +958,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         return to;
     }
 
-    class FSCordovaInviteListener implements BaseInviteListener, DefaultInviteListener {
-
-        @Override
-        public void onInviteCompleteWithAccept(EligibleMeasureConfigurations eligibleMeasures) {
-            Log.d(sTag, "onInviteCompleteWithAccept");
-            try {
-                onEvent(new JSONObject().put("event", "onInviteCompleteWithAccept"));
-            } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onInviteCompleteWithAccept event");
-            }
-        }
-
-        @Override
-        public void onInviteCompleteWithDecline(EligibleMeasureConfigurations eligibleMeasures) {
-            Log.d(sTag, "onInviteCompleteWithDecline");
-            try {
-                onEvent(new JSONObject().put("event", "onInviteCompleteWithDecline"));
-            } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onInviteCompleteWithDecline event");
-            }
-        }
-
-        @Override
-        public void onInviteNotShownWithNetworkError(EligibleMeasureConfigurations eligibleMeasures) {
-            Log.d(sTag, "onInviteNotShownWithNetworkError");
-            try {
-                // Here we return a onSurveyCancelledWithNetworkError event instead of a onInviteNotShownWithNetworkError
-                // event to align with iOS's implementation.
-                JSONObject jsonObject = new JSONObject().put("event", "onSurveyCancelledWithNetworkError");
-
-                // This is intended to enable forwards compatibility; 
-                // eligibleMeasures is null in v5.0.0 of the Android SDK, but will be added in future
-                if (validChosenMeasure(eligibleMeasures)) {
-                    jsonObject.put("surveyId", eligibleMeasures.getChosenEligibleMeasureConfiguration().getSurveyId());
-                }
-                onEvent(jsonObject);
-            } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onSurveyCancelledWithNetworkError event");
-            }
-        }
+    class FSCordovaInviteListener implements DefaultInviteListener {
 
         @Override
         public void onInviteNotShownWithEligibilityFailed(EligibleMeasureConfigurations eligibleMeasures) {
@@ -1006,22 +989,73 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         @Override
+        public void onInvitePresented(EligibleMeasureConfigurations eligibleMeasures) {
+            Log.d(sTag, "onInvitePresented");
+            try {
+                onEvent(new JSONObject().put("event", "onInvitePresented"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onInvitePresented event");
+            }
+        }
+
+        @Override
+        public void onInviteCompleteWithAccept(EligibleMeasureConfigurations eligibleMeasures) {
+            Log.d(sTag, "onInviteCompleteWithAccept");
+            try {
+                onEvent(new JSONObject().put("event", "onInviteCompleteWithAccept"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onInviteCompleteWithAccept event");
+            }
+        }
+
+        @Override
+        public void onInviteCompleteWithDecline(EligibleMeasureConfigurations eligibleMeasures) {
+            Log.d(sTag, "onInviteCompleteWithDecline");
+            try {
+                onEvent(new JSONObject().put("event", "onInviteCompleteWithDecline"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onInviteCompleteWithDecline event");
+            }
+        }
+
+        @Override
+        public void onInviteCancelledWithNetworkError(EligibleMeasureConfigurations eligibleMeasures) {
+            Log.d(sTag, "onInviteCancelledWithNetworkError");
+            try {
+                // Here we return a onSurveyCancelledWithNetworkError event instead of a onInviteCancelledWithNetworkError
+                // event to align with iOS's implementation.
+                onEvent(new JSONObject().put("event", "onSurveyCancelledWithNetworkError"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onSurveyCancelledWithNetworkError event");
+            }
+        }
+
+        @Override
+        public void onInviteNotShownWithNetworkError(EligibleMeasureConfigurations eligibleMeasures) {
+            Log.d(sTag, "onInviteNotShownWithNetworkError");
+            try {
+                // Here we return a onSurveyCancelledWithNetworkError event instead of a onInviteNotShownWithNetworkError
+                // event to align with iOS's implementation.
+                JSONObject jsonObject = new JSONObject().put("event", "onSurveyCancelledWithNetworkError");
+
+                // This is intended to enable forwards compatibility; 
+                // eligibleMeasures is null in v5.0.0 of the Android SDK, but will be added in future
+                if (validChosenMeasure(eligibleMeasures)) {
+                    jsonObject.put("surveyId", eligibleMeasures.getChosenEligibleMeasureConfiguration().getSurveyId());
+                }
+                onEvent(jsonObject);
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onSurveyCancelledWithNetworkError event");
+            }
+        }
+
+        @Override
         public void onSurveyPresented(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onSurveyPresented");
             try {
                 onEvent(new JSONObject().put("event", "onSurveyPresented"));
             } catch (JSONException e) {
                 Log.e(sTag, "Failed to return onSurveyPresented event");
-            }
-        }
-
-        @Override
-        public void onSurveyCompleted(EligibleMeasureConfigurations eligibleMeasures) {
-            Log.d(sTag, "onSurveyCompleted");
-            try {
-                onEvent(new JSONObject().put("event", "onSurveyCompleted"));
-            } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onSurveyCompleted event");
             }
         }
 
@@ -1036,31 +1070,19 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         @Override
+        public void onSurveyCompleted(EligibleMeasureConfigurations eligibleMeasures) {
+            Log.d(sTag, "onSurveyCompleted");
+            try {
+                onEvent(new JSONObject().put("event", "onSurveyCompleted"));
+            } catch (JSONException e) {
+                Log.e(sTag, "Failed to return onSurveyCompleted event");
+            }
+        }
+
+        @Override
         public void onSurveyCancelledWithNetworkError(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onSurveyCancelledWithNetworkError");
             try {
-                onEvent(new JSONObject().put("event", "onSurveyCancelledWithNetworkError"));
-            } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onSurveyCancelledWithNetworkError event");
-            }
-        }
-
-        @Override
-        public void onInvitePresented(EligibleMeasureConfigurations eligibleMeasures) {
-            Log.d(sTag, "onInvitePresented");
-            try {
-                onEvent(new JSONObject().put("event", "onInvitePresented"));
-            } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onInvitePresented event");
-            }
-        }
-
-        @Override
-        public void onInviteCancelledWithNetworkError(EligibleMeasureConfigurations eligibleMeasures) {
-            Log.d(sTag, "onInviteCancelledWithNetworkError");
-            try {
-                // Here we return a onSurveyCancelledWithNetworkError event instead of a onInviteCancelledWithNetworkError
-                // event to align with iOS's implementation.
                 onEvent(new JSONObject().put("event", "onSurveyCancelledWithNetworkError"));
             } catch (JSONException e) {
                 Log.e(sTag, "Failed to return onSurveyCancelledWithNetworkError event");
@@ -1100,7 +1122,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             try {
                 JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveyPresented");
                 
-                jsonObject.put("feedbackName", surveyName);
+                jsonObject.put("surveyName", surveyName);
                 
                 onEvent(new JSONObject().put("event", "onDigitalSurveyPresented"));
             } catch (JSONException e) {
@@ -1114,7 +1136,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             try {
                 JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveyNotPresentedWithNetworkError");
                 
-                jsonObject.put("feedbackName", surveyName);
+                jsonObject.put("surveyName", surveyName);
                 
                 onEvent(new JSONObject().put("event", "onDigitalSurveyNotPresentedWithNetworkError"));
             } catch (JSONException e) {
@@ -1128,7 +1150,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             try {
                 JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveyNotPresentedWithDisabled");
                 
-                jsonObject.put("feedbackName", surveyName);
+                jsonObject.put("surveyName", surveyName);
                 
                 onEvent(new JSONObject().put("event", "onDigitalSurveyNotPresentedWithDisabled"));
             } catch (JSONException e) {
@@ -1142,7 +1164,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             try {
                 JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveySubmitted");
                 
-                jsonObject.put("feedbackName", surveyName);
+                jsonObject.put("surveyName", surveyName);
                 
                 onEvent(new JSONObject().put("event", "onDigitalSurveySubmitted"));
             } catch (JSONException e) {
@@ -1156,7 +1178,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             try {
                 JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveyNotSubmittedWithNetworkError");
                 
-                jsonObject.put("feedbackName", surveyName);
+                jsonObject.put("surveyName", surveyName);
                 
                 onEvent(new JSONObject().put("event", "onDigitalSurveyNotSubmittedWithNetworkError"));
             } catch (JSONException e) {
@@ -1170,7 +1192,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             try {
                 JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveyNotSubmittedWithAbort");
                 
-                jsonObject.put("feedbackName", surveyName);
+                jsonObject.put("surveyName", surveyName);
                 
                 onEvent(new JSONObject().put("event", "onDigitalSurveyNotSubmittedWithAbort"));
             } catch (JSONException e) {
@@ -1184,7 +1206,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             try {
                 JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveyStatusRetrieved");
                 
-                jsonObject.put("feedbackName", surveyName);
+                jsonObject.put("surveyName", surveyName);
                 jsonObject.put("enabled", enabled ? "true" : "false");
                 
                 onEvent(new JSONObject().put("event", "onDigitalSurveyStatusRetrieved"));
