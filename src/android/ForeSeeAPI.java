@@ -59,6 +59,9 @@ public class ForeSeeAPI extends CordovaPlugin {
     public void onStart() {
         super.onStart();
         if (!Core.isCoreStarted()) {
+
+            this.setListeners();
+
             String appId = getAppIdFromJSON();
             Log.d(sTag, "init the ForeSee SDK");
 
@@ -75,6 +78,10 @@ public class ForeSeeAPI extends CordovaPlugin {
             Core.addCPPValue("crossPlatformOSVersion", android.os.Build.VERSION.RELEASE);
             Core.addCPPValue("crossPlatformVersion", version);
         }
+    }
+
+    void setListeners() {
+        Core.setSDKListener(new CustomVerintSDKListener());
     }
 
     public String getAppIdFromJSON() {
@@ -1232,4 +1239,24 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         }
     }
+
+    class CustomVerintSDKListener implements Core.VerintSDKListener {
+    
+        @Override
+        public void onSDKStarted() {
+            Log.i("CordovaVerintSDK", "VerintSDKListener::onSDKStarted");
+        }
+    
+        @Override
+        public void onSDKStarted(Core.VerintError error, String message) {
+            Log.w("CordovaVerintSDK", "VerintSDKListener::didStartSDKWithError: " + error + " / " + message);
+        }
+    
+        @Override
+        public void onSDKFailedToStart(Core.VerintError error, String message) {
+            Log.w("CordovaVerintSDK", "VerintSDKListener::didFailToStartSDKWithError: " + error + " / " + message);
+        }
+        
+    }
+
 }
