@@ -53,18 +53,49 @@ NSString* const version = @"2.0.0";
     return appId;                                    
 }
 
+- (void)addCrossPlatformCPPs {
+  [EXPCore setCPPValue:@"Cordova iOS" forKey:platformNameKey];
+  [EXPCore setCPPValue:[CDVDevice cordovaVersion] forKey:platformSDKVersionKey];
+  [EXPCore setCPPValue:[[UIDevice currentDevice] systemVersion] forKey:platformOSVersionKey];
+  [EXPCore setCPPValue:version forKey:platformVersionKey];
+}
+
+#pragma mark - Start
+
+- (void)start: (CDVInvokedUrlCommand *)command
+{
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    NSLog(@"The start() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch");
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)startWithConfigurationFile: (CDVInvokedUrlCommand *)command
+{
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    NSLog(@"The startWithConfigurationFile() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch");
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)startWithConfigurationJson: (CDVInvokedUrlCommand *)command
+{
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    NSLog(@"The startWithConfigurationJson() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch");
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+
 #pragma mark - VerintDelegate
 
 - (void)didStartSDK {
-  NSLog(@"ForeSeeCordova::didStartSDK");
+  NSLog(@"VerintDelegate::didStartSDK");
 }
 
 -(void)didStartSDKWithError:(EXPErrorCode)error message:(NSString *)message {
-  NSLog(@"ForeSeeCordova::didStartSDKWithError: %lu / %@", (unsigned long) error, message);
+  NSLog(@"VerintDelegate::didStartSDKWithError: %lu / %@", (unsigned long) error, message);
 }
 
 - (void)didFailToStartSDKWithError:(EXPErrorCode)error message:(NSString *)message {
-  NSLog(@"ForeSeeCordova::didFailToStartSDKWithError: %lu / %@", (unsigned long) error, message);
+  NSLog(@"VerintDelegate::didFailToStartSDKWithError: %lu / %@", (unsigned long) error, message);
 }
 
 #pragma mark - Helpers
@@ -135,6 +166,20 @@ NSString* const version = @"2.0.0";
 
 #pragma mark - Public interface
 
+#pragma mark - Reset
+
+- (void)resetState: (CDVInvokedUrlCommand *)command{
+    CDVPluginResult* pluginResult = nil;
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+
+    [EXPCore resetState];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+#pragma mark - Check eligibility and show invites/surveys
+
 - (void)checkEligibility: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
@@ -143,6 +188,28 @@ NSString* const version = @"2.0.0";
 
     [EXPPredictive checkIfEligibleForSurvey];
 
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)showInvite: (CDVInvokedUrlCommand *)command
+{
+    CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+
+    if (arguments == nil || arguments.count < 1) {
+        NSLog(@"No surveyId for showInvite");
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    } else {
+        NSString* surveyId = [command.arguments objectAtIndex:0];
+
+        if (surveyId != nil && [surveyId length] > 0) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+            [EXPPredictive showInviteForSurveyID:surveyId];
+        } else {
+            NSLog(@"Bad surveyId for showInvite");
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
+    }
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
@@ -169,29 +236,7 @@ NSString* const version = @"2.0.0";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-
-- (void)showInvite: (CDVInvokedUrlCommand *)command
-{
-    CDVPluginResult* pluginResult = nil;
-    NSArray* arguments = command.arguments;
-
-    if (arguments == nil || arguments.count < 1) {
-        NSLog(@"No surveyId for showInvite");
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-    } else {
-        NSString* surveyId = [command.arguments objectAtIndex:0];
-
-        if (surveyId != nil && [surveyId length] > 0) {
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-            [EXPPredictive showInviteForSurveyID:surveyId];
-        } else {
-            NSLog(@"Bad surveyId for showInvite");
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-        }
-    }
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
+#pragma mark - CPPs
 
 - (void)addCPPValue: (CDVInvokedUrlCommand *)command
 {
@@ -275,6 +320,8 @@ NSString* const version = @"2.0.0";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
+#pragma mark - Criteria
+
 - (void)incrementPageViews: (CDVInvokedUrlCommand *)command{
 
     CDVPluginResult* pluginResult = nil;
@@ -286,7 +333,6 @@ NSString* const version = @"2.0.0";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 
 }
-
 
 - (void)incrementSignificantEvent: (CDVInvokedUrlCommand *)command{
 
@@ -382,43 +428,24 @@ NSString* const version = @"2.0.0";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)resetState: (CDVInvokedUrlCommand *)command{
+- (void)setSkipPoolingCheck: (CDVInvokedUrlCommand *)command{
     CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
 
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-
-    [EXPCore resetState];
+    if (arguments == nil || arguments.count < 1) {
+        NSLog(@"No data for setSkipPoolingCheck");
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    else {
+        BOOL skip = [command.arguments objectAtIndex:0];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        [EXPPredictive setSkipPoolingCheck:skip];
+    }
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)addCrossPlatformCPPs {
-  [EXPCore setCPPValue:@"Cordova iOS" forKey:platformNameKey];
-  [EXPCore setCPPValue:[CDVDevice cordovaVersion] forKey:platformSDKVersionKey];
-  [EXPCore setCPPValue:[[UIDevice currentDevice] systemVersion] forKey:platformOSVersionKey];
-  [EXPCore setCPPValue:version forKey:platformVersionKey];
-}
-
-- (void)start: (CDVInvokedUrlCommand *)command
-{
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    NSLog(@"The start() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch");
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-- (void)startWithConfigurationFile: (CDVInvokedUrlCommand *)command
-{
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    NSLog(@"The startWithConfigurationFile() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch");
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-- (void)startWithConfigurationJson: (CDVInvokedUrlCommand *)command
-{
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    NSLog(@"The startWithConfigurationJson() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch");
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
+#pragma mark - Debugging
 
 - (void)setDebugLogEnabled: (CDVInvokedUrlCommand *)command{
     CDVPluginResult* pluginResult = nil;
@@ -456,6 +483,30 @@ NSString* const version = @"2.0.0";
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
+
+#pragma mark - Custom invites
+
+- (void)customInviteAccepted: (CDVInvokedUrlCommand *)command{
+    CDVPluginResult* pluginResult = nil;
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+
+    [EXPPredictive customInviteAccepted];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)customInviteDeclined: (CDVInvokedUrlCommand*)command{
+    CDVPluginResult* pluginResult = nil;
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+
+    [EXPPredictive customInviteDeclined];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+#pragma mark - Contact details
 
 - (void)getContactDetails: (CDVInvokedUrlCommand *)command{
     CDVPluginResult* pluginResult = nil;
@@ -497,25 +548,6 @@ NSString* const version = @"2.0.0";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)getPreferredContactType: (CDVInvokedUrlCommand *)command{
-    // Not supported
-    CDVPluginResult* pluginResult = nil;
-
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-- (void)getAllContactDetails:(CDVInvokedUrlCommand *)command{
-  NSDictionary<NSString *, NSString *> *result = [self convertFrom:[EXPPredictive allContactDetails]];
-  if (result) {
-      CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:result];
-      [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-  } else {
-      [self sendErrorResultForCommand:command];
-  }
-}
-
 - (void)setPreferredContactType: (CDVInvokedUrlCommand *)command{
 
     CDVPluginResult* pluginResult = nil;
@@ -539,41 +571,23 @@ NSString* const version = @"2.0.0";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)customInviteDeclined: (CDVInvokedUrlCommand*)command{
+- (void)getPreferredContactType: (CDVInvokedUrlCommand *)command{
+    // Not supported
     CDVPluginResult* pluginResult = nil;
 
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-
-    [EXPPredictive customInviteAccepted];
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Command not supported"];
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)customInviteAccepted: (CDVInvokedUrlCommand *)command{
-    CDVPluginResult* pluginResult = nil;
-
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-
-    [EXPPredictive customInviteDeclined];
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-- (void)setSkipPoolingCheck: (CDVInvokedUrlCommand *)command{
-    CDVPluginResult* pluginResult = nil;
-    NSArray* arguments = command.arguments;
-
-    if (arguments == nil || arguments.count < 1) {
-        NSLog(@"No data for setSkipPoolingCheck");
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-    }
-    else {
-        BOOL skip = [command.arguments objectAtIndex:0];
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        [EXPPredictive setSkipPoolingCheck:skip];
-    }
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+- (void)getAllContactDetails:(CDVInvokedUrlCommand *)command{
+  NSDictionary<NSString *, NSString *> *result = [self convertFrom:[EXPPredictive allContactDetails]];
+  if (result) {
+      CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:result];
+      [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+  } else {
+      [self sendErrorResultForCommand:command];
+  }
 }
 
 #pragma mark - EXPInviteDelegate
@@ -726,7 +740,7 @@ NSString* const version = @"2.0.0";
         return;
     }
     NSDictionary *eventDictionary = @{@"event": msg,
-                                      @"feedbackName": surveyName,
+                                      @"surveyName": surveyName,
                                       @"status": status != nil ? status : @""};
     CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
                                                   messageAsDictionary:eventDictionary];

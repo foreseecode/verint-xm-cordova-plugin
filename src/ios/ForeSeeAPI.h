@@ -16,7 +16,7 @@
 #import <EXPUtilities/EXPFileUtilities.h>
 #import <EXPCore/EXPConfiguration.h>
 
-@interface ForeSeeAPI : CDVPlugin <EXPInviteDelegate, DigitalDelegate>
+@interface ForeSeeAPI : CDVPlugin <VerintDelegate, EXPInviteDelegate, DigitalDelegate>
 
 #pragma mark - Verint-XM interface
 
