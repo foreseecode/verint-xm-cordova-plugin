@@ -790,7 +790,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-        // Digital Surveys
+        // Digital (ex Feedback) Surveys
 
         // Show the default survey
         sActions.put("showDigitalSurvey", new ForeSeeMethod() {
@@ -898,9 +898,9 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-        // Digital Listener
+        // Digital (ex Feedback) Listener
 
-        // set Digital Listener
+        // Set Digital listener
         /*
             1. Clear current callbacks
             2. Add a new listener
@@ -927,6 +927,27 @@ public class ForeSeeAPI extends CordovaPlugin {
                 }
             }
         });
+
+        // Remove Digital listener
+        /*
+            Clears any Digital listeners that have been set to avoid memory leaks
+         */
+        sActions.put("removeDigitalListener", new ForeSeeMethod() {
+            
+            @Override
+            public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    mDigitalCallbacks.clear();
+                    Digital.setDigitalListener(null);
+                } catch (Exception ex) {
+                    Log.e(sTag, ex.getMessage());
+                    callback.error(sTag + "removeDigitalListener failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
     }
 
     @Override

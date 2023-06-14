@@ -11,7 +11,7 @@ NSString* const version = @"2.0.0";
 @interface ForeSeeAPI ()
 
 @property (nonatomic) CDVInvokedUrlCommand *inviteListenerCommand;
-@property (nonatomic) CDVInvokedUrlCommand *feedbackListenerCommand;
+@property (nonatomic) CDVInvokedUrlCommand *digitalListenerCommand;
 
 @end
 
@@ -721,14 +721,14 @@ NSString* const version = @"2.0.0";
     [self sendDigitalListenerResult:surveyName withStatus:[NSNumber numberWithBool:enabled] eventMessage:@"digitalSurveyStatusRetrieved"];
 }
 
-#pragma mark - Digital Survey listener helpers
+#pragma mark - Digital Survey (ex Feedback) listener helpers
 
 - (void)setDigitalListener:(CDVInvokedUrlCommand *)command {
-    self.feedbackListenerCommand = command;
+    self.digitalListenerCommand = command;
 }
 
 - (void)removeDigitalListener:(CDVInvokedUrlCommand *)command {
-    self.feedbackListenerCommand = nil;
+    self.digitalListenerCommand = nil;
 }
 
 - (void)sendDigitalListenerResult:(NSString *)surveyName eventMessage:(NSString *)msg {
@@ -736,7 +736,7 @@ NSString* const version = @"2.0.0";
 }
 
 - (void)sendDigitalListenerResult:(NSString *)surveyName withStatus:(NSNumber *_Nullable)status eventMessage:(NSString *)msg {
-    if (!self.feedbackListenerCommand) {
+    if (!self.digitalListenerCommand) {
         return;
     }
     NSDictionary *eventDictionary = @{@"event": msg,
@@ -745,7 +745,7 @@ NSString* const version = @"2.0.0";
     CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
                                                   messageAsDictionary:eventDictionary];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.feedbackListenerCommand.callbackId];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.digitalListenerCommand.callbackId];
 }
 
 #pragma mark - Cordova command validation
@@ -795,4 +795,3 @@ NSString* const version = @"2.0.0";
 }
 
 @end
-

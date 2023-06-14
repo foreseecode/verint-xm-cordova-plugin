@@ -615,7 +615,7 @@ module.exports = {
 
   /**
    * @description
-   * Set the Digital Listener.
+   * Set the Digital (ex Feedback) Listener.
    *
    * @example
    * cordova.plugins.ForeSeeAPI.setDigitalListener(_onSuccess, _onFailure);
@@ -627,6 +627,22 @@ module.exports = {
    */
   setDigitalListener(success, error) {
     exec(success, error, ForeSeeAPI, "setDigitalListener", []);
+  }
+
+  /**
+   * @description
+   * Remove the Digital (ex Feedback) Listener.
+   *
+   * @example
+   * cordova.plugins.ForeSeeAPI.removeDigitalListener(_onSuccess, _onFailure);
+   *
+   * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+   * The callback takes one parameter, containing the message from a command.
+   * @param {callback} error - Optional callback that is invoked in the event of an error.
+   * The callback takes one error parameter, containing the details of the error.
+   */
+  removeDigitalListener(success, error) {
+    exec(success, error, ForeSeeAPI, "removeDigitalListener", []);
   }
 
 };
