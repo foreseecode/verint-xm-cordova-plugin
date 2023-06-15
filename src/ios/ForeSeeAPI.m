@@ -694,31 +694,31 @@ NSString* const version = @"2.0.0";
 #pragma mark - DigitalDelegate
 
 - (void)digitalSurveyPresented:(NSString *)surveyName {
-    [self sendDigitalListenerResult:surveyName eventMessage:@"digitalSurveyPresented"];
+    [self sendDigitalListenerResult:surveyName eventMessage:@"onDigitalSurveyPresented"];
 }
 
 - (void)digitalSurveyNotPresentedWithNetworkError:(NSString *)surveyName {
-    [self sendDigitalListenerResult:surveyName eventMessage:@"digitalSurveyNotPresentedWithNetworkError"];
+    [self sendDigitalListenerResult:surveyName eventMessage:@"onDigitalSurveyNotPresentedWithNetworkError"];
 }
 
 - (void)digitalSurveyNotPresentedWithDisabled:(NSString *)surveyName {
-    [self sendDigitalListenerResult:surveyName eventMessage:@"digitalSurveyNotPresentedWithDisabled"];
+    [self sendDigitalListenerResult:surveyName eventMessage:@"onDigitalSurveyNotPresentedWithDisabled"];
 }
 
 - (void)digitalSurveySubmitted:(NSString *)surveyName {
-    [self sendDigitalListenerResult:surveyName eventMessage:@"digitalSurveySubmitted"];
+    [self sendDigitalListenerResult:surveyName eventMessage:@"onDigitalSurveySubmitted"];
 }
 
 - (void)digitalSurveyNotSubmittedWithNetworkError:(NSString *)surveyName {
-    [self sendDigitalListenerResult:surveyName eventMessage:@"digitalSurveyNotSubmittedWithNetworkError"];
+    [self sendDigitalListenerResult:surveyName eventMessage:@"onDigitalSurveyNotSubmittedWithNetworkError"];
 }
 
 - (void)digitalSurveyNotSubmittedWithAbort:(NSString *)surveyName {
-    [self sendDigitalListenerResult:surveyName eventMessage:@"digitalSurveyNotSubmittedWithAbort"];
+    [self sendDigitalListenerResult:surveyName eventMessage:@"onDigitalSurveyNotSubmittedWithAbort"];
 }
 
 - (void)digitalSurveyStatusRetrieved:(NSString *)surveyName enabled:(BOOL)enabled {
-    [self sendDigitalListenerResult:surveyName enabled:[NSNumber numberWithBool:enabled] eventMessage:@"digitalSurveyStatusRetrieved"];
+    [self sendDigitalListenerResult:surveyName enabled:[NSNumber numberWithBool:enabled] eventMessage:@"onDigitalSurveyStatusRetrieved"];
 }
 
 #pragma mark - Digital Survey (ex Feedback) listener helpers
