@@ -1047,37 +1047,6 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         @Override
-        public void onInviteCancelledWithNetworkError(EligibleMeasureConfigurations eligibleMeasures) {
-            Log.d(sTag, "onInviteCancelledWithNetworkError");
-            try {
-                // Here we return a onSurveyCancelledWithNetworkError event instead of a onInviteCancelledWithNetworkError
-                // event to align with iOS's implementation.
-                onEvent(new JSONObject().put("event", "onSurveyCancelledWithNetworkError"));
-            } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onSurveyCancelledWithNetworkError event");
-            }
-        }
-
-        @Override
-        public void onInviteNotShownWithNetworkError(EligibleMeasureConfigurations eligibleMeasures) {
-            Log.d(sTag, "onInviteNotShownWithNetworkError");
-            try {
-                // Here we return a onSurveyCancelledWithNetworkError event instead of a onInviteNotShownWithNetworkError
-                // event to align with iOS's implementation.
-                JSONObject jsonObject = new JSONObject().put("event", "onSurveyCancelledWithNetworkError");
-
-                // This is intended to enable forwards compatibility; 
-                // eligibleMeasures is null in v5.0.0 of the Android SDK, but will be added in future
-                if (validChosenMeasure(eligibleMeasures)) {
-                    jsonObject.put("surveyId", eligibleMeasures.getChosenEligibleMeasureConfiguration().getSurveyId());
-                }
-                onEvent(jsonObject);
-            } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onSurveyCancelledWithNetworkError event");
-            }
-        }
-
-        @Override
         public void onSurveyPresented(EligibleMeasureConfigurations eligibleMeasures) {
             Log.d(sTag, "onSurveyPresented");
             try {
