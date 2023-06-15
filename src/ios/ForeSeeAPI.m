@@ -593,39 +593,39 @@ NSString* const version = @"2.0.0";
 #pragma mark - EXPInviteDelegate
 
 - (void)willNotShowInviteWithEligibilityFailedForMeasure:(EXPMeasure *)measure {
-    [self sendInviteListenerResult:measure eventMessage:@"onInviteNotShownWithEligibilityFailed"];
+    [self sendInviteListenerResult:measure eventName:@"onInviteNotShownWithEligibilityFailed"];
 }
 
 - (void)willNotShowInviteWithSamplingFailedForMeasure:(EXPMeasure *)measure {
-    [self sendInviteListenerResult:measure eventMessage:@"onInviteNotShownWithSamplingFailed"];
+    [self sendInviteListenerResult:measure eventName:@"onInviteNotShownWithSamplingFailed"];
 }
 
 - (void)didShowInviteForMeasure:(EXPMeasure *)measure {
-    [self sendInviteListenerResult:measure eventMessage:@"onInvitePresented"];
+    [self sendInviteListenerResult:measure eventName:@"onInvitePresented"];
 }
 
 - (void)didAcceptInviteForMeasure:(EXPMeasure *)measure {
-    [self sendInviteListenerResult:measure eventMessage:@"onInviteCompleteWithAccept"];
+    [self sendInviteListenerResult:measure eventName:@"onInviteCompleteWithAccept"];
 }
 
 - (void)didDeclineInviteForMeasure:(EXPMeasure *)measure {
-    [self sendInviteListenerResult:measure eventMessage:@"onInviteCompleteWithDecline"];
+    [self sendInviteListenerResult:measure eventName:@"onInviteCompleteWithDecline"];
 }
 
 - (void)didShowSurveyForMeasure:(EXPMeasure *)measure {
-    [self sendInviteListenerResult:measure eventMessage:@"onSurveyPresented"];
+    [self sendInviteListenerResult:measure eventName:@"onSurveyPresented"];
 }
 
 - (void)didCancelSurveyForMeasure:(EXPMeasure *)measure {
-    [self sendInviteListenerResult:measure eventMessage:@"onSurveyCancelledByUser"];
+    [self sendInviteListenerResult:measure eventName:@"onSurveyCancelledByUser"];
 }
 
 - (void)didCompleteSurveyForMeasure:(EXPMeasure *)measure {
-    [self sendInviteListenerResult:measure eventMessage:@"onSurveyCompleted"];
+    [self sendInviteListenerResult:measure eventName:@"onSurveyCompleted"];
 }
 
 - (void)didFailForMeasure:(EXPMeasure *)measure withNetworkError:(NSError *)error {
-    [self sendInviteListenerResult:measure eventMessage:@"onSurveyCancelledWithNetworkError"];
+    [self sendInviteListenerResult:measure eventName:@"onSurveyCancelledWithNetworkError"];
 }
 
 #pragma mark - Invite listener helpers
@@ -638,11 +638,11 @@ NSString* const version = @"2.0.0";
     self.inviteListenerCommand = nil;
 }
 
-- (void)sendInviteListenerResult:(EXPMeasure *)measure eventMessage:(NSString *)msg {
+- (void)sendInviteListenerResult:(EXPMeasure *)measure eventName:(NSString *)eventName {
     if (!self.inviteListenerCommand) {
         return;
     }
-    NSDictionary *eventDictionary = @{@"event": msg,
+    NSDictionary *eventDictionary = @{@"event": eventName,
                                       @"surveyId": (measure != nil) ? measure.surveyID : @""};
     CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:eventDictionary];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
@@ -694,31 +694,31 @@ NSString* const version = @"2.0.0";
 #pragma mark - DigitalDelegate
 
 - (void)digitalSurveyPresented:(NSString *)surveyName {
-    [self sendDigitalListenerResult:surveyName eventMessage:@"onDigitalSurveyPresented"];
+    [self sendDigitalListenerResult:surveyName eventName:@"onDigitalSurveyPresented"];
 }
 
 - (void)digitalSurveyNotPresentedWithNetworkError:(NSString *)surveyName {
-    [self sendDigitalListenerResult:surveyName eventMessage:@"onDigitalSurveyNotPresentedWithNetworkError"];
+    [self sendDigitalListenerResult:surveyName eventName:@"onDigitalSurveyNotPresentedWithNetworkError"];
 }
 
 - (void)digitalSurveyNotPresentedWithDisabled:(NSString *)surveyName {
-    [self sendDigitalListenerResult:surveyName eventMessage:@"onDigitalSurveyNotPresentedWithDisabled"];
+    [self sendDigitalListenerResult:surveyName eventName:@"onDigitalSurveyNotPresentedWithDisabled"];
 }
 
 - (void)digitalSurveySubmitted:(NSString *)surveyName {
-    [self sendDigitalListenerResult:surveyName eventMessage:@"onDigitalSurveySubmitted"];
+    [self sendDigitalListenerResult:surveyName eventName:@"onDigitalSurveySubmitted"];
 }
 
 - (void)digitalSurveyNotSubmittedWithNetworkError:(NSString *)surveyName {
-    [self sendDigitalListenerResult:surveyName eventMessage:@"onDigitalSurveyNotSubmittedWithNetworkError"];
+    [self sendDigitalListenerResult:surveyName eventName:@"onDigitalSurveyNotSubmittedWithNetworkError"];
 }
 
 - (void)digitalSurveyNotSubmittedWithAbort:(NSString *)surveyName {
-    [self sendDigitalListenerResult:surveyName eventMessage:@"onDigitalSurveyNotSubmittedWithAbort"];
+    [self sendDigitalListenerResult:surveyName eventName:@"onDigitalSurveyNotSubmittedWithAbort"];
 }
 
 - (void)digitalSurveyStatusRetrieved:(NSString *)surveyName enabled:(BOOL)enabled {
-    [self sendDigitalListenerResult:surveyName enabled:[NSNumber numberWithBool:enabled] eventMessage:@"onDigitalSurveyStatusRetrieved"];
+    [self sendDigitalListenerResult:surveyName enabled:[NSNumber numberWithBool:enabled] eventName:@"onDigitalSurveyStatusRetrieved"];
 }
 
 #pragma mark - Digital Survey (ex Feedback) listener helpers
@@ -731,16 +731,16 @@ NSString* const version = @"2.0.0";
     self.digitalListenerCommand = nil;
 }
 
-- (void)sendDigitalListenerResult:(NSString *)surveyName eventMessage:(NSString *)msg {
-    [self sendDigitalListenerResult:surveyName enabled:nil eventMessage:msg];
+- (void)sendDigitalListenerResult:(NSString *)surveyName eventName:(NSString *)eventName {
+    [self sendDigitalListenerResult:surveyName enabled:nil eventName:eventName];
 }
 
-- (void)sendDigitalListenerResult:(NSString *)surveyName enabled:(NSNumber *_Nullable)enabled eventMessage:(NSString *)msg {
+- (void)sendDigitalListenerResult:(NSString *)surveyName enabled:(NSNumber *_Nullable)enabled eventName:(NSString *)eventName {
     if (!self.digitalListenerCommand) {
         return;
     }
     NSMutableDictionary *eventDictionary = [[NSMutableDictionary alloc] init];
-    [eventDictionary setObject:msg forKey:@"event"];
+    [eventDictionary setObject:eventName forKey:@"event"];
     [eventDictionary setObject:surveyName forKey:@"surveyName"];
     if (enabled != nil) {
         [eventDictionary setObject:[enabled boolValue] ? @"true" : @"false" forKey:@"enabled"];
