@@ -642,8 +642,11 @@ NSString* const version = @"2.0.0";
     if (!self.inviteListenerCommand) {
         return;
     }
-    NSDictionary *eventDictionary = @{@"event": eventName,
-                                      @"surveyId": (measure != nil) ? measure.surveyID : @""};
+    NSMutableDictionary *eventDictionary = [[NSMutableDictionary alloc] init];
+    [eventDictionary setObject:eventName forKey:@"event"];
+    if (measure != nil) {
+      [eventDictionary setObject:measure.surveyID forKey:@"surveyId"];
+    }
     CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:eventDictionary];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:self.inviteListenerCommand.callbackId];
