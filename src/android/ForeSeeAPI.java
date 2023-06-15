@@ -757,7 +757,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                     mCallbacks.clear();
 
                     //2. 
-                    Predictive.setInviteListener(new FSCordovaInviteListener());
+                    Predictive.setInviteListener(new XMCordovaInviteListener());
                     
                     //3.
                     mCallbacks.add(callback);
@@ -986,103 +986,72 @@ public class ForeSeeAPI extends CordovaPlugin {
         return to;
     }
 
-    class FSCordovaInviteListener implements DefaultInviteListener {
+    class XMCordovaInviteListener implements DefaultInviteListener {
 
         @Override
-        public void onInviteNotShownWithEligibilityFailed(EligibleMeasureConfigurations eligibleMeasures) {
-            Log.d(sTag, "onInviteNotShownWithEligibilityFailed");
-            try {
-                onEvent(new JSONObject().put("event", "onInviteNotShownWithEligibilityFailed"));
-            } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onInviteNotShownWithEligibilityFailed event");
-            }
+        public void onInviteNotShownWithEligibilityFailed(EligibleMeasureConfigurations eligibleMeasureConfigurations) {
+            sendEvent("onInviteNotShownWithEligibilityFailed", eligibleMeasureConfigurations);
         }
 
         @Override
-        public void onInviteNotShownWithSamplingFailed(EligibleMeasureConfigurations eligibleMeasures) {
-            Log.d(sTag, "onInviteNotShownWithSamplingFailed");
-            try {
-                JSONObject jsonObject = new JSONObject().put("event", "onInviteNotShownWithSamplingFailed");
-                
-                // This is intended to enable forwards compatibility; 
-                // the chosen measure is null in v5.0.0 of the Android SDK, but will be added in future
-                if (validChosenMeasure(eligibleMeasures)) {
-                    jsonObject.put("surveyId", eligibleMeasures.getChosenEligibleMeasureConfiguration().getSurveyId());
-                }
+        public void onInviteNotShownWithSamplingFailed(EligibleMeasureConfigurations eligibleMeasureConfigurations) {
+            sendEvent("onInviteNotShownWithSamplingFailed", eligibleMeasureConfigurations);
+        }
 
+        @Override
+        public void onInvitePresented(EligibleMeasureConfigurations eligibleMeasureConfigurations) {
+            sendEvent("onInvitePresented", eligibleMeasureConfigurations);
+        }
+
+        @Override
+        public void onInviteCompleteWithAccept(EligibleMeasureConfigurations eligibleMeasureConfigurations) {
+            sendEvent("onInviteCompleteWithAccept", eligibleMeasureConfigurations);
+        }
+
+        @Override
+        public void onInviteCompleteWithDecline(EligibleMeasureConfigurations eligibleMeasureConfigurations) {
+            sendEvent("onInviteCompleteWithDecline", eligibleMeasureConfigurations);
+        }
+
+        @Override
+        public void onSurveyPresented(EligibleMeasureConfigurations eligibleMeasureConfigurations) {
+            sendEvent("onSurveyPresented", eligibleMeasureConfigurations);
+        }
+
+        @Override
+        public void onSurveyCancelledByUser(EligibleMeasureConfigurations eligibleMeasureConfigurations) {
+            sendEvent("onSurveyCancelledByUser", eligibleMeasureConfigurations);
+        }
+
+        @Override
+        public void onSurveyCompleted(EligibleMeasureConfigurations eligibleMeasureConfigurations) {
+            sendEvent("onSurveyCompleted", eligibleMeasureConfigurations);
+        }
+
+        @Override
+        public void onSurveyCancelledWithNetworkError(EligibleMeasureConfigurations eligibleMeasureConfigurations) {
+            sendEvent("onSurveyCancelledWithNetworkError", eligibleMeasureConfigurations);
+        }
+
+        private void sendEvent(final String eventName, EligibleMeasureConfigurations eligibleMeasureConfigurations) {
+            MeasureConfiguration measureConfiguration = null;
+            if (eligibleMeasureConfigurations != null) {
+                measureConfiguration = eligibleMeasureConfigurations.getChosenEligibleMeasureConfiguration();
+            }
+            sendEvent(eventName, measureConfiguration);
+        }
+
+        private void sendEvent(final String eventName, MeasureConfiguration measure) {
+            Log.d(sTag, eventName);
+            try {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("event", eventName);
+                if (measure != null) {
+                    jsonObject.put("surveyId", measure.getSurveyId());
+                }
                 onEvent(jsonObject);
             } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onInviteNotShownWithSamplingFailed event");
-            }
-        }
-
-        @Override
-        public void onInvitePresented(EligibleMeasureConfigurations eligibleMeasures) {
-            Log.d(sTag, "onInvitePresented");
-            try {
-                onEvent(new JSONObject().put("event", "onInvitePresented"));
-            } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onInvitePresented event");
-            }
-        }
-
-        @Override
-        public void onInviteCompleteWithAccept(EligibleMeasureConfigurations eligibleMeasures) {
-            Log.d(sTag, "onInviteCompleteWithAccept");
-            try {
-                onEvent(new JSONObject().put("event", "onInviteCompleteWithAccept"));
-            } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onInviteCompleteWithAccept event");
-            }
-        }
-
-        @Override
-        public void onInviteCompleteWithDecline(EligibleMeasureConfigurations eligibleMeasures) {
-            Log.d(sTag, "onInviteCompleteWithDecline");
-            try {
-                onEvent(new JSONObject().put("event", "onInviteCompleteWithDecline"));
-            } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onInviteCompleteWithDecline event");
-            }
-        }
-
-        @Override
-        public void onSurveyPresented(EligibleMeasureConfigurations eligibleMeasures) {
-            Log.d(sTag, "onSurveyPresented");
-            try {
-                onEvent(new JSONObject().put("event", "onSurveyPresented"));
-            } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onSurveyPresented event");
-            }
-        }
-
-        @Override
-        public void onSurveyCancelledByUser(EligibleMeasureConfigurations eligibleMeasures) {
-            Log.d(sTag, "onSurveyCancelledByUser");
-            try {
-                onEvent(new JSONObject().put("event", "onSurveyCancelledByUser"));
-            } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onSurveyCancelledByUser event");
-            }
-        }
-
-        @Override
-        public void onSurveyCompleted(EligibleMeasureConfigurations eligibleMeasures) {
-            Log.d(sTag, "onSurveyCompleted");
-            try {
-                onEvent(new JSONObject().put("event", "onSurveyCompleted"));
-            } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onSurveyCompleted event");
-            }
-        }
-
-        @Override
-        public void onSurveyCancelledWithNetworkError(EligibleMeasureConfigurations eligibleMeasures) {
-            Log.d(sTag, "onSurveyCancelledWithNetworkError");
-            try {
-                onEvent(new JSONObject().put("event", "onSurveyCancelledWithNetworkError"));
-            } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onSurveyCancelledWithNetworkError event");
+                Log.e(sTag, "Failed to return " + eventName + " event");
             }
         }
 
@@ -1097,8 +1066,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             for (CallbackContext c : mCallbacks) {
                 if (c != null) {
                     c.sendPluginResult(result);
-                }
-                else {
+                } else {
                 }
             }
         }
