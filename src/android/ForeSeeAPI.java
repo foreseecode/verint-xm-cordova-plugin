@@ -915,7 +915,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                     mDigitalCallbacks.clear();
 
                     //2. 
-                    Digital.setDigitalListener(new FSCordovaDigitalListener());
+                    Digital.setDigitalListener(new XMCordovaDigitalListener());
                     
                     //3.
                     mDigitalCallbacks.add(callback);
@@ -1079,104 +1079,59 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
     }
 
-    class FSCordovaDigitalListener implements ExpDigitalListener {
+    class XMCordovaDigitalListener implements ExpDigitalListener {
 
         @Override
         public void onDigitalSurveyPresented(String surveyName) {
-            Log.d(sTag, "onDigitalSurveyPresented");
-            try {
-                JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveyPresented");
-                
-                jsonObject.put("surveyName", surveyName);
-                
-                onEvent(new JSONObject().put("event", "onDigitalSurveyPresented"));
-            } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onDigitalSurveyPresented event");
-            }
+            sendEvent("onDigitalSurveyPresented", surveyName);
         }
 
         @Override
         public void onDigitalSurveyNotPresentedWithNetworkError(String surveyName) {
-            Log.d(sTag, "onDigitalSurveyNotPresentedWithNetworkError");
-            try {
-                JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveyNotPresentedWithNetworkError");
-                
-                jsonObject.put("surveyName", surveyName);
-                
-                onEvent(new JSONObject().put("event", "onDigitalSurveyNotPresentedWithNetworkError"));
-            } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onDigitalSurveyNotPresentedWithNetworkError event");
-            }
+            sendEvent("onDigitalSurveyNotPresentedWithNetworkError", surveyName);
         }
 
         @Override
         public void onDigitalSurveyNotPresentedWithDisabled(String surveyName) {
-            Log.d(sTag, "onDigitalSurveyNotPresentedWithDisabled");
-            try {
-                JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveyNotPresentedWithDisabled");
-                
-                jsonObject.put("surveyName", surveyName);
-                
-                onEvent(new JSONObject().put("event", "onDigitalSurveyNotPresentedWithDisabled"));
-            } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onDigitalSurveyNotPresentedWithDisabled event");
-            }
+            sendEvent("onDigitalSurveyNotPresentedWithDisabled", surveyName);
         }
 
         @Override
         public void onDigitalSurveySubmitted(String surveyName) {
-            Log.d(sTag, "onDigitalSurveySubmitted");
-            try {
-                JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveySubmitted");
-                
-                jsonObject.put("surveyName", surveyName);
-                
-                onEvent(new JSONObject().put("event", "onDigitalSurveySubmitted"));
-            } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onDigitalSurveySubmitted event");
-            }
+            sendEvent("onDigitalSurveySubmitted", surveyName);
         }
 
         @Override
         public void onDigitalSurveyNotSubmittedWithNetworkError(String surveyName) {
-            Log.d(sTag, "onDigitalSurveyNotSubmittedWithNetworkError");
-            try {
-                JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveyNotSubmittedWithNetworkError");
-                
-                jsonObject.put("surveyName", surveyName);
-                
-                onEvent(new JSONObject().put("event", "onDigitalSurveyNotSubmittedWithNetworkError"));
-            } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onDigitalSurveyNotSubmittedWithNetworkError event");
-            }
+            sendEvent("onDigitalSurveyNotSubmittedWithNetworkError", surveyName);
         }
 
         @Override
         public void onDigitalSurveyNotSubmittedWithAbort(String surveyName) {
-            Log.d(sTag, "onDigitalSurveyNotSubmittedWithAbort");
-            try {
-                JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveyNotSubmittedWithAbort");
-                
-                jsonObject.put("surveyName", surveyName);
-                
-                onEvent(new JSONObject().put("event", "onDigitalSurveyNotSubmittedWithAbort"));
-            } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onDigitalSurveyNotSubmittedWithAbort event");
-            }
+            sendEvent("onDigitalSurveyNotSubmittedWithAbort", surveyName);
         }
 
         @Override
         public void onDigitalSurveyStatusRetrieved(String surveyName, boolean enabled) {
-            Log.d(sTag, "onDigitalSurveyStatusRetrieved");
+            sendEvent("onDigitalSurveyStatusRetrieved", surveyName, enabled);
+        }
+
+        private void sendEvent(final String eventName, final String surveyName) {
+            sendEvent(eventName, surveyName, null);
+        }
+
+        private void sendEvent(final String eventName, final String surveyName, Boolean enabled) {
+            Log.d(sTag, eventName);
             try {
-                JSONObject jsonObject = new JSONObject().put("event", "onDigitalSurveyStatusRetrieved");
-                
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("event", eventName);
                 jsonObject.put("surveyName", surveyName);
-                jsonObject.put("enabled", enabled ? "true" : "false");
-                
-                onEvent(new JSONObject().put("event", "onDigitalSurveyStatusRetrieved"));
+                if (enabled != null) {
+                    jsonObject.put("enabled", enabled ? "true" : "false");
+                }
+                onEvent(jsonObject);
             } catch (JSONException e) {
-                Log.e(sTag, "Failed to return onDigitalSurveyStatusRetrieved event");
+                Log.e(sTag, "Failed to return " + eventName + " event");
             }
         }
 
