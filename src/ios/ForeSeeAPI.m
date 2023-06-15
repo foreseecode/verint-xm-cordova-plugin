@@ -718,7 +718,7 @@ NSString* const version = @"2.0.0";
 }
 
 - (void)digitalSurveyStatusRetrieved:(NSString *)surveyName enabled:(BOOL)enabled {
-    [self sendDigitalListenerResult:surveyName withStatus:[NSNumber numberWithBool:enabled] eventMessage:@"digitalSurveyStatusRetrieved"];
+    [self sendDigitalListenerResult:surveyName enabled:[NSNumber numberWithBool:enabled] eventMessage:@"digitalSurveyStatusRetrieved"];
 }
 
 #pragma mark - Digital Survey (ex Feedback) listener helpers
@@ -732,16 +732,20 @@ NSString* const version = @"2.0.0";
 }
 
 - (void)sendDigitalListenerResult:(NSString *)surveyName eventMessage:(NSString *)msg {
-    [self sendDigitalListenerResult:surveyName withStatus:nil eventMessage:msg];
+    [self sendDigitalListenerResult:surveyName enabled:nil eventMessage:msg];
 }
 
-- (void)sendDigitalListenerResult:(NSString *)surveyName withStatus:(NSNumber *_Nullable)status eventMessage:(NSString *)msg {
+- (void)sendDigitalListenerResult:(NSString *)surveyName enabled:(NSNumber *_Nullable)enabled eventMessage:(NSString *)msg {
     if (!self.digitalListenerCommand) {
         return;
     }
-    NSDictionary *eventDictionary = @{@"event": msg,
-                                      @"surveyName": surveyName,
-                                      @"status": status != nil ? status : @""};
+    NSMutableDictionary *eventDictionary = [[NSMutableDictionary alloc] init];
+    [eventDictionary setObject:msg forKey:@"event"];
+    [eventDictionary setObject:surveyName forKey:@"surveyName"];
+    if (enabled != nil) {
+        [eventDictionary setObject:[enabled boolValue] ? @"true" : @"false" forKey:@"enabled"];
+    }
+
     CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
                                                   messageAsDictionary:eventDictionary];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
