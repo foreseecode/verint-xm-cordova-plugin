@@ -644,7 +644,7 @@ NSString* const sTag = @"CordovaVerintSDK";
 - (void)sendInviteListenerResult:(EXPMeasure *)measure eventName:(NSString *)eventName {
     NSLog(@"%@::%@", sTag, eventName);
     if (!self.inviteListenerCommand) {
-        NSLog(@"%@::%@", sTag, eventName);
+        NSLog(@"%@::Failed to return %@ event", sTag, eventName);
         return;
     }
     NSMutableDictionary *eventDictionary = [[NSMutableDictionary alloc] init];
@@ -748,7 +748,7 @@ NSString* const sTag = @"CordovaVerintSDK";
 - (void)sendDigitalListenerResult:(NSString *)surveyName enabled:(NSNumber *_Nullable)enabled eventName:(NSString *)eventName {
     NSLog(@"%@::%@", sTag, eventName);
     if (!self.digitalListenerCommand) {
-        NSLog(@"%@::%@", sTag, eventName);
+      NSLog(@"%@::Failed to return %@ event", sTag, eventName);
         return;
     }
     NSMutableDictionary *eventDictionary = [[NSMutableDictionary alloc] init];
