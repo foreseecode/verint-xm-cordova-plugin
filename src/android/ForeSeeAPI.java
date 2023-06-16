@@ -42,8 +42,8 @@ public class ForeSeeAPI extends CordovaPlugin {
         public abstract boolean invoke(JSONArray args, CallbackContext callbackContext, CordovaInterface cordova);
     }
 
-    /* Class tag for logs */
-    private final static String sTag = "FORESEE_CORDOVA";
+    // Class tag for logs
+    private final static String sTag = "CordovaVerintSDK";
     private final String version = "2.0.0";
 
     private final String EXP_FCP_JSON_FILE_NAME = "exp_fcp";
@@ -1157,17 +1157,17 @@ public class ForeSeeAPI extends CordovaPlugin {
     
         @Override
         public void onSDKStarted() {
-            Log.i("CordovaVerintSDK", "VerintSDKListener::onSDKStarted");
+            Log.d(sTag, "onSDKStarted");
         }
     
         @Override
         public void onSDKStarted(Core.VerintError error, String message) {
-            Log.w("CordovaVerintSDK", "VerintSDKListener::didStartSDKWithError: " + error + " / " + message);
+            Log.w(sTag, "didStartSDKWithError: " + error + " / " + message);
         }
     
         @Override
         public void onSDKFailedToStart(Core.VerintError error, String message) {
-            Log.w("CordovaVerintSDK", "VerintSDKListener::didFailToStartSDKWithError: " + error + " / " + message);
+            Log.w(sTag, "didFailToStartSDKWithError: " + error + " / " + message);
         }
         
     }

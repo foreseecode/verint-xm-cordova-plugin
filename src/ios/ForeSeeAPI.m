@@ -8,6 +8,9 @@ NSString* const platformOSVersionKey = @"crossPlatformOSVersion";
 NSString* const platformVersionKey = @"crossPlatformVersion";
 NSString* const version = @"2.0.0";
 
+// Class tag for logs
+NSString* const sTag = @"CordovaVerintSDK";
+
 @interface ForeSeeAPI ()
 
 @property (nonatomic) CDVInvokedUrlCommand *inviteListenerCommand;
@@ -85,15 +88,15 @@ NSString* const version = @"2.0.0";
 #pragma mark - Verint (EXPCore) Delegate
 
 - (void)didStartSDK {
-  NSLog(@"VerintDelegate::didStartSDK");
+  NSLog(@"%@::%@", sTag, @"didStartSDK");
 }
 
 -(void)didStartSDKWithError:(EXPErrorCode)error message:(NSString *)message {
-  NSLog(@"VerintDelegate::didStartSDKWithError: %lu / %@", (unsigned long) error, message);
+  NSLog(@"%@::%@: %lu / %@", sTag, @"didStartSDKWithError", (unsigned long) error, message);
 }
 
 - (void)didFailToStartSDKWithError:(EXPErrorCode)error message:(NSString *)message {
-  NSLog(@"VerintDelegate::didFailToStartSDKWithError: %lu / %@", (unsigned long) error, message);
+  NSLog(@"%@::%@: %lu / %@", sTag, @"didFailToStartSDKWithError", (unsigned long) error, message);
 }
 
 #pragma mark - Helpers
@@ -639,7 +642,9 @@ NSString* const version = @"2.0.0";
 }
 
 - (void)sendInviteListenerResult:(EXPMeasure *)measure eventName:(NSString *)eventName {
+    NSLog(@"%@::%@", sTag, eventName);
     if (!self.inviteListenerCommand) {
+        NSLog(@"%@::%@", sTag, eventName);
         return;
     }
     NSMutableDictionary *eventDictionary = [[NSMutableDictionary alloc] init];
@@ -741,7 +746,9 @@ NSString* const version = @"2.0.0";
 }
 
 - (void)sendDigitalListenerResult:(NSString *)surveyName enabled:(NSNumber *_Nullable)enabled eventName:(NSString *)eventName {
+    NSLog(@"%@::%@", sTag, eventName);
     if (!self.digitalListenerCommand) {
+        NSLog(@"%@::%@", sTag, eventName);
         return;
     }
     NSMutableDictionary *eventDictionary = [[NSMutableDictionary alloc] init];
