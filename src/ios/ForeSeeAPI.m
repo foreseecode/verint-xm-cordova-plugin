@@ -20,8 +20,6 @@ NSString* const version = @"2.0.0";
 #pragma mark - Cordova
 
 - (void)pluginInitialize {
-    [EXPPredictive setInviteDelegate:self];
-    [DigitalComponent setDelegate:self];
     [EXPCore setDelegate:self];
 
     NSString *appId = [self getAppIdFromJSON];
@@ -84,7 +82,7 @@ NSString* const version = @"2.0.0";
 }
 
 
-#pragma mark - VerintDelegate
+#pragma mark - Verint (EXPCore) Delegate
 
 - (void)didStartSDK {
   NSLog(@"VerintDelegate::didStartSDK");
@@ -631,11 +629,13 @@ NSString* const version = @"2.0.0";
 #pragma mark - Invite listener helpers
 
 - (void)setInviteListener:(CDVInvokedUrlCommand *)command {
+    [EXPPredictive setInviteDelegate:self];
     self.inviteListenerCommand = command;
 }
 
 - (void)removeInviteListener:(CDVInvokedUrlCommand *)command {
     self.inviteListenerCommand = nil;
+    [EXPPredictive setInviteDelegate:nil];
 }
 
 - (void)sendInviteListenerResult:(EXPMeasure *)measure eventName:(NSString *)eventName {
@@ -727,11 +727,13 @@ NSString* const version = @"2.0.0";
 #pragma mark - Digital Survey (ex Feedback) listener helpers
 
 - (void)setDigitalListener:(CDVInvokedUrlCommand *)command {
+    [DigitalComponent setDelegate:self];
     self.digitalListenerCommand = command;
 }
 
 - (void)removeDigitalListener:(CDVInvokedUrlCommand *)command {
     self.digitalListenerCommand = nil;
+    [DigitalComponent setDelegate:nil];
 }
 
 - (void)sendDigitalListenerResult:(NSString *)surveyName eventName:(NSString *)eventName {

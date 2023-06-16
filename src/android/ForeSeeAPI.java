@@ -60,7 +60,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         super.onStart();
         if (!Core.isCoreStarted()) {
 
-            this.setListeners();
+            Core.setSDKListener(new CustomVerintSDKListener());
 
             String appId = getAppIdFromJSON();
             Log.d(sTag, "init the ForeSee SDK");
@@ -73,15 +73,15 @@ public class ForeSeeAPI extends CordovaPlugin {
                 Core.start(cordova.getActivity().getApplication());
             }
 
-            Core.addCPPValue("crossPlatformName", "Cordova Android");
-            Core.addCPPValue("crossPlatformSDKVersion", CordovaWebView.CORDOVA_VERSION);
-            Core.addCPPValue("crossPlatformOSVersion", android.os.Build.VERSION.RELEASE);
-            Core.addCPPValue("crossPlatformVersion", version);
+            this.addCrossPlatformCPPs();
         }
     }
 
-    void setListeners() {
-        Core.setSDKListener(new CustomVerintSDKListener());
+    void addCrossPlatformCPPs() {
+        Core.addCPPValue("crossPlatformName", "Cordova Android");
+        Core.addCPPValue("crossPlatformSDKVersion", CordovaWebView.CORDOVA_VERSION);
+        Core.addCPPValue("crossPlatformOSVersion", android.os.Build.VERSION.RELEASE);
+        Core.addCPPValue("crossPlatformVersion", version);
     }
 
     public String getAppIdFromJSON() {
