@@ -59,6 +59,7 @@ NSString* const logTag = @"CordovaVerintSDK";
   [EXPCore setCPPValue:[CDVDevice cordovaVersion] forKey:platformSDKVersionKey];
   [EXPCore setCPPValue:[[UIDevice currentDevice] systemVersion] forKey:platformOSVersionKey];
   [EXPCore setCPPValue:version forKey:platformVersionKey];
+  NSLog(@"%@::%@ %@", logTag, @"All CPPs (after adding cross platform CPPs):", [EXPCore allCPPs]);
 }
 
 #pragma mark - Start
