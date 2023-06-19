@@ -9,7 +9,7 @@ NSString* const platformVersionKey = @"crossPlatformVersion";
 NSString* const version = @"2.0.0";
 
 // Class tag for logs
-NSString* const sTag = @"CordovaVerintSDK";
+NSString* const logTag = @"CordovaVerintSDK";
 
 @interface ForeSeeAPI ()
 
@@ -29,10 +29,10 @@ NSString* const sTag = @"CordovaVerintSDK";
     if (appId != nil) {
         [EXPCore startWithAppId:appId
                     version:@"mobsdk"];
-        NSLog(@"FCP startup with appId: %@", appId);            
+        NSLog(@"%@::FCP startup with appId: %@", logTag, appId);
     } else {
         [EXPCore start];
-        NSLog(@"Regular startup");
+        NSLog(@"%@::Regular startup", logTag);
     }
 
     [self addCrossPlatformCPPs];
@@ -47,7 +47,7 @@ NSString* const sTag = @"CordovaVerintSDK";
     NSString *appId = fcpConfig[@"appId"];
 
     if (!appId) {
-        NSLog(@"exp_fcp.json file does not exist");
+        NSLog(@"%@::exp_fcp.json file does not exist", logTag);
         return nil;
     } 
 
@@ -66,21 +66,21 @@ NSString* const sTag = @"CordovaVerintSDK";
 - (void)start: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    NSLog(@"The start() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch");
+    NSLog(@"%@::The start() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch", logTag);
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void)startWithConfigurationFile: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    NSLog(@"The startWithConfigurationFile() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch");
+    NSLog(@"%@::The startWithConfigurationFile() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch", logTag);
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void)startWithConfigurationJson: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    NSLog(@"The startWithConfigurationJson() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch");
+    NSLog(@"%@::The startWithConfigurationJson() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch", logTag);
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
@@ -88,15 +88,15 @@ NSString* const sTag = @"CordovaVerintSDK";
 #pragma mark - Verint (EXPCore) Delegate
 
 - (void)didStartSDK {
-  NSLog(@"%@::%@", sTag, @"didStartSDK");
+  NSLog(@"%@::%@::%@", logTag, @"VerintSDKListener", @"didStartSDK");
 }
 
 -(void)didStartSDKWithError:(EXPErrorCode)error message:(NSString *)message {
-  NSLog(@"%@::%@: %lu / %@", sTag, @"didStartSDKWithError", (unsigned long) error, message);
+  NSLog(@"%@::%@::%@: %lu / %@", logTag, @"VerintSDKListener",  @"didStartSDKWithError", (unsigned long) error, message);
 }
 
 - (void)didFailToStartSDKWithError:(EXPErrorCode)error message:(NSString *)message {
-  NSLog(@"%@::%@: %lu / %@", sTag, @"didFailToStartSDKWithError", (unsigned long) error, message);
+  NSLog(@"%@::%@::%@: %lu / %@", logTag, @"VerintSDKListener",  @"didFailToStartSDKWithError", (unsigned long) error, message);
 }
 
 #pragma mark - Helpers
@@ -198,7 +198,7 @@ NSString* const sTag = @"CordovaVerintSDK";
     NSArray* arguments = command.arguments;
 
     if (arguments == nil || arguments.count < 1) {
-        NSLog(@"No surveyId for showInvite");
+        NSLog(@"%@::No surveyId for showInvite", logTag);
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     } else {
         NSString* surveyId = [command.arguments objectAtIndex:0];
@@ -207,7 +207,7 @@ NSString* const sTag = @"CordovaVerintSDK";
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
             [EXPPredictive showInviteForSurveyID:surveyId];
         } else {
-            NSLog(@"Bad surveyId for showInvite");
+            NSLog(@"%@::Bad surveyId for showInvite", logTag);
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
     }
@@ -220,7 +220,7 @@ NSString* const sTag = @"CordovaVerintSDK";
     NSArray* arguments = command.arguments;
 
     if (arguments == nil || arguments.count < 1) {
-        NSLog(@"Bad surveyId for showSurvey");
+        NSLog(@"%@::Bad surveyId for showSurvey", logTag);
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else {
@@ -229,7 +229,7 @@ NSString* const sTag = @"CordovaVerintSDK";
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
             [EXPPredictive showSurveyForSurveyID:surveyId];
         } else {
-            NSLog(@"Bad surveyId for showSurvey");
+            NSLog(@"%@::Bad surveyId for showSurvey", logTag);
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
     }
@@ -245,7 +245,7 @@ NSString* const sTag = @"CordovaVerintSDK";
     NSArray* arguments = command.arguments;
 
     if (arguments == nil || arguments.count < 2) {
-        NSLog(@"No key or value for addCPPValue");
+        NSLog(@"%@::No key or value for addCPPValue", logTag);
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else{
@@ -256,7 +256,7 @@ NSString* const sTag = @"CordovaVerintSDK";
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
             [EXPCore setCPPValue:value forKey:key];
         } else {
-            NSLog(@"Bad key or value for addCPPValue");
+            NSLog(@"%@::Bad key or value for addCPPValue", logTag);
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
     }
@@ -270,7 +270,7 @@ NSString* const sTag = @"CordovaVerintSDK";
     NSArray* arguments = command.arguments;
 
     if (arguments == nil || arguments.count < 1){
-        NSLog(@"No key for getCPP");
+        NSLog(@"%@::No key for getCPP", logTag);
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else {
@@ -280,7 +280,7 @@ NSString* const sTag = @"CordovaVerintSDK";
             NSString* value = [EXPCore CPPValueForKey:key];
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:value];
         } else {
-            NSLog(@"Bad key for getCPP");
+            NSLog(@"%@::Bad key for getCPP", logTag);
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
     }
@@ -303,7 +303,7 @@ NSString* const sTag = @"CordovaVerintSDK";
     NSArray* arguments = command.arguments;
 
     if (arguments == nil || arguments.count < 1) {
-        NSLog(@"No surveyId for removeCPP");
+        NSLog(@"%@::No surveyId for removeCPP", logTag);
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else {
@@ -313,7 +313,7 @@ NSString* const sTag = @"CordovaVerintSDK";
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
             [EXPCore removeCPPValueForKey:key];
         } else {
-            NSLog(@"Bad value in removeCPP");
+            NSLog(@"%@::Bad value in removeCPP", logTag);
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
     }
@@ -341,7 +341,7 @@ NSString* const sTag = @"CordovaVerintSDK";
     NSArray* arguments = command.arguments;
 
     if (arguments == nil || arguments.count < 1) {
-        NSLog(@"No surveyId for incrementSignificantEvent");
+        NSLog(@"%@::No surveyId for incrementSignificantEvent", logTag);
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else {
@@ -351,7 +351,7 @@ NSString* const sTag = @"CordovaVerintSDK";
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
             [EXPPredictive incrementSignificantEventCountWithKey:key];
         } else {
-            NSLog(@"Bad value in incrementSignificantEvent");
+            NSLog(@"%@::Bad value in incrementSignificantEvent", logTag);
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
     }
@@ -365,7 +365,7 @@ NSString* const sTag = @"CordovaVerintSDK";
     NSArray* arguments = command.arguments;
 
     if (arguments == nil || arguments.count < 2) {
-        NSLog(@"Not enough args for setSignificantEventCount");
+        NSLog(@"%@::Not enough args for setSignificantEventCount", logTag);
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else {
@@ -376,7 +376,7 @@ NSString* const sTag = @"CordovaVerintSDK";
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
             [EXPPredictive setSignificantEventCount:[value integerValue] forKey:key];
         } else {
-            NSLog(@"Bad value in setSignificantEventCount");
+            NSLog(@"%@::Bad value in setSignificantEventCount", logTag);
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
     }
@@ -390,7 +390,7 @@ NSString* const sTag = @"CordovaVerintSDK";
     NSArray* arguments = command.arguments;
 
     if (arguments == nil || arguments.count < 1) {
-        NSLog(@"No key arg for resetSignificantEventCount");
+        NSLog(@"%@::No key arg for resetSignificantEventCount", logTag);
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else {
@@ -400,7 +400,7 @@ NSString* const sTag = @"CordovaVerintSDK";
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
             [EXPPredictive resetSignificantEventCountForKey:key];
         } else {
-            NSLog(@"Bad value in resetSignificantEventCount");
+            NSLog(@"%@::Bad value in resetSignificantEventCount", logTag);
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
     }
@@ -434,7 +434,7 @@ NSString* const sTag = @"CordovaVerintSDK";
     NSArray* arguments = command.arguments;
 
     if (arguments == nil || arguments.count < 1) {
-        NSLog(@"No data for setSkipPoolingCheck");
+        NSLog(@"%@::No data for setSkipPoolingCheck", logTag);
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else {
@@ -453,7 +453,7 @@ NSString* const sTag = @"CordovaVerintSDK";
     NSArray* arguments = command.arguments;
 
     if (arguments == nil || arguments.count < 1) {
-        NSLog(@"No data for setDebugLogEnabled");
+        NSLog(@"%@::No data for setDebugLogEnabled", logTag);
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else {
@@ -515,7 +515,7 @@ NSString* const sTag = @"CordovaVerintSDK";
     NSString* result = nil;
 
     if (arguments == nil || arguments.count < 1) {
-        NSLog(@"No data for contactType");
+        NSLog(@"%@::No data for contactType", logTag);
     } else {
         EXPContactType contactType = [self contactTypeForString:[command.arguments objectAtIndex:0]];
         result = [EXPPredictive contactDetailsForType:contactType];
@@ -532,7 +532,7 @@ NSString* const sTag = @"CordovaVerintSDK";
     NSArray* arguments = command.arguments;
 
     if (arguments == nil || arguments.count < 2 || arguments.count > 2) {
-        NSLog(@"No, or too many details for setContactDetails");
+        NSLog(@"%@::No, or too many details for setContactDetails", logTag);
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     } else {
         NSString* contact = [arguments objectAtIndex:0];
@@ -541,7 +541,7 @@ NSString* const sTag = @"CordovaVerintSDK";
             [EXPPredictive setContactDetails:contact forType:contactType];
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         } else {
-            NSLog(@"Bad contact for setContactDetails");
+            NSLog(@"%@::Bad contact for setContactDetails", logTag);
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
     }
@@ -555,7 +555,7 @@ NSString* const sTag = @"CordovaVerintSDK";
     NSArray* arguments = command.arguments;
 
     if (arguments == nil || arguments.count < 1) {
-        NSLog(@"Bad contact type for setPreferredContactType");
+        NSLog(@"%@::Bad contact type for setPreferredContactType", logTag);
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     } else {
         NSString* string = [arguments objectAtIndex:0];
@@ -564,7 +564,7 @@ NSString* const sTag = @"CordovaVerintSDK";
             [EXPPredictive setPreferredContactType:contactType];
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         } else {
-            NSLog(@"Bad contact type for setContactDetails");
+            NSLog(@"%@::Bad contact type for setContactDetails", logTag);
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
     }
@@ -642,9 +642,9 @@ NSString* const sTag = @"CordovaVerintSDK";
 }
 
 - (void)sendInviteListenerResult:(EXPMeasure *)measure eventName:(NSString *)eventName {
-    NSLog(@"%@::%@", sTag, eventName);
+  NSLog(@"%@::%@::%@", logTag, @"InviteListener", eventName);
     if (!self.inviteListenerCommand) {
-        NSLog(@"%@::Failed to return %@ event", sTag, eventName);
+      NSLog(@"%@::No listeners to send %@ event", logTag, eventName);
         return;
     }
     NSMutableDictionary *eventDictionary = [[NSMutableDictionary alloc] init];
@@ -746,9 +746,9 @@ NSString* const sTag = @"CordovaVerintSDK";
 }
 
 - (void)sendDigitalListenerResult:(NSString *)surveyName enabled:(NSNumber *_Nullable)enabled eventName:(NSString *)eventName {
-    NSLog(@"%@::%@", sTag, eventName);
+    NSLog(@"%@::%@::%@", logTag, @"DigitalListener", eventName);
     if (!self.digitalListenerCommand) {
-      NSLog(@"%@::Failed to return %@ event", sTag, eventName);
+      NSLog(@"%@::No listeners to send %@ event", logTag, eventName);
         return;
     }
     NSMutableDictionary *eventDictionary = [[NSMutableDictionary alloc] init];

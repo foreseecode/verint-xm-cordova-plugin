@@ -43,7 +43,9 @@ public class ForeSeeAPI extends CordovaPlugin {
     }
 
     // Class tag for logs
-    private final static String sTag = "CordovaVerintSDK";
+    private final static String logTag = "CordovaVerintSDK";
+
+    // CPPs
     private final String version = "2.0.0";
 
     private final String EXP_FCP_JSON_FILE_NAME = "exp_fcp";
@@ -63,13 +65,13 @@ public class ForeSeeAPI extends CordovaPlugin {
             Core.setSDKListener(new CustomVerintSDKListener());
 
             String appId = getAppIdFromJSON();
-            Log.d(sTag, "init the ForeSee SDK");
+            Log.d(logTag, "init the ForeSee SDK");
 
             if (appId != null) {
-                Log.d(sTag, "FCP startup with appId: "+appId);
+                Log.d(logTag, "FCP startup with appId: "+appId);
                 Core.startWithAppId(cordova.getActivity().getApplication(), appId, APP_VERSION);
             } else {
-                Log.d(sTag, "Regular startup");
+                Log.d(logTag, "Regular startup");
                 Core.start(cordova.getActivity().getApplication());
             }
 
@@ -82,26 +84,27 @@ public class ForeSeeAPI extends CordovaPlugin {
         Core.addCPPValue("crossPlatformSDKVersion", CordovaWebView.CORDOVA_VERSION);
         Core.addCPPValue("crossPlatformOSVersion", android.os.Build.VERSION.RELEASE);
         Core.addCPPValue("crossPlatformVersion", version);
+        Log.d(logTag, "All CPPs (after adding cross platform CPPs): " + Core.getAllCPPs());
     }
 
     public String getAppIdFromJSON() {
         int identifier = cordova.getActivity().getResources().getIdentifier(EXP_FCP_JSON_FILE_NAME, "raw", cordova.getActivity().getPackageName());
         if (identifier == 0) {
-            Log.d(sTag, "exp_fcp.json file does not exist");
+            Log.d(logTag, "exp_fcp.json file does not exist");
             return null;
         }
 
         String jsonString = getWriter();
 
-        Log.d(sTag, "From json file: "+jsonString);
+        Log.d(logTag, "From json file: "+jsonString);
 
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
             String appId = jsonObject.getString("appId");
-            Log.d(sTag, "appId: "+appId);
+            Log.d(logTag, "appId: "+appId);
             return appId;
         } catch (JSONException e) {
-            Log.d(sTag, "JSONException: "+e);
+            Log.d(logTag, "JSONException: "+e);
         }
         return null;
     }
@@ -117,12 +120,12 @@ public class ForeSeeAPI extends CordovaPlugin {
                 writer.write(buffer, 0, number);
             }
         } catch(IOException e) {
-            Log.d(sTag, "IOException: "+e);
+            Log.d(logTag, "IOException: "+e);
         } finally {
             try {
                 inputStream.close();
             } catch (Exception e) {
-                Log.e(sTag, "Exception: "+e);
+                Log.e(logTag, "Exception: "+e);
             }
         }
         return writer.toString();
@@ -141,8 +144,8 @@ public class ForeSeeAPI extends CordovaPlugin {
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
-                Log.i(sTag, "The start() API for ANDROID is not available in Cordova implementations. The SDK will start automatically on app launch");
-                callback.success(sTag + "start() is not available");
+                Log.i(logTag, "The start() API for ANDROID is not available in Cordova implementations. The SDK will start automatically on app launch");
+                callback.success(logTag + "start() is not available");
                 return true;
             }
         });
@@ -153,8 +156,8 @@ public class ForeSeeAPI extends CordovaPlugin {
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
-                Log.i(sTag, "The startWithConfigurationFile() API for ANDROID is not available in Cordova implementations. The SDK will start automatically on app launch");
-                callback.success(sTag + "start() is not available");
+                Log.i(logTag, "The startWithConfigurationFile() API for ANDROID is not available in Cordova implementations. The SDK will start automatically on app launch");
+                callback.success(logTag + "start() is not available");
                 return true;
 
             }
@@ -166,8 +169,8 @@ public class ForeSeeAPI extends CordovaPlugin {
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
-                Log.i(sTag, "The startWithConfigurationJson() API for ANDROID is not available in Cordova implementations. The SDK will start automatically on app launch");
-                callback.success(sTag + "start() is not available");
+                Log.i(logTag, "The startWithConfigurationJson() API for ANDROID is not available in Cordova implementations. The SDK will start automatically on app launch");
+                callback.success(logTag + "start() is not available");
                 return true;
             }
         });
@@ -184,8 +187,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                     Core.resetState();
                     callback.success();
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "incrementSignificantEvent failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "incrementSignificantEvent failure");
                 } finally {
                     return true;
                 }
@@ -232,8 +235,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                     });
 
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callbackContext.error(sTag + " showInvite failure");
+                    Log.e(logTag, ex.getMessage());
+                    callbackContext.error(logTag + " showInvite failure");
                 }
 
                 return true;
@@ -266,8 +269,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                         }
                     });
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callbackContext.error(sTag + " showSurvey failure");
+                    Log.e(logTag, ex.getMessage());
+                    callbackContext.error(logTag + " showSurvey failure");
                 }
 
                 return true;
@@ -298,8 +301,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                         callback.success();
                     }
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + " show addCPPValue failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + " show addCPPValue failure");
                 } finally {
                     return true;
                 }
@@ -325,8 +328,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                         }
                     }
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "getCPP failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "getCPP failure");
                 } finally {
                     return true;
                 }
@@ -341,8 +344,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                 try {
                     callback.success(new JSONObject(Core.getAllCPPs()));
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "getAllCPPs failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "getAllCPPs failure");
                 } finally {
                     return true;
                 }
@@ -371,8 +374,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                         callback.success();
                     }
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + " show removeCPP failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + " show removeCPP failure");
                 } finally {
                     return true;
                 }
@@ -413,8 +416,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                         callback.success();
                     }
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "incrementSignificantEvent failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "incrementSignificantEvent failure");
                 } finally {
                     return true;
                 }
@@ -442,8 +445,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                         callback.success();
                     }
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "setSignificantEventCount failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "setSignificantEventCount failure");
                 } finally {
                     return true;
                 }
@@ -470,8 +473,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                         callback.success();
                     }
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "resetSignificantEventCount failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "resetSignificantEventCount failure");
                 } finally {
                     return true;
                 }
@@ -487,8 +490,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                     Predictive.resetSignificantEvents();
                     callback.success();
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "resetSignificantEvents failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "resetSignificantEvents failure");
                 } finally {
                     return true;
                 }
@@ -505,8 +508,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                     Predictive.cancelPendingInvites();
                     callback.success();
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "cancelPendingInvites failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "cancelPendingInvites failure");
                 } finally {
                     return true;
                 }
@@ -530,8 +533,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                     callback.success();
 
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "setDebugLogEnabled failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "setDebugLogEnabled failure");
                 } finally {
                     return true;
                 }
@@ -546,8 +549,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                 try {
                     callback.success(String.valueOf(Core.isDebugLogEnabled()));
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "isDebugLogEnabled failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "isDebugLogEnabled failure");
                 } finally {
                     return true;
                 }
@@ -562,8 +565,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                 try {
                     callback.success(Core.getVersion());
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "getVersion failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "getVersion failure");
                 } finally {
                     return true;
                 }
@@ -584,8 +587,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                     callback.success();
 
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "setSkipPoolingCheck failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "setSkipPoolingCheck failure");
                 } finally {
                     return true;
                 }
@@ -603,8 +606,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                     Predictive.customInviteAccepted();
                     callback.success();
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "customInviteAccepted failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "customInviteAccepted failure");
                 } finally {
                     return true;
                 }
@@ -620,8 +623,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                     Predictive.customInviteDeclined();
                     callback.success();
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "customInviteDeclined failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "customInviteDeclined failure");
                 } finally {
                     return true;
                 }
@@ -639,8 +642,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                     ContactType contactType = contactTypeForString(args.getString(0));
                     callback.success(Predictive.getContactDetails(contactType));
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "getContactDetails failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "getContactDetails failure");
                 } finally {
                     return true;
                 }
@@ -669,8 +672,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                         callback.success();
                     }
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "setContactDetails failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "setContactDetails failure");
                 } finally {
                     return true;
                 }
@@ -698,8 +701,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                         callback.success();
                     }
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "setPreferredContactType failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "setPreferredContactType failure");
                 } finally {
                     return true;
                 }
@@ -714,8 +717,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                 try {
                     callback.success(Predictive.getPreferredContactType().name());
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "getPreferredContactType failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "getPreferredContactType failure");
                 } finally {
                     return true;
                 }
@@ -730,8 +733,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                 try {
                     callback.success(new JSONObject(convert(Predictive.getAllContactDetails())));
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "getAllContactDetails failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "getAllContactDetails failure");
                 } finally {
                     return true;
                 }
@@ -762,8 +765,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                     //3.
                     mCallbacks.add(callback);
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "setInviteListener failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "setInviteListener failure");
                 } finally {
                     return true;
                 }
@@ -782,8 +785,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                     Predictive.setInviteListener(null);
                     mCallbacks.clear();
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "removeInviteListener failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "removeInviteListener failure");
                 } finally {
                     return true;
                 }
@@ -800,8 +803,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                 try {
                     Digital.showDigitalSurvey();
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "showDigitalSurvey failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "showDigitalSurvey failure");
                 } finally {
                     return true;
                 }
@@ -829,8 +832,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                         callback.success();
                     }
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "showDigitalSurveyForName failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "showDigitalSurveyForName failure");
                 } finally {
                     return true;
                 }
@@ -845,8 +848,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                 try {
                     Digital.checkIfDigitalSurveyEnabled();
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "checkIfDigitalSurveyEnabled failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "checkIfDigitalSurveyEnabled failure");
                 } finally {
                     return true;
                 }
@@ -874,8 +877,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                         callback.success();
                     }
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "checkIfDigitalSurveyEnabledForName failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "checkIfDigitalSurveyEnabledForName failure");
                 } finally {
                     return true;
                 }
@@ -890,8 +893,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                 try {
                     Digital.getAvailableDigitalSurveyNames();
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "getAvailableDigitalSurveyNames failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "getAvailableDigitalSurveyNames failure");
                 } finally {
                     return true;
                 }
@@ -920,8 +923,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                     //3.
                     mDigitalCallbacks.add(callback);
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "setDigitalListener failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "setDigitalListener failure");
                 } finally {
                     return true;
                 }
@@ -940,8 +943,8 @@ public class ForeSeeAPI extends CordovaPlugin {
                     mDigitalCallbacks.clear();
                     Digital.setDigitalListener(null);
                 } catch (Exception ex) {
-                    Log.e(sTag, ex.getMessage());
-                    callback.error(sTag + "removeDigitalListener failure");
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "removeDigitalListener failure");
                 } finally {
                     return true;
                 }
@@ -954,11 +957,11 @@ public class ForeSeeAPI extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 
         if (sActions.containsKey(action)) {
-            Log.d(sTag, "Action " + action);
+            Log.d(logTag, "Action " + action);
             return sActions.get(action).invoke(args, callbackContext, cordova);
 
         } else {
-            Log.d(sTag, "This action is not supported");
+            Log.d(logTag, "This action is not supported");
             callbackContext.error("This action is not supported");
             return false;
         }
@@ -971,7 +974,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         try {
             result = ContactType.valueOf(string);
         } catch (IllegalArgumentException ex) {
-            Log.e(sTag, ex.getMessage());
+            Log.e(logTag, ex.getMessage());
         }
         return result;
     }
@@ -1042,7 +1045,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         private void sendEvent(final String eventName, MeasureConfiguration measure) {
-            Log.d(sTag, eventName);
+            Log.d(logTag, "InviteListener::" + eventName);
             try {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("event", eventName);
@@ -1051,7 +1054,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                 }
                 onEvent(jsonObject);
             } catch (JSONException e) {
-                Log.e(sTag, "Failed to return " + eventName + " event");
+                Log.e(logTag, "Failed to create payload for " + eventName + " event");
             }
         }
 
@@ -1061,12 +1064,17 @@ public class ForeSeeAPI extends CordovaPlugin {
          * @param eventMsg
          */
         private void onEvent(JSONObject eventMsg) {
+            if (mCallbacks.length == 0) {
+                Log.e(logTag, "No listeners to send " + eventMsg.getString("event") + " event");
+                return
+            }
             PluginResult result = new PluginResult(PluginResult.Status.OK, eventMsg);
             result.setKeepCallback(true);
             for (CallbackContext c : mCallbacks) {
                 if (c != null) {
                     c.sendPluginResult(result);
                 } else {
+                    Log.e(logTag, "Failed to send " + eventMsg.getString("event") + " event" + ".Callback is null");
                 }
             }
         }
@@ -1121,7 +1129,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
 
         private void sendEvent(final String eventName, final String surveyName, Boolean enabled) {
-            Log.d(sTag, eventName);
+            Log.d(logTag, "DigitalListener::" + eventName);
             try {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("event", eventName);
@@ -1131,7 +1139,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                 }
                 onEvent(jsonObject);
             } catch (JSONException e) {
-                Log.e(sTag, "Failed to return " + eventName + " event");
+                Log.e(logTag, "Failed to create payload for " + eventName + " event");
             }
         }
 
@@ -1141,13 +1149,17 @@ public class ForeSeeAPI extends CordovaPlugin {
          * @param eventMsg
          */
         private void onEvent(JSONObject eventMsg) {
+            if (mDigitalCallbacks.length == 0) {
+                Log.e(logTag, "No listeners to send " + eventMsg.getString("event") + " event");
+                return
+            }
             PluginResult result = new PluginResult(PluginResult.Status.OK, eventMsg);
             result.setKeepCallback(true);
             for (CallbackContext c : mDigitalCallbacks) {
                 if (c != null) {
                     c.sendPluginResult(result);
-                }
-                else {
+                } else {
+                    Log.e(logTag, "Failed to send " + eventMsg.getString("event") + " event" + ".Callback is null");
                 }
             }
         }
@@ -1157,17 +1169,17 @@ public class ForeSeeAPI extends CordovaPlugin {
     
         @Override
         public void onSDKStarted() {
-            Log.d(sTag, "onSDKStarted");
+            Log.d(logTag, "VerintSDKListener::onSDKStarted");
         }
     
         @Override
         public void onSDKStarted(Core.VerintError error, String message) {
-            Log.w(sTag, "didStartSDKWithError: " + error + " / " + message);
+            Log.w(logTag, "VerintSDKListener::didStartSDKWithError: " + error + " / " + message);
         }
     
         @Override
         public void onSDKFailedToStart(Core.VerintError error, String message) {
-            Log.w(sTag, "didFailToStartSDKWithError: " + error + " / " + message);
+            Log.w(logTag, "VerintSDKListener::didFailToStartSDKWithError: " + error + " / " + message);
         }
         
     }
