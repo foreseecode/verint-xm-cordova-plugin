@@ -1180,6 +1180,11 @@ public class ForeSeeAPI extends CordovaPlugin {
         @Override
         public void onSDKStarted() {
             Log.d(logTag, "VerintSDKListener::onSDKStarted");
+            // Originally idea was to set cross platforms CPPs only in start SDK functions.
+            // But looks like CPPs for Android could be
+            // applied only after onSDKStarted.
+            // So for now we should keep this. See: VOC-42740
+            addCrossPlatformCPPs();
         }
     
         @Override
