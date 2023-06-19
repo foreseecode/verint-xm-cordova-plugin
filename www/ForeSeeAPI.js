@@ -30,7 +30,7 @@ module.exports = {
    * The callback takes one error parameter, containing the details of the error.
    */
   start(config, success, error) {
-    if (config && config["clientId"]) {
+    if (config) {
       let args = [JSON.stringify(config)];
       exec(success, error, ForeSeeAPI, "startWithConfigurationJson", validate(args));
     } else {
@@ -627,7 +627,7 @@ module.exports = {
    */
   setDigitalListener(success, error) {
     exec(success, error, ForeSeeAPI, "setDigitalListener", []);
-  }
+  },
 
   /**
    * @description

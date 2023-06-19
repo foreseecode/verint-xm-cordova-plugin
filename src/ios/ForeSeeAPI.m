@@ -643,7 +643,7 @@ NSString* const logTag = @"CordovaVerintSDK";
 }
 
 - (void)sendInviteListenerResult:(EXPMeasure *)measure eventName:(NSString *)eventName {
-  NSLog(@"%@::%@::%@", logTag, @"InviteListener", eventName);
+    NSLog(@"%@::%@::%@", logTag, @"InviteListener", eventName);
     if (!self.inviteListenerCommand) {
       NSLog(@"%@::No listeners to send %@ event", logTag, eventName);
         return;
