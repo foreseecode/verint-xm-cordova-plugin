@@ -1036,6 +1036,16 @@ public class ForeSeeAPI extends CordovaPlugin {
             sendEvent("onSurveyCancelledWithNetworkError", eligibleMeasureConfigurations);
         }
 
+        @Override
+        public void onInviteCancelledWithNetworkError(EligibleMeasureConfigurations eligibleMeasureConfigurations) {
+            // Have no parity on iOS, so just stub here
+        }
+
+        @Override
+        public void onInviteNotShownWithNetworkError(EligibleMeasureConfigurations eligibleMeasureConfigurations) {
+            // Have no parity on iOS, so just stub here
+        }
+
         private void sendEvent(final String eventName, EligibleMeasureConfigurations eligibleMeasureConfigurations) {
             MeasureConfiguration measureConfiguration = null;
             if (eligibleMeasureConfigurations != null) {
@@ -1064,9 +1074,9 @@ public class ForeSeeAPI extends CordovaPlugin {
          * @param eventMsg
          */
         private void onEvent(JSONObject eventMsg) {
-            if (mCallbacks.length == 0) {
-                Log.e(logTag, "No listeners to send " + eventMsg.getString("event") + " event");
-                return
+            if (mCallbacks.size() == 0) {
+                Log.e(logTag, "No listeners to send  event");
+                return;
             }
             PluginResult result = new PluginResult(PluginResult.Status.OK, eventMsg);
             result.setKeepCallback(true);
@@ -1074,7 +1084,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                 if (c != null) {
                     c.sendPluginResult(result);
                 } else {
-                    Log.e(logTag, "Failed to send " + eventMsg.getString("event") + " event" + ".Callback is null");
+                    Log.e(logTag, "Failed to send event .Callback is null");
                 }
             }
         }
@@ -1149,9 +1159,9 @@ public class ForeSeeAPI extends CordovaPlugin {
          * @param eventMsg
          */
         private void onEvent(JSONObject eventMsg) {
-            if (mDigitalCallbacks.length == 0) {
-                Log.e(logTag, "No listeners to send " + eventMsg.getString("event") + " event");
-                return
+            if (mDigitalCallbacks.size() == 0) {
+                Log.e(logTag, "No listeners to send  event");
+                return;
             }
             PluginResult result = new PluginResult(PluginResult.Status.OK, eventMsg);
             result.setKeepCallback(true);
@@ -1159,7 +1169,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                 if (c != null) {
                     c.sendPluginResult(result);
                 } else {
-                    Log.e(logTag, "Failed to send " + eventMsg.getString("event") + " event" + ".Callback is null");
+                    Log.e(logTag, "Failed to send event .Callback is null");
                 }
             }
         }
