@@ -8,10 +8,13 @@ NSString* const platformOSVersionKey = @"crossPlatformOSVersion";
 NSString* const platformVersionKey = @"crossPlatformVersion";
 NSString* const version = @"2.0.0";
 
+// Class tag for logs
+NSString* const logTag = @"CordovaVerintSDK";
+
 @interface ForeSeeAPI ()
 
 @property (nonatomic) CDVInvokedUrlCommand *inviteListenerCommand;
-@property (nonatomic) CDVInvokedUrlCommand *feedbackListenerCommand;
+@property (nonatomic) CDVInvokedUrlCommand *digitalListenerCommand;
 
 @end
 
@@ -20,18 +23,16 @@ NSString* const version = @"2.0.0";
 #pragma mark - Cordova
 
 - (void)pluginInitialize {
-    [EXPPredictive setInviteDelegate:self];
-    [DigitalComponent setDelegate:self];
     [EXPCore setDelegate:self];
 
     NSString *appId = [self getAppIdFromJSON];
     if (appId != nil) {
         [EXPCore startWithAppId:appId
                     version:@"mobsdk"];
-        NSLog(@"FCP startup with appId: %@", appId);            
+        NSLog(@"%@::FCP startup with appId: %@", logTag, appId);
     } else {
         [EXPCore start];
-        NSLog(@"Regular startup");
+        NSLog(@"%@::Regular startup", logTag);
     }
 
     [self addCrossPlatformCPPs];
@@ -46,7 +47,7 @@ NSString* const version = @"2.0.0";
     NSString *appId = fcpConfig[@"appId"];
 
     if (!appId) {
-        NSLog(@"exp_fcp.json file does not exist");
+        NSLog(@"%@::exp_fcp.json file does not exist", logTag);
         return nil;
     } 
 
@@ -55,9 +56,10 @@ NSString* const version = @"2.0.0";
 
 - (void)addCrossPlatformCPPs {
   [EXPCore setCPPValue:@"Cordova iOS" forKey:platformNameKey];
-  [EXPCore setCPPValue:[CDVDevice cordovaVersion] forKey:platformSDKVersionKey];
+  [EXPCore setCPPValue: version forKey:platformSDKVersionKey];
   [EXPCore setCPPValue:[[UIDevice currentDevice] systemVersion] forKey:platformOSVersionKey];
-  [EXPCore setCPPValue:version forKey:platformVersionKey];
+  [EXPCore setCPPValue:[CDVDevice cordovaVersion] forKey:platformVersionKey];
+  NSLog(@"%@::%@ %@", logTag, @"All CPPs (after adding cross platform CPPs):", [EXPCore allCPPs]);
 }
 
 #pragma mark - Start
@@ -65,37 +67,37 @@ NSString* const version = @"2.0.0";
 - (void)start: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    NSLog(@"The start() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch");
+    NSLog(@"%@::The start() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch", logTag);
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void)startWithConfigurationFile: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    NSLog(@"The startWithConfigurationFile() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch");
+    NSLog(@"%@::The startWithConfigurationFile() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch", logTag);
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void)startWithConfigurationJson: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    NSLog(@"The startWithConfigurationJson() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch");
+    NSLog(@"%@::The startWithConfigurationJson() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch", logTag);
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 
-#pragma mark - VerintDelegate
+#pragma mark - Verint (EXPCore) Delegate
 
 - (void)didStartSDK {
-  NSLog(@"VerintDelegate::didStartSDK");
+  NSLog(@"%@::%@::%@", logTag, @"VerintSDKListener", @"didStartSDK");
 }
 
 -(void)didStartSDKWithError:(EXPErrorCode)error message:(NSString *)message {
-  NSLog(@"VerintDelegate::didStartSDKWithError: %lu / %@", (unsigned long) error, message);
+  NSLog(@"%@::%@::%@: %lu / %@", logTag, @"VerintSDKListener",  @"didStartSDKWithError", (unsigned long) error, message);
 }
 
 - (void)didFailToStartSDKWithError:(EXPErrorCode)error message:(NSString *)message {
-  NSLog(@"VerintDelegate::didFailToStartSDKWithError: %lu / %@", (unsigned long) error, message);
+  NSLog(@"%@::%@::%@: %lu / %@", logTag, @"VerintSDKListener",  @"didFailToStartSDKWithError", (unsigned long) error, message);
 }
 
 #pragma mark - Helpers
@@ -197,7 +199,7 @@ NSString* const version = @"2.0.0";
     NSArray* arguments = command.arguments;
 
     if (arguments == nil || arguments.count < 1) {
-        NSLog(@"No surveyId for showInvite");
+        NSLog(@"%@::No surveyId for showInvite", logTag);
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     } else {
         NSString* surveyId = [command.arguments objectAtIndex:0];
@@ -206,7 +208,7 @@ NSString* const version = @"2.0.0";
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
             [EXPPredictive showInviteForSurveyID:surveyId];
         } else {
-            NSLog(@"Bad surveyId for showInvite");
+            NSLog(@"%@::Bad surveyId for showInvite", logTag);
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
     }
@@ -219,7 +221,7 @@ NSString* const version = @"2.0.0";
     NSArray* arguments = command.arguments;
 
     if (arguments == nil || arguments.count < 1) {
-        NSLog(@"Bad surveyId for showSurvey");
+        NSLog(@"%@::Bad surveyId for showSurvey", logTag);
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else {
@@ -228,7 +230,7 @@ NSString* const version = @"2.0.0";
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
             [EXPPredictive showSurveyForSurveyID:surveyId];
         } else {
-            NSLog(@"Bad surveyId for showSurvey");
+            NSLog(@"%@::Bad surveyId for showSurvey", logTag);
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
     }
@@ -244,7 +246,7 @@ NSString* const version = @"2.0.0";
     NSArray* arguments = command.arguments;
 
     if (arguments == nil || arguments.count < 2) {
-        NSLog(@"No key or value for addCPPValue");
+        NSLog(@"%@::No key or value for addCPPValue", logTag);
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else{
@@ -255,7 +257,7 @@ NSString* const version = @"2.0.0";
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
             [EXPCore setCPPValue:value forKey:key];
         } else {
-            NSLog(@"Bad key or value for addCPPValue");
+            NSLog(@"%@::Bad key or value for addCPPValue", logTag);
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
     }
@@ -269,7 +271,7 @@ NSString* const version = @"2.0.0";
     NSArray* arguments = command.arguments;
 
     if (arguments == nil || arguments.count < 1){
-        NSLog(@"No key for getCPP");
+        NSLog(@"%@::No key for getCPP", logTag);
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else {
@@ -279,7 +281,7 @@ NSString* const version = @"2.0.0";
             NSString* value = [EXPCore CPPValueForKey:key];
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:value];
         } else {
-            NSLog(@"Bad key for getCPP");
+            NSLog(@"%@::Bad key for getCPP", logTag);
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
     }
@@ -302,7 +304,7 @@ NSString* const version = @"2.0.0";
     NSArray* arguments = command.arguments;
 
     if (arguments == nil || arguments.count < 1) {
-        NSLog(@"No surveyId for removeCPP");
+        NSLog(@"%@::No surveyId for removeCPP", logTag);
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else {
@@ -312,7 +314,7 @@ NSString* const version = @"2.0.0";
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
             [EXPCore removeCPPValueForKey:key];
         } else {
-            NSLog(@"Bad value in removeCPP");
+            NSLog(@"%@::Bad value in removeCPP", logTag);
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
     }
@@ -340,7 +342,7 @@ NSString* const version = @"2.0.0";
     NSArray* arguments = command.arguments;
 
     if (arguments == nil || arguments.count < 1) {
-        NSLog(@"No surveyId for incrementSignificantEvent");
+        NSLog(@"%@::No surveyId for incrementSignificantEvent", logTag);
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else {
@@ -350,7 +352,7 @@ NSString* const version = @"2.0.0";
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
             [EXPPredictive incrementSignificantEventCountWithKey:key];
         } else {
-            NSLog(@"Bad value in incrementSignificantEvent");
+            NSLog(@"%@::Bad value in incrementSignificantEvent", logTag);
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
     }
@@ -364,7 +366,7 @@ NSString* const version = @"2.0.0";
     NSArray* arguments = command.arguments;
 
     if (arguments == nil || arguments.count < 2) {
-        NSLog(@"Not enough args for setSignificantEventCount");
+        NSLog(@"%@::Not enough args for setSignificantEventCount", logTag);
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else {
@@ -375,7 +377,7 @@ NSString* const version = @"2.0.0";
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
             [EXPPredictive setSignificantEventCount:[value integerValue] forKey:key];
         } else {
-            NSLog(@"Bad value in setSignificantEventCount");
+            NSLog(@"%@::Bad value in setSignificantEventCount", logTag);
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
     }
@@ -389,7 +391,7 @@ NSString* const version = @"2.0.0";
     NSArray* arguments = command.arguments;
 
     if (arguments == nil || arguments.count < 1) {
-        NSLog(@"No key arg for resetSignificantEventCount");
+        NSLog(@"%@::No key arg for resetSignificantEventCount", logTag);
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else {
@@ -399,7 +401,7 @@ NSString* const version = @"2.0.0";
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
             [EXPPredictive resetSignificantEventCountForKey:key];
         } else {
-            NSLog(@"Bad value in resetSignificantEventCount");
+            NSLog(@"%@::Bad value in resetSignificantEventCount", logTag);
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
     }
@@ -433,7 +435,7 @@ NSString* const version = @"2.0.0";
     NSArray* arguments = command.arguments;
 
     if (arguments == nil || arguments.count < 1) {
-        NSLog(@"No data for setSkipPoolingCheck");
+        NSLog(@"%@::No data for setSkipPoolingCheck", logTag);
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else {
@@ -452,7 +454,7 @@ NSString* const version = @"2.0.0";
     NSArray* arguments = command.arguments;
 
     if (arguments == nil || arguments.count < 1) {
-        NSLog(@"No data for setDebugLogEnabled");
+        NSLog(@"%@::No data for setDebugLogEnabled", logTag);
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else {
@@ -514,7 +516,7 @@ NSString* const version = @"2.0.0";
     NSString* result = nil;
 
     if (arguments == nil || arguments.count < 1) {
-        NSLog(@"No data for contactType");
+        NSLog(@"%@::No data for contactType", logTag);
     } else {
         EXPContactType contactType = [self contactTypeForString:[command.arguments objectAtIndex:0]];
         result = [EXPPredictive contactDetailsForType:contactType];
@@ -531,7 +533,7 @@ NSString* const version = @"2.0.0";
     NSArray* arguments = command.arguments;
 
     if (arguments == nil || arguments.count < 2 || arguments.count > 2) {
-        NSLog(@"No, or too many details for setContactDetails");
+        NSLog(@"%@::No, or too many details for setContactDetails", logTag);
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     } else {
         NSString* contact = [arguments objectAtIndex:0];
@@ -540,7 +542,7 @@ NSString* const version = @"2.0.0";
             [EXPPredictive setContactDetails:contact forType:contactType];
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         } else {
-            NSLog(@"Bad contact for setContactDetails");
+            NSLog(@"%@::Bad contact for setContactDetails", logTag);
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
     }
@@ -554,7 +556,7 @@ NSString* const version = @"2.0.0";
     NSArray* arguments = command.arguments;
 
     if (arguments == nil || arguments.count < 1) {
-        NSLog(@"Bad contact type for setPreferredContactType");
+        NSLog(@"%@::Bad contact type for setPreferredContactType", logTag);
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     } else {
         NSString* string = [arguments objectAtIndex:0];
@@ -563,7 +565,7 @@ NSString* const version = @"2.0.0";
             [EXPPredictive setPreferredContactType:contactType];
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         } else {
-            NSLog(@"Bad contact type for setContactDetails");
+            NSLog(@"%@::Bad contact type for setContactDetails", logTag);
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
     }
@@ -593,57 +595,64 @@ NSString* const version = @"2.0.0";
 #pragma mark - EXPInviteDelegate
 
 - (void)willNotShowInviteWithEligibilityFailedForMeasure:(EXPMeasure *)measure {
-    [self sendInviteListenerResult:measure eventMessage:@"onInviteNotShownWithEligibilityFailed"];
+    [self sendInviteListenerResult:measure eventName:@"onInviteNotShownWithEligibilityFailed"];
 }
 
 - (void)willNotShowInviteWithSamplingFailedForMeasure:(EXPMeasure *)measure {
-    [self sendInviteListenerResult:measure eventMessage:@"onInviteNotShownWithSamplingFailed"];
+    [self sendInviteListenerResult:measure eventName:@"onInviteNotShownWithSamplingFailed"];
 }
 
 - (void)didShowInviteForMeasure:(EXPMeasure *)measure {
-    [self sendInviteListenerResult:measure eventMessage:@"onInvitePresented"];
+    [self sendInviteListenerResult:measure eventName:@"onInvitePresented"];
 }
 
 - (void)didAcceptInviteForMeasure:(EXPMeasure *)measure {
-    [self sendInviteListenerResult:measure eventMessage:@"onInviteCompleteWithAccept"];
+    [self sendInviteListenerResult:measure eventName:@"onInviteCompleteWithAccept"];
 }
 
 - (void)didDeclineInviteForMeasure:(EXPMeasure *)measure {
-    [self sendInviteListenerResult:measure eventMessage:@"onInviteCompleteWithDecline"];
+    [self sendInviteListenerResult:measure eventName:@"onInviteCompleteWithDecline"];
 }
 
 - (void)didShowSurveyForMeasure:(EXPMeasure *)measure {
-    [self sendInviteListenerResult:measure eventMessage:@"onSurveyPresented"];
+    [self sendInviteListenerResult:measure eventName:@"onSurveyPresented"];
 }
 
 - (void)didCancelSurveyForMeasure:(EXPMeasure *)measure {
-    [self sendInviteListenerResult:measure eventMessage:@"onSurveyCancelledByUser"];
+    [self sendInviteListenerResult:measure eventName:@"onSurveyCancelledByUser"];
 }
 
 - (void)didCompleteSurveyForMeasure:(EXPMeasure *)measure {
-    [self sendInviteListenerResult:measure eventMessage:@"onSurveyCompleted"];
+    [self sendInviteListenerResult:measure eventName:@"onSurveyCompleted"];
 }
 
 - (void)didFailForMeasure:(EXPMeasure *)measure withNetworkError:(NSError *)error {
-    [self sendInviteListenerResult:measure eventMessage:@"onSurveyCancelledWithNetworkError"];
+    [self sendInviteListenerResult:measure eventName:@"onSurveyCancelledWithNetworkError"];
 }
 
 #pragma mark - Invite listener helpers
 
 - (void)setInviteListener:(CDVInvokedUrlCommand *)command {
+    [EXPPredictive setInviteDelegate:self];
     self.inviteListenerCommand = command;
 }
 
 - (void)removeInviteListener:(CDVInvokedUrlCommand *)command {
     self.inviteListenerCommand = nil;
+    [EXPPredictive setInviteDelegate:nil];
 }
 
-- (void)sendInviteListenerResult:(EXPMeasure *)measure eventMessage:(NSString *)msg {
+- (void)sendInviteListenerResult:(EXPMeasure *)measure eventName:(NSString *)eventName {
+    NSLog(@"%@::%@::%@", logTag, @"InviteListener", eventName);
     if (!self.inviteListenerCommand) {
+      NSLog(@"%@::No listeners to send %@ event", logTag, eventName);
         return;
     }
-    NSDictionary *eventDictionary = @{@"event": msg,
-                                      @"surveyId": (measure != nil) ? measure.surveyID : @""};
+    NSMutableDictionary *eventDictionary = [[NSMutableDictionary alloc] init];
+    [eventDictionary setObject:eventName forKey:@"event"];
+    if (measure != nil) {
+      [eventDictionary setObject:measure.surveyID forKey:@"surveyId"];
+    }
     CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:eventDictionary];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:self.inviteListenerCommand.callbackId];
@@ -694,58 +703,66 @@ NSString* const version = @"2.0.0";
 #pragma mark - DigitalDelegate
 
 - (void)digitalSurveyPresented:(NSString *)surveyName {
-    [self sendDigitalListenerResult:surveyName eventMessage:@"digitalSurveyPresented"];
+    [self sendDigitalListenerResult:surveyName eventName:@"onDigitalSurveyPresented"];
 }
 
 - (void)digitalSurveyNotPresentedWithNetworkError:(NSString *)surveyName {
-    [self sendDigitalListenerResult:surveyName eventMessage:@"digitalSurveyNotPresentedWithNetworkError"];
+    [self sendDigitalListenerResult:surveyName eventName:@"onDigitalSurveyNotPresentedWithNetworkError"];
 }
 
 - (void)digitalSurveyNotPresentedWithDisabled:(NSString *)surveyName {
-    [self sendDigitalListenerResult:surveyName eventMessage:@"digitalSurveyNotPresentedWithDisabled"];
+    [self sendDigitalListenerResult:surveyName eventName:@"onDigitalSurveyNotPresentedWithDisabled"];
 }
 
 - (void)digitalSurveySubmitted:(NSString *)surveyName {
-    [self sendDigitalListenerResult:surveyName eventMessage:@"digitalSurveySubmitted"];
+    [self sendDigitalListenerResult:surveyName eventName:@"onDigitalSurveySubmitted"];
 }
 
 - (void)digitalSurveyNotSubmittedWithNetworkError:(NSString *)surveyName {
-    [self sendDigitalListenerResult:surveyName eventMessage:@"digitalSurveyNotSubmittedWithNetworkError"];
+    [self sendDigitalListenerResult:surveyName eventName:@"onDigitalSurveyNotSubmittedWithNetworkError"];
 }
 
 - (void)digitalSurveyNotSubmittedWithAbort:(NSString *)surveyName {
-    [self sendDigitalListenerResult:surveyName eventMessage:@"digitalSurveyNotSubmittedWithAbort"];
+    [self sendDigitalListenerResult:surveyName eventName:@"onDigitalSurveyNotSubmittedWithAbort"];
 }
 
 - (void)digitalSurveyStatusRetrieved:(NSString *)surveyName enabled:(BOOL)enabled {
-    [self sendDigitalListenerResult:surveyName withStatus:[NSNumber numberWithBool:enabled] eventMessage:@"digitalSurveyStatusRetrieved"];
+    [self sendDigitalListenerResult:surveyName enabled:[NSNumber numberWithBool:enabled] eventName:@"onDigitalSurveyStatusRetrieved"];
 }
 
-#pragma mark - Digital Survey listener helpers
+#pragma mark - Digital Survey (ex Feedback) listener helpers
 
 - (void)setDigitalListener:(CDVInvokedUrlCommand *)command {
-    self.feedbackListenerCommand = command;
+    [DigitalComponent setDelegate:self];
+    self.digitalListenerCommand = command;
 }
 
 - (void)removeDigitalListener:(CDVInvokedUrlCommand *)command {
-    self.feedbackListenerCommand = nil;
+    self.digitalListenerCommand = nil;
+    [DigitalComponent setDelegate:nil];
 }
 
-- (void)sendDigitalListenerResult:(NSString *)surveyName eventMessage:(NSString *)msg {
-    [self sendDigitalListenerResult:surveyName withStatus:nil eventMessage:msg];
+- (void)sendDigitalListenerResult:(NSString *)surveyName eventName:(NSString *)eventName {
+    [self sendDigitalListenerResult:surveyName enabled:nil eventName:eventName];
 }
 
-- (void)sendDigitalListenerResult:(NSString *)surveyName withStatus:(NSNumber *_Nullable)status eventMessage:(NSString *)msg {
-    if (!self.feedbackListenerCommand) {
+- (void)sendDigitalListenerResult:(NSString *)surveyName enabled:(NSNumber *_Nullable)enabled eventName:(NSString *)eventName {
+    NSLog(@"%@::%@::%@", logTag, @"DigitalListener", eventName);
+    if (!self.digitalListenerCommand) {
+      NSLog(@"%@::No listeners to send %@ event", logTag, eventName);
         return;
     }
-    NSDictionary *eventDictionary = @{@"event": msg,
-                                      @"surveyName": surveyName,
-                                      @"status": status != nil ? status : @""};
+    NSMutableDictionary *eventDictionary = [[NSMutableDictionary alloc] init];
+    [eventDictionary setObject:eventName forKey:@"event"];
+    [eventDictionary setObject:surveyName forKey:@"surveyName"];
+    if (enabled != nil) {
+        [eventDictionary setObject:[enabled boolValue] ? @"true" : @"false" forKey:@"enabled"];
+    }
+
     CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
                                                   messageAsDictionary:eventDictionary];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.feedbackListenerCommand.callbackId];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.digitalListenerCommand.callbackId];
 }
 
 #pragma mark - Cordova command validation
@@ -795,4 +812,3 @@ NSString* const version = @"2.0.0";
 }
 
 @end
-
