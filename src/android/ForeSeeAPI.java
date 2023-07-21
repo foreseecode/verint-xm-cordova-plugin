@@ -81,9 +81,9 @@ public class ForeSeeAPI extends CordovaPlugin {
 
     void addCrossPlatformCPPs() {
         Core.addCPPValue("crossPlatformName", "Cordova Android");
-        Core.addCPPValue("crossPlatformSDKVersion", CordovaWebView.CORDOVA_VERSION);
+        Core.addCPPValue("crossPlatformSDKVersion", version);
         Core.addCPPValue("crossPlatformOSVersion", android.os.Build.VERSION.RELEASE);
-        Core.addCPPValue("crossPlatformVersion", version);
+        Core.addCPPValue("crossPlatformVersion", CordovaWebView.CORDOVA_VERSION);
         Log.d(logTag, "All CPPs (after adding cross platform CPPs): " + Core.getAllCPPs());
     }
 
@@ -760,7 +760,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                     mCallbacks.clear();
 
                     //2. 
-                    Predictive.setInviteListener(new XMCordovaInviteListener());
+                    Predictive.setInviteListener(new EXPCordovaInviteListener());
                     
                     //3.
                     mCallbacks.add(callback);
@@ -918,7 +918,7 @@ public class ForeSeeAPI extends CordovaPlugin {
                     mDigitalCallbacks.clear();
 
                     //2. 
-                    Digital.setDigitalListener(new XMCordovaDigitalListener());
+                    Digital.setDigitalListener(new EXPCordovaDigitalListener());
                     
                     //3.
                     mDigitalCallbacks.add(callback);
@@ -989,7 +989,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         return to;
     }
 
-    class XMCordovaInviteListener implements DefaultInviteListener {
+    class EXPCordovaInviteListener implements DefaultInviteListener {
 
         @Override
         public void onInviteNotShownWithEligibilityFailed(EligibleMeasureConfigurations eligibleMeasureConfigurations) {
@@ -1097,7 +1097,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         }
     }
 
-    class XMCordovaDigitalListener implements ExpDigitalListener {
+    class EXPCordovaDigitalListener implements ExpDigitalListener {
 
         @Override
         public void onDigitalSurveyPresented(String surveyName) {

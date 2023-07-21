@@ -56,9 +56,9 @@ NSString* const logTag = @"CordovaVerintSDK";
 
 - (void)addCrossPlatformCPPs {
   [EXPCore setCPPValue:@"Cordova iOS" forKey:platformNameKey];
-  [EXPCore setCPPValue:[CDVDevice cordovaVersion] forKey:platformSDKVersionKey];
+  [EXPCore setCPPValue: version forKey:platformSDKVersionKey];
   [EXPCore setCPPValue:[[UIDevice currentDevice] systemVersion] forKey:platformOSVersionKey];
-  [EXPCore setCPPValue:version forKey:platformVersionKey];
+  [EXPCore setCPPValue:[CDVDevice cordovaVersion] forKey:platformVersionKey];
   NSLog(@"%@::%@ %@", logTag, @"All CPPs (after adding cross platform CPPs):", [EXPCore allCPPs]);
 }
 
