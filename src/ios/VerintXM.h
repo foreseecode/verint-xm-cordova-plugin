@@ -1,12 +1,12 @@
 //
-//  ForeSeeAPI.h
-//  ForeSeeCordova
+//  VerintXM.h
+//  VerintCordova
 //
 //  Created by Burkett, Wayne on 12/13/22.
 //
 
-#ifndef ForeSeeAPI_h
-#define ForeSeeAPI_h
+#ifndef VerintXM_h
+#define VerintXM_h
 
 #import <Cordova/CDV.h>
 #import "CDVDevice.h"
@@ -16,7 +16,7 @@
 #import <EXPUtilities/EXPFileUtilities.h>
 #import <EXPCore/EXPConfiguration.h>
 
-@interface ForeSeeAPI : CDVPlugin <VerintDelegate, EXPInviteDelegate, DigitalDelegate>
+@interface VerintXM : CDVPlugin <VerintDelegate, EXPInviteDelegate, DigitalDelegate>
 
 #pragma mark - Verint-XM interface
 
@@ -63,6 +63,6 @@
 - (EXPContactType)contactTypeForString:(NSString *)string;
 @end
 
-#endif /* ForeSeeAPI_h */
+#endif /* VerintXM_h */
 
 
