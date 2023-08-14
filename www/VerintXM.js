@@ -1,7 +1,7 @@
 'use strict';
 
 var exec = require("cordova/exec");
-var version = "2.0.0"
+var version = "3.0.0"
 const VerintXM = "VerintXM";
 
 function validate(args) {
