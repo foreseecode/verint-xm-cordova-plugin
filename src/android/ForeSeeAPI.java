@@ -5,6 +5,8 @@ import android.os.Build;
 
 import com.verint.xm.sdk.Core;
 import com.verint.xm.sdk.Predictive;
+import com.verint.xm.sdk.internal.CoreProxy;
+import com.verint.xm.sdk.common.environment.Environment;
 import com.verint.xm.sdk.Digital;
 import com.verint.xm.sdk.ExpDigitalListener;
 import com.verint.xm.sdk.common.configuration.MeasureConfiguration;
@@ -77,6 +79,8 @@ public class ForeSeeAPI extends CordovaPlugin {
 
             this.addCrossPlatformCPPs();
         }
+        
+        CoreProxy.setEnvironment(Environment.EnvTypes.Staging);
     }
 
     void addCrossPlatformCPPs() {
