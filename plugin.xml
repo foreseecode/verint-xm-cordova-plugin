@@ -7,7 +7,7 @@
 
  
     <js-module name="Verint-XM" src="www/VerintXM.js">
-        <clobbers target="cordova.plugins.verint.xm.cordova-sdk" />
+        <clobbers target="cordova.plugins.verint.xm" />
     </js-module>
 
     <!--
@@ -15,8 +15,8 @@
 	-->
     <platform name="android">
         <config-file parent="/*" target="res/xml/config.xml">
-            <feature name="Verint XM Cordova SDK">
-                <param name="android-package" value="com.verint.xm.cordova.sdk" />
+            <feature name="VerintXM">
+                <param name="android-package" value="com.verint.xm.cordova.plugin.VerintXM" />
                 <param name="onload" value="true" />
             </feature>
         </config-file>
@@ -33,7 +33,7 @@
         <framework src="com.verint.xm.sdk:predictive:7.0.2" />
         <framework src="com.verint.xm.sdk:digital:7.0.2" />
         <framework src="com.android.support:appcompat-v7:26.1.0"/>
-        <source-file src="src/android/VerintXM.java" target-dir="src/com/verint/xm/cordova/sdk/VerintXM" />
+        <source-file src="src/android/VerintXM.java" target-dir="src/com/verint/xm/cordova/plugin/VerintXM" />
     </platform>
 
     <!--
@@ -41,8 +41,8 @@
 	-->
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
-            <feature name="Verint XM Cordova SDK">
-                <param name="ios-package" value="com.verint.xm.cordova.sdk" />
+            <feature name="VerintXM">
+                <param name="ios-package" value="VerintXM" />
                 <param name="onload" value="true" />
             </feature>
         </config-file>
@@ -62,6 +62,6 @@
         </podspec>
     </platform>
 
-    <hook src="scripts/verint_config.js" type="after_prepare" />
+    <hook src="scripts/exp_config.js" type="after_prepare" />
 
 </plugin>
