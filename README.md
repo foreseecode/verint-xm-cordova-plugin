@@ -1,4 +1,4 @@
-# ForeSee Cordova Plugin
+# Verint XM Cordova Plugin
 
 ## Requirements 
 
@@ -7,8 +7,8 @@
 * Android: 21+
 * iOS: 11.0+
 * Verint-XM SDK
-    * iOS 7.0.1
-    * Android 7.0.1
+    * iOS 7.0.2
+    * Android 7.0.2
 
 ----
 ## Setting up the plugin
@@ -23,13 +23,13 @@ To set up the plugin in your app, follow these instructions
 
     Once you have that key, you should set two environment variables on your machine: `GITHUB_USERNAME` for your username, and `GITHUB_PERSONAL_KEY` for your personal key
 
-2. Add the ForeSee plugin to your project 
+2. Add the Verint XM Cordova Plugin to your project 
 
    ```
-   cordova plugin add https://github.com/foreseecode/foresee-sdk-cordova-plugin.git
+   cordova plugin add https://github.com/foreseecode/verint-xm-cordova-plugin.git
    ```
 
-   This will automatically add `compile "com.verint.xm.sdk:sdk:+"` to your `build.gradle` file. 
+   This will automatically add `compile "com.verint.xm.sdk:*:+"` to your `build.gradle` file. 
    It will also copy the exp_configuration.json file to `platform/ios` and `platform/android` if they exist
 
    If you have a copy of this repo on disk, then you can also add the plugin to your app by pointing directly to it, like this:
@@ -41,16 +41,16 @@ To set up the plugin in your app, follow these instructions
 3. Within the `deviceready` event handler initialize the Verint-XM SDK by invoking 
 
     ```
-    cordova.plugins.ForeSeeAPI.start(this.onSuccess, this.onFailure);
+    cordova.plugins.verint.xm.start(this.onSuccess, this.onFailure);
     ```
 
-4. Now you can use `cordova.plugins.ForeSeeAPI` in your JavaScript code. For example:
+4. Now you can use `cordova.plugins.verint.xm` in your JavaScript code. For example:
 
    ```
-   cordova.plugins.ForeSeeAPI.checkEligibility(this.onSuccess, this.onFailure);
+   cordova.plugins.verint.xm.checkEligibility(this.onSuccess, this.onFailure);
    ```
 
-5. For all supported methods please check the API docs included in this package, or [online here](http://developer.foresee.com/downloads/sdk/mobile/cordova/current/docs/index.html). For general information about the ForeSee SDK, please see the [ForeSee Developer Portal](https://developer.foresee.com/).
+5. For all supported methods please check the API docs included in this package, or [online here](http://developer.foresee.com/downloads/sdk/mobile/cordova/current/docs/index.html). For general information about the Verint SDK, please see the [Verint Developer Portal](https://connect.verint.com/).
 
 6. Add `exp_logo.png` file in your `www/img/` folder to include a logo for the survey.
 
@@ -116,7 +116,7 @@ And then handle notifications in your app’s Javascript:
 if (device.platform == "iOS") {
     cordova.plugins.notification.local.on("click", function (notification) {
         if (notification.EXPLocalNotificationMeasureKey != null) {
-            cordova.plugins.ForeSeeAPI.showSurvey([notification.EXPLocalNotificationMeasureKey], this.onSuccess, this.onFailure);
+            cordova.plugins.verint.xm.showSurvey([notification.EXPLocalNotificationMeasureKey], this.onSuccess, this.onFailure);
         }
     }, this);
 }

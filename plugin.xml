@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="cordova-plugin-foresee" version="2.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
-    <name>ForeSeeAPI</name>
-	<description>ForeSee SDK API Plugin</description>
-	<keywords>foresee</keywords>
-	<author>ForeSee</author>
+<plugin id="cordova-plugin-verint-xm" version="3.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>Verint-XM</name>
+	<description>Verint XM Cordova Plugin</description>
+	<keywords>Verint</keywords>
+	<author>Verint</author>
 
  
-    <js-module name="ForeSeeAPI" src="www/ForeSeeAPI.js">
-        <clobbers target="cordova.plugins.ForeSeeAPI" />
+    <js-module name="Verint-XM" src="www/VerintXM.js">
+        <clobbers target="cordova.plugins.verint.xm" />
     </js-module>
 
     <!--
@@ -15,8 +15,8 @@
 	-->
     <platform name="android">
         <config-file parent="/*" target="res/xml/config.xml">
-            <feature name="ForeSeeAPI">
-                <param name="android-package" value="com.foresee.cordova.plugin.ForeSeeAPI" />
+            <feature name="VerintXM">
+                <param name="android-package" value="com.verint.xm.cordova.plugin.VerintXM" />
                 <param name="onload" value="true" />
             </feature>
         </config-file>
@@ -33,7 +33,7 @@
         <framework src="com.verint.xm.sdk:predictive:7.0.2" />
         <framework src="com.verint.xm.sdk:digital:7.0.2" />
         <framework src="com.android.support:appcompat-v7:26.1.0"/>
-        <source-file src="src/android/ForeSeeAPI.java" target-dir="src/com/foresee/cordova/plugin/ForeSeeAPI" />
+        <source-file src="src/android/VerintXM.java" target-dir="src/com/verint/xm/cordova/plugin/VerintXM" />
     </platform>
 
     <!--
@@ -41,16 +41,16 @@
 	-->
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
-            <feature name="ForeSeeAPI">
-                <param name="ios-package" value="ForeSeeAPI" />
+            <feature name="VerintXM">
+                <param name="ios-package" value="VerintXM" />
                 <param name="onload" value="true" />
             </feature>
         </config-file>
         <resource-file src="src/exp_configuration.json"/>
         <resource-file src="src/exp_logo.png"/>
         <resource-file src="src/exp_fcp.json"/>
-        <header-file src="src/ios/ForeSeeAPI.h" />
-        <source-file src="src/ios/ForeSeeAPI.m" />
+        <header-file src="src/ios/VerintXM.h" />
+        <source-file src="src/ios/VerintXM.m" />
         <podspec>
             <config>
                 <source url="https://github.com/CocoaPods/Specs.git"/>
@@ -62,6 +62,6 @@
         </podspec>
     </platform>
 
-    <hook src="scripts/foresee_config.js" type="after_prepare" />
+    <hook src="scripts/exp_config.js" type="after_prepare" />
 
 </plugin>
