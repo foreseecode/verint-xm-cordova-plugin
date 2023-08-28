@@ -57,9 +57,9 @@
                 <source url="https://github.com/CocoaPods/Specs.git"/>
             </config>
             <pods use-frameworks="true">
-                <pod name="Verint-XM" spec="7.0.3" />
-                <pod name="Verint-XM/Digital" spec="7.0.3" />
-                <pod name="Verint-XM/DBA" spec="7.0.3" />
+                <pod name="Verint-test" spec=":path => '/Users/DRyan/foresee-sdk-ios/apps/Verint-test.podspec'" />
+                <pod name="Verint-test/Digital" spec=":path => '/Users/DRyan/foresee-sdk-ios/apps/Verint-test.podspec'" />
+                <pod name="Verint-test/DBA" spec=":path => '/Users/DRyan/foresee-sdk-ios/apps/Verint-test.podspec'" />
             </pods>
         </podspec>
     </platform>
