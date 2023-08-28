@@ -120,7 +120,7 @@ function directoryExists(path) {
 module.exports = function(context) {
   //get platform from the context supplied by cordova
  
-  console.log("Adding the Verint SDK config file");
+  console.log("Adding the Verint XM config file");
   let platforms = context.opts.cordova.platforms;
  
   // Copy key files to their platform specific folders

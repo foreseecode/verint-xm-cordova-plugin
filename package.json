@@ -1,7 +1,7 @@
 {
   "name": "Verint-XM",
   "version": "3.0.0",
-  "description": "Verint XM Cordova SDK",
+  "description": "Verint XM Cordova Plugin",
   "cordova": {
     "id": "Verint-XM",
     "platforms": [

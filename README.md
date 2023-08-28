@@ -23,7 +23,7 @@ To set up the plugin in your app, follow these instructions
 
     Once you have that key, you should set two environment variables on your machine: `GITHUB_USERNAME` for your username, and `GITHUB_PERSONAL_KEY` for your personal key
 
-2. Add the Verint SDK to your project 
+2. Add the Verint XM Cordova Plugin to your project 
 
    ```
    cordova plugin add https://github.com/foreseecode/verint-xm-cordova-plugin.git

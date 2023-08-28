@@ -43,7 +43,7 @@ public class VerintXM extends CordovaPlugin {
     }
 
     // Class tag for logs
-    private final static String logTag = "CordovaVerintSDK";
+    private final static String logTag = "CordovaVerintXM";
 
     // CPPs
     private final String version = "3.0.0";
