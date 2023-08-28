@@ -53,9 +53,6 @@
         <header-file src="src/ios/ForeSeeAPI.h" />
         <source-file src="src/ios/ForeSeeAPI.m" />
         <podspec>
-            <config>
-                <source url="https://github.com/CocoaPods/Specs.git"/>
-            </config>
             <pods use-frameworks="true">
                 <pod name="Verint-test" spec=":path => '/Users/DRyan/foresee-sdk-ios/apps/Verint-test.podspec'" />
                 <pod name="Verint-test/Digital" spec=":path => '/Users/DRyan/foresee-sdk-ios/apps/Verint-test.podspec'" />
