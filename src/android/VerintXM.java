@@ -1,4 +1,4 @@
-package com.foresee.cordova.plugin;
+package com.verint.xm.cordova.plugin;
 
 import android.util.Log;
 import android.os.Build;
@@ -33,25 +33,25 @@ import org.json.JSONObject;
 /**
  * This class echoes a string called from JavaScript.
  */
-public class ForeSeeAPI extends CordovaPlugin {
+public class VerintXM extends CordovaPlugin {
 
     /**
-     * ForeSee API executor
+     * Verint API executor
      */
-    abstract class ForeSeeMethod {
+    abstract class VerintMethod {
         public abstract boolean invoke(JSONArray args, CallbackContext callbackContext, CordovaInterface cordova);
     }
 
     // Class tag for logs
-    private final static String logTag = "CordovaVerintSDK";
+    private final static String logTag = "CordovaVerintXM";
 
     // CPPs
-    private final String version = "2.0.0";
+    private final String version = "3.0.0";
 
     private final String EXP_FCP_JSON_FILE_NAME = "exp_fcp";
     private final String APP_VERSION = "mobsdk";
 
-    HashMap<String, ForeSeeMethod> sActions = new HashMap<String, ForeSeeMethod>();
+    HashMap<String, VerintMethod> sActions = new HashMap<String, VerintMethod>();
     Set<CallbackContext> mCallbacks = Collections
             .synchronizedSet(new HashSet<CallbackContext>());
     Set<CallbackContext> mDigitalCallbacks = Collections
@@ -65,7 +65,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             Core.setSDKListener(new CustomVerintSDKListener());
 
             String appId = getAppIdFromJSON();
-            Log.d(logTag, "init the ForeSee SDK");
+            Log.d(logTag, "init the Verint SDK");
 
             if (appId != null) {
                 Log.d(logTag, "FCP startup with appId: "+appId);
@@ -132,14 +132,14 @@ public class ForeSeeAPI extends CordovaPlugin {
     }        
     
     /**
-     * Initialization of all supported ForeSee API methods
+     * Initialization of all supported Verint XM API methods
      */
     {
 
         // Start
 
         //start
-        sActions.put("start", new ForeSeeMethod() {
+        sActions.put("start", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -151,7 +151,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
 
         //startWithConfigurationFile
-        sActions.put("startWithConfigurationFile", new ForeSeeMethod() {
+        sActions.put("startWithConfigurationFile", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -164,7 +164,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
 
         //startWithConfigurationJson
-        sActions.put("startWithConfigurationJson", new ForeSeeMethod() {
+        sActions.put("startWithConfigurationJson", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -178,7 +178,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         // Reset
 
         //resetState
-        sActions.put("resetState", new ForeSeeMethod() {
+        sActions.put("resetState", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -198,7 +198,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         // Check eligibility and show invites/surveys
         
         //checkEligibility
-        sActions.put("checkEligibility", new ForeSeeMethod() {
+        sActions.put("checkEligibility", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callbackContext, CordovaInterface cordova) {
@@ -209,7 +209,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
         
         //showInivite
-        sActions.put("showInvite", new ForeSeeMethod() {
+        sActions.put("showInvite", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, final CallbackContext callbackContext, CordovaInterface cordova) {
@@ -244,7 +244,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
         
         //showSurvey
-        sActions.put("showSurvey", new ForeSeeMethod() {
+        sActions.put("showSurvey", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, final CallbackContext callbackContext, CordovaInterface cordova) {
@@ -280,7 +280,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         // CPPs
 
         //addCPP
-        sActions.put("addCPPValue", new ForeSeeMethod() {
+        sActions.put("addCPPValue", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -310,7 +310,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
 
         //getCPP
-        sActions.put("getCPP", new ForeSeeMethod() {
+        sActions.put("getCPP", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -337,7 +337,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
 
         //getAllCPPs
-        sActions.put("getAllCPPs", new ForeSeeMethod() {
+        sActions.put("getAllCPPs", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -354,7 +354,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
 
         //removeCPP
-        sActions.put("removeCPP", new ForeSeeMethod() {
+        sActions.put("removeCPP", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -385,7 +385,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         // Criteria
 
         //increment page views
-        sActions.put("incrementPageViews", new ForeSeeMethod() {
+        sActions.put("incrementPageViews", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callaback, CordovaInterface cordova) {
@@ -396,7 +396,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
 
         //increment significant event
-        sActions.put("incrementSignificantEvent", new ForeSeeMethod() {
+        sActions.put("incrementSignificantEvent", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -424,7 +424,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-        sActions.put("setSignificantEventCount", new ForeSeeMethod() {
+        sActions.put("setSignificantEventCount", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -453,7 +453,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-        sActions.put("resetSignificantEventCount", new ForeSeeMethod() {
+        sActions.put("resetSignificantEventCount", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -481,7 +481,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-        sActions.put("resetSignificantEvents", new ForeSeeMethod() {
+        sActions.put("resetSignificantEvents", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -498,7 +498,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             }
         });
 
-        sActions.put("cancelPendingInvites", new ForeSeeMethod() {
+        sActions.put("cancelPendingInvites", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -519,7 +519,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         // Debugging
 
         //setDebugLogEnabled
-        sActions.put("setDebugLogEnabled", new ForeSeeMethod() {
+        sActions.put("setDebugLogEnabled", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -542,7 +542,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
         
         //isDebugLogEnabled
-        sActions.put("isDebugLogEnabled", new ForeSeeMethod() {
+        sActions.put("isDebugLogEnabled", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -558,7 +558,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
 
         //getVersion
-        sActions.put("getVersion", new ForeSeeMethod() {
+        sActions.put("getVersion", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -574,7 +574,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
 
         //setSkipPoolingCheck
-        sActions.put("setSkipPoolingCheck", new ForeSeeMethod() {
+        sActions.put("setSkipPoolingCheck", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -598,7 +598,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         // Custom invites
 
         //customInviteAccepted
-        sActions.put("customInviteAccepted", new ForeSeeMethod() {
+        sActions.put("customInviteAccepted", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -615,7 +615,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
         
         //customInviteDeclined
-        sActions.put("customInviteDeclined", new ForeSeeMethod() {
+        sActions.put("customInviteDeclined", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -634,7 +634,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         // Contact details
 
         //getContactDetails
-        sActions.put("getContactDetails", new ForeSeeMethod() {
+        sActions.put("getContactDetails", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -651,7 +651,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
 
         //setContactDetails
-        sActions.put("setContactDetails", new ForeSeeMethod() {
+        sActions.put("setContactDetails", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -681,7 +681,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
 
         //setPreferredContactType
-        sActions.put("setPreferredContactType", new ForeSeeMethod() {
+        sActions.put("setPreferredContactType", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -710,7 +710,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         });        
 
         //getPreferredContactType
-        sActions.put("getPreferredContactType", new ForeSeeMethod() {
+        sActions.put("getPreferredContactType", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -726,7 +726,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
 
         //getAllContactDetails
-        sActions.put("getAllContactDetails", new ForeSeeMethod() {
+        sActions.put("getAllContactDetails", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -751,7 +751,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             2. Add a new listener
             3. Add a new callback to list
          */
-        sActions.put("setInviteListener", new ForeSeeMethod() {
+        sActions.put("setInviteListener", new VerintMethod() {
 
             @Override
             public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
@@ -777,7 +777,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         /*
             Clears any invite listeners that have been set to avoid memory leaks
          */
-        sActions.put("removeInviteListener", new ForeSeeMethod() {
+        sActions.put("removeInviteListener", new VerintMethod() {
             
             @Override
             public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
@@ -796,7 +796,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         // Digital (ex Feedback) Surveys
 
         // Show the default survey
-        sActions.put("showDigitalSurvey", new ForeSeeMethod() {
+        sActions.put("showDigitalSurvey", new VerintMethod() {
     
             @Override
             public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
@@ -812,7 +812,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
 
         // Show the survey for a given name.
-        sActions.put("showDigitalSurveyForName", new ForeSeeMethod() {
+        sActions.put("showDigitalSurveyForName", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -841,7 +841,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
         
         // Check if the default survey is enabled. 
-        sActions.put("checkIfDigitalSurveyEnabled", new ForeSeeMethod() {
+        sActions.put("checkIfDigitalSurveyEnabled", new VerintMethod() {
     
             @Override
             public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
@@ -857,7 +857,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
         
         // Check if a survey is enabled.
-        sActions.put("checkIfDigitalSurveyEnabledForName", new ForeSeeMethod() {
+        sActions.put("checkIfDigitalSurveyEnabledForName", new VerintMethod() {
 
             @Override
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
@@ -886,7 +886,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         });
 
         // Get all available survey names defined in the Configuration.
-        sActions.put("getAvailableDigitalSurveyNames", new ForeSeeMethod() {
+        sActions.put("getAvailableDigitalSurveyNames", new VerintMethod() {
             
             @Override
             public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
@@ -909,7 +909,7 @@ public class ForeSeeAPI extends CordovaPlugin {
             2. Add a new listener
             3. Add a new callback to list
          */
-        sActions.put("setDigitalListener", new ForeSeeMethod() {
+        sActions.put("setDigitalListener", new VerintMethod() {
 
             @Override
             public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
@@ -935,7 +935,7 @@ public class ForeSeeAPI extends CordovaPlugin {
         /*
             Clears any Digital listeners that have been set to avoid memory leaks
          */
-        sActions.put("removeDigitalListener", new ForeSeeMethod() {
+        sActions.put("removeDigitalListener", new VerintMethod() {
             
             @Override
             public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {

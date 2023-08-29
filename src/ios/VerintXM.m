@@ -1,24 +1,24 @@
-/********* ForeSeeAPI.m Cordova Plugin Implementation *******/
+/********* VerintXM.m Cordova Plugin Implementation *******/
 
-#import "ForeSeeAPI.h"
+#import "VerintXM.h"
 
 NSString* const platformNameKey = @"crossPlatformName";
 NSString* const platformSDKVersionKey = @"crossPlatformSDKVersion";
 NSString* const platformOSVersionKey = @"crossPlatformOSVersion";
 NSString* const platformVersionKey = @"crossPlatformVersion";
-NSString* const version = @"2.0.0";
+NSString* const version = @"3.0.0";
 
 // Class tag for logs
-NSString* const logTag = @"CordovaVerintSDK";
+NSString* const logTag = @"CordovaVerintXM";
 
-@interface ForeSeeAPI ()
+@interface VerintXM ()
 
 @property (nonatomic) CDVInvokedUrlCommand *inviteListenerCommand;
 @property (nonatomic) CDVInvokedUrlCommand *digitalListenerCommand;
 
 @end
 
-@implementation ForeSeeAPI
+@implementation VerintXM
 
 #pragma mark - Cordova
 

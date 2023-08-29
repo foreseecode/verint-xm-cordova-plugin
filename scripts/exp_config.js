@@ -2,7 +2,7 @@
 'use strict';
 
 /**
- * This hook copies the ForeSee config file [foresee-sdk-cordova-plugin](https://github.com/foreseecode/foresee-sdk-cordova-plugin)
+ * This hook copies the Verint config file [verint-xm-cordova-plugin-plugin](https://github.com/foreseecode/verint-xm-cordova-plugin-plugin)
  */
 var fs = require('fs');
 var path = require('path');
@@ -120,7 +120,7 @@ function directoryExists(path) {
 module.exports = function(context) {
   //get platform from the context supplied by cordova
  
-  console.log("Adding the ForeSee SDK config file");
+  console.log("Adding the Verint XM config file");
   let platforms = context.opts.cordova.platforms;
  
   // Copy key files to their platform specific folders
