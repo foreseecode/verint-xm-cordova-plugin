@@ -169,7 +169,7 @@ The SDK sends a number of lifecycle events during normal operation.
 "onDigitalSurveyStatusRetrieved",
 ```
 
-Use `VerintXM.setInviteListener(success, error)` and `VerintXM.removeInviteListener(success, error)` to add/remove listeners for Predictive events.
+Use `setInviteListener(success, error)` and `removeInviteListener(success, error)` to add/remove listeners for Predictive events.
 
 Adding:
 ```
@@ -185,7 +185,7 @@ Removing:
 cordova.plugins.verint.xm.removeInviteListener(this.onSuccess, this.onFailure);
 ```
 
-Use `VerintXM.setDigitalListener(success, error)` and `VerintXM.removeDigitalListener(success, error)` to add/remove listeners for Digital events.
+Use `setDigitalListener(success, error)` and `removeDigitalListener(success, error)` to add/remove listeners for Digital events.
 
 Adding:
 
