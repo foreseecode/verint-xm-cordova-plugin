@@ -52,9 +52,11 @@ public class VerintXM extends CordovaPlugin {
     private final String APP_VERSION = "mobsdk";
 
     HashMap<String, VerintMethod> sActions = new HashMap<String, VerintMethod>();
-    Set<CallbackContext> mCallbacks = Collections
+    Set<CallbackContext> mInviteCallbacks = Collections
             .synchronizedSet(new HashSet<CallbackContext>());
     Set<CallbackContext> mDigitalCallbacks = Collections
+            .synchronizedSet(new HashSet<CallbackContext>());
+    Set<CallbackContext> mSDKCallbacks = Collections
             .synchronizedSet(new HashSet<CallbackContext>());
 
     @Override
@@ -743,6 +745,56 @@ public class VerintXM extends CordovaPlugin {
 
         });
 
+        // SDK Listener
+
+        //setSDKListener
+        /*
+            1. Clear current callbacks
+            2. Add a new listener
+            3. Add a new callback to list
+         */
+        sActions.put("setSDKListener", new VerintMethod() {
+
+            @Override
+            public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    //1.
+                    mSDKCallbacks.clear();
+
+                    //2. 
+                    Core.setSDKListener(new CustomVerintSDKListener());
+                    
+                    //3.
+                    mInviteCallbacks.add(callback);
+                } catch (Exception ex) {
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "setSDKListener failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        //removeSDKListener
+        /*
+            Clears any SDK listeners that have been set to avoid memory leaks
+         */
+        sActions.put("removeSDKListener", new VerintMethod() {
+            
+            @Override
+            public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    Core.setSDKListener(null);
+                    mInviteCallbacks.clear();
+                } catch (Exception ex) {
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "removeSDKListener failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
         // Invite Listener
 
         //setInviteListener
@@ -757,13 +809,13 @@ public class VerintXM extends CordovaPlugin {
             public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
                 try {
                     //1.
-                    mCallbacks.clear();
+                    mInviteCallbacks.clear();
 
                     //2. 
                     Predictive.setInviteListener(new EXPCordovaInviteListener());
                     
                     //3.
-                    mCallbacks.add(callback);
+                    mInviteCallbacks.add(callback);
                 } catch (Exception ex) {
                     Log.e(logTag, ex.getMessage());
                     callback.error(logTag + "setInviteListener failure");
@@ -783,7 +835,7 @@ public class VerintXM extends CordovaPlugin {
             public boolean invoke(final JSONArray args, final CallbackContext callback, CordovaInterface cordova) {
                 try {
                     Predictive.setInviteListener(null);
-                    mCallbacks.clear();
+                    mInviteCallbacks.clear();
                 } catch (Exception ex) {
                     Log.e(logTag, ex.getMessage());
                     callback.error(logTag + "removeInviteListener failure");
@@ -1074,13 +1126,13 @@ public class VerintXM extends CordovaPlugin {
          * @param eventMsg
          */
         private void onEvent(JSONObject eventMsg) {
-            if (mCallbacks.size() == 0) {
-                Log.e(logTag, "No listeners to send  event");
+            if (mInviteCallbacks.size() == 0) {
+                Log.e(logTag, "No listeners to send event");
                 return;
             }
             PluginResult result = new PluginResult(PluginResult.Status.OK, eventMsg);
             result.setKeepCallback(true);
-            for (CallbackContext c : mCallbacks) {
+            for (CallbackContext c : mInviteCallbacks) {
                 if (c != null) {
                     c.sendPluginResult(result);
                 } else {
@@ -1160,7 +1212,7 @@ public class VerintXM extends CordovaPlugin {
          */
         private void onEvent(JSONObject eventMsg) {
             if (mDigitalCallbacks.size() == 0) {
-                Log.e(logTag, "No listeners to send  event");
+                Log.e(logTag, "No listeners to send event");
                 return;
             }
             PluginResult result = new PluginResult(PluginResult.Status.OK, eventMsg);
@@ -1179,7 +1231,7 @@ public class VerintXM extends CordovaPlugin {
     
         @Override
         public void onSDKStarted() {
-            Log.d(logTag, "VerintSDKListener::onSDKStarted");
+            sendEvent("didStartSDK", null, "");
             // Originally idea was to set cross platforms CPPs only in start SDK functions.
             // But looks like CPPs for Android could be
             // applied only after onSDKStarted.
@@ -1189,12 +1241,48 @@ public class VerintXM extends CordovaPlugin {
     
         @Override
         public void onSDKStarted(Core.VerintError error, String message) {
-            Log.w(logTag, "VerintSDKListener::didStartSDKWithError: " + error + " / " + message);
+            sendEvent("didStartSDKWithError", error, message);
         }
     
         @Override
         public void onSDKFailedToStart(Core.VerintError error, String message) {
-            Log.w(logTag, "VerintSDKListener::didFailToStartSDKWithError: " + error + " / " + message);
+            sendEvent("didFailToStartSDKWithError", error, message);
+        }
+
+        private void sendEvent(final String eventName, final Core.VerintError error, final String message) {
+            Log.d(logTag, "VerintSDKListener::" + eventName);
+            try {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("event", eventName);
+                jsonObject.put("message", message);
+                if (error != null) {
+                    jsonObject.put("error", error);
+                }
+                onEvent(jsonObject);
+            } catch (JSONException e) {
+                Log.e(logTag, "Failed to create payload for " + eventName + " event");
+            }
+        }
+
+        /**
+         * Dispatch event results
+         *
+         * @param eventMsg
+         */
+        private void onEvent(JSONObject eventMsg) {
+            if (mSDKCallbacks.size() == 0) {
+                Log.e(logTag, "No listeners to send event");
+                return;
+            }
+            PluginResult result = new PluginResult(PluginResult.Status.OK, eventMsg);
+            result.setKeepCallback(true);
+            for (CallbackContext c : mSDKCallbacks) {
+                if (c != null) {
+                    c.sendPluginResult(result);
+                } else {
+                    Log.e(logTag, "Failed to send event .Callback is null");
+                }
+            }
         }
         
     }

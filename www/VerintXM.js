@@ -509,23 +509,23 @@ module.exports = {
 
   /**
    * @description
-   * Sets the startup listener. Used to listen for startup lifecycle events.
+   * Sets the SDK listener. Used to listen for SDK lifecycle events.
    *
    * @example
-   * cordova.plugins.verint.xm.setStartupListener(_onSuccess, _onFailure);
+   * cordova.plugins.verint.xm.setSDKListener(_onSuccess, _onFailure);
    *
    * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
    * The callback takes one parameter, containing the message from a command.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
    */
-  setStartupListener(success, error) {
-    exec(success, error, VerintXM, "setStartupListener", []);
+  setSDKListener(success, error) {
+    exec(success, error, VerintXM, "setSDKListener", []);
   },
 
   /**
    * @description
-   * Removes the startup listener.
+   * Removes the SDK listener.
    *
    * @example
    * cordova.plugins.verint.xm.removeInviteListener(_onSuccess, _onFailure);
@@ -535,8 +535,8 @@ module.exports = {
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
    */
-  removeStartupListener(success, error) {
-    exec(success, error, VerintXM, "removeStartupListener", []);
+  removeSDKListener(success, error) {
+    exec(success, error, VerintXM, "removeSDKListener", []);
   },
 
   /**

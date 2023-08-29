@@ -56,6 +56,8 @@
 
 #pragma mark - Plugin-specific public methods
 
+- (void)setSDKListener:(CDVInvokedUrlCommand *)command;
+- (void)removeSDKListener:(CDVInvokedUrlCommand *)command;
 - (void)setInviteListener:(CDVInvokedUrlCommand *)command;
 - (void)removeInviteListener:(CDVInvokedUrlCommand *)command;
 - (void)setDigitalListener:(CDVInvokedUrlCommand *)command;

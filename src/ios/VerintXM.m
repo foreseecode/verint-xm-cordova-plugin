@@ -15,6 +15,7 @@ NSString* const logTag = @"CordovaVerintXM";
 
 @property (nonatomic) CDVInvokedUrlCommand *inviteListenerCommand;
 @property (nonatomic) CDVInvokedUrlCommand *digitalListenerCommand;
+@property (nonatomic) CDVInvokedUrlCommand *sdkListenerCommand;
 
 @end
 
@@ -89,15 +90,43 @@ NSString* const logTag = @"CordovaVerintXM";
 #pragma mark - Verint (EXPCore) Delegate
 
 - (void)didStartSDK {
-  NSLog(@"%@::%@::%@", logTag, @"VerintSDKListener", @"didStartSDK");
+  [self sendSDKListenerResultWithEvent:@"didStartSDK" error:0 message:@""];
 }
 
 -(void)didStartSDKWithError:(EXPErrorCode)error message:(NSString *)message {
-  NSLog(@"%@::%@::%@: %lu / %@", logTag, @"VerintSDKListener",  @"didStartSDKWithError", (unsigned long) error, message);
+  [self sendSDKListenerResultWithEvent:@"didStartSDKWithError" error:error message:message];
 }
 
 - (void)didFailToStartSDKWithError:(EXPErrorCode)error message:(NSString *)message {
-  NSLog(@"%@::%@::%@: %lu / %@", logTag, @"VerintSDKListener",  @"didFailToStartSDKWithError", (unsigned long) error, message);
+  [self sendSDKListenerResultWithEvent:@"didFailToStartSDKWithError" error:error message:message];
+}
+
+#pragma mark - Verint SDK listener helpers
+
+- (void)setSDKListener:(CDVInvokedUrlCommand *)command {
+    [EXPCore setDelegate:self];
+    self.sdkListenerCommand = command;
+}
+
+- (void)removeSDKListener:(CDVInvokedUrlCommand *)command {
+    self.sdkListenerCommand = nil;
+    [EXPCore setDelegate:nil];
+}
+
+- (void)sendSDKListenerResultWithEvent:(NSString *)eventName error:(EXPErrorCode)error message:(NSString *)message {
+    NSLog(@"%@::%@::%@", logTag, @"SDKListener", eventName);
+    if (!self.sdkListenerCommand) { 
+      NSLog(@"%@::No listeners to send %@ event", logTag, eventName);
+        return;
+    }
+    NSLog(@"%@::%@::%@: %lu / %@", logTag, @"VerintSDKListener", ventName, (unsigned long) error, message);
+    NSMutableDictionary *eventDictionary = [[NSMutableDictionary alloc] init];
+    [eventDictionary setObject:eventName forKey:@"event"];
+    [eventDictionary setObject:error forKey:@"errorCode"];
+    [eventDictionary setObject:message forKey:@"message"];
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:eventDictionary];
+    [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.sdkListenerCommand.callbackId];
 }
 
 #pragma mark - Helpers
