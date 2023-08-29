@@ -119,10 +119,10 @@ NSString* const logTag = @"CordovaVerintXM";
       NSLog(@"%@::No listeners to send %@ event", logTag, eventName);
         return;
     }
-    NSLog(@"%@::%@::%@: %lu / %@", logTag, @"VerintSDKListener", ventName, (unsigned long) error, message);
+    NSLog(@"%@::%@::%@: %lu / %@", logTag, @"VerintSDKListener", eventName, (unsigned long) error, message);
     NSMutableDictionary *eventDictionary = [[NSMutableDictionary alloc] init];
     [eventDictionary setObject:eventName forKey:@"event"];
-    [eventDictionary setObject:error forKey:@"errorCode"];
+    [eventDictionary setObject:@(error) forKey:@"errorCode"];
     [eventDictionary setObject:message forKey:@"message"];
     CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:eventDictionary];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
