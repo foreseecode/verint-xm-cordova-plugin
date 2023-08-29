@@ -135,14 +135,6 @@ As of this moment, there is not a known workaround, and we suggest using the `CO
 
 The SDK sends a number of lifecycle events during normal operation.
 
-#### Core/Startup
-
-```JavaScript
-"onStarted",
-"onStartedWithError",
-"onFailedToStartWithError"
-```
-
 #### Predictive
 
 ```JavaScript
@@ -155,18 +147,6 @@ The SDK sends a number of lifecycle events during normal operation.
 "onInviteCompleteWithDecline",
 "onInviteNotShownWithEligibilityFailed",
 "onInviteNotShownWithSamplingFailed",
-```
-
-#### Digital
-
-```JavaScript
-"onDigitalSurveyPresented",
-"onDigitalSurveyNotPresentedWithNetworkError",
-"onDigitalSurveyNotPresentedWithDisabled",
-"onDigitalSurveySubmitted",
-"onDigitalSurveyNotSubmittedWithNetworkError",
-"onDigitalSurveyNotSubmittedWithAbort",
-"onDigitalSurveyStatusRetrieved",
 ```
 
 Use `setInviteListener(success, error)` and `removeInviteListener(success, error)` to add/remove listeners for Predictive events.
@@ -183,6 +163,18 @@ Removing:
 
 ```
 cordova.plugins.verint.xm.removeInviteListener(this.onSuccess, this.onFailure);
+```
+
+#### Digital
+
+```JavaScript
+"onDigitalSurveyPresented",
+"onDigitalSurveyNotPresentedWithNetworkError",
+"onDigitalSurveyNotPresentedWithDisabled",
+"onDigitalSurveySubmitted",
+"onDigitalSurveyNotSubmittedWithNetworkError",
+"onDigitalSurveyNotSubmittedWithAbort",
+"onDigitalSurveyStatusRetrieved",
 ```
 
 Use `setDigitalListener(success, error)` and `removeDigitalListener(success, error)` to add/remove listeners for Digital events.
