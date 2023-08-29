@@ -56,7 +56,7 @@ NSString* const logTag = @"CordovaVerintXM";
 
 - (void)addCrossPlatformCPPs {
   [EXPCore setCPPValue:@"Cordova iOS" forKey:platformNameKey];
-  [EXPCore setCPPValue: version forKey:platformSDKVersionKey];
+  [EXPCore setCPPValue:version forKey:platformSDKVersionKey];
   [EXPCore setCPPValue:[[UIDevice currentDevice] systemVersion] forKey:platformOSVersionKey];
   [EXPCore setCPPValue:[CDVDevice cordovaVersion] forKey:platformVersionKey];
   NSLog(@"%@::%@ %@", logTag, @"All CPPs (after adding cross platform CPPs):", [EXPCore allCPPs]);
@@ -64,21 +64,21 @@ NSString* const logTag = @"CordovaVerintXM";
 
 #pragma mark - Start
 
-- (void)start: (CDVInvokedUrlCommand *)command
+- (void)start:(CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     NSLog(@"%@::The start() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch", logTag);
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)startWithConfigurationFile: (CDVInvokedUrlCommand *)command
+- (void)startWithConfigurationFile:(CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     NSLog(@"%@::The startWithConfigurationFile() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch", logTag);
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)startWithConfigurationJson: (CDVInvokedUrlCommand *)command
+- (void)startWithConfigurationJson:(CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     NSLog(@"%@::The startWithConfigurationJson() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch", logTag);
@@ -170,7 +170,7 @@ NSString* const logTag = @"CordovaVerintXM";
 
 #pragma mark - Reset
 
-- (void)resetState: (CDVInvokedUrlCommand *)command{
+- (void)resetState:(CDVInvokedUrlCommand *)command {
     CDVPluginResult* pluginResult = nil;
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
@@ -182,7 +182,7 @@ NSString* const logTag = @"CordovaVerintXM";
 
 #pragma mark - Check eligibility and show invites/surveys
 
-- (void)checkEligibility: (CDVInvokedUrlCommand *)command
+- (void)checkEligibility:(CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
 
@@ -193,7 +193,7 @@ NSString* const logTag = @"CordovaVerintXM";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)showInvite: (CDVInvokedUrlCommand *)command
+- (void)showInvite:(CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
@@ -215,7 +215,7 @@ NSString* const logTag = @"CordovaVerintXM";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)showSurvey: (CDVInvokedUrlCommand *)command
+- (void)showSurvey:(CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
@@ -240,7 +240,7 @@ NSString* const logTag = @"CordovaVerintXM";
 
 #pragma mark - CPPs
 
-- (void)addCPPValue: (CDVInvokedUrlCommand *)command
+- (void)addCPPValue:(CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
@@ -265,7 +265,7 @@ NSString* const logTag = @"CordovaVerintXM";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)getCPP: (CDVInvokedUrlCommand *)command
+- (void)getCPP:(CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
@@ -289,7 +289,7 @@ NSString* const logTag = @"CordovaVerintXM";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)getAllCPPs: (CDVInvokedUrlCommand *)command
+- (void)getAllCPPs:(CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
     NSDictionary* allCPPs = [EXPCore allCPPs];
@@ -298,7 +298,7 @@ NSString* const logTag = @"CordovaVerintXM";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)removeCPP: (CDVInvokedUrlCommand *)command
+- (void)removeCPP:(CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
@@ -324,7 +324,7 @@ NSString* const logTag = @"CordovaVerintXM";
 
 #pragma mark - Criteria
 
-- (void)incrementPageViews: (CDVInvokedUrlCommand *)command{
+- (void)incrementPageViews:(CDVInvokedUrlCommand *)command {
 
     CDVPluginResult* pluginResult = nil;
 
@@ -336,7 +336,7 @@ NSString* const logTag = @"CordovaVerintXM";
 
 }
 
-- (void)incrementSignificantEvent: (CDVInvokedUrlCommand *)command{
+- (void)incrementSignificantEvent:(CDVInvokedUrlCommand *)command {
 
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
@@ -360,7 +360,7 @@ NSString* const logTag = @"CordovaVerintXM";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)setSignificantEventCount: (CDVInvokedUrlCommand *)command{
+- (void)setSignificantEventCount:(CDVInvokedUrlCommand *)command {
 
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
@@ -385,7 +385,7 @@ NSString* const logTag = @"CordovaVerintXM";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)resetSignificantEventCount: (CDVInvokedUrlCommand *)command{
+- (void)resetSignificantEventCount:(CDVInvokedUrlCommand *)command {
 
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
@@ -409,7 +409,7 @@ NSString* const logTag = @"CordovaVerintXM";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)resetSignificantEvents: (CDVInvokedUrlCommand *)command{
+- (void)resetSignificantEvents:(CDVInvokedUrlCommand *)command {
     CDVPluginResult* pluginResult = nil;
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
@@ -419,7 +419,7 @@ NSString* const logTag = @"CordovaVerintXM";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)cancelPendingInvites: (CDVInvokedUrlCommand *)command{
+- (void)cancelPendingInvites:(CDVInvokedUrlCommand *)command {
     CDVPluginResult* pluginResult = nil;
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
@@ -430,7 +430,7 @@ NSString* const logTag = @"CordovaVerintXM";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)setSkipPoolingCheck: (CDVInvokedUrlCommand *)command{
+- (void)setSkipPoolingCheck:(CDVInvokedUrlCommand *)command {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
 
@@ -449,7 +449,7 @@ NSString* const logTag = @"CordovaVerintXM";
 
 #pragma mark - Debugging
 
-- (void)setDebugLogEnabled: (CDVInvokedUrlCommand *)command{
+- (void)setDebugLogEnabled:(CDVInvokedUrlCommand *)command {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
 
@@ -466,7 +466,7 @@ NSString* const logTag = @"CordovaVerintXM";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)isDebugLogEnabled: (CDVInvokedUrlCommand *)command{
+- (void)isDebugLogEnabled:(CDVInvokedUrlCommand *)command {
     CDVPluginResult* pluginResult = nil;
 
     BOOL result = [EXPCore isDebugLogEnabled];
@@ -476,7 +476,7 @@ NSString* const logTag = @"CordovaVerintXM";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)getVersion: (CDVInvokedUrlCommand *)command{
+- (void)getVersion:(CDVInvokedUrlCommand *)command {
     CDVPluginResult* pluginResult = nil;
 
     NSString* version = [EXPCore version];
@@ -488,7 +488,7 @@ NSString* const logTag = @"CordovaVerintXM";
 
 #pragma mark - Custom invites
 
-- (void)customInviteAccepted: (CDVInvokedUrlCommand *)command{
+- (void)customInviteAccepted:(CDVInvokedUrlCommand *)command {
     CDVPluginResult* pluginResult = nil;
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
@@ -498,7 +498,7 @@ NSString* const logTag = @"CordovaVerintXM";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)customInviteDeclined: (CDVInvokedUrlCommand*)command{
+- (void)customInviteDeclined:(CDVInvokedUrlCommand*)command {
     CDVPluginResult* pluginResult = nil;
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
@@ -510,7 +510,7 @@ NSString* const logTag = @"CordovaVerintXM";
 
 #pragma mark - Contact details
 
-- (void)getContactDetails: (CDVInvokedUrlCommand *)command{
+- (void)getContactDetails:(CDVInvokedUrlCommand *)command {
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
     NSString* result = nil;
@@ -527,7 +527,7 @@ NSString* const logTag = @"CordovaVerintXM";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)setContactDetails: (CDVInvokedUrlCommand *)command{
+- (void)setContactDetails:(CDVInvokedUrlCommand *)command {
 
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
@@ -550,7 +550,7 @@ NSString* const logTag = @"CordovaVerintXM";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)setPreferredContactType: (CDVInvokedUrlCommand *)command{
+- (void)setPreferredContactType:(CDVInvokedUrlCommand *)command {
 
     CDVPluginResult* pluginResult = nil;
     NSArray* arguments = command.arguments;
@@ -573,7 +573,7 @@ NSString* const logTag = @"CordovaVerintXM";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)getPreferredContactType: (CDVInvokedUrlCommand *)command{
+- (void)getPreferredContactType:(CDVInvokedUrlCommand *)command {
     // Not supported
     CDVPluginResult* pluginResult = nil;
 
@@ -582,7 +582,7 @@ NSString* const logTag = @"CordovaVerintXM";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)getAllContactDetails:(CDVInvokedUrlCommand *)command{
+- (void)getAllContactDetails:(CDVInvokedUrlCommand *)command {
   NSDictionary<NSString *, NSString *> *result = [self convertFrom:[EXPPredictive allContactDetails]];
   if (result) {
       CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:result];
