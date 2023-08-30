@@ -61,17 +61,18 @@ To set up the plugin in your app, follow these instructions
        "appId":"mobilesdkdevstgtest"
    }   
    ```
+## Usage
 
-## Handling local notifications on iOS
+### Handling local notifications on iOS
 
 The `EXIT_SURVEY` and `EXIT_INVITE` notification modes use local notifications to send surveys to the user. There are two ways to handle notifications in Cordova on iOS:
 
 1. In your app’s native iOS classes
 2. Using the `cordova-plugin-local-notification` plugin
 
-### Native classes
+#### Native classes
 
-#### Import `UserNotifications` and adopt the `UNUserNotificationCenterDelegate` protocol
+##### Import `UserNotifications` and adopt the `UNUserNotificationCenterDelegate` protocol
 
 ```
 #import <Cordova/CDVViewController.h>
@@ -82,13 +83,13 @@ The `EXIT_SURVEY` and `EXIT_INVITE` notification modes use local notifications t
 @end
 ```
 
-#### Register `self` as the `UNUserNotificationCenterDelegate`
+##### Register `self` as the `UNUserNotificationCenterDelegate`
 
 ```
 [UNUserNotificationCenter currentNotificationCenter].delegate = self;
 ```
 
-#### Handle incoming notifications
+##### Handle incoming notifications
 
 ```
 #pragma mark - UNUserNotificationCenterDelegate
@@ -102,7 +103,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 }
 ```
 
-### Using the `cordova-plugin-local-notification` plugin
+#### Using the `cordova-plugin-local-notification` plugin
 
 Add the plugin to your project:
 
@@ -122,7 +123,7 @@ if (device.platform == "iOS") {
 }
 ```
 
-#### Limitations
+##### Limitations
 
 There is a documented negative interaction when using this plugin alongside other Cordova plugins that use local notifications (e.g. Firebase Cloud Messaging.) This can cause a crash in apps that use both plugins.
 
@@ -130,8 +131,70 @@ There is a documented negative interaction when using this plugin alongside othe
 
 As of this moment, there is not a known workaround, and we suggest using the `CONTACT` notification method, instead, if you are a user of one of those other plugins.
 
+### Handling lifecycle events
 
-   
+The SDK sends a number of lifecycle events during normal operation.
+
+#### Predictive
+
+```JavaScript
+"onInvitePresented",
+"onSurveyPresented",
+"onSurveyCompleted",
+"onSurveyCancelledByUser",
+"onSurveyCancelledWithNetworkError",
+"onInviteCompleteWithAccept",
+"onInviteCompleteWithDecline",
+"onInviteNotShownWithEligibilityFailed",
+"onInviteNotShownWithSamplingFailed",
+```
+
+Use `setInviteListener(success, error)` and `removeInviteListener(success, error)` to add/remove listeners for Predictive events.
+
+Adding:
+```
+cordova.plugins.verint.xm.setInviteListener(function success(data) {
+    console.log("Invite listener event:" + data.event + ", SID: " + data.surveyId);
+}, function failure(data) {
+    console.log("Fail: " + data);
+});
+```
+Removing:
+
+```
+cordova.plugins.verint.xm.removeInviteListener(this.onSuccess, this.onFailure);
+```
+
+#### Digital
+
+```JavaScript
+"onDigitalSurveyPresented",
+"onDigitalSurveyNotPresentedWithNetworkError",
+"onDigitalSurveyNotPresentedWithDisabled",
+"onDigitalSurveySubmitted",
+"onDigitalSurveyNotSubmittedWithNetworkError",
+"onDigitalSurveyNotSubmittedWithAbort",
+"onDigitalSurveyStatusRetrieved",
+```
+
+Use `setDigitalListener(success, error)` and `removeDigitalListener(success, error)` to add/remove listeners for Digital events.
+
+Adding:
+
+```
+cordova.plugins.verint.xm.setDigitalListener(function success(data) {
+    console.log("Digital listener event:" + data.event);
+}, function failure(data) {
+    console.log("Fail: " + data);
+});
+```
+
+Removing:
+
+```
+cordova.plugins.verint.xm.removeDigitalListener(this.onSuccess, this.onFailure);
+```
+
 ## API Documentation generation
 
 The JSDoc tool is used to generate API documentaion. 

@@ -92,7 +92,7 @@ module.exports = {
 
   /**
    * @description
-   * Check to see if the user is eligible for a survey.
+   * Checks to see if the user is eligible for a survey.
    * If the user meets trigger criteria *and* are in the sampling pool, the invitation is presented.
    * Implementers must explicitly check for eligibility (the SDK does not do this automatically).
    *
@@ -108,7 +108,7 @@ module.exports = {
 
   /**
    * @description
-   * Programmatically present the invitation for a given survey ID (sid).
+   * Presents the invitation for a given survey ID (sid).
    *
    * @example
    * cordova.plugins.verint.xm.showInvite("app_test_1", _onSuccess, _onFailure);
@@ -124,7 +124,7 @@ module.exports = {
 
   /**
    * @description
-   * Programmatically present the survey for a given survey ID (sid).
+   * Presents the survey for a given survey ID (sid).
    *
    * @example
    * cordova.plugins.verint.xm.showSurvey("app_test_1", _onSuccess, _onFailure);
@@ -210,7 +210,7 @@ module.exports = {
 
   /**
    * @description
-   * Manually increment the number of page views criteria counted by the Verint SDK.
+   * Manually increments the number of page views criteria counted by the Verint SDK.
    * This can be useful when the user expected a new page to have been shown.
    *
    * @example
@@ -245,7 +245,7 @@ module.exports = {
 
   /**
    * @description
-   * Set the significant event count for a given key.
+   * Sets the significant event count for a given key.
    *
    * @example
    * cordova.plugins.verint.xm.setSignificantEventCount("yourSignificantEventCount", "yourSignificantEventKey", _onSuccess, _onFailure);
@@ -264,7 +264,7 @@ module.exports = {
 
   /**
    * @description
-   * Reset the significant event count for a given key.
+   * Resets the significant event count for a given key.
    *
    * @example
    * cordova.plugins.verint.xm.resetSignificantEventCount("yourSignificantEventKey", _onSuccess, _onFailure);
@@ -298,7 +298,7 @@ module.exports = {
 
   /**
    * @description
-   * Programmatically cancel any pending invites for the user when the type is EXIT_INVITE or EXIT_SURVEY.
+   * Cancels any pending invites for the user when the type is EXIT_INVITE or EXIT_SURVEY.
    *
    * @example
    * cordova.plugins.verint.xm.cancelPendingInvites(_onSuccess, _onFailure);
@@ -509,7 +509,7 @@ module.exports = {
 
   /**
    * @description
-   * Set the invite listener.
+   * Sets the invite listener.
    *
    * @example
    * cordova.plugins.verint.xm.setInviteListener(_onSuccess, _onFailure);
@@ -525,7 +525,7 @@ module.exports = {
 
   /**
    * @description
-   * Remove the invite listener.
+   * Removes the invite listener.
    *
    * @example
    * cordova.plugins.verint.xm.removeInviteListener(_onSuccess, _onFailure);
@@ -541,7 +541,7 @@ module.exports = {
 
   /**
    * @description
-   * Programmatically present the default Digital survey (the first one in the configuration json).
+   * Presents the default Digital survey (the first one in the configuration json).
    *
    * @example
    * cordova.plugins.verint.xm.showDigitalSurvey(_onSuccess, _onFailure);
@@ -555,7 +555,7 @@ module.exports = {
 
   /**
    * @description
-   * Programmatically present the Digital survey for a given name.
+   * Presents the Digital survey for a given name.
    *
    * @example
    * cordova.plugins.verint.xm.showDigitalSurveyForName("digital_1", _onSuccess, _onFailure);
@@ -571,7 +571,7 @@ module.exports = {
 
   /**
    * @description
-   * Check if the default Digital Survey is enabled.
+   * Checks whether the default Digital Survey is enabled.
    *
    * @example
    * cordova.plugins.verint.xm.checkIfDigitalSurveyEnabled(_onSuccess, _onFailure);
@@ -585,7 +585,7 @@ module.exports = {
 
   /**
    * @description
-   * Check if a Digital survey is enabled for a given name.
+   * Checks whether a Digital survey is enabled for a given name.
    *
    * @example
    * cordova.plugins.verint.xm.checkIfDigitalSurveyEnabledForName("digital_1", _onSuccess, _onFailure);
@@ -615,7 +615,7 @@ module.exports = {
 
   /**
    * @description
-   * Set the Digital (ex Feedback) Listener.
+   * Sets the Digital (ex Feedback) Listener.
    *
    * @example
    * cordova.plugins.verint.xm.setDigitalListener(_onSuccess, _onFailure);
@@ -631,7 +631,7 @@ module.exports = {
 
   /**
    * @description
-   * Remove the Digital (ex Feedback) Listener.
+   * Removes the Digital (ex Feedback) Listener.
    *
    * @example
    * cordova.plugins.verint.xm.removeDigitalListener(_onSuccess, _onFailure);
