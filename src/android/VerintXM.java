@@ -81,7 +81,7 @@ public class VerintXM extends CordovaPlugin {
 
     void addCrossPlatformCPPs() {
         Core.addCPPValue("crossPlatformName", "Cordova Android");
-        Core.addCPPValue("crossPlatformSDKVersion", version);
+        Core.addCPPValue("crossPlatformPluginVersion", version);
         Core.addCPPValue("crossPlatformOSVersion", android.os.Build.VERSION.RELEASE);
         Core.addCPPValue("crossPlatformVersion", CordovaWebView.CORDOVA_VERSION);
         Log.d(logTag, "All CPPs (after adding cross platform CPPs): " + Core.getAllCPPs());

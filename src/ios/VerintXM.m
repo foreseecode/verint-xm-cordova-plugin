@@ -3,7 +3,7 @@
 #import "VerintXM.h"
 
 NSString* const platformNameKey = @"crossPlatformName";
-NSString* const platformSDKVersionKey = @"crossPlatformSDKVersion";
+NSString* const platformPluginVersionKey = @"crossPlatformPluginVersion";
 NSString* const platformOSVersionKey = @"crossPlatformOSVersion";
 NSString* const platformVersionKey = @"crossPlatformVersion";
 NSString* const version = @"3.0.0";
@@ -56,7 +56,7 @@ NSString* const logTag = @"CordovaVerintXM";
 
 - (void)addCrossPlatformCPPs {
   [EXPCore setCPPValue:@"Cordova iOS" forKey:platformNameKey];
-  [EXPCore setCPPValue: version forKey:platformSDKVersionKey];
+  [EXPCore setCPPValue:version forKey:platformPluginVersionKey];
   [EXPCore setCPPValue:[[UIDevice currentDevice] systemVersion] forKey:platformOSVersionKey];
   [EXPCore setCPPValue:[CDVDevice cordovaVersion] forKey:platformVersionKey];
   NSLog(@"%@::%@ %@", logTag, @"All CPPs (after adding cross platform CPPs):", [EXPCore allCPPs]);
