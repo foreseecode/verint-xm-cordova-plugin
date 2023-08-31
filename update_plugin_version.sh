@@ -11,7 +11,7 @@ plugin_xml="plugin.xml"
 plugin_version=$(sed -n 's/.*version="\([^"]*\).*/\1/p' "$plugin_xml")
 echo "Plugin version is: $plugin_version"
 
-# 3 Update plugin version in iOS component
+# 2 Update plugin version in package.json
 # Define the path to the file
 file_path="package.json"
 # Use sed to replace the version string
