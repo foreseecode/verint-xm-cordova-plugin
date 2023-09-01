@@ -129,6 +129,12 @@ var app = {
 }    
 ```
 
+#### Limitations
+
+There is an issue where notifications will not appear until the app is backgrounded and foregrounded at least once when building the app locally from the local command line. 
+
+This will not affect users who download the app from Play Store or other distribution methods.
+
 ### Handling local notifications on iOS
 
 The `EXIT_SURVEY` and `EXIT_INVITE` notification modes use local notifications to send surveys to the user. There are two ways to handle notifications in Cordova on iOS:
