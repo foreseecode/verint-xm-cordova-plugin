@@ -69,8 +69,7 @@ The `EXIT_SURVEY` and `EXIT_INVITE` notification modes use local notifications t
 There are two requirements to enable notifications in Cordova on Android:
 
 1. The permission `android.permission.POST_NOTIFICATIONS` must be listed in your application Manifest.
-2. Using the `cordova-plugin-android-permissions` plugin to request the permission. On Android 13 and above you need to explicitly request to user 
-to enable the permission for your app.
+2. Using the `cordova-plugin-android-permissions` plugin to request the permission. Since Android 13 you need to request to user to enable the runtime permission for your app.
 
 #### Adding the permission to your app
 
