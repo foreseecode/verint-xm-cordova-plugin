@@ -73,9 +73,16 @@ There are two requirements to enable notifications in Cordova on Android:
 
 #### Adding the permission to your app
 
-When you add the Verint plugin to your app using the the permission will automatically be added to you app manifest.
+When you add the Verint plugin to your app and build android using commands below the permission will automatically be added to you app manifest.
 
-You can also manually add the permission by adding the following line to your application manifest:
+```
+$ cordova plugin add https://github.com/foreseecode/verint-xm-cordova-plugin
+```
+```
+$ cordova platform add android
+```
+
+Note: You can also manually add the permission by adding the following line to your application manifest:
 
 ```
 <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
