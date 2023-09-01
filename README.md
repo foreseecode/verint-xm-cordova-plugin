@@ -63,6 +63,73 @@ To set up the plugin in your app, follow these instructions
    ```
 ## Usage
 
+### Handling local notifications on Android
+
+The `EXIT_SURVEY` and `EXIT_INVITE` notification modes use local notifications to send surveys to the user. 
+There are two requirements to enable notifications in Cordova on Android:
+
+1. The permission `android.permission.POST_NOTIFICATIONS` must be listed in your application Manifest.
+2. Using the `cordova-plugin-android-permissions` plugin to request the permission. On Android 13 and above you need to explicitly request to user 
+to enable the permission for your app.
+
+#### Adding the permission to your app
+
+When you add the Verint plugin to your app using the the permission will automatically be added to you app manifest.
+
+You can also manually add the permission by adding the following line to your application manifest:
+
+```
+<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+```
+
+#### Request runtime permission using the `cordova-plugin-android-permissions` plugin
+
+Add the plugin to your project:
+
+```
+cordova plugin add cordova-plugin-android-permissions
+```
+
+See example code for requesting the runtime permission in your app’s Javascript:
+
+```
+var app = {
+    // Application Constructor
+    initialize: function() {
+        document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+    },
+    onDeviceReady: function() {
+        // Request permissions for Android 33
+        if (device.platform == "Android") {
+            var permissions = cordova.plugins.permissions;
+
+            permissions.hasPermission(permissions.POST_NOTIFICATIONS, function (status) {
+                if (status.hasPermission) {
+                    // Permission has been granted previously, no need to request it again.
+                } else {
+                    var error = function () {
+                        // Permission has been denied.
+                        console.warn('permission has been denied');
+                    };
+
+                    var success = function (status) {
+                        if (!status.hasPermission) {
+                            // Permission has been denied.
+                            error();
+                        } else {
+                            console.warn('permission has been granted');
+                        }
+                    };
+
+                    // Request the permission to allow notifications.
+                    permissions.requestPermission(permissions.POST_NOTIFICATIONS, success, error);
+                }
+            })
+        }
+    }
+}    
+```
+
 ### Handling local notifications on iOS
 
 The `EXIT_SURVEY` and `EXIT_INVITE` notification modes use local notifications to send surveys to the user. There are two ways to handle notifications in Cordova on iOS:
