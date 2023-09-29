@@ -30,8 +30,8 @@
         </config-file>
 
         <framework src="build.gradle" custom="true" type="gradleReference" />
-        <framework src="com.verint.xm.sdk:predictive:7.0.2" />
-        <framework src="com.verint.xm.sdk:digital:7.0.2" />
+        <framework src="com.verint.xm.sdk:predictive:7.1.0" />
+        <framework src="com.verint.xm.sdk:digital:7.1.0" />
         <framework src="com.android.support:appcompat-v7:26.1.0"/>
         <source-file src="src/android/VerintXM.java" target-dir="src/com/verint/xm/cordova/plugin/VerintXM" />
     </platform>
@@ -56,8 +56,8 @@
                 <source url="https://github.com/CocoaPods/Specs.git"/>
             </config>
             <pods use-frameworks="true">
-                <pod name="Verint-XM" spec="7.0.2" />
-                <pod name="Verint-XM/Digital" spec="7.0.2" />
+                <pod name="Verint-XM" spec="7.1.0" />
+                <pod name="Verint-XM/Digital" spec="7.1.0" />
             </pods>
         </podspec>
     </platform>
