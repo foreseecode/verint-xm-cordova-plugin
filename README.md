@@ -2,7 +2,7 @@
 
 ## Requirements 
 
-* cordova-android: 11.0.0+
+* cordova-android: 10.1.2+
 * cordova-ios: 6.2.0+
 * Android: 21+
 * iOS: 11.0+
