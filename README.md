@@ -2,13 +2,13 @@
 
 ## Requirements 
 
-* cordova-android: 10.1.2
-* cordova-ios: 6.2.0
+* cordova-android: 10.1.2+
+* cordova-ios: 6.2.0+
 * Android: 21+
 * iOS: 11.0+
 * Verint-XM SDK
-    * iOS 7.0.2
-    * Android 7.0.2
+    * iOS 7.1.0
+    * Android 7.1.0
 
 ----
 ## Setting up the plugin
