@@ -10,6 +10,10 @@
     * iOS 7.1.0
     * Android 7.1.0
 
+## API Docs
+
+Full API Docs can be found [here](https://foreseecode.github.io/public-packages/mobile/cordova/VerintXM.html)
+
 ----
 ## Setting up the plugin
 
@@ -92,7 +96,7 @@ For more information please check [Configuration Options](https://connect.verint
 
 All available methods are documented in `VerintXM.js`. Each of these methods has a direct analog in the native SDKs and full documentation for each one can be found as follows:
 
-- [Cordova plugin API Docs](https://verbose-carnival-l5g3623.pages.github.io/)
+- [Cordova plugin API Docs](https://foreseecode.github.io/public-packages/mobile/cordova/VerintXM.html)
 - [Native Android SDK API Docs](http://foresee-developer-mobile-sdk.s3-website-us-east-1.amazonaws.com/sdk/android/latest/docs/javadoc/index.html)
 - [Native iOS SDK API Docs](http://foresee-developer-mobile-sdk.s3-website-us-east-1.amazonaws.com/sdk/iOS/latest/apidocs/html/index.html)
 
