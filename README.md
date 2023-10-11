@@ -15,8 +15,6 @@
 
 To set up the plugin in your app, follow these instructions
 
-1. Add `exp_configuration.json` file in your `www` folder. For more information please check [Configuration Options](https://connect.verint.com/developers/fscxs/w/mobilesdk/24143/configuration-options)
-
 1. Set up the required environment variables
 
     To install the plugin for Android, you'll need to authenticate with GitHub Packages to download our library. To do so, you'll need a personal key which can be generated from your GitHub account by following the instructions [here](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token). The token will need the `read:packages` permission.
@@ -56,12 +54,75 @@ To set up the plugin in your app, follow these instructions
 
 7. Add `exp_fcp.json` file in your `www` folder to use FCP configuration on startup. The structure of the `exp_fcp.json` file should include your `appId` as follows: 
 
+## Configuration and instrumentation
+
+In order to use the SDK in your project you'll need a valid SDK configuration. The SDK configuration includes the required credentials to use the SDK and specifies the criteria for showing an invitation. For the most part, configuration is the same for both platforms (i.e. you'll have just one configuration that can be used on both iOS and Android). Any differences are documented on the [Verint Developer Portal](https://connect.verint.com/developers/fscxs/w/mobilesdk/30833/experience-management-mobile-sdk).
+
+The easiest way to start the SDK is to use Verint-Hosted configuration, which can be accessed using your App ID. If you don’t have an App ID, please contact your Verint Account Manager to have an App ID and configuration set up. You will need to let them know the trigger conditions and invitation mode you would like to use.
+
+Once you have your App ID, you can tell the SDK to start-up using that ID by placing it in in a file name`exp_fcp.json` with the following structure:
+
    ```
    {
        "appId":"mobilesdkdevstgtest"
    }   
    ```
+
+Alternatively, you can configure your app locally by placing your config in a file called `exp_configuration.json` file in your app's `www` folder. Here's a minimal example:
+
+{
+    "notificationType": "IN_SESSION",
+	"invite": {
+		"logo": "my_logo",
+		"baseColor": [0, 122, 255]
+	},
+	"survey": {
+		"closeButtonColor": [255, 255, 255],
+		"closeButtonBackgroundColor": [0, 122, 255],
+		"headerColor": [0, 122, 255]
+	},
+	"cppParameters": {
+		"sample_app":"My Cordova App"
+	},
+}
+
+For more information please check [Configuration Options](https://connect.verint.com/developers/fscxs/w/mobilesdk/24143/configuration-options)
+
 ## Usage
+
+All available methods are documented in `VerintXM.js`. Each of these methods has a direct analog in the native SDKs and full documentation for each one can be found as follows:
+
+- [Cordova plugin API Docs](https://verbose-carnival-l5g3623.pages.github.io/)
+- [Native Android SDK API Docs](http://foresee-developer-mobile-sdk.s3-website-us-east-1.amazonaws.com/sdk/android/latest/docs/javadoc/index.html)
+- [Native iOS SDK API Docs](http://foresee-developer-mobile-sdk.s3-website-us-east-1.amazonaws.com/sdk/iOS/latest/apidocs/html/index.html)
+
+### Starting the SDK
+
+In most cases the SDK does not need to be manually started; it will be started whenever the plugin is loaded. If your app includes an `exp_fcp.json` file with your App ID, then it will start automatically with your Verint-hosted config. Otherwise, if you have included a local config in an `exp_configuration.json` file, the SDK will start using that. (Note: other start methods are available in the plugin's JavaScript, but are not typically necessary.)
+
+### Checking eligibility and showing an invite
+
+This method will show an invite to users who have met the criteria specified in your configuration:
+
+```JavaScript
+cordova.plugins.verint.xm.checkEligibility(_onSuccess, _onFailure);
+```
+
+### Showing an invite by name
+
+Force-show an invite by name (i.e. without checking eligibility):
+
+```JavaScript
+cordova.plugins.verint.xm.showInvite("app_test_1", _onSuccess, _onFailure);
+```
+
+### Showing a survey by name
+
+Force-show a survey by name (i.e. without checking eligibility or showing an invitation):
+
+```JavaScript
+cordova.plugins.verint.xm.showSurvey("app_test_1", _onSuccess, _onFailure);
+```
 
 ### Handling local notifications on Android
 
@@ -273,6 +334,27 @@ Removing:
 ```
 cordova.plugins.verint.xm.removeDigitalListener(this.onSuccess, this.onFailure);
 ```
+
+## Troubleshooting
+
+The following methods can be used in a development environment to debug the SDK's behavior:
+
+Reset the state of the SDK (clear all criteria counts):
+```JavaScript
+cordova.plugins.verint.xm.resetState(_onSuccess, _onFailure);
+```
+
+Enable additional native console logging:
+```JavaScript
+cordova.plugins.verint.xm.setDebugLogEnabled(true, _onSuccess, _onFailure);
+```
+
+Skip server-side pooling checks (i.e. show an invite to anyone eligible):
+```JavaScript
+cordova.plugins.verint.xm.setSkipPoolingCheck(true, _onSuccess, _onFailure);
+```
+
+See the [Verint Developer Portal's pages on troubleshooting](https://connect.verint.com/developers/fscxs/w/mobilesdk/30879/troubleshooting-verint-xm-ios-sdk) for more information about debugging invites.
 
 ## API Documentation generation
 
