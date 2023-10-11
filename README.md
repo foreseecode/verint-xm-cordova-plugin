@@ -66,7 +66,7 @@ Once you have your App ID, you can tell the SDK to start-up using that ID by pla
 
 ```
 {
-   "appId":"mobilesdkdevstgtest"
+   "appId": "mobsdkpredictivesample"
 }   
 ```
 
@@ -75,18 +75,24 @@ Alternatively, you can configure your app locally by placing your config in a fi
 ```
 {
     "notificationType": "IN_SESSION",
-	"invite": {
-		"logo": "my_logo",
-		"baseColor": [0, 122, 255]
-	},
-	"survey": {
-		"closeButtonColor": [255, 255, 255],
-		"closeButtonBackgroundColor": [0, 122, 255],
-		"headerColor": [0, 122, 255]
-	},
-	"cppParameters": {
-		"sample_app":"My Cordova App"
-	},
+    "cppParameters": {
+        "sample_app": "In Session Sample CPP"
+    },
+    "invite": {
+        "logo": "exp_logo",
+        "baseColor": [0, 122, 255]
+    },
+    "survey": {
+        "closeButtonColor": [255, 255, 255],
+        "closeButtonBackgroundColor": [0, 122, 255],
+        "headerColor": [0, 122, 255]
+    },
+    "measures": [
+        {
+            "surveyId": "app_test_1",
+            "launchCount": 1
+        }
+    ]
 }
 ```
 
