@@ -66,7 +66,7 @@ Once you have your App ID, you can tell the SDK to start-up using that ID by pla
 
 ```
 {
-   "appId": "mobsdkpredictivesample"
+    "appId": "mobsdkpredictivesample"
 }   
 ```
 
