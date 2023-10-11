@@ -62,14 +62,15 @@ The easiest way to start the SDK is to use Verint-Hosted configuration, which ca
 
 Once you have your App ID, you can tell the SDK to start-up using that ID by placing it in in a file name`exp_fcp.json` with the following structure:
 
-   ```
-   {
-       "appId":"mobilesdkdevstgtest"
-   }   
-   ```
+```
+{
+   "appId":"mobilesdkdevstgtest"
+}   
+```
 
 Alternatively, you can configure your app locally by placing your config in a file called `exp_configuration.json` file in your app's `www` folder. Here's a minimal example:
 
+```
 {
     "notificationType": "IN_SESSION",
 	"invite": {
@@ -85,6 +86,7 @@ Alternatively, you can configure your app locally by placing your config in a fi
 		"sample_app":"My Cordova App"
 	},
 }
+```
 
 For more information please check [Configuration Options](https://connect.verint.com/developers/fscxs/w/mobilesdk/24143/configuration-options)
 
