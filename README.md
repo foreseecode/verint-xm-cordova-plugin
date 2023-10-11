@@ -52,8 +52,6 @@ To set up the plugin in your app, follow these instructions
 
 6. Add `exp_logo.png` file in your `www/img/` folder to include a logo for the survey.
 
-7. Add `exp_fcp.json` file in your `www` folder to use FCP configuration on startup. The structure of the `exp_fcp.json` file should include your `appId` as follows: 
-
 ## Configuration and instrumentation
 
 In order to use the SDK in your project you'll need a valid SDK configuration. The SDK configuration includes the required credentials to use the SDK and specifies the criteria for showing an invitation. For the most part, configuration is the same for both platforms (i.e. you'll have just one configuration that can be used on both iOS and Android). Any differences are documented on the [Verint Developer Portal](https://connect.verint.com/developers/fscxs/w/mobilesdk/30833/experience-management-mobile-sdk).
