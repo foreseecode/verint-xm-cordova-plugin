@@ -10,6 +10,9 @@ function validate(args) {
   return args;
 }
 
+/**
+ * @namespace VerintXM
+ */
 module.exports = {
 
   /**
@@ -27,6 +30,7 @@ module.exports = {
    * The callback takes one parameter, containing the message from a command.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   start(config, success, error) {
     if (config) {
@@ -49,6 +53,7 @@ module.exports = {
    * The callback takes one parameter, containing the message from a command.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   startWithConfigurationFile(fileName, success, error) {
     let args = [fileName];
@@ -67,6 +72,7 @@ module.exports = {
    * The callback takes one parameter, containing the message from a command.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   startWithConfigurationJson(jsonString, success, error) {
     let args = [jsonString];
@@ -84,6 +90,7 @@ module.exports = {
    * The callback takes one parameter, containing the message from a command.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   resetState(success, error) {
     exec(success, error, VerintXM, "resetState", []);
@@ -100,6 +107,7 @@ module.exports = {
    *
    * @param {callback} success - A Cordova-style success callback object.
    * @param {callback} error - A Cordova-style error callback object.
+   * @memberof VerintXM
    */
   checkEligibility(success, error) {
     exec(success, error, VerintXM, "checkEligibility", []);
@@ -115,6 +123,7 @@ module.exports = {
    * @param {String} surveyId - Given survey ID (sid).
    * @param {callback} success - A Cordova-style success callback object.
    * @param {callback} error - A Cordova-style error callback object.
+   * @memberof VerintXM
    */
   showInvite(surveyId, success, error) {
     let args = [surveyId];
@@ -131,6 +140,7 @@ module.exports = {
    * @param {String} surveyId - Survey ID (sid).
    * @param {callback} success - A Cordova-style success callback object.
    * @param {callback} error - A Cordova-style error callback object.
+   * @memberof VerintXM
    */
   showSurvey(surveyId, success, error) {
     let args = [surveyId];
@@ -149,6 +159,7 @@ module.exports = {
    * @param {String} value - CPP value.
    * @param {callback} success - A Cordova-style success callback object.
    * @param {callback} error - A Cordova-style error callback object.
+   * @memberof VerintXM
    */
   setCPP(key, value, success, error) {
     let args = [key, value];
@@ -167,6 +178,7 @@ module.exports = {
    * The callback takes one parameter, containing the message from a command.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   getCPP(key, success, error) {
     let args = [key];
@@ -185,6 +197,7 @@ module.exports = {
    * The callback takes one parameter, containing the message from a command.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   removeCPP(key, success, error) {
     let args = [key];
@@ -202,6 +215,7 @@ module.exports = {
    * The callback takes one parameter, containing the message from a command.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   getAllCPPs(success, error) {
     exec(success, error, VerintXM, "getAllCPPs", []);
@@ -219,6 +233,7 @@ module.exports = {
    * The callback takes one parameter, containing the message from a command.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   incrementPageViews(success, error) {
     exec(success, error, VerintXM, "incrementPageViews", []);
@@ -236,6 +251,7 @@ module.exports = {
    * The callback takes one parameter, containing the message from a command.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   incrementSignificantEvent(key, success, error) {
     let args = [key];
@@ -255,6 +271,7 @@ module.exports = {
    * The callback takes one parameter, containing the message from a command.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   setSignificantEventCount(count, key, success, error) {
     let args = [key, count];
@@ -273,6 +290,7 @@ module.exports = {
    * The callback takes one parameter, containing the message from a command.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   resetSignificantEventCount(key, success, error) {
     let args = [key];
@@ -290,6 +308,7 @@ module.exports = {
    * The callback takes one parameter, containing the message from a command.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   resetSignificantEvents(success, error) {
     exec(success, error, VerintXM, "resetSignificantEvents", []);
@@ -306,6 +325,7 @@ module.exports = {
    * The callback takes one parameter, containing the message from a command.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   cancelPendingInvites(success, error) {
     exec(success, error, VerintXM, "cancelPendingInvites", []);
@@ -320,11 +340,12 @@ module.exports = {
    * cordova.plugins.verint.xm.setDebugLogEnabled("true", _onSuccess, _onFailure);
    * cordova.plugins.verint.xm.setDebugLogEnabled(true, _onSuccess, _onFailure);
    *
-   * @param {String or boolean} enabled - value indicating should debug log be enabled, "true" or "false", true or false.
+   * @param {String|boolean} enabled - value indicating should debug log be enabled, "true" or "false", true or false.
    * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
    * The callback takes one parameter, containing the message from a command.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   setDebugLogEnabled(enabled, success, error) {
     let args = [enabled];
@@ -342,6 +363,7 @@ module.exports = {
    * The callback takes one parameter, containing Boolean value TRUE or FALSE.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   isDebugLogEnabled(success, error) {
     exec(success, error, VerintXM, "isDebugLogEnabled", []);
@@ -358,6 +380,7 @@ module.exports = {
    * The callback takes one parameter, containing the message with the version of the SDK.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   getVersion(success, error) {
     exec(success, error, VerintXM, "getVersion", []);
@@ -373,11 +396,12 @@ module.exports = {
    * cordova.plugins.verint.xm.setSkipPoolingCheck("true", _onSuccess, _onFailure);
    * cordova.plugins.verint.xm.setSkipPoolingCheck(true, _onSuccess, _onFailure);
    *
-   * @param {String or boolean} shouldSkip - Value indicating should pooling check be skipped, "true" or "false", true or false.
+   * @param {String|boolean} shouldSkip - Value indicating should pooling check be skipped, "true" or "false", true or false.
    * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
    * The callback takes one parameter, containing the message from a command.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   setSkipPoolingCheck(shouldSkip, success, error) {
     let args = [shouldSkip];
@@ -396,6 +420,7 @@ module.exports = {
    * The callback takes one parameter, containing the message from a command.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   customInviteAccepted(success, error) {
     exec(success, error, VerintXM, "customInviteAccepted", []);
@@ -413,6 +438,7 @@ module.exports = {
    * The callback takes one parameter, containing the message from a command.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   customInviteDeclined(success, error) {
     exec(success, error, VerintXM, "customInviteDeclined", []);
@@ -430,6 +456,7 @@ module.exports = {
    * The callback takes one parameter, containing the string with a user's contact details (it if was set).
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   getContactDetails(type, success, error) {
     let args = [type];
@@ -450,6 +477,7 @@ module.exports = {
    * The callback takes one parameter, containing the message from a command.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   setContactDetails(details, type, success, error) {
     let args = [details, type];
@@ -468,6 +496,7 @@ module.exports = {
    * The callback takes one parameter, containing the message from a command.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   setPreferredContactType(type, success, error) {
     let args = [type];
@@ -485,6 +514,7 @@ module.exports = {
    * The callback takes one parameter, containing the string with the referred contact type.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   getPreferredContactType(success, error) {
     exec(success, error, VerintXM, "getPreferredContactType", []);
@@ -501,6 +531,7 @@ module.exports = {
    * The callback takes one parameter, containing key/value pairs with all contact details configured for user.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   getAllContactDetails(success, error) {
     exec(success, error, VerintXM, "getAllContactDetails", []);
@@ -517,6 +548,7 @@ module.exports = {
    * The callback takes one parameter, containing the message from a command.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   setInviteListener(success, error) {
     exec(success, error, VerintXM, "setInviteListener", []);
@@ -533,6 +565,7 @@ module.exports = {
    * The callback takes one parameter, containing the message from a command.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   removeInviteListener(success, error) {
     exec(success, error, VerintXM, "removeInviteListener", []);
@@ -547,6 +580,7 @@ module.exports = {
    *
    * @param  {callback} success - A Cordova-style success callback object.
    * @param  {callback} error - A Cordova-style error callback object.
+   * @memberof VerintXM
    */
   showDigitalSurvey(success, error) {
     exec(success, error, VerintXM, "showDigitalSurvey", []);
@@ -562,6 +596,7 @@ module.exports = {
    * @param {String} surveyName - Given survey name.
    * @param {callback} success - A Cordova-style success callback object.
    * @param {callback} error - A Cordova-style error callback object.
+   * @memberof VerintXM
    */
   showDigitalSurveyForName(surveyName, success, error) {
     let args = [surveyName];
@@ -577,6 +612,7 @@ module.exports = {
    *
    * @param {callback} success - A Cordova-style success callback object.
    * @param {callback} error - A Cordova-style error callback object.
+   * @memberof VerintXM
    */
   checkIfDigitalSurveyEnabled(success, error) {
     exec(success, error, VerintXM, "checkIfDigitalSurveyEnabled", []);
@@ -592,6 +628,7 @@ module.exports = {
    * @param {String} surveyName - Given survey name.
    * @param {callback} success - A Cordova-style success callback object.
    * @param {callback} error - A Cordova-style error callback object.
+   * @memberof VerintXM
    */
   checkIfDigitalSurveyEnabledForName(surveyName, success, error) {
     let args = [surveyName];
@@ -607,6 +644,7 @@ module.exports = {
    *
    * @param {callback} success - A Cordova-style success callback object.
    * @param {callback} error - A Cordova-style error callback object.
+   * @memberof VerintXM
    */
   getAvailableDigitalSurveyNames(success, error) {
     exec(success, error, VerintXM, "getAvailableDigitalSurveyNames", []);
@@ -623,6 +661,7 @@ module.exports = {
    * The callback takes one parameter, containing the message from a command.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   setDigitalListener(success, error) {
     exec(success, error, VerintXM, "setDigitalListener", []);
@@ -639,6 +678,7 @@ module.exports = {
    * The callback takes one parameter, containing the message from a command.
    * @param {callback} error - Optional callback that is invoked in the event of an error.
    * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
    */
   removeDigitalListener(success, error) {
     exec(success, error, VerintXM, "removeDigitalListener", []);
