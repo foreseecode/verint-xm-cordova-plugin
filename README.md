@@ -62,11 +62,11 @@ In order to use the SDK in your project you'll need a valid SDK configuration. T
 
 The easiest way to start the SDK is to use Verint-Hosted configuration, which can be accessed using your App ID. If you don’t have an App ID, please contact your Verint Account Manager to have an App ID and configuration set up. You will need to let them know the trigger conditions and invitation mode you would like to use.
 
-Once you have your App ID, you can tell the SDK to start-up using that ID by placing it in in a file name`exp_fcp.json` with the following structure:
+Once you have your App ID, you can tell the SDK to start-up using that ID by placing it in the root of your project in a file named `exp_fcp.json` with the following structure:
 
 ```
 {
-    "appId": "mobsdkpredictivesample"
+    "appId": "<YOUR_APP_ID>"
 }   
 ```
 
