@@ -52,7 +52,7 @@ To set up the plugin in your app, follow these instructions
    cordova.plugins.verint.xm.checkEligibility(this.onSuccess, this.onFailure);
    ```
 
-5. For all supported methods please check the API docs included in this package, or [online here](http://developer.foresee.com/downloads/sdk/mobile/cordova/current/docs/index.html). For general information about the Verint SDK, please see the [Verint Developer Portal](https://connect.verint.com/).
+5. For all supported methods please check the API docs included in this package, or [online here](https://foreseecode.github.io/public-packages/mobile/cordova/VerintXM.html). For general information about the Verint SDK, please see the [Verint Developer Portal](https://connect.verint.com/).
 
 6. Add `exp_logo.png` file in your `www/img/` folder to include a logo for the survey.
 
@@ -108,7 +108,7 @@ All available methods are documented in `VerintXM.js`. Each of these methods has
 
 ### Starting the SDK
 
-In most cases the SDK does not need to be manually started; it will be started whenever the plugin is loaded. If your app includes an `exp_fcp.json` file with your App ID, then it will start automatically with your Verint-hosted config. Otherwise, if you have included a local config in an `exp_configuration.json` file, the SDK will start using that. (Note: other start methods are available in the plugin's JavaScript, but are not typically necessary.)
+Usually the SDK does not need to be manually started; it will be started whenever the plugin is loaded. If your app includes an `exp_fcp.json` file with your App ID, then it will start automatically with your Verint-hosted config. Otherwise, if you have included a local config in an `exp_configuration.json` file, the SDK will start using that. (Note: other start methods are available in the plugin's JavaScript, but are not typically necessary.)
 
 ### Checking eligibility and showing an invite
 
@@ -285,7 +285,7 @@ As of this moment, there is not a known workaround, and we suggest using the `CO
 
 The SDK sends a number of lifecycle events during normal operation.
 
-#### Predictive
+#### Predictive Events
 
 ```JavaScript
 "onInvitePresented",
@@ -299,23 +299,7 @@ The SDK sends a number of lifecycle events during normal operation.
 "onInviteNotShownWithSamplingFailed",
 ```
 
-Use `setInviteListener(success, error)` and `removeInviteListener(success, error)` to add/remove listeners for Predictive events.
-
-Adding:
-```
-cordova.plugins.verint.xm.setInviteListener(function success(data) {
-    console.log("Invite listener event:" + data.event + ", SID: " + data.surveyId);
-}, function failure(data) {
-    console.log("Fail: " + data);
-});
-```
-Removing:
-
-```
-cordova.plugins.verint.xm.removeInviteListener(this.onSuccess, this.onFailure);
-```
-
-#### Digital
+#### Digital Events
 
 ```JavaScript
 "onDigitalSurveyPresented",
@@ -327,9 +311,29 @@ cordova.plugins.verint.xm.removeInviteListener(this.onSuccess, this.onFailure);
 "onDigitalSurveyStatusRetrieved",
 ```
 
+#### Add or Remove Predictive Events
+
+Use `setInviteListener(success, error)` and `removeInviteListener(success, error)` to add/remove listeners for Predictive events.
+
+Add listeners for Preditive events:
+```
+cordova.plugins.verint.xm.setInviteListener(function success(data) {
+    console.log("Invite listener event:" + data.event + ", SID: " + data.surveyId);
+}, function failure(data) {
+    console.log("Fail: " + data);
+});
+```
+Remove listeners for Preditive events::
+
+```
+cordova.plugins.verint.xm.removeInviteListener(this.onSuccess, this.onFailure);
+```
+
+#### Add or Remove Digital Events
+
 Use `setDigitalListener(success, error)` and `removeDigitalListener(success, error)` to add/remove listeners for Digital events.
 
-Adding:
+Add listeners for Digital events:
 
 ```
 cordova.plugins.verint.xm.setDigitalListener(function success(data) {
@@ -339,7 +343,7 @@ cordova.plugins.verint.xm.setDigitalListener(function success(data) {
 });
 ```
 
-Removing:
+Remove listeners for Digital events:
 
 ```
 cordova.plugins.verint.xm.removeDigitalListener(this.onSuccess, this.onFailure);
