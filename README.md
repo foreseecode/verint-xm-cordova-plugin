@@ -25,14 +25,14 @@ To set up the plugin in your app, follow these instructions
 
     Once you have that key, you should set two environment variables on your machine: `GITHUB_USERNAME` for your username, and `GITHUB_PERSONAL_KEY` for your personal key
 
-2. Add the Verint XM Cordova Plugin to your project 
+2. Add the Verint XM Cordova Plugin to your project from NPM:
 
    ```
-   cordova plugin add https://github.com/foreseecode/verint-xm-cordova-plugin.git
+   cordova plugin add cordova-plugin-verint-xm-sdk
    ```
 
    This will automatically add `compile "com.verint.xm.sdk:*:+"` to your `build.gradle` file. 
-   It will also copy the exp_configuration.json file to `platform/ios` and `platform/android` if they exist
+   It will also copy the `exp_configuration.json` file to `platform/ios` and `platform/android` if they exist
 
    If you have a copy of this repo on disk, then you can also add the plugin to your app by pointing directly to it, like this:
 
