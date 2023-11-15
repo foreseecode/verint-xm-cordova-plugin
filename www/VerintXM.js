@@ -682,6 +682,42 @@ module.exports = {
    */
   removeDigitalListener(success, error) {
     exec(success, error, VerintXM, "removeDigitalListener", []);
+  },
+
+  // Survey Management
+
+    /**
+   * @description
+   * Presents the Survey Management invitation for a given name.
+   *
+   * @example
+   * cordova.plugins.verint.xm.showInviteForName("app_test_1", _onSuccess, _onFailure);
+   *
+   * @param {String} name - Invitation name.
+   * @param {callback} success - A Cordova-style success callback object.
+   * @param {callback} error - A Cordova-style error callback object.
+   * @memberof VerintXM
+   */
+  showInviteForName(name, success, error) {
+    let args = [name];
+    exec(success, error, VerintXM, "showInviteForName", validate(args));
+  },
+
+  /**
+   * @description
+   * Presents the Survey Management survey for a given name.
+   *
+   * @example
+   * cordova.plugins.verint.xm.showSurveyForName("app_test_1", _onSuccess, _onFailure);
+   *
+   * @param {String} name - Survey name.
+   * @param {callback} success - A Cordova-style success callback object.
+   * @param {callback} error - A Cordova-style error callback object.
+   * @memberof VerintXM
+   */
+  showSurveyForName(name, success, error) {
+    let args = [name];
+    exec(success, error, VerintXM, "showSurveyForName", validate(args));
   }
 
 };
