@@ -15,6 +15,7 @@
 #import <EXPDigital/EXPDigital-Swift.h>
 #import <EXPUtilities/EXPFileUtilities.h>
 #import <EXPCore/EXPConfiguration.h>
+#import <EXPSurveyManagement/EXPSurveyManagement-Swift.h>
 
 @interface VerintXM : CDVPlugin <VerintDelegate, EXPInviteDelegate, DigitalDelegate>
 
