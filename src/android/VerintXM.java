@@ -7,6 +7,7 @@ import com.verint.xm.sdk.Core;
 import com.verint.xm.sdk.Predictive;
 import com.verint.xm.sdk.Digital;
 import com.verint.xm.sdk.ExpDigitalListener;
+import com.verint.xm.sdk.SurveyManagement;
 import com.verint.xm.sdk.common.configuration.MeasureConfiguration;
 import com.verint.xm.sdk.predictive.tracker.listeners.DefaultInviteListener;
 import com.verint.xm.sdk.common.configuration.EligibleMeasureConfigurations;
@@ -46,7 +47,7 @@ public class VerintXM extends CordovaPlugin {
     private final static String logTag = "CordovaVerintXM";
 
     // CPPs
-    private final String version = "3.0.0";
+    private final String version = "3.0.1";
 
     private final String EXP_FCP_JSON_FILE_NAME = "exp_fcp";
     private final String APP_VERSION = "mobsdk";
@@ -951,6 +952,75 @@ public class VerintXM extends CordovaPlugin {
             }
         });
 
+        // Survey Management
+
+        //showInviteForName
+        sActions.put("showInviteForName", new VerintMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, final CallbackContext callbackContext, CordovaInterface cordova) {
+                try {
+                    if (args == null || args.length() < 1) {
+                        callbackContext.error("No name provided for showInviteForName");
+                        return true;
+                    }
+
+                    final String name = args.getString(0);
+
+                    if (null == name || name.isEmpty()) {
+                        callbackContext.error("Bad name provided for showInviteForName");
+                        return true;
+                    }
+
+                    cordova.getActivity().runOnUiThread(new Runnable() {
+                        public void run() {
+                            SurveyManagement.showInviteForName(name);
+                            callbackContext.success();
+                        }
+                    });
+
+                } catch (Exception ex) {
+                    Log.e(logTag, ex.getMessage());
+                    callbackContext.error(logTag + " showInviteForName failure");
+                }
+
+                return true;
+            }
+        });
+        
+        //showSurveyForName
+        sActions.put("showSurveyForName", new VerintMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, final CallbackContext callbackContext, CordovaInterface cordova) {
+                try {
+                    if (args == null || args.length() < 1) {
+                        callbackContext.error("No name provided for showSurveyForName");
+                        return true;
+                    }
+
+                    final String name = args.getString(0);
+
+                    if (null == name || name.isEmpty()) {
+                        callbackContext.error("Bad name provided for showSurveyForName");
+                        return true;
+                    }
+
+                    cordova.getActivity().runOnUiThread(new Runnable() {
+                        public void run() {
+                            SurveyManagement.showSurveyForName(name);
+                            callbackContext.success();
+                        }
+                    });
+                } catch (Exception ex) {
+                    Log.e(logTag, ex.getMessage());
+                    callbackContext.error(logTag + " showSurveyForName failure");
+                }
+
+                return true;
+            }
+        });
+        
     }
 
     @Override
@@ -988,7 +1058,7 @@ public class VerintXM extends CordovaPlugin {
         }
         return to;
     }
-
+    
     class EXPCordovaInviteListener implements DefaultInviteListener {
 
         @Override

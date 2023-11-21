@@ -1,7 +1,7 @@
 {
   "name": "cordova-plugin-verint-xm-sdk",
   "title": "Verint-XM",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A Cordova wrapper around the Verint-XM mobile SDKs",
   "cordova": {
     "id": "Verint-XM",

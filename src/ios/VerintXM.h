@@ -15,13 +15,14 @@
 #import <EXPDigital/EXPDigital-Swift.h>
 #import <EXPUtilities/EXPFileUtilities.h>
 #import <EXPCore/EXPConfiguration.h>
+#import <EXPSurveyManagement/EXPSurveyManagement-Swift.h>
 
 @interface VerintXM : CDVPlugin <VerintDelegate, EXPInviteDelegate, DigitalDelegate>
 
 #pragma mark - Verint-XM interface
 
-- (void)showSurvey:(CDVInvokedUrlCommand *)command;
 - (void)showInvite:(CDVInvokedUrlCommand *)command;
+- (void)showSurvey:(CDVInvokedUrlCommand *)command;
 - (void)checkEligibility:(CDVInvokedUrlCommand *)command;
 - (void)addCPPValue:(CDVInvokedUrlCommand *)command;
 - (void)getCPP:(CDVInvokedUrlCommand *)command;
@@ -53,6 +54,8 @@
 - (void)checkIfDigitalSurveyEnabledForName:(CDVInvokedUrlCommand *)command;
 - (void)getAvailableDigitalSurveyNames:(CDVInvokedUrlCommand *)command;
 - (void)checkIfDigitalSurveyEnabled:(CDVInvokedUrlCommand *)command;
+- (void)showInviteForName:(CDVInvokedUrlCommand *)command;
+- (void)showSurveyForName:(CDVInvokedUrlCommand *)command;
 
 #pragma mark - Plugin-specific public methods
 

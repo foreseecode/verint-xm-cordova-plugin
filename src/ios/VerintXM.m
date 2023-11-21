@@ -6,7 +6,7 @@ NSString* const platformNameKey = @"crossPlatformName";
 NSString* const platformPluginVersionKey = @"crossPlatformPluginVersion";
 NSString* const platformOSVersionKey = @"crossPlatformOSVersion";
 NSString* const platformVersionKey = @"crossPlatformVersion";
-NSString* const version = @"3.0.0";
+NSString* const version = @"3.0.1";
 
 // Class tag for logs
 NSString* const logTag = @"CordovaVerintXM";
@@ -728,6 +728,53 @@ NSString* const logTag = @"CordovaVerintXM";
 
 - (void)digitalSurveyStatusRetrieved:(NSString *)surveyName enabled:(BOOL)enabled {
     [self sendDigitalListenerResult:surveyName enabled:[NSNumber numberWithBool:enabled] eventName:@"onDigitalSurveyStatusRetrieved"];
+}
+
+#pragma mark - Survey Management
+
+- (void)showInviteForName: (CDVInvokedUrlCommand *)command
+{
+    CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+
+    if (arguments == nil || arguments.count < 1) {
+        NSLog(@"%@::No name provided for showInviteForName", logTag);
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    } else {
+        NSString* name = [command.arguments objectAtIndex:0];
+
+        if (name != nil && [name length] > 0) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+            [EXPSurveyManagement showInviteForName:name];
+        } else {
+            NSLog(@"%@::Bad name provided for showInviteForName", logTag);
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
+    }
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)showSurveyForName: (CDVInvokedUrlCommand *)command
+{
+    CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+
+    if (arguments == nil || arguments.count < 1) {
+        NSLog(@"%@::No name provided for showSurveyForName", logTag);
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    else {
+        NSString* name = [command.arguments objectAtIndex:0];
+        if (name != nil && [name length] > 0) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+            [EXPSurveyManagement showSurveyForName:name];
+        } else {
+            NSLog(@"%@::Bad name provided for showSurveyForName", logTag);
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
+    }
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 #pragma mark - Digital Survey (ex Feedback) listener helpers

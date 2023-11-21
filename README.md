@@ -75,24 +75,27 @@ Alternatively, you can configure your app locally by placing your config in a fi
 ```
 {
     "notificationType": "IN_SESSION",
-    "cppParameters": {
-        "sample_app": "In Session Sample CPP"
-    },
-    "invite": {
-        "logo": "exp_logo",
-        "baseColor": [0, 122, 255]
-    },
-    "survey": {
-        "closeButtonColor": [255, 255, 255],
-        "closeButtonBackgroundColor": [0, 122, 255],
-        "headerColor": [0, 122, 255]
-    },
-    "measures": [
-        {
-            "surveyId": "app_test_1",
-            "launchCount": 1
-        }
-    ]
+	"invite": {
+		"logo": "verint_logo",
+		"baseColor": [0, 122, 255]
+	},
+	"survey": {
+		"closeButtonColor": [255, 255, 255],
+		"closeButtonBackgroundColor": [0, 122, 255],
+		"headerColor": [0, 122, 255]
+	},
+	"surveyManagement": {
+		"surveys": [
+			{
+				"url": "https://survey.vovici.com/se/705E3F053FB8395201",
+				"name": "SampleSurvey",
+				"launchCount": 0
+			}
+		]
+	},
+	"cppParameters": {
+		"sample_app":"Cordova Readme Sample"
+	}
 }
 ```
 
@@ -132,6 +135,22 @@ Force-show a survey by name (i.e. without checking eligibility or showing an inv
 
 ```JavaScript
 cordova.plugins.verint.xm.showSurvey("app_test_1", _onSuccess, _onFailure);
+```
+
+### Showing a Survey Management invite for name
+
+Force-show an invite for name (i.e. without checking eligibility):
+
+```JavaScript
+cordova.plugins.verint.xm.showInviteForName("SampleSurvey", _onSuccess, _onFailure);
+```
+
+### Showing a Survey Management survey for name
+
+Force-show a survey by name (i.e. without checking eligibility or showing an invitation):
+
+```JavaScript
+cordova.plugins.verint.xm.showSurveyForName("SampleSurvey", _onSuccess, _onFailure);
 ```
 
 ### Handling local notifications on Android
@@ -285,7 +304,7 @@ As of this moment, there is not a known workaround, and we suggest using the `CO
 
 The SDK sends a number of lifecycle events during normal operation.
 
-#### Predictive Events
+#### Predictive and Survey Management Events
 
 ```JavaScript
 "onInvitePresented",
@@ -311,11 +330,11 @@ The SDK sends a number of lifecycle events during normal operation.
 "onDigitalSurveyStatusRetrieved",
 ```
 
-#### Add or Remove Predictive Events
+#### Add or Remove Predictive or Survey Management Events
 
-Use `setInviteListener(success, error)` and `removeInviteListener(success, error)` to add/remove listeners for Predictive events.
+Use `setInviteListener(success, error)` and `removeInviteListener(success, error)` to add/remove listeners for Predictive or Survey Management events.
 
-Add listeners for Preditive events:
+Add listeners for Predictive or Survey Management events:
 ```
 cordova.plugins.verint.xm.setInviteListener(function success(data) {
     console.log("Invite listener event:" + data.event + ", SID: " + data.surveyId);
@@ -323,7 +342,7 @@ cordova.plugins.verint.xm.setInviteListener(function success(data) {
     console.log("Fail: " + data);
 });
 ```
-Remove listeners for Preditive events::
+Remove listeners for Predictive or Survey Management events:
 
 ```
 cordova.plugins.verint.xm.removeInviteListener(this.onSuccess, this.onFailure);
