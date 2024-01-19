@@ -7,8 +7,8 @@
 * Android: 21+
 * iOS: 11.0+
 * Verint-XM SDK
-    * iOS 7.1.0
-    * Android 7.1.0
+    * iOS 7.1.1
+    * Android 7.1.2
 
 ## API Docs
 
