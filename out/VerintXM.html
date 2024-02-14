@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Global</title>
+    <title>JSDoc: Namespace: VerintXM</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Global</h1>
+    <h1 class="page-title">Namespace: VerintXM</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2></h2>
+        <h2>VerintXM</h2>
         
     
 </header>
@@ -68,6 +68,11 @@
     
 
     
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line13">line 13</a>
+    </li></ul></dd>
+    
 
     
 
@@ -104,7 +109,7 @@
     
 
     
-    <h4 class="name" id="checkEligibility"><span class="type-signature"></span>checkEligibility<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".cancelPendingInvites"><span class="type-signature">(static) </span>cancelPendingInvites<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
     
 
     
@@ -112,7 +117,174 @@
 
 
 <div class="description">
-    Check to see if the user is eligible for a survey.
+    Cancels any pending invites for the user when the type is EXIT_INVITE or EXIT_SURVEY.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing the message from a command.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error.
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line330">line 330</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.cancelPendingInvites(_onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".checkEligibility"><span class="type-signature">(static) </span>checkEligibility<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Checks to see if the user is eligible for a survey.
 If the user meets trigger criteria *and* are in the sampling pool, the invitation is presented.
 Implementers must explicitly check for eligibility (the SDK does not do this automatically).
 </div>
@@ -230,7 +402,7 @@ Implementers must explicitly check for eligibility (the SDK does not do this aut
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line54">line 54</a>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line112">line 112</a>
     </li></ul></dd>
     
 
@@ -271,7 +443,7 @@ Implementers must explicitly check for eligibility (the SDK does not do this aut
     
 
     
-    <h4 class="name" id="checkIfDigitalSurveyEnabled"><span class="type-signature"></span>checkIfDigitalSurveyEnabled<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".checkIfDigitalSurveyEnabled"><span class="type-signature">(static) </span>checkIfDigitalSurveyEnabled<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
     
 
     
@@ -279,7 +451,7 @@ Implementers must explicitly check for eligibility (the SDK does not do this aut
 
 
 <div class="description">
-    Check if the default Digital Survey is enabled.
+    Checks whether the default Digital Survey is enabled.
 </div>
 
 
@@ -395,7 +567,7 @@ Implementers must explicitly check for eligibility (the SDK does not do this aut
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line515">line 515</a>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line617">line 617</a>
     </li></ul></dd>
     
 
@@ -426,7 +598,7 @@ Implementers must explicitly check for eligibility (the SDK does not do this aut
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.checkIfDigitalSurveyEnabled(["digital_1"], _onSuccess, _onFailure);</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.checkIfDigitalSurveyEnabled(_onSuccess, _onFailure);</code></pre>
 
 
 
@@ -436,7 +608,7 @@ Implementers must explicitly check for eligibility (the SDK does not do this aut
     
 
     
-    <h4 class="name" id="checkIfDigitalSurveyEnabledForName"><span class="type-signature"></span>checkIfDigitalSurveyEnabledForName<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".checkIfDigitalSurveyEnabledForName"><span class="type-signature">(static) </span>checkIfDigitalSurveyEnabledForName<span class="signature">(surveyName, success, error)</span><span class="type-signature"></span></h4>
     
 
     
@@ -444,7 +616,7 @@ Implementers must explicitly check for eligibility (the SDK does not do this aut
 
 
 <div class="description">
-    Check if a Digital survey is enabled
+    Checks whether a Digital survey is enabled for a given name.
 </div>
 
 
@@ -480,13 +652,13 @@ Implementers must explicitly check for eligibility (the SDK does not do this aut
 
         <tr>
             
-                <td class="name"><code>args</code></td>
+                <td class="name"><code>surveyName</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">array</span>
+<span class="param-type">String</span>
 
 
             
@@ -496,7 +668,7 @@ Implementers must explicitly check for eligibility (the SDK does not do this aut
 
             
 
-            <td class="description last">array with one string element.</td>
+            <td class="description last">Given survey name.</td>
         </tr>
 
     
@@ -583,7 +755,7 @@ Implementers must explicitly check for eligibility (the SDK does not do this aut
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line487">line 487</a>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line633">line 633</a>
     </li></ul></dd>
     
 
@@ -614,7 +786,7 @@ Implementers must explicitly check for eligibility (the SDK does not do this aut
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.checkIfDigitalSurveyEnabledForName(["digital_1"], _onSuccess, _onFailure);</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.checkIfDigitalSurveyEnabledForName("digital_1", _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -624,7 +796,7 @@ Implementers must explicitly check for eligibility (the SDK does not do this aut
     
 
     
-    <h4 class="name" id="customInviteAccepted"><span class="type-signature"></span>customInviteAccepted<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".customInviteAccepted"><span class="type-signature">(static) </span>customInviteAccepted<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
     
 
     
@@ -632,7 +804,7 @@ Implementers must explicitly check for eligibility (the SDK does not do this aut
 
 
 <div class="description">
-    Tells the SDK that a custom invitation was accepted.
+    Notifies the SDK that a custom invite has been accepted.
 You should call this method whenever a user accepts a custom invitation that you’ve presented.
 </div>
 
@@ -751,7 +923,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line374">line 374</a>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line425">line 425</a>
     </li></ul></dd>
     
 
@@ -792,7 +964,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
 
     
-    <h4 class="name" id="customInviteDeclined"><span class="type-signature"></span>customInviteDeclined<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".customInviteDeclined"><span class="type-signature">(static) </span>customInviteDeclined<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
     
 
     
@@ -800,2126 +972,8 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 <div class="description">
-    Tells the SDK that a custom invitation was declined.
+    Notifies the SDK that a custom invite has been declined.
 You should call this method whenever a user declines a custom invitation that you’ve presented.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>success</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
-The callback takes one parameter, containing the message from a command.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>error</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional callback that is invoked in the event of an error.
-The callback takes one error parameter, containing the details of the error.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line357">line 357</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.customInviteDeclined(_onSuccess, _onFailure);</code></pre>
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="getAllCPPs"><span class="type-signature"></span>getAllCPPs<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Gets all CPP key/value pairs.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>success</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
-The callback takes one parameter, containing the message from a command.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>error</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional callback that is invoked in the event of an error.
-The callback takes one error parameter, containing the details of the error.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line119">line 119</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.getAllCPPs(_onSuccess, _onFailure);</code></pre>
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="getAllContactDetails"><span class="type-signature"></span>getAllContactDetails<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Gets all key/value pairs of the configured contact details for the user.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>success</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
-The callback takes one parameter, containing key/value pairs with all contact details configured for user.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>error</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional callback that is invoked in the event of an error.
-The callback takes one error parameter, containing the details of the error.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line323">line 323</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.getAllContactDetails(_onSuccess, _onFailure);</code></pre>
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="getAvailableDigitalSurveyNames"><span class="type-signature"></span>getAvailableDigitalSurveyNames<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Get all available Digital Survey names defined in the Configuration.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>success</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">A Cordova-style success callback object.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>error</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">A Cordova-style error callback object.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line501">line 501</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.getAvailableDigitalSurveyNames(["digital_1"], _onSuccess, _onFailure);</code></pre>
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="getCPP"><span class="type-signature"></span>getCPP<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Gets a CPP value.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>args</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Array of string, we expect a single key inside.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>success</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
-The callback takes one parameter, containing the message from a command.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>error</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional callback that is invoked in the event of an error.
-The callback takes one error parameter, containing the details of the error.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line103">line 103</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.getCPP(["customParam"], _onSuccess, _onFailure);</code></pre>
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="getContactDetails"><span class="type-signature"></span>getContactDetails<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Retrieves a user’s contact details.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>args</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>success</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
-The callback takes one parameter, containing the string with a user's contact details (it if was set).</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>error</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional callback that is invoked in the event of an error.
-The callback takes one error parameter, containing the details of the error.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line272">line 272</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.getContactDetails(args, _onSuccess, _onFailure);</code></pre>
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="getPreferredContactType"><span class="type-signature"></span>getPreferredContactType<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Retrieves a referred contact type.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>args</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>success</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
-The callback takes one parameter, containing the string with the referred contact type.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>error</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional callback that is invoked in the event of an error.
-The callback takes one error parameter, containing the details of the error.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line307">line 307</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.getPreferredContactType(args, _onSuccess, _onFailure);</code></pre>
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="getVersion"><span class="type-signature"></span>getVersion<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Gets the version of the SDK
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>success</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
-The callback takes one parameter, containing the message with the version of the SDK.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>error</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional callback that is invoked in the event of an error.
-The callback takes one error parameter, containing the details of the error.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line255">line 255</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.getVersion(_onSuccess, _onFailure);</code></pre>
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="incrementPageViews"><span class="type-signature"></span>incrementPageViews<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Manually increment the number of pages counted by the Verint SDK.
-This can be useful when the user expected a new page to have been shown.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>success</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
-The callback takes one parameter, containing the message from a command.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>error</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional callback that is invoked in the event of an error.
-The callback takes one error parameter, containing the details of the error.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line136">line 136</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.incrementPageViews(_onSuccess, _onFailure);</code></pre>
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="incrementSignificantEvent"><span class="type-signature"></span>incrementSignificantEvent<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Increment the significant event count for a given key.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>args</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Array of string, we expect to get a single string inside.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>success</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
-The callback takes one parameter, containing the message from a command.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>error</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional callback that is invoked in the event of an error.
-The callback takes one error parameter, containing the details of the error.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line153">line 153</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.incrementSignificantEvent(["yourSignificantEventKey"], _onSuccess, _onFailure);</code></pre>
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="isDebugLogEnabled"><span class="type-signature"></span>isDebugLogEnabled<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Returns whether or not debug logging is enabled.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>success</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
-The callback takes one parameter, containing Boolean value TRUE or FALSE.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>error</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional callback that is invoked in the event of an error.
-The callback takes one error parameter, containing the details of the error.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line239">line 239</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.isDebugLogEnabled(_onSuccess, _onFailure);</code></pre>
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="removeCPP"><span class="type-signature"></span>removeCPP<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Removes a CPP value.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>args</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Array of string, we expect a single key inside.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>success</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
-The callback takes one parameter, containing the message from a command.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>error</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional callback that is invoked in the event of an error.
-The callback takes one error parameter, containing the details of the error.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line86">line 86</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.removeCPP(["customParam"], _onSuccess, _onFailure);</code></pre>
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="removeInviteListener"><span class="type-signature"></span>removeInviteListener<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Remove the invite listener
 </div>
 
 
@@ -3068,7 +1122,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.removeInviteListener(_onSuccess, _onFailure);</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.customInviteDeclined(_onSuccess, _onFailure);</code></pre>
 
 
 
@@ -3078,7 +1132,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
 
     
-    <h4 class="name" id="resetState"><span class="type-signature"></span>resetState<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".getAllCPPs"><span class="type-signature">(static) </span>getAllCPPs<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
     
 
     
@@ -3086,7 +1140,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 <div class="description">
-    Reset the state of the tracker.
+    Gets an object containing all available Custom Passed Parameters (CPP) key/value pairs.
 </div>
 
 
@@ -3138,8 +1192,8 @@ The callback takes one error parameter, containing the details of the error.</td
 
             
 
-            <td class="description last">Callback that is invoked upon receiving the data about the invoked command
-The callback takes one parameter, containing the message from a command</td>
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing the message from a command.</td>
         </tr>
 
     
@@ -3204,7 +1258,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line169">line 169</a>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line220">line 220</a>
     </li></ul></dd>
     
 
@@ -3235,7 +1289,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.resetState(_onSuccess, _onFailure);</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.getAllCPPs(_onSuccess, _onFailure);</code></pre>
 
 
 
@@ -3245,7 +1299,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
 
     
-    <h4 class="name" id="setCPP"><span class="type-signature"></span>setCPP<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".getAllContactDetails"><span class="type-signature">(static) </span>getAllContactDetails<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
     
 
     
@@ -3253,7 +1307,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 <div class="description">
-    Sets a CPP key/value pair. CPPs are transmitted along with surveys upon submission.
+    Returns all key/value pairs of the configured contact details for the CONTACT invites.
 </div>
 
 
@@ -3289,13 +1343,13 @@ The callback takes one error parameter, containing the details of the error.</td
 
         <tr>
             
-                <td class="name"><code>args</code></td>
+                <td class="name"><code>success</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">array</span>
+<span class="param-type">callback</span>
 
 
             
@@ -3305,9 +1359,153 @@ The callback takes one error parameter, containing the details of the error.</td
 
             
 
-            <td class="description last">Array of parameters, we expect a key/value pair inside. Required by Cordova's plugin EXEC.</td>
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing key/value pairs with all contact details configured for user.</td>
         </tr>
 
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error.
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line536">line 536</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.getAllContactDetails(_onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getAvailableDigitalSurveyNames"><span class="type-signature">(static) </span>getAvailableDigitalSurveyNames<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Returns all available Digital Survey names defined in the Configuration.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
     
 
         <tr>
@@ -3392,7 +1590,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line69">line 69</a>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line649">line 649</a>
     </li></ul></dd>
     
 
@@ -3423,7 +1621,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.setCPP(["customParam", "customValue"], _onSuccess, _onFailure);</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.getAvailableDigitalSurveyNames(_onSuccess, _onFailure);</code></pre>
 
 
 
@@ -3433,7 +1631,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
 
     
-    <h4 class="name" id="setContactDetails"><span class="type-signature"></span>setContactDetails<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".getCPP"><span class="type-signature">(static) </span>getCPP<span class="signature">(key, success, error)</span><span class="type-signature"></span></h4>
     
 
     
@@ -3441,8 +1639,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 <div class="description">
-    Sets a user’s contact details. This method can be used to provide a user’s contact information, so that they do not need to enter it manually.
-When provided, the default invite skips the user input screen. Only applies to CONTACT surveys.
+    Gets the value of the Custom Passed Parameter (CPP) with the given key.
 </div>
 
 
@@ -3478,13 +1675,13 @@ When provided, the default invite skips the user input screen. Only applies to C
 
         <tr>
             
-                <td class="name"><code>args</code></td>
+                <td class="name"><code>key</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">array</span>
+<span class="param-type">String</span>
 
 
             
@@ -3494,7 +1691,7 @@ When provided, the default invite skips the user input screen. Only applies to C
 
             
 
-            <td class="description last"></td>
+            <td class="description last">CPP key.</td>
         </tr>
 
     
@@ -3583,7 +1780,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line290">line 290</a>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line183">line 183</a>
     </li></ul></dd>
     
 
@@ -3614,7 +1811,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.setContactDetails(["Bob"], _onSuccess, _onFailure);</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.getCPP("customParam", _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -3624,7 +1821,2530 @@ The callback takes one error parameter, containing the details of the error.</td
     
 
     
-    <h4 class="name" id="setDebugLogEnabled"><span class="type-signature"></span>setDebugLogEnabled<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".getContactDetails"><span class="type-signature">(static) </span>getContactDetails<span class="signature">(type, success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Returns the user's contact details for the CONTACT invites.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Type of the contact to get, "Email" or "PhoneNumber".</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing the string with a user's contact details (it if was set).</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error.
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line461">line 461</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.getContactDetails("Email", _onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getPreferredContactType"><span class="type-signature">(static) </span>getPreferredContactType<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Returns the preferred contact type for the CONTACT invites.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing the string with the referred contact type.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error.
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line519">line 519</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.getPreferredContactType(_onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getVersion"><span class="type-signature">(static) </span>getVersion<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Returns the version of the SDK.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing the message with the version of the SDK.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error.
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line385">line 385</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.getVersion(_onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".incrementPageViews"><span class="type-signature">(static) </span>incrementPageViews<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Manually increments the number of page views criteria counted by the Verint SDK.
+This can be useful when the user expected a new page to have been shown.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing the message from a command.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error.
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line238">line 238</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.incrementPageViews(_onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".incrementSignificantEvent"><span class="type-signature">(static) </span>incrementSignificantEvent<span class="signature">(key, success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Increments the count for the significant event with the given key.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Significant event key.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing the message from a command.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error.
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line256">line 256</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.incrementSignificantEvent("yourSignificantEventKey", _onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".isDebugLogEnabled"><span class="type-signature">(static) </span>isDebugLogEnabled<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Returns whether or not debug logging is enabled.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing Boolean value TRUE or FALSE.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error.
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line368">line 368</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.isDebugLogEnabled(_onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".removeCPP"><span class="type-signature">(static) </span>removeCPP<span class="signature">(key, success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Removes the Custom Passed Parameter (CPP) with the given key.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">CPP key.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing the message from a command.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error.
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line202">line 202</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.removeCPP("customParam", _onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".removeDigitalListener"><span class="type-signature">(static) </span>removeDigitalListener<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Removes the Digital (ex Feedback) Listener.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing the message from a command.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error.
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line683">line 683</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.removeDigitalListener(_onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".removeInviteListener"><span class="type-signature">(static) </span>removeInviteListener<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Removes the invite listener.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing the message from a command.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error.
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line570">line 570</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.removeInviteListener(_onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".resetSignificantEventCount"><span class="type-signature">(static) </span>resetSignificantEventCount<span class="signature">(key, success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Resets the significant event count for a given key.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Significant event key.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing the message from a command.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error.
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line295">line 295</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.resetSignificantEventCount("yourSignificantEventKey", _onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".resetSignificantEvents"><span class="type-signature">(static) </span>resetSignificantEvents<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Resets all significant events.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing the message from a command.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error.
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line313">line 313</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.resetSignificantEvents(_onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".resetState"><span class="type-signature">(static) </span>resetState<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Resets the Verint SDK.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command
+The callback takes one parameter, containing the message from a command.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error.
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line95">line 95</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.resetState(_onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".setCPP"><span class="type-signature">(static) </span>setCPP<span class="signature">(key, value, success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Sets a Custom Passed Parameter (CPP) for the given key/value pair.
+CPPs are transmitted along with surveys upon submission.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">CPP key.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">CPP value.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A Cordova-style success callback object.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A Cordova-style error callback object.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line164">line 164</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.setCPP("customParam", "customValue", _onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".setContactDetails"><span class="type-signature">(static) </span>setContactDetails<span class="signature">(details, type, success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Sets the user's contact details for the CONTACT invites. This method can be used to provide a user’s contact information, so that they do not need to enter it manually.
+When provided, the default invite skips the user input screen.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>details</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Contact value.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Type of the contact, "Email" or "PhoneNumber".</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing the message from a command.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error.
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line482">line 482</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.setContactDetails("somespecified@email.com", "Email", _onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".setDebugLogEnabled"><span class="type-signature">(static) </span>setDebugLogEnabled<span class="signature">(enabled, success, error)</span><span class="type-signature"></span></h4>
     
 
     
@@ -3669,13 +4389,16 @@ Debug logging prints useful state information to the console for inspection. By 
 
         <tr>
             
-                <td class="name"><code>args</code></td>
+                <td class="name"><code>enabled</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">array</span>
+<span class="param-type">String</span>
+|
+
+<span class="param-type">boolean</span>
 
 
             
@@ -3685,7 +4408,7 @@ Debug logging prints useful state information to the console for inspection. By 
 
             
 
-            <td class="description last">array with one element; TRUE of FALSE.</td>
+            <td class="description last">value indicating should debug log be enabled, "true" or "false", true or false.</td>
         </tr>
 
     
@@ -3774,7 +4497,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line411">line 411</a>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line350">line 350</a>
     </li></ul></dd>
     
 
@@ -3805,7 +4528,8 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.setDebugLogEnabled(["true"], _onSuccess, _onFailure);</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.setDebugLogEnabled("true", _onSuccess, _onFailure);
+cordova.plugins.verint.xm.setDebugLogEnabled(true, _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -3815,7 +4539,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
 
     
-    <h4 class="name" id="setDigitalListener"><span class="type-signature"></span>setDigitalListener<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".setDigitalListener"><span class="type-signature">(static) </span>setDigitalListener<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
     
 
     
@@ -3823,7 +4547,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 <div class="description">
-    Set the Digital Listener
+    Sets the Digital (ex Feedback) Listener.
 </div>
 
 
@@ -3941,7 +4665,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line531">line 531</a>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line666">line 666</a>
     </li></ul></dd>
     
 
@@ -3982,7 +4706,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
 
     
-    <h4 class="name" id="setInviteListener"><span class="type-signature"></span>setInviteListener<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".setInviteListener"><span class="type-signature">(static) </span>setInviteListener<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
     
 
     
@@ -3990,7 +4714,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 <div class="description">
-    Set the invite listener
+    Sets the invite listener.
 </div>
 
 
@@ -4108,7 +4832,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line427">line 427</a>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line553">line 553</a>
     </li></ul></dd>
     
 
@@ -4149,7 +4873,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
 
     
-    <h4 class="name" id="setPreferredContactType"><span class="type-signature"></span>setPreferredContactType<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".setPreferredContactType"><span class="type-signature">(static) </span>setPreferredContactType<span class="signature">(type, success, error)</span><span class="type-signature"></span></h4>
     
 
     
@@ -4157,7 +4881,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 <div class="description">
-    Sets a preferred contact type.
+    Sets the preferred contact type for the CONTACT invites.
 </div>
 
 
@@ -4193,13 +4917,13 @@ The callback takes one error parameter, containing the details of the error.</td
 
         <tr>
             
-                <td class="name"><code>args</code></td>
+                <td class="name"><code>type</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">array</span>
+<span class="param-type">String</span>
 
 
             
@@ -4209,7 +4933,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
             
 
-            <td class="description last"></td>
+            <td class="description last">Type of the contact, "Email" or "PhoneNumber".</td>
         </tr>
 
     
@@ -4298,7 +5022,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line340">line 340</a>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line501">line 501</a>
     </li></ul></dd>
     
 
@@ -4329,7 +5053,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.setPreferredContactType(["Email"], _onSuccess, _onFailure);</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.setPreferredContactType("Email", _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -4339,7 +5063,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
 
     
-    <h4 class="name" id="setSkipPoolingCheck"><span class="type-signature"></span>setSkipPoolingCheck<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".setSignificantEventCount"><span class="type-signature">(static) </span>setSignificantEventCount<span class="signature">(count, key, success, error)</span><span class="type-signature"></span></h4>
     
 
     
@@ -4347,7 +5071,220 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 <div class="description">
-    Disables the pooling check.
+    Sets the significant event count for a given key.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>count</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Significant event count.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Significant event key.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback that is invoked upon receiving the data about the invoked command.
+The callback takes one parameter, containing the message from a command.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback that is invoked in the event of an error.
+The callback takes one error parameter, containing the details of the error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line276">line 276</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.setSignificantEventCount("yourSignificantEventCount", "yourSignificantEventKey", _onSuccess, _onFailure);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".setSkipPoolingCheck"><span class="type-signature">(static) </span>setSkipPoolingCheck<span class="signature">(shouldSkip, success, error)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Toggles the pooling check.
 When debugging your implementation of the Verint SDK, it may be useful to disable the pooling check.
 This ensures that the invitation will always shows if the loyalty criteria has been fulfilled.
 </div>
@@ -4385,13 +5322,16 @@ This ensures that the invitation will always shows if the loyalty criteria has b
 
         <tr>
             
-                <td class="name"><code>args</code></td>
+                <td class="name"><code>shouldSkip</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">array</span>
+<span class="param-type">String</span>
+|
+
+<span class="param-type">boolean</span>
 
 
             
@@ -4401,7 +5341,7 @@ This ensures that the invitation will always shows if the loyalty criteria has b
 
             
 
-            <td class="description last">array with one element; TRUE of FALSE.</td>
+            <td class="description last">Value indicating should pooling check be skipped, "true" or "false", true or false.</td>
         </tr>
 
     
@@ -4490,7 +5430,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line393">line 393</a>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line406">line 406</a>
     </li></ul></dd>
     
 
@@ -4521,7 +5461,8 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.setSkipPoolingCheck(["true"], _onSuccess, _onFailure);</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.setSkipPoolingCheck("true", _onSuccess, _onFailure);
+cordova.plugins.verint.xm.setSkipPoolingCheck(true, _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -4531,7 +5472,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
 
     
-    <h4 class="name" id="showDigitalSurvey"><span class="type-signature"></span>showDigitalSurvey<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".showDigitalSurvey"><span class="type-signature">(static) </span>showDigitalSurvey<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
     
 
     
@@ -4539,7 +5480,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 <div class="description">
-    Programmatically present the default Digital survey (the first one in the configuration json).
+    Presents the default Digital survey (the first one in the configuration json).
 </div>
 
 
@@ -4655,7 +5596,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line457">line 457</a>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line585">line 585</a>
     </li></ul></dd>
     
 
@@ -4696,7 +5637,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
 
     
-    <h4 class="name" id="showDigitalSurveyForName"><span class="type-signature"></span>showDigitalSurveyForName<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".showDigitalSurveyForName"><span class="type-signature">(static) </span>showDigitalSurveyForName<span class="signature">(surveyName, success, error)</span><span class="type-signature"></span></h4>
     
 
     
@@ -4704,7 +5645,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 <div class="description">
-    Programmatically present the Digital survey for a given name
+    Presents the Digital survey for a given name.
 </div>
 
 
@@ -4740,13 +5681,13 @@ The callback takes one error parameter, containing the details of the error.</td
 
         <tr>
             
-                <td class="name"><code>args</code></td>
+                <td class="name"><code>surveyName</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">array</span>
+<span class="param-type">String</span>
 
 
             
@@ -4756,7 +5697,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
             
 
-            <td class="description last">array with one string element.</td>
+            <td class="description last">Given survey name.</td>
         </tr>
 
     
@@ -4843,7 +5784,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line472">line 472</a>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line601">line 601</a>
     </li></ul></dd>
     
 
@@ -4874,7 +5815,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.showDigitalSurveyForName(["digital_1"], _onSuccess, _onFailure);</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.showDigitalSurveyForName("digital_1", _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -4884,7 +5825,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
 
     
-    <h4 class="name" id="showInvite"><span class="type-signature"></span>showInvite<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".showInvite"><span class="type-signature">(static) </span>showInvite<span class="signature">(surveyId, success, error)</span><span class="type-signature"></span></h4>
     
 
     
@@ -4892,7 +5833,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 <div class="description">
-    Programmatically present the invitation for a given survey ID (sid).
+    Presents the invitation for a given survey ID (sid).
 </div>
 
 
@@ -4928,13 +5869,13 @@ The callback takes one error parameter, containing the details of the error.</td
 
         <tr>
             
-                <td class="name"><code>args</code></td>
+                <td class="name"><code>surveyId</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">array</span>
+<span class="param-type">String</span>
 
 
             
@@ -4944,7 +5885,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
             
 
-            <td class="description last">Array of strings, we expect a surveyID inside.</td>
+            <td class="description last">Given survey ID (sid).</td>
         </tr>
 
     
@@ -5031,7 +5972,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line38">line 38</a>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line128">line 128</a>
     </li></ul></dd>
     
 
@@ -5062,7 +6003,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.showInvite(["app_test_1"], _onSuccess, _onFailure);</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.showInvite("app_test_1", _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -5072,7 +6013,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
 
     
-    <h4 class="name" id="showSurvey"><span class="type-signature"></span>showSurvey<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".showSurvey"><span class="type-signature">(static) </span>showSurvey<span class="signature">(surveyId, success, error)</span><span class="type-signature"></span></h4>
     
 
     
@@ -5080,7 +6021,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 <div class="description">
-    Programmatically present the survey for a given survey ID (sid).
+    Presents the survey for a given survey ID (sid).
 </div>
 
 
@@ -5116,13 +6057,13 @@ The callback takes one error parameter, containing the details of the error.</td
 
         <tr>
             
-                <td class="name"><code>args</code></td>
+                <td class="name"><code>surveyId</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">array</span>
+<span class="param-type">String</span>
 
 
             
@@ -5132,7 +6073,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
             
 
-            <td class="description last">Array of strings, we expect a surveyID inside.</td>
+            <td class="description last">Survey ID (sid).</td>
         </tr>
 
     
@@ -5219,7 +6160,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line23">line 23</a>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line145">line 145</a>
     </li></ul></dd>
     
 
@@ -5250,7 +6191,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.showSurvey(["app_test_1"], _onSuccess, _onFailure);</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.showSurvey("app_test_1", _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -5260,7 +6201,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
 
     
-    <h4 class="name" id="start"><span class="type-signature"></span>start<span class="signature">(success, error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".start"><span class="type-signature">(static) </span>start<span class="signature">(config, success, error)</span><span class="type-signature"></span></h4>
     
 
     
@@ -5268,8 +6209,10 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 <div class="description">
-    Starts the CX Measure module.
-Behavior of the two modules is defined in the exp_configuration.json file.
+    Starts the Verint SDK. Accepts an optional config object (which must
+represent a valid Verint config, including a clientId). If no config
+is provided, then the native module will look for the config in a file called
+exp_configuration.json (which must be available to the native modules).
 </div>
 
 
@@ -5301,6 +6244,29 @@ Behavior of the two modules is defined in the exp_configuration.json file.
     </thead>
 
     <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>config</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">JSON</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">JSON with a valid config object.</td>
+        </tr>
+
     
 
         <tr>
@@ -5387,7 +6353,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line186">line 186</a>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line35">line 35</a>
     </li></ul></dd>
     
 
@@ -5418,7 +6384,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.start(_onSucess, _onFailure);</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.start(config, _onSucess, _onFailure);</code></pre>
 
 
 
@@ -5428,7 +6394,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
 
     
-    <h4 class="name" id="startWithConfigurationFile"><span class="type-signature"></span>startWithConfigurationFile<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".startWithConfigurationFile"><span class="type-signature">(static) </span>startWithConfigurationFile<span class="signature">(fileName, success, error)</span><span class="type-signature"></span></h4>
     
 
     
@@ -5436,8 +6402,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 <div class="description">
-    Starts the CX Measure module using a custom configuration file in your native project.
-Behavior of the two modules is defined in the named configuration file in your project.
+    Starts the Verint SDK with the given configuration file in your native module.
 </div>
 
 
@@ -5473,13 +6438,13 @@ Behavior of the two modules is defined in the named configuration file in your p
 
         <tr>
             
-                <td class="name"><code>args</code></td>
+                <td class="name"><code>fileName</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">array</span>
+<span class="param-type">String</span>
 
 
             
@@ -5489,7 +6454,7 @@ Behavior of the two modules is defined in the named configuration file in your p
 
             
 
-            <td class="description last">array. The name of the configuration file to use when loading modules</td>
+            <td class="description last">The name of the configuration file to use when loading modules.</td>
         </tr>
 
     
@@ -5513,7 +6478,7 @@ Behavior of the two modules is defined in the named configuration file in your p
             
 
             <td class="description last">Callback that is invoked upon receiving the data about the invoked command
-The callback takes one parameter, containing the message from a command</td>
+The callback takes one parameter, containing the message from a command.</td>
         </tr>
 
     
@@ -5578,7 +6543,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line205">line 205</a>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line58">line 58</a>
     </li></ul></dd>
     
 
@@ -5609,7 +6574,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.startWithConfigurationFile(["my_config.json"], _onSuccess, _onFailure);</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.startWithConfigurationFile("my_config.json", _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -5619,7 +6584,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
 
     
-    <h4 class="name" id="startWithConfigurationJson"><span class="type-signature"></span>startWithConfigurationJson<span class="signature">(args, success, error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".startWithConfigurationJson"><span class="type-signature">(static) </span>startWithConfigurationJson<span class="signature">(jsonString, success, error)</span><span class="type-signature"></span></h4>
     
 
     
@@ -5627,8 +6592,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
 
 <div class="description">
-    Starts the CX Measure module using custom configuration JSON.
-Behavior of the two modules is defined by the string provided.
+    Starts the Verint SDK with the given configuration JSON string.
 </div>
 
 
@@ -5664,13 +6628,13 @@ Behavior of the two modules is defined by the string provided.
 
         <tr>
             
-                <td class="name"><code>args</code></td>
+                <td class="name"><code>jsonString</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">array</span>
+<span class="param-type">String</span>
 
 
             
@@ -5680,7 +6644,7 @@ Behavior of the two modules is defined by the string provided.
 
             
 
-            <td class="description last">array. The configuration string in JSON format to use when loading modules.</td>
+            <td class="description last">The configuration string in JSON format to use when loading modules.</td>
         </tr>
 
     
@@ -5769,7 +6733,7 @@ The callback takes one error parameter, containing the details of the error.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line223">line 223</a>
+        <a href="VerintXM.js.html">VerintXM.js</a>, <a href="VerintXM.js.html#line77">line 77</a>
     </li></ul></dd>
     
 
@@ -5800,7 +6764,7 @@ The callback takes one error parameter, containing the details of the error.</td
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>cordova.plugins.verint.xm.startWithConfigurationJson([jsonConfig], _onSuccess, _onFailure);</code></pre>
+    <pre class="prettyprint"><code>cordova.plugins.verint.xm.startWithConfigurationJson(jsonString, _onSuccess, _onFailure);</code></pre>
 
 
 
@@ -5820,13 +6784,13 @@ The callback takes one error parameter, containing the details of the error.</td
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#checkEligibility">checkEligibility</a></li><li><a href="global.html#checkIfDigitalSurveyEnabled">checkIfDigitalSurveyEnabled</a></li><li><a href="global.html#checkIfDigitalSurveyEnabledForName">checkIfDigitalSurveyEnabledForName</a></li><li><a href="global.html#customInviteAccepted">customInviteAccepted</a></li><li><a href="global.html#customInviteDeclined">customInviteDeclined</a></li><li><a href="global.html#getAllCPPs">getAllCPPs</a></li><li><a href="global.html#getAllContactDetails">getAllContactDetails</a></li><li><a href="global.html#getAvailableDigitalSurveyNames">getAvailableDigitalSurveyNames</a></li><li><a href="global.html#getCPP">getCPP</a></li><li><a href="global.html#getContactDetails">getContactDetails</a></li><li><a href="global.html#getPreferredContactType">getPreferredContactType</a></li><li><a href="global.html#getVersion">getVersion</a></li><li><a href="global.html#incrementPageViews">incrementPageViews</a></li><li><a href="global.html#incrementSignificantEvent">incrementSignificantEvent</a></li><li><a href="global.html#isDebugLogEnabled">isDebugLogEnabled</a></li><li><a href="global.html#removeCPP">removeCPP</a></li><li><a href="global.html#removeInviteListener">removeInviteListener</a></li><li><a href="global.html#resetState">resetState</a></li><li><a href="global.html#setCPP">setCPP</a></li><li><a href="global.html#setContactDetails">setContactDetails</a></li><li><a href="global.html#setDebugLogEnabled">setDebugLogEnabled</a></li><li><a href="global.html#setDigitalListener">setDigitalListener</a></li><li><a href="global.html#setInviteListener">setInviteListener</a></li><li><a href="global.html#setPreferredContactType">setPreferredContactType</a></li><li><a href="global.html#setSkipPoolingCheck">setSkipPoolingCheck</a></li><li><a href="global.html#showDigitalSurvey">showDigitalSurvey</a></li><li><a href="global.html#showDigitalSurveyForName">showDigitalSurveyForName</a></li><li><a href="global.html#showInvite">showInvite</a></li><li><a href="global.html#showSurvey">showSurvey</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#startWithConfigurationFile">startWithConfigurationFile</a></li><li><a href="global.html#startWithConfigurationJson">startWithConfigurationJson</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="VerintXM.html">VerintXM</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Feb 28 2023 16:52:21 GMT+0100 (Central European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Wed Oct 11 2023 02:10:06 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

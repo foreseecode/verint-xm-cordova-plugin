@@ -1,9 +1,10 @@
 {
-  "name": "ForeSeeAPI",
-  "version": "2.0.0",
-  "description": "ForeSee Cordova Plugin",
+  "name": "cordova-plugin-verint-xm-sdk",
+  "title": "Verint-XM",
+  "version": "3.0.0",
+  "description": "A Cordova wrapper around the Verint-XM mobile SDKs",
   "cordova": {
-    "id": "cordova-plugin-foresee",
+    "id": "Verint-XM",
     "platforms": [
       "android",
       "ios"
@@ -13,15 +14,18 @@
     "ecosystem:cordova",
     "cordova-android",
     "cordova-ios",
-    "foresee"
+    "foresee",
+    "Verint"
   ],
-  "author": "ForeSee",
+  "author": "Verint",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/foreseecode/foresee-sdk-cordova-plugin"
+    "url": "https://github.com/foreseecode/verint-xm-cordova-plugin"
   },
   "dependencies": {
-    "jsdocs": "^1.0.0"
+  },
+  "devDependencies": {
+    "jsdoc": "^4.0.0"
   }
 }
