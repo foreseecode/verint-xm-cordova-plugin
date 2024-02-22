@@ -7,8 +7,8 @@
 * Android: 21+
 * iOS: 11.0+
 * Verint-XM SDK
-    * iOS 7.1.0
-    * Android 7.1.0
+    * iOS 7.1.1
+    * Android 7.1.2
 
 ## API Docs
 
@@ -25,14 +25,14 @@ To set up the plugin in your app, follow these instructions
 
     Once you have that key, you should set two environment variables on your machine: `GITHUB_USERNAME` for your username, and `GITHUB_PERSONAL_KEY` for your personal key
 
-2. Add the Verint XM Cordova Plugin to your project 
+2. Add the Verint XM Cordova Plugin to your project from NPM:
 
    ```
-   cordova plugin add https://github.com/foreseecode/verint-xm-cordova-plugin.git
+   cordova plugin add cordova-plugin-verint-xm-sdk
    ```
 
    This will automatically add `compile "com.verint.xm.sdk:*:+"` to your `build.gradle` file. 
-   It will also copy the exp_configuration.json file to `platform/ios` and `platform/android` if they exist
+   It will also copy the `exp_configuration.json` file to `platform/ios` and `platform/android` if they exist
 
    If you have a copy of this repo on disk, then you can also add the plugin to your app by pointing directly to it, like this:
 
@@ -52,7 +52,7 @@ To set up the plugin in your app, follow these instructions
    cordova.plugins.verint.xm.checkEligibility(this.onSuccess, this.onFailure);
    ```
 
-5. For all supported methods please check the API docs included in this package, or [online here](http://developer.foresee.com/downloads/sdk/mobile/cordova/current/docs/index.html). For general information about the Verint SDK, please see the [Verint Developer Portal](https://connect.verint.com/).
+5. For all supported methods please check the API docs included in this package, or [online here](https://foreseecode.github.io/public-packages/mobile/cordova/VerintXM.html). For general information about the Verint SDK, please see the [Verint Developer Portal](https://connect.verint.com/).
 
 6. Add `exp_logo.png` file in your `www/img/` folder to include a logo for the survey.
 
@@ -62,11 +62,11 @@ In order to use the SDK in your project you'll need a valid SDK configuration. T
 
 The easiest way to start the SDK is to use Verint-Hosted configuration, which can be accessed using your App ID. If you don’t have an App ID, please contact your Verint Account Manager to have an App ID and configuration set up. You will need to let them know the trigger conditions and invitation mode you would like to use.
 
-Once you have your App ID, you can tell the SDK to start-up using that ID by placing it in in a file name`exp_fcp.json` with the following structure:
+Once you have your App ID, you can tell the SDK to start-up using that ID by placing it in the root of your project in a file named `exp_fcp.json` with the following structure:
 
 ```
 {
-    "appId": "mobsdkpredictivesample"
+    "appId": "<YOUR_APP_ID>"
 }   
 ```
 
@@ -75,24 +75,27 @@ Alternatively, you can configure your app locally by placing your config in a fi
 ```
 {
     "notificationType": "IN_SESSION",
-    "cppParameters": {
-        "sample_app": "In Session Sample CPP"
-    },
-    "invite": {
-        "logo": "exp_logo",
-        "baseColor": [0, 122, 255]
-    },
-    "survey": {
-        "closeButtonColor": [255, 255, 255],
-        "closeButtonBackgroundColor": [0, 122, 255],
-        "headerColor": [0, 122, 255]
-    },
-    "measures": [
-        {
-            "surveyId": "app_test_1",
-            "launchCount": 1
-        }
-    ]
+	"invite": {
+		"logo": "verint_logo",
+		"baseColor": [0, 122, 255]
+	},
+	"survey": {
+		"closeButtonColor": [255, 255, 255],
+		"closeButtonBackgroundColor": [0, 122, 255],
+		"headerColor": [0, 122, 255]
+	},
+	"surveyManagement": {
+		"surveys": [
+			{
+				"url": "https://survey.vovici.com/se/705E3F053FB8395201",
+				"name": "SampleSurvey",
+				"launchCount": 0
+			}
+		]
+	},
+	"cppParameters": {
+		"sample_app":"Cordova Readme Sample"
+	}
 }
 ```
 
@@ -108,7 +111,7 @@ All available methods are documented in `VerintXM.js`. Each of these methods has
 
 ### Starting the SDK
 
-In most cases the SDK does not need to be manually started; it will be started whenever the plugin is loaded. If your app includes an `exp_fcp.json` file with your App ID, then it will start automatically with your Verint-hosted config. Otherwise, if you have included a local config in an `exp_configuration.json` file, the SDK will start using that. (Note: other start methods are available in the plugin's JavaScript, but are not typically necessary.)
+Usually the SDK does not need to be manually started; it will be started whenever the plugin is loaded. If your app includes an `exp_fcp.json` file with your App ID, then it will start automatically with your Verint-hosted config. Otherwise, if you have included a local config in an `exp_configuration.json` file, the SDK will start using that. (Note: other start methods are available in the plugin's JavaScript, but are not typically necessary.)
 
 ### Checking eligibility and showing an invite
 
@@ -132,6 +135,22 @@ Force-show a survey by name (i.e. without checking eligibility or showing an inv
 
 ```JavaScript
 cordova.plugins.verint.xm.showSurvey("app_test_1", _onSuccess, _onFailure);
+```
+
+### Showing a Survey Management invite for name
+
+Force-show an invite for name (i.e. without checking eligibility):
+
+```JavaScript
+cordova.plugins.verint.xm.showInviteForName("SampleSurvey", _onSuccess, _onFailure);
+```
+
+### Showing a Survey Management survey for name
+
+Force-show a survey by name (i.e. without checking eligibility or showing an invitation):
+
+```JavaScript
+cordova.plugins.verint.xm.showSurveyForName("SampleSurvey", _onSuccess, _onFailure);
 ```
 
 ### Handling local notifications on Android
@@ -285,7 +304,7 @@ As of this moment, there is not a known workaround, and we suggest using the `CO
 
 The SDK sends a number of lifecycle events during normal operation.
 
-#### Predictive
+#### Predictive and Survey Management Events
 
 ```JavaScript
 "onInvitePresented",
@@ -299,23 +318,7 @@ The SDK sends a number of lifecycle events during normal operation.
 "onInviteNotShownWithSamplingFailed",
 ```
 
-Use `setInviteListener(success, error)` and `removeInviteListener(success, error)` to add/remove listeners for Predictive events.
-
-Adding:
-```
-cordova.plugins.verint.xm.setInviteListener(function success(data) {
-    console.log("Invite listener event:" + data.event + ", SID: " + data.surveyId);
-}, function failure(data) {
-    console.log("Fail: " + data);
-});
-```
-Removing:
-
-```
-cordova.plugins.verint.xm.removeInviteListener(this.onSuccess, this.onFailure);
-```
-
-#### Digital
+#### Digital Events
 
 ```JavaScript
 "onDigitalSurveyPresented",
@@ -327,9 +330,29 @@ cordova.plugins.verint.xm.removeInviteListener(this.onSuccess, this.onFailure);
 "onDigitalSurveyStatusRetrieved",
 ```
 
+#### Add or Remove Predictive or Survey Management Events
+
+Use `setInviteListener(success, error)` and `removeInviteListener(success, error)` to add/remove listeners for Predictive or Survey Management events.
+
+Add listeners for Predictive or Survey Management events:
+```
+cordova.plugins.verint.xm.setInviteListener(function success(data) {
+    console.log("Invite listener event:" + data.event + ", SID: " + data.surveyId);
+}, function failure(data) {
+    console.log("Fail: " + data);
+});
+```
+Remove listeners for Predictive or Survey Management events:
+
+```
+cordova.plugins.verint.xm.removeInviteListener(this.onSuccess, this.onFailure);
+```
+
+#### Add or Remove Digital Events
+
 Use `setDigitalListener(success, error)` and `removeDigitalListener(success, error)` to add/remove listeners for Digital events.
 
-Adding:
+Add listeners for Digital events:
 
 ```
 cordova.plugins.verint.xm.setDigitalListener(function success(data) {
@@ -339,7 +362,7 @@ cordova.plugins.verint.xm.setDigitalListener(function success(data) {
 });
 ```
 
-Removing:
+Remove listeners for Digital events:
 
 ```
 cordova.plugins.verint.xm.removeDigitalListener(this.onSuccess, this.onFailure);
