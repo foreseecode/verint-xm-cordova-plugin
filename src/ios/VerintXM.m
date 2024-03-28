@@ -493,13 +493,13 @@ NSString* const logTag = @"CordovaVerintXM";
     NSArray* arguments = command.arguments;
 
     if (arguments == nil || arguments.count < 1) {
-        NSLog(@"%@::No data for setDebugLogEnabled", logTag);
+        NSLog(@"%@::No data for setEventLogEnabled", logTag);
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     else {
         BOOL enable = [command.arguments objectAtIndex:0];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        [EXPCore setDebugLogEnabled:enable];
+        [EXPCore setEventLogEnabled:enable];
     }
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
