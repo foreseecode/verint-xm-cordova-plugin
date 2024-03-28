@@ -386,6 +386,27 @@ module.exports = {
     exec(success, error, VerintXM, "getVersion", []);
   },
 
+    /**
+   * @description
+   * Sets whether or not to enable ingestion event logging.
+   * By default, event logging is enabled.
+   *
+   * @example
+   * cordova.plugins.verint.xm.setEventLogEnabled("true", _onSuccess, _onFailure);
+   * cordova.plugins.verint.xm.setEventLogEnabled(true, _onSuccess, _onFailure);
+   *
+   * @param {String|boolean} enabled - value indicating should debug log be enabled, "true" or "false", true or false.
+   * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+   * The callback takes one parameter, containing the message from a command.
+   * @param {callback} error - Optional callback that is invoked in the event of an error.
+   * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
+   */
+  setEventLogEnabled(enabled, success, error) {
+    let args = [enabled];
+    exec(success, error, VerintXM, "setEventLogEnabled", validate(args));
+  },
+
   /**
    * @description
    * Toggles the pooling check.

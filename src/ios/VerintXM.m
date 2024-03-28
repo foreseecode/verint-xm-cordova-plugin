@@ -486,6 +486,25 @@ NSString* const logTag = @"CordovaVerintXM";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
+#pragma mark - Event Logging
+
+- (void)setEventLogEnabled: (CDVInvokedUrlCommand *)command{
+    CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+
+    if (arguments == nil || arguments.count < 1) {
+        NSLog(@"%@::No data for setEventLogEnabled", logTag);
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    else {
+        BOOL enable = [command.arguments objectAtIndex:0];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        [EXPCore setEventLogEnabled:enable];
+    }
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
 #pragma mark - Custom invites
 
 - (void)customInviteAccepted: (CDVInvokedUrlCommand *)command{
