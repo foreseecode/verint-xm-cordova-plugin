@@ -56,6 +56,7 @@
 - (void)checkIfDigitalSurveyEnabled:(CDVInvokedUrlCommand *)command;
 - (void)showInviteForName:(CDVInvokedUrlCommand *)command;
 - (void)showSurveyForName:(CDVInvokedUrlCommand *)command;
+- (void)setEventLogEnabled:(CDVInvokedUrlCommand *)command;
 
 #pragma mark - Plugin-specific public methods
 
