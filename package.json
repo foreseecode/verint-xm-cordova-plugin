@@ -26,6 +26,5 @@
   "dependencies": {
   },
   "devDependencies": {
-    "jsdoc": "^4.0.0"
   }
 }
