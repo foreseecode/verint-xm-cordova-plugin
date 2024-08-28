@@ -23,16 +23,18 @@ NSString* const logTag = @"CordovaVerintXM";
 #pragma mark - Cordova
 
 - (void)pluginInitialize {
+    
     [EXPCore setDelegate:self];
 
     NSString *appId = [self getAppIdFromJSON];
     if (appId != nil) {
+        NSString *version = @"mobsdk"
+        NSLog(@"%@::Starting SDK with the FCP, appId: %@, version: %@", logTag, appId, version);
         [EXPCore startWithAppId:appId
-                    version:@"mobsdk"];
-        NSLog(@"%@::FCP startup with appId: %@", logTag, appId);
+                        version:version];
     } else {
+        NSLog(@"%@::Starting SDK with the 'start' function", logTag);
         [EXPCore start];
-        NSLog(@"%@::Regular startup", logTag);
     }
 
     [self addCrossPlatformCPPs];
@@ -64,7 +66,7 @@ NSString* const logTag = @"CordovaVerintXM";
 
 #pragma mark - Start
 
-// No `start` methods integration, reason:
+// No `start` functions integration, reason:
 // SDK will start automatically on an application launch, see: `pluginInitialize`.
 
 #pragma mark - Verint (EXPCore) Delegate

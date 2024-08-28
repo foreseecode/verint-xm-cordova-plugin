@@ -66,13 +66,11 @@ public class VerintXM extends CordovaPlugin {
             Core.setSDKListener(new CustomVerintSDKListener());
 
             String appId = getAppIdFromJSON();
-            Log.d(logTag, "init the Verint SDK");
-
             if (appId != null) {
-                Log.d(logTag, "FCP startup with appId: "+appId);
+                Log.d(logTag, "Starting SDK with the FCP, appId: " + appId + ", version: " + APP_VERSION);
                 Core.startWithAppId(cordova.getActivity().getApplication(), appId, APP_VERSION);
             } else {
-                Log.d(logTag, "Regular startup");
+                Log.d(logTag, "Starting SDK with the 'start' function");
                 Core.start(cordova.getActivity().getApplication());
             }
 
