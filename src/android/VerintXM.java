@@ -92,7 +92,7 @@ public class VerintXM extends CordovaPlugin {
             Log.d(logTag, "file '" + fileName + "' does not exist");
             return null;
         }
-        String jsonString = getWriter();
+        String jsonString = getWriter(fileName);
         Log.d(logTag, "JSON file contents: " + jsonString);
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
@@ -105,8 +105,8 @@ public class VerintXM extends CordovaPlugin {
         return null;
     }
 
-    private String getWriter() {
-        InputStream inputStream = cordova.getActivity().getResources().openRawResource(cordova.getActivity().getResources().getIdentifier(EXP_FCP_JSON_FILE_NAME, "raw", cordova.getActivity().getPackageName()));
+    private String getWriter(String fileName) {
+        InputStream inputStream = cordova.getActivity().getResources().openRawResource(cordova.getActivity().getResources().getIdentifier(fileName, "raw", cordova.getActivity().getPackageName()));
         Writer writer = new StringWriter();
         char[] buffer = new char[1024];
         try {
@@ -116,12 +116,12 @@ public class VerintXM extends CordovaPlugin {
                 writer.write(buffer, 0, number);
             }
         } catch(IOException e) {
-            Log.d(logTag, "IOException: "+e);
+            Log.d(logTag, "IOException: " + e);
         } finally {
             try {
                 inputStream.close();
             } catch (Exception e) {
-                Log.e(logTag, "Exception: "+e);
+                Log.e(logTag, "Exception: " + e);
             }
         }
         return writer.toString();
