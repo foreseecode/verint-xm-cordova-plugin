@@ -26,8 +26,13 @@ NSString* const logTag = @"CordovaVerintXM";
     
     [EXPCore setDelegate:self];
 
+    NSString *siteKey = [self getValueForKey:@"siteKey" fromJSONFileWithName:@"startup_configuration.json"];
     NSString *appId = [self getValueForKey:@"appId" fromJSONFileWithName:@"exp_fcp.json"];
-    if (appId != nil) {
+
+    if (siteKey != nil) {
+        NSLog(@"%@::SDK will be started with Configurator, siteKey: %@", logTag, siteKey);
+        [EXPCore startWithSiteKey:siteKey];
+    } else if (appId != nil) {
         NSString *version = @"mobsdk"
         NSLog(@"%@::SDK will be started with FCP, appId: %@, version: %@", logTag, appId, version);
         [EXPCore startWithAppId:appId

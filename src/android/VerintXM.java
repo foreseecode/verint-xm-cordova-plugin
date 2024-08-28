@@ -64,9 +64,14 @@ public class VerintXM extends CordovaPlugin {
         if (!Core.isCoreStarted()) {
 
             Core.setSDKListener(new CustomVerintSDKListener());
-
+                        
+            String siteKey = getValueForKeyFromJSONFile("siteKey", "startup_configuration");
             String appId = getValueForKeyFromJSONFile("appId", EXP_FCP_JSON_FILE_NAME);
-            if (appId != null) {
+
+            if (siteKey != null) {
+                Log.d(logTag, "SDK will be started with Configurator, siteKey: " + siteKey);
+                Core.startWithSiteKey(cordova.getActivity().getApplication(), siteKey);
+            } else if (appId != null) {
                 Log.d(logTag, "SDK will be started with FCP, appId: " + appId + ", version: " + APP_VERSION);
                 Core.startWithAppId(cordova.getActivity().getApplication(), appId, APP_VERSION);
             } else {
