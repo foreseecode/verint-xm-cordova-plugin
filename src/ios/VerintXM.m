@@ -64,27 +64,8 @@ NSString* const logTag = @"CordovaVerintXM";
 
 #pragma mark - Start
 
-- (void)start: (CDVInvokedUrlCommand *)command
-{
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    NSLog(@"%@::The start() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch", logTag);
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-- (void)startWithConfigurationFile: (CDVInvokedUrlCommand *)command
-{
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    NSLog(@"%@::The startWithConfigurationFile() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch", logTag);
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-- (void)startWithConfigurationJson: (CDVInvokedUrlCommand *)command
-{
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    NSLog(@"%@::The startWithConfigurationJson() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch", logTag);
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
+// No `start` methods integration, reason:
+// SDK will start automatically on an application launch, see: `pluginInitialize`.
 
 #pragma mark - Verint (EXPCore) Delegate
 

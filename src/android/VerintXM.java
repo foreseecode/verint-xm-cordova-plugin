@@ -139,42 +139,8 @@ public class VerintXM extends CordovaPlugin {
 
         // Start
 
-        //start
-        sActions.put("start", new VerintMethod() {
-
-            @Override
-            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
-
-                Log.i(logTag, "The start() API for ANDROID is not available in Cordova implementations. The SDK will start automatically on app launch");
-                callback.success(logTag + "start() is not available");
-                return true;
-            }
-        });
-
-        //startWithConfigurationFile
-        sActions.put("startWithConfigurationFile", new VerintMethod() {
-
-            @Override
-            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
-
-                Log.i(logTag, "The startWithConfigurationFile() API for ANDROID is not available in Cordova implementations. The SDK will start automatically on app launch");
-                callback.success(logTag + "start() is not available");
-                return true;
-
-            }
-        });
-
-        //startWithConfigurationJson
-        sActions.put("startWithConfigurationJson", new VerintMethod() {
-
-            @Override
-            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
-
-                Log.i(logTag, "The startWithConfigurationJson() API for ANDROID is not available in Cordova implementations. The SDK will start automatically on app launch");
-                callback.success(logTag + "start() is not available");
-                return true;
-            }
-        });
+        // No `start` functions integration, reason:
+        // SDK will start automatically on an application launch, see: `onStart`.
 
         // Reset
 
