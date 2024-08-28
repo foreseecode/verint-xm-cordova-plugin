@@ -47,7 +47,7 @@ public class VerintXM extends CordovaPlugin {
     private final static String logTag = "CordovaVerintXM";
 
     // CPPs
-    private final String version = "3.0.1";
+    private final String version = "3.1.0";
 
     private final String EXP_FCP_JSON_FILE_NAME = "exp_fcp";
     private final String APP_VERSION = "mobsdk";

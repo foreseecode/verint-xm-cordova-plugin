@@ -6,7 +6,7 @@ NSString* const platformNameKey = @"crossPlatformName";
 NSString* const platformPluginVersionKey = @"crossPlatformPluginVersion";
 NSString* const platformOSVersionKey = @"crossPlatformOSVersion";
 NSString* const platformVersionKey = @"crossPlatformVersion";
-NSString* const version = @"3.0.1";
+NSString* const version = @"3.1.0";
 
 // Class tag for logs
 NSString* const logTag = @"CordovaVerintXM";
