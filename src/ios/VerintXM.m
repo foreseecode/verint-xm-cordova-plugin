@@ -26,19 +26,34 @@ NSString* const logTag = @"CordovaVerintXM";
     
     [EXPCore setDelegate:self];
 
+    NSString *configurationContainer = [self getValueForKey:@"configurationContainer" fromJSONFileWithName:@"startup_configuration.json"];
+    NSString *datacenter = [self getValueForKey:@"datacenter" fromJSONFileWithName:@"startup_configuration.json"];
+
+    if (configurationContainer != nil) {
+        NSLog(@"%@::Configuration container will be set with value: %@", logTag, configurationContainer);
+        [EXPCore setConfigurationContainer:configurationContainer];
+    }
+    if (datacenter != nil) {
+        NSLog(@"%@::Datacenter name will be set with value: %@", logTag, datacenter);
+        [EXPCore setDatacenter:datacenter];
+    }
+
     NSString *siteKey = [self getValueForKey:@"siteKey" fromJSONFileWithName:@"startup_configuration.json"];
     NSString *appId = [self getValueForKey:@"appId" fromJSONFileWithName:@"exp_fcp.json"];
 
     if (siteKey != nil) {
         NSLog(@"%@::SDK will be started with Configurator, siteKey: %@", logTag, siteKey);
+        NSLog(@"%@::configurationContainer: %@, datacenter: %@", logTag, [EXPCore configurationContainer], [EXPCore datacenter]);
         [EXPCore startWithSiteKey:siteKey];
     } else if (appId != nil) {
         NSString *version = @"mobsdk"
         NSLog(@"%@::SDK will be started with FCP, appId: %@, version: %@", logTag, appId, version);
+        NSLog(@"%@::configurationContainer: %@, datacenter: %@", logTag, [EXPCore configurationContainer], [EXPCore datacenter]);
         [EXPCore startWithAppId:appId
                         version:version];
     } else {
         NSLog(@"%@::SDK will be started with default start function", logTag);
+        NSLog(@"%@::datacenter: %@", logTag, [EXPCore datacenter]);
         [EXPCore start];
     }
 

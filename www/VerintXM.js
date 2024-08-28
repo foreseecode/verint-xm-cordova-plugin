@@ -16,7 +16,8 @@ function validate(args) {
 module.exports = {
 
   /**
-   * No `start` functions integration:
+   * Next native functions are not 
+   * integrated into this interface:
    * 
    * - `start`
    * - `startWithConfigurationFile`
@@ -26,7 +27,21 @@ module.exports = {
    * - `startWithSiteKey`
    * 
    * Reason:
-   * SDK will start automatically on the application launch.
+   * SDK will be started automatically on the application launch.
+   * 
+   * - `setConfigurationContainer`
+   * - `setDatacenter`
+   * 
+   * Reason:
+   * This values will be set automatically before SDK start.
+   * @note Ensure "configurationContainer" and/or "datacenter" key-value pairs
+   * are added to `startup_configuration.json` (if non-default values are in use).
+   * 
+   * - `getConfigurationContainer`
+   * - `getDatacenter`
+   * 
+   * Reason:
+   * This values will be presented in logs before SDK start.
    * 
    */
 

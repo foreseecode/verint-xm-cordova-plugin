@@ -64,18 +64,33 @@ public class VerintXM extends CordovaPlugin {
         if (!Core.isCoreStarted()) {
 
             Core.setSDKListener(new CustomVerintSDKListener());
-                        
+            
+            String configurationContainer = getValueForKeyFromJSONFile("configurationContainer", "startup_configuration");
+            String datacenter = getValueForKeyFromJSONFile("datacenter", "startup_configuration");
+            
+            if (configurationContainer != null) {
+                Log.d(logTag, "Configuration container will be set with value: " + configurationContainer);
+                Core.setConfigurationContainer(configurationContainer);
+            }
+            if (datacenter != null) {
+                Log.d(logTag, "Datacenter name will be set with value: " + datacenter);
+                Core.setDatacenter(datacenter);
+            }
+            
             String siteKey = getValueForKeyFromJSONFile("siteKey", "startup_configuration");
             String appId = getValueForKeyFromJSONFile("appId", EXP_FCP_JSON_FILE_NAME);
 
             if (siteKey != null) {
                 Log.d(logTag, "SDK will be started with Configurator, siteKey: " + siteKey);
+                Log.d(logTag, "configurationContainer: " + Core.getConfigurationContainer() + ", datacenter: " + Core.getDatacenter());
                 Core.startWithSiteKey(cordova.getActivity().getApplication(), siteKey);
             } else if (appId != null) {
                 Log.d(logTag, "SDK will be started with FCP, appId: " + appId + ", version: " + APP_VERSION);
+                Log.d(logTag, "configurationContainer: " + Core.getConfigurationContainer() + ", datacenter: " + Core.getDatacenter());
                 Core.startWithAppId(cordova.getActivity().getApplication(), appId, APP_VERSION);
             } else {
                 Log.d(logTag, "SDK will be started with default start function");
+                Log.d(logTag, "datacenter: " + Core.getDatacenter());
                 Core.start(cordova.getActivity().getApplication());
             }
 
