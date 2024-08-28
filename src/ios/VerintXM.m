@@ -26,7 +26,7 @@ NSString* const logTag = @"CordovaVerintXM";
     
     [EXPCore setDelegate:self];
 
-    NSString *appId = [self getAppIdFromJSON];
+    NSString *appId = [self getValueForKey:@"appId" fromJSONFileWithName:@"exp_fcp.json"];
     if (appId != nil) {
         NSString *version = @"mobsdk"
         NSLog(@"%@::Starting SDK with the FCP, appId: %@, version: %@", logTag, appId, version);
@@ -40,20 +40,16 @@ NSString* const logTag = @"CordovaVerintXM";
     [self addCrossPlatformCPPs];
 }
 
-- (NSString *)getAppIdFromJSON {
-    NSString *file = [EXPFileUtilities pathForResource:@"exp_fcp.json"
-                                       inBundle:[NSBundle mainBundle]];
-
-    NSDictionary *fcpConfig = [self loadFromFile:file error:nil];
-
-    NSString *appId = fcpConfig[@"appId"];
-
-    if (!appId) {
-        NSLog(@"%@::exp_fcp.json file does not exist", logTag);
+- (NSString *)getValueForKey:(NSString *)key fromJSONFileWithName:(NSString *)fileName {
+    NSString *file = [EXPFileUtilities pathForResource:fileName
+                                              inBundle:[NSBundle mainBundle]];
+    NSDictionary *JSON = [self loadFromFile:file error:nil];
+    NSString *value = JSON[key];
+    if (!value) {
+        NSLog(@"%@::Value for key '%@' in file '%@' does not exist", logTag, key, fileName);
         return nil;
-    } 
-
-    return appId;                                    
+    }
+    return value;                                    
 }
 
 - (void)addCrossPlatformCPPs {

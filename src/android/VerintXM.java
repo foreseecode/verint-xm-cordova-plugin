@@ -65,7 +65,7 @@ public class VerintXM extends CordovaPlugin {
 
             Core.setSDKListener(new CustomVerintSDKListener());
 
-            String appId = getAppIdFromJSON();
+            String appId = getValueForKeyFromJSONFile("appId", EXP_FCP_JSON_FILE_NAME);
             if (appId != null) {
                 Log.d(logTag, "Starting SDK with the FCP, appId: " + appId + ", version: " + APP_VERSION);
                 Core.startWithAppId(cordova.getActivity().getApplication(), appId, APP_VERSION);
@@ -86,24 +86,21 @@ public class VerintXM extends CordovaPlugin {
         Log.d(logTag, "All CPPs (after adding cross platform CPPs): " + Core.getAllCPPs());
     }
 
-    public String getAppIdFromJSON() {
-        int identifier = cordova.getActivity().getResources().getIdentifier(EXP_FCP_JSON_FILE_NAME, "raw", cordova.getActivity().getPackageName());
+    public String getValueForKeyFromJSONFile(String key, String fileName) {
+        int identifier = cordova.getActivity().getResources().getIdentifier(fileName, "raw", cordova.getActivity().getPackageName());
         if (identifier == 0) {
-            Log.d(logTag, "exp_fcp.json file does not exist");
+            Log.d(logTag, "file '" + fileName + "' does not exist");
             return null;
         }
-
         String jsonString = getWriter();
-
-        Log.d(logTag, "From json file: "+jsonString);
-
+        Log.d(logTag, "JSON file contents: " + jsonString);
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
-            String appId = jsonObject.getString("appId");
-            Log.d(logTag, "appId: "+appId);
-            return appId;
+            String value = jsonObject.getString(key);
+            Log.d(logTag, "value: '" + value + "', for key: '" + key "'");
+            return value;
         } catch (JSONException e) {
-            Log.d(logTag, "JSONException: "+e);
+            Log.d(logTag, "Could not get value: '" + value + "', for key: '" + key "', JSONException: " + e);
         }
         return null;
     }
