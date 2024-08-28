@@ -120,7 +120,7 @@ public class VerintXM extends CordovaPlugin {
             Log.d(logTag, "value: " + value + ", for key: " + key);
             return value;
         } catch (JSONException e) {
-            Log.d(logTag, "Could not get value: " + value + ", for key: " + key ", JSONException: " + e);
+            Log.d(logTag, "Could not get value for key: " + key + ", JSONException: " + e);
         }
         return null;
     }

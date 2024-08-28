@@ -46,7 +46,7 @@ NSString* const logTag = @"CordovaVerintXM";
         NSLog(@"%@::configurationContainer: %@, datacenter: %@", logTag, [EXPCore configurationContainer], [EXPCore datacenter]);
         [EXPCore startWithSiteKey:siteKey];
     } else if (appId != nil) {
-        NSString *version = @"mobsdk"
+        NSString *version = @"mobsdk";
         NSLog(@"%@::SDK will be started with FCP, appId: %@, version: %@", logTag, appId, version);
         NSLog(@"%@::configurationContainer: %@, datacenter: %@", logTag, [EXPCore configurationContainer], [EXPCore datacenter]);
         [EXPCore startWithAppId:appId
