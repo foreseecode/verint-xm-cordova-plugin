@@ -29,11 +29,11 @@ NSString* const logTag = @"CordovaVerintXM";
     NSString *appId = [self getValueForKey:@"appId" fromJSONFileWithName:@"exp_fcp.json"];
     if (appId != nil) {
         NSString *version = @"mobsdk"
-        NSLog(@"%@::Starting SDK with the FCP, appId: %@, version: %@", logTag, appId, version);
+        NSLog(@"%@::SDK will be started with FCP, appId: %@, version: %@", logTag, appId, version);
         [EXPCore startWithAppId:appId
                         version:version];
     } else {
-        NSLog(@"%@::Starting SDK with the 'start' function", logTag);
+        NSLog(@"%@::SDK will be started with default start function", logTag);
         [EXPCore start];
     }
 
@@ -46,7 +46,7 @@ NSString* const logTag = @"CordovaVerintXM";
     NSDictionary *JSON = [self loadFromFile:file error:nil];
     NSString *value = JSON[key];
     if (!value) {
-        NSLog(@"%@::Value for key '%@' in file '%@' does not exist", logTag, key, fileName);
+        NSLog(@"%@::Value for key: %@, in file: %@ does not exist", logTag, key, fileName);
         return nil;
     }
     return value;                                    

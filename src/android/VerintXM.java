@@ -67,10 +67,10 @@ public class VerintXM extends CordovaPlugin {
 
             String appId = getValueForKeyFromJSONFile("appId", EXP_FCP_JSON_FILE_NAME);
             if (appId != null) {
-                Log.d(logTag, "Starting SDK with the FCP, appId: " + appId + ", version: " + APP_VERSION);
+                Log.d(logTag, "SDK will be started with FCP, appId: " + appId + ", version: " + APP_VERSION);
                 Core.startWithAppId(cordova.getActivity().getApplication(), appId, APP_VERSION);
             } else {
-                Log.d(logTag, "Starting SDK with the 'start' function");
+                Log.d(logTag, "SDK will be started with default start function");
                 Core.start(cordova.getActivity().getApplication());
             }
 
@@ -89,7 +89,7 @@ public class VerintXM extends CordovaPlugin {
     public String getValueForKeyFromJSONFile(String key, String fileName) {
         int identifier = cordova.getActivity().getResources().getIdentifier(fileName, "raw", cordova.getActivity().getPackageName());
         if (identifier == 0) {
-            Log.d(logTag, "file '" + fileName + "' does not exist");
+            Log.d(logTag, "file " + fileName + " does not exist");
             return null;
         }
         String jsonString = getWriter(fileName);
@@ -97,10 +97,10 @@ public class VerintXM extends CordovaPlugin {
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
             String value = jsonObject.getString(key);
-            Log.d(logTag, "value: '" + value + "', for key: '" + key "'");
+            Log.d(logTag, "value: " + value + ", for key: " + key);
             return value;
         } catch (JSONException e) {
-            Log.d(logTag, "Could not get value: '" + value + "', for key: '" + key "', JSONException: " + e);
+            Log.d(logTag, "Could not get value: " + value + ", for key: " + key ", JSONException: " + e);
         }
         return null;
     }
