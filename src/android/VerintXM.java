@@ -539,6 +539,29 @@ public class VerintXM extends CordovaPlugin {
             }
         });
 
+        //setEventLogEnabled
+        sActions.put("setEventLogEnabled", new VerintMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    if (args == null || args.length() < 1) {
+                        callback.error("No value for setEventLogEnabled");
+                        return true;
+                    }
+
+                    Core.setEventLogEnabled(args.getBoolean(0));
+                    callback.success();
+
+                } catch (Exception ex) {
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "setEventLogEnabled failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
         //getVersion
         sActions.put("getVersion", new VerintMethod() {
 

@@ -337,6 +337,29 @@ module.exports = {
 
   /**
    * @description
+   * Sets whether or not to enable remote event logging.
+   * Event logging captures and transmits significant events that occur during the SDK life cycle.
+   * By default, event logging is enabled 
+   * and it is highly recommended that this logging remain enabled in release builds.
+   *
+   * @example
+   * cordova.plugins.verint.xm.setEventLogEnabled("true", _onSuccess, _onFailure);
+   * cordova.plugins.verint.xm.setEventLogEnabled(true, _onSuccess, _onFailure);
+   *
+   * @param {String|boolean} enabled - value indicating should event log be enabled, "true" or "false", true or false.
+   * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+   * The callback takes one parameter, containing the message from a command.
+   * @param {callback} error - Optional callback that is invoked in the event of an error.
+   * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
+   */
+  setEventLogEnabled(enabled, success, error) {
+    let args = [enabled];
+    exec(success, error, VerintXM, "setEventLogEnabled", validate(args));
+  },
+
+  /**
+   * @description
    * Returns the version of the SDK.
    *
    * @example
