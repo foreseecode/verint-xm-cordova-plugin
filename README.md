@@ -2,10 +2,10 @@
 
 ## Requirements 
 
-* cordova-android: 10.1.2+
+* cordova-android: 11.0.0+
 * cordova-ios: 6.2.0+
-* Android: 21+
-* iOS: 11.0+
+* Android: 22+
+* iOS: 12.0+
 * Verint-XM SDK
     * iOS 7.4.0
     * Android 7.4.0
