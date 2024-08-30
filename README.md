@@ -70,6 +70,42 @@ Once you have your App ID, you can tell the SDK to start-up using that ID by pla
 }   
 ```
 
+The modern way to start the SDK is to use Verint-Hosted configuration using the Configurator,
+which can be accessed using your Site Key. If you don’t have a Site Key, please contact your Verint Account Manager to have a Site Key and configuration set up. 
+
+Once you have your Site Key, you can tell the SDK to start-up using that ID by placing it in the file named `startup_configuration.json` with the following structure:
+
+```
+{
+    "configurationContainer":"<CONFIGURATION_CONTAINER>",
+    "datacenter":"<DATACENTER_NAME>",
+    "siteKey":"<YOUR_SITE_KEY>"
+}
+```
+`configurationContainer` and `datacenter` are optional values, they should be added only if non-default values are in use.
+
+Please ensure the `startup_configuration.json` is added to the resource folder of the platform.
+You could do this manually by coping `startup_configuration.json` to the resource folder each time after adding the platform.
+But there is also automated way to do this, with use of the `config.xml` API.
+In this examlpe the origin `startup_configuration.json` file exists in the root of the project,
+if you store resources in another location, just make sure to provide the actual path in `src`:
+
+```
+<?xml ... ?>
+    ...
+    <platform name="android">
+        ...
+        <resource-file src="startup_configuration.json" target="app/src/main/res/raw/startup_configuration.json"/>
+        ...
+    </platform>
+    <platform name="ios">
+        ...
+        <resource-file src="startup_configuration.json" target="startup_configuration.json"/>
+        ...
+    </platform>
+</widget>
+```
+
 Alternatively, you can configure your app locally by placing your config in a file called `exp_configuration.json` file in your app's `www` folder. Here's a minimal example:
 
 ```
@@ -111,7 +147,10 @@ All available methods are documented in `VerintXM.js`. Each of these methods has
 
 ### Starting the SDK
 
-Usually the SDK does not need to be manually started; it will be started whenever the plugin is loaded. If your app includes an `exp_fcp.json` file with your App ID, then it will start automatically with your Verint-hosted config. Otherwise, if you have included a local config in an `exp_configuration.json` file, the SDK will start using that. (Note: other start methods are available in the plugin's JavaScript, but are not typically necessary.)
+The SDK does not need to be manually started, it will be started whenever the plugin is loaded:
+- If your app includes a `startup_configuration.json` file with your Site Key, then it will start automatically with your Verint-hosted config from Configurator.
+- If your app includes an `exp_fcp.json` file with your App ID, then it will start automatically with your Verint-hosted config from FCP.
+- Otherwise, if you have included a local config in an `exp_configuration.json` file, the SDK will start using that.
 
 ### Checking eligibility and showing an invite
 
@@ -380,6 +419,11 @@ cordova.plugins.verint.xm.resetState(_onSuccess, _onFailure);
 Enable additional native console logging:
 ```JavaScript
 cordova.plugins.verint.xm.setDebugLogEnabled(true, _onSuccess, _onFailure);
+```
+
+Enable remote event logging:
+```JavaScript
+cordova.plugins.verint.xm.setEventLogEnabled(true, _onSuccess, _onFailure);
 ```
 
 Skip server-side pooling checks (i.e. show an invite to anyone eligible):
