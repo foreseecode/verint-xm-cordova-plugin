@@ -9,6 +9,8 @@
         <engine name="cordova-android" version=">=11.0.0" />
         <engine name="cordova-ios" version=">=6.2.0" />
     </engines>
+
+    <dependency id="cordova-plugin-device" version="^3.0.0" />
  
     <js-module name="Verint-XM" src="www/VerintXM.js">
         <clobbers target="cordova.plugins.verint.xm" />
