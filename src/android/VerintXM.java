@@ -486,7 +486,6 @@ public class VerintXM extends CordovaPlugin {
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
                 try {
-                    //TODO: Update to cancelPendingNotifications when 7.0.3 artefacts are released
                     Predictive.cancelPendingInvites();
                     callback.success();
                 } catch (Exception ex) {

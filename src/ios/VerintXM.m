@@ -1,6 +1,7 @@
 /********* VerintXM.m Cordova Plugin Implementation *******/
 
 #import "VerintXM.h"
+#import "CDVDevice.h"
 
 NSString* const platformNameKey = @"crossPlatformName";
 NSString* const platformPluginVersionKey = @"crossPlatformPluginVersion";
@@ -423,8 +424,7 @@ NSString* const logTag = @"CordovaVerintXM";
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
 
-    //TODO: Update to cancelPendingNotifications when the 7.0.3 artefacts are released
-    [EXPPredictive cancelPendingInvites];
+    [EXPPredictive cancelPendingNotifications];
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
