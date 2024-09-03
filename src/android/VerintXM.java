@@ -106,7 +106,7 @@ public class VerintXM extends CordovaPlugin {
         Log.d(logTag, "All CPPs (after adding cross platform CPPs): " + Core.getAllCPPs());
     }
 
-    public String getValueForKeyFromJSONFile(String key, String fileName) {
+    private String getValueForKeyFromJSONFile(String key, String fileName) {
         int identifier = cordova.getActivity().getResources().getIdentifier(fileName, "raw", cordova.getActivity().getPackageName());
         if (identifier == 0) {
             Log.d(logTag, "file " + fileName + " does not exist");
