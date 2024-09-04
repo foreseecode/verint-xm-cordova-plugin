@@ -60,34 +60,20 @@ To set up the plugin in your app, follow these instructions
 
 In order to use the SDK in your project you'll need a valid SDK configuration. The SDK configuration includes the required credentials to use the SDK and specifies the criteria for showing an invitation. For the most part, configuration is the same for both platforms (i.e. you'll have just one configuration that can be used on both iOS and Android). Any differences are documented on the [Verint Developer Portal](https://connect.verint.com/developers/fscxs/w/mobilesdk/30833/experience-management-mobile-sdk).
 
-The easiest way to start the SDK is to use Verint-Hosted configuration, which can be accessed using your App ID. If you don’t have an App ID, please contact your Verint Account Manager to have an App ID and configuration set up. You will need to let them know the trigger conditions and invitation mode you would like to use.
+The recommended way to start the SDK is with a Verint-hosted configuration, which can be accessed using your site key. If you don’t have a site key, please contact your Verint Account Manager to have a sitekey and configuration set up. You will need to let them know the trigger conditions and invitation mode you would like to use.
 
-Once you have your App ID, you can tell the SDK to start-up using that ID by placing it in the root of your project in a file named `exp_fcp.json` with the following structure:
-
-```
-{
-    "appId": "<YOUR_APP_ID>"
-}   
-```
-
-The modern way to start the SDK is to use Verint-Hosted configuration using the Configurator,
-which can be accessed using your Site Key. If you don’t have a Site Key, please contact your Verint Account Manager to have a Site Key and configuration set up. 
-
-Once you have your Site Key, you can tell the SDK to start-up using that ID by placing it in the file named `startup_configuration.json` with the following structure:
+Once you have your site key, you can tell the SDK to start-up using that ID by placing it in the root of your project in a file named `startup_configuration.json` with the following structure:
 
 ```
 {
-    "configurationContainer":"<CONFIGURATION_CONTAINER>",
-    "datacenter":"<DATACENTER_NAME>",
     "siteKey":"<YOUR_SITE_KEY>"
 }
 ```
-`configurationContainer` and `datacenter` are optional values, they should be added only if non-default values are in use.
 
 Please ensure the `startup_configuration.json` is added to the resource folder of the platform.
 You could do this manually by coping `startup_configuration.json` to the resource folder each time after adding the platform.
-But there is also automated way to do this, with use of the `config.xml` API.
-In this examlpe the origin `startup_configuration.json` file exists in the root of the project,
+But there is an automated way to do this, with use of the `config.xml` API.
+In this example the origin `startup_configuration.json` file exists in the root of the project;
 if you store resources in another location, just make sure to provide the actual path in `src`:
 
 ```
@@ -105,6 +91,36 @@ if you store resources in another location, just make sure to provide the actual
     </platform>
 </widget>
 ```
+
+### Alternate containers and datacenters
+
+By default the SDK loads your config from the production container in a US datacenter. For testing, you may sometimes want to set an alternate configuration container. 
+In some special circumstance you may also want to specify a datacenter. 
+
+A complete config with those values looks like this:
+
+```
+{
+    "siteKey":"<YOUR_SITE_KEY>",
+    "configurationContainer":"<CONFIGURATION_CONTAINER>",
+    "datacenter":"<DATACENTER_NAME>"
+}
+```
+
+Both `configurationContainer` and `datacenter` are optional values; they should be added only if non-default values are in use.
+
+### Legacy configuration
+
+Previous versions of the SDK loaded configurations from a legacy tool called FCP, which could be configured in a file called `exp_fcp.json` in the following format:
+
+```
+{
+    "appId": "<YOUR_APP_ID>"
+}   
+```
+All new implementations should use the "site key" startup method described above. If you're unsure which applies to you, please check with your account manager.
+
+### Local configuration
 
 Alternatively, you can configure your app locally by placing your config in a file called `exp_configuration.json` file in your app's `www` folder. Here's a minimal example:
 
