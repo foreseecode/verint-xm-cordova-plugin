@@ -16,68 +16,34 @@ function validate(args) {
 module.exports = {
 
   /**
-   * @description
-   * Starts the Verint SDK. Accepts an optional config object (which must
-   * represent a valid Verint config, including a clientId). If no config
-   * is provided, then the native module will look for the config in a file called
-   * exp_configuration.json (which must be available to the native modules).
-   *
-   * @example
-   * cordova.plugins.verint.xm.start(config, _onSucess, _onFailure);
-   *
-   * @param {JSON} config - JSON with a valid config object.
-   * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
-   * The callback takes one parameter, containing the message from a command.
-   * @param {callback} error - Optional callback that is invoked in the event of an error.
-   * The callback takes one error parameter, containing the details of the error.
-   * @memberof VerintXM
+   * Next native functions are not 
+   * integrated into this interface:
+   * 
+   * - `start`
+   * - `startWithConfigurationFile`
+   * - `startWithConfigurationJson`
+   * - `startWithConfigurationUrl`
+   * - `startWithAppId`
+   * - `startWithSiteKey`
+   * 
+   * Reason:
+   * SDK will be started automatically on the application launch.
+   * 
+   * - `setConfigurationContainer`
+   * - `setDatacenter`
+   * 
+   * Reason:
+   * This values will be set automatically before SDK start.
+   * @note Ensure "configurationContainer" and/or "datacenter" key-value pairs
+   * are added to `startup_configuration.json` (if non-default values are in use).
+   * 
+   * - `getConfigurationContainer`
+   * - `getDatacenter`
+   * 
+   * Reason:
+   * This values will be presented in logs before SDK start.
+   * 
    */
-  start(config, success, error) {
-    if (config) {
-      let args = [JSON.stringify(config)];
-      exec(success, error, VerintXM, "startWithConfigurationJson", validate(args));
-    } else {
-      exec(success, error, VerintXM, "start", []);
-    }
-  },
-
-  /**
-   * @description
-   * Starts the Verint SDK with the given configuration file in your native module.
-   *
-   * @example
-   * cordova.plugins.verint.xm.startWithConfigurationFile("my_config.json", _onSuccess, _onFailure);
-   *
-   * @param {String} fileName - The name of the configuration file to use when loading modules.
-   * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command
-   * The callback takes one parameter, containing the message from a command.
-   * @param {callback} error - Optional callback that is invoked in the event of an error.
-   * The callback takes one error parameter, containing the details of the error.
-   * @memberof VerintXM
-   */
-  startWithConfigurationFile(fileName, success, error) {
-    let args = [fileName];
-    exec(success, error, VerintXM, "startWithConfigurationFile", validate(args));
-  },
-
-  /**
-   * @description
-   * Starts the Verint SDK with the given configuration JSON string.
-   *
-   * @example
-   * cordova.plugins.verint.xm.startWithConfigurationJson(jsonString, _onSuccess, _onFailure);
-   *
-   * @param {String} jsonString - The configuration string in JSON format to use when loading modules.
-   * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
-   * The callback takes one parameter, containing the message from a command.
-   * @param {callback} error - Optional callback that is invoked in the event of an error.
-   * The callback takes one error parameter, containing the details of the error.
-   * @memberof VerintXM
-   */
-  startWithConfigurationJson(jsonString, success, error) {
-    let args = [jsonString];
-    exec(success, error, VerintXM, "startWithConfigurationJson", validate(args));
-  },
 
   /**
    * @description
@@ -367,6 +333,29 @@ module.exports = {
    */
   isDebugLogEnabled(success, error) {
     exec(success, error, VerintXM, "isDebugLogEnabled", []);
+  },
+
+  /**
+   * @description
+   * Sets whether or not to enable remote event logging.
+   * Event logging captures and transmits significant events that occur during the SDK life cycle.
+   * By default, event logging is enabled 
+   * and it is highly recommended that this logging remain enabled in release builds.
+   *
+   * @example
+   * cordova.plugins.verint.xm.setEventLogEnabled("true", _onSuccess, _onFailure);
+   * cordova.plugins.verint.xm.setEventLogEnabled(true, _onSuccess, _onFailure);
+   *
+   * @param {String|boolean} enabled - value indicating should event log be enabled, "true" or "false", true or false.
+   * @param {callback} success - Callback that is invoked upon receiving the data about the invoked command.
+   * The callback takes one parameter, containing the message from a command.
+   * @param {callback} error - Optional callback that is invoked in the event of an error.
+   * The callback takes one error parameter, containing the details of the error.
+   * @memberof VerintXM
+   */
+  setEventLogEnabled(enabled, success, error) {
+    let args = [enabled];
+    exec(success, error, VerintXM, "setEventLogEnabled", validate(args));
   },
 
   /**

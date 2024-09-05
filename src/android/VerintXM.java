@@ -47,7 +47,7 @@ public class VerintXM extends CordovaPlugin {
     private final static String logTag = "CordovaVerintXM";
 
     // CPPs
-    private final String version = "3.0.1";
+    private final String version = "3.1.0";
 
     private final String EXP_FCP_JSON_FILE_NAME = "exp_fcp";
     private final String APP_VERSION = "mobsdk";
@@ -64,15 +64,33 @@ public class VerintXM extends CordovaPlugin {
         if (!Core.isCoreStarted()) {
 
             Core.setSDKListener(new CustomVerintSDKListener());
+            
+            String configurationContainer = getValueForKeyFromJSONFile("configurationContainer", "startup_configuration");
+            String datacenter = getValueForKeyFromJSONFile("datacenter", "startup_configuration");
+            
+            if (configurationContainer != null) {
+                Log.d(logTag, "Configuration container will be set with value: " + configurationContainer);
+                Core.setConfigurationContainer(configurationContainer);
+            }
+            if (datacenter != null) {
+                Log.d(logTag, "Datacenter name will be set with value: " + datacenter);
+                Core.setDatacenter(datacenter);
+            }
+            
+            String siteKey = getValueForKeyFromJSONFile("siteKey", "startup_configuration");
+            String appId = getValueForKeyFromJSONFile("appId", EXP_FCP_JSON_FILE_NAME);
 
-            String appId = getAppIdFromJSON();
-            Log.d(logTag, "init the Verint SDK");
-
-            if (appId != null) {
-                Log.d(logTag, "FCP startup with appId: "+appId);
+            if (siteKey != null) {
+                Log.d(logTag, "SDK will be started with Configurator, siteKey: " + siteKey);
+                Log.d(logTag, "configurationContainer: " + Core.getConfigurationContainer() + ", datacenter: " + Core.getDatacenter());
+                Core.startWithSiteKey(cordova.getActivity().getApplication(), siteKey);
+            } else if (appId != null) {
+                Log.d(logTag, "SDK will be started with FCP, appId: " + appId + ", version: " + APP_VERSION);
+                Log.d(logTag, "configurationContainer: " + Core.getConfigurationContainer() + ", datacenter: " + Core.getDatacenter());
                 Core.startWithAppId(cordova.getActivity().getApplication(), appId, APP_VERSION);
             } else {
-                Log.d(logTag, "Regular startup");
+                Log.d(logTag, "SDK will be started with default start function");
+                Log.d(logTag, "datacenter: " + Core.getDatacenter());
                 Core.start(cordova.getActivity().getApplication());
             }
 
@@ -88,30 +106,27 @@ public class VerintXM extends CordovaPlugin {
         Log.d(logTag, "All CPPs (after adding cross platform CPPs): " + Core.getAllCPPs());
     }
 
-    public String getAppIdFromJSON() {
-        int identifier = cordova.getActivity().getResources().getIdentifier(EXP_FCP_JSON_FILE_NAME, "raw", cordova.getActivity().getPackageName());
+    private String getValueForKeyFromJSONFile(String key, String fileName) {
+        int identifier = cordova.getActivity().getResources().getIdentifier(fileName, "raw", cordova.getActivity().getPackageName());
         if (identifier == 0) {
-            Log.d(logTag, "exp_fcp.json file does not exist");
+            Log.d(logTag, "file " + fileName + " does not exist");
             return null;
         }
-
-        String jsonString = getWriter();
-
-        Log.d(logTag, "From json file: "+jsonString);
-
+        String jsonString = getWriter(fileName);
+        Log.d(logTag, "JSON file contents: " + jsonString);
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
-            String appId = jsonObject.getString("appId");
-            Log.d(logTag, "appId: "+appId);
-            return appId;
+            String value = jsonObject.getString(key);
+            Log.d(logTag, "value: " + value + ", for key: " + key);
+            return value;
         } catch (JSONException e) {
-            Log.d(logTag, "JSONException: "+e);
+            Log.d(logTag, "Could not get value for key: " + key + ", JSONException: " + e);
         }
         return null;
     }
 
-    private String getWriter() {
-        InputStream inputStream = cordova.getActivity().getResources().openRawResource(cordova.getActivity().getResources().getIdentifier(EXP_FCP_JSON_FILE_NAME, "raw", cordova.getActivity().getPackageName()));
+    private String getWriter(String fileName) {
+        InputStream inputStream = cordova.getActivity().getResources().openRawResource(cordova.getActivity().getResources().getIdentifier(fileName, "raw", cordova.getActivity().getPackageName()));
         Writer writer = new StringWriter();
         char[] buffer = new char[1024];
         try {
@@ -121,12 +136,12 @@ public class VerintXM extends CordovaPlugin {
                 writer.write(buffer, 0, number);
             }
         } catch(IOException e) {
-            Log.d(logTag, "IOException: "+e);
+            Log.d(logTag, "IOException: " + e);
         } finally {
             try {
                 inputStream.close();
             } catch (Exception e) {
-                Log.e(logTag, "Exception: "+e);
+                Log.e(logTag, "Exception: " + e);
             }
         }
         return writer.toString();
@@ -139,42 +154,8 @@ public class VerintXM extends CordovaPlugin {
 
         // Start
 
-        //start
-        sActions.put("start", new VerintMethod() {
-
-            @Override
-            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
-
-                Log.i(logTag, "The start() API for ANDROID is not available in Cordova implementations. The SDK will start automatically on app launch");
-                callback.success(logTag + "start() is not available");
-                return true;
-            }
-        });
-
-        //startWithConfigurationFile
-        sActions.put("startWithConfigurationFile", new VerintMethod() {
-
-            @Override
-            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
-
-                Log.i(logTag, "The startWithConfigurationFile() API for ANDROID is not available in Cordova implementations. The SDK will start automatically on app launch");
-                callback.success(logTag + "start() is not available");
-                return true;
-
-            }
-        });
-
-        //startWithConfigurationJson
-        sActions.put("startWithConfigurationJson", new VerintMethod() {
-
-            @Override
-            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
-
-                Log.i(logTag, "The startWithConfigurationJson() API for ANDROID is not available in Cordova implementations. The SDK will start automatically on app launch");
-                callback.success(logTag + "start() is not available");
-                return true;
-            }
-        });
+        // No `start` functions integration, reason:
+        // SDK will start automatically on an application launch, see: `onStart`.
 
         // Reset
 
@@ -505,7 +486,6 @@ public class VerintXM extends CordovaPlugin {
             public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
 
                 try {
-                    //TODO: Update to cancelPendingNotifications when 7.0.3 artefacts are released
                     Predictive.cancelPendingInvites();
                     callback.success();
                 } catch (Exception ex) {
@@ -552,6 +532,29 @@ public class VerintXM extends CordovaPlugin {
                 } catch (Exception ex) {
                     Log.e(logTag, ex.getMessage());
                     callback.error(logTag + "isDebugLogEnabled failure");
+                } finally {
+                    return true;
+                }
+            }
+        });
+
+        //setEventLogEnabled
+        sActions.put("setEventLogEnabled", new VerintMethod() {
+
+            @Override
+            public boolean invoke(JSONArray args, CallbackContext callback, CordovaInterface cordova) {
+                try {
+                    if (args == null || args.length() < 1) {
+                        callback.error("No value for setEventLogEnabled");
+                        return true;
+                    }
+
+                    Core.setEventLogEnabled(args.getBoolean(0));
+                    callback.success();
+
+                } catch (Exception ex) {
+                    Log.e(logTag, ex.getMessage());
+                    callback.error(logTag + "setEventLogEnabled failure");
                 } finally {
                     return true;
                 }
