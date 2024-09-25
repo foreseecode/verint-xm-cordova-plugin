@@ -79,9 +79,6 @@
                 <param name="onload" value="true" />
             </feature>
         </config-file>
-        <resource-file src="src/exp_configuration.json"/>
-        <resource-file src="src/exp_logo.png"/>
-        <resource-file src="src/exp_fcp.json"/>
         <header-file src="src/ios/VerintXM.h" />
         <source-file src="src/ios/VerintXM.m" />
         <podspec>
@@ -95,7 +92,5 @@
             </pods>
         </podspec>
     </platform>
-
-    <hook src="scripts/exp_config.js" type="after_prepare" />
 
 </plugin>
