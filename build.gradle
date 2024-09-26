@@ -8,6 +8,7 @@ allprojects {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/foreseecode/public-packages")
             credentials {
+                // Please refer to the README for detailed instructions on generating your personal key.
                 username = System.getenv("GITHUB_USERNAME")
                 password = System.getenv("GITHUB_PERSONAL_KEY")
             }
