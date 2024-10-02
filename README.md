@@ -21,9 +21,29 @@ To set up the plugin in your app, follow these instructions
 
 1. Set up the required environment variables
 
-    To install the plugin for Android, you'll need to authenticate with GitHub Packages to download our library. To do so, you'll need a personal key which can be generated from your GitHub account by following the instructions [here](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token). The token will need the `read:packages` permission.
+   You will need to authenticate with GitHub Packages to download our native Android library. 
+   To do so, you'll need a personal key which can be generated from your GitHub account by following the [instructions](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token). 
+   The token will need the `read:packages` permission.
+   
+   Once you have that key, you should set two environment variables on your machine: `GITHUB_USERNAME` for your username, and `GITHUB_PERSONAL_KEY` for your personal key. 
+   Those environment variables will be picked up by the following lines in the plugin's `/build.gradle` file:
 
-    Once you have that key, you should set two environment variables on your machine: `GITHUB_USERNAME` for your username, and `GITHUB_PERSONAL_KEY` for your personal key
+    ```
+    allprojects {
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/foreseecode/public-packages")
+                credentials {
+                    username = System.getenv("GITHUB_USERNAME")
+                    password = System.getenv("GITHUB_PERSONAL_KEY")
+                }
+            }
+        }
+    }
+    ```
+
+    See [Getting Started guide](https://connect.verint.com/developers/xmsdk/w/mobilesdk/39036/get-started-with-the-verint-xm-cordova-plugin) for more information.
 
 2. Add the Verint XM Cordova Plugin to your project from NPM:
 
