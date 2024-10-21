@@ -14,7 +14,6 @@
 
 Full API Docs can be found [here](https://foreseecode.github.io/public-packages/mobile/cordova/VerintXM.html)
 
-----
 ## Setting up the plugin
 
 To set up the plugin in your app, follow these instructions
@@ -171,7 +170,8 @@ Alternatively, you can configure your app locally by placing your config in a fi
 }
 ```
 
-For more information please check [Configuration Options](https://connect.verint.com/developers/fscxs/w/mobilesdk/24143/configuration-options)
+> **Note**  
+> For more information please check [Configuration Options](https://connect.verint.com/developers/fscxs/w/mobilesdk/24143/configuration-options)
 
 ## Usage
 
@@ -475,7 +475,7 @@ The JSDoc tool is used to generate API documentaion.
 Make sure to update documentation after any API changes.
 See: https://github.com/jsdoc/jsdoc
 
+## License
 
-## License 
 Apache License, Version 2.0 
 https://www.apache.org/licenses/LICENSE-2.0
