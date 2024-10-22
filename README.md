@@ -24,7 +24,7 @@ To set up the plugin in your app, follow these instructions
    To do so, you'll need a personal key which can be generated from your GitHub account by following the [instructions](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token). 
    The token will need the `read:packages` permission.
    
-   Once you have that key, you should set two environment variables on your machine: `GITHUB_USERNAME` for your username, and `GITHUB_PERSONAL_KEY` for your personal key. 
+   Once you obtain the key, you should set two environment variables on your machine: `GITHUB_USERNAME` for your username, and `GITHUB_PERSONAL_KEY` for your personal key. 
    Those environment variables will be picked up by the following lines in the plugin's `/build.gradle` file:
 
     ```
@@ -111,7 +111,7 @@ if you store resources in another location, just make sure to provide the actual
 </widget>
 ```
 
-### Alternate containers and datacenters
+### Alternate container and datacenter
 
 By default the SDK loads your config from the production container in a US datacenter. For testing, you may sometimes want to set an alternate configuration container. 
 In some special circumstance you may also want to specify a datacenter. 
@@ -377,39 +377,39 @@ As of this moment, there is not a known workaround, and we suggest using the `CO
 
 ### Handling lifecycle events
 
-The SDK sends a number of lifecycle events during normal operation.
+The SDK sends a number of lifecycle events during typical operation.
 
 #### Predictive and Survey Management Events
 
 ```JavaScript
-"onInvitePresented",
-"onSurveyPresented",
-"onSurveyCompleted",
-"onSurveyCancelledByUser",
-"onSurveyCancelledWithNetworkError",
-"onInviteCompleteWithAccept",
-"onInviteCompleteWithDecline",
-"onInviteNotShownWithEligibilityFailed",
-"onInviteNotShownWithSamplingFailed",
+"onInvitePresented"
+"onSurveyPresented"
+"onSurveyCompleted"
+"onSurveyCancelledByUser"
+"onSurveyCancelledWithNetworkError"
+"onInviteCompleteWithAccept"
+"onInviteCompleteWithDecline"
+"onInviteNotShownWithEligibilityFailed"
+"onInviteNotShownWithSamplingFailed"
 ```
 
 #### Digital Events
 
 ```JavaScript
-"onDigitalSurveyPresented",
-"onDigitalSurveyNotPresentedWithNetworkError",
-"onDigitalSurveyNotPresentedWithDisabled",
-"onDigitalSurveySubmitted",
-"onDigitalSurveyNotSubmittedWithNetworkError",
-"onDigitalSurveyNotSubmittedWithAbort",
-"onDigitalSurveyStatusRetrieved",
+"onDigitalSurveyPresented"
+"onDigitalSurveyNotPresentedWithNetworkError"
+"onDigitalSurveyNotPresentedWithDisabled"
+"onDigitalSurveySubmitted"
+"onDigitalSurveyNotSubmittedWithNetworkError"
+"onDigitalSurveyNotSubmittedWithAbort"
+"onDigitalSurveyStatusRetrieved"
 ```
 
-#### Add or Remove Predictive or Survey Management Events
+#### Add or Remove Predictive/Survey Management Events
 
 Use `setInviteListener(success, error)` and `removeInviteListener(success, error)` to add/remove listeners for Predictive or Survey Management events.
 
-Add listeners for Predictive or Survey Management events:
+Add listeners for Predictive/Survey Management events:
 ```
 cordova.plugins.verint.xm.setInviteListener(function success(data) {
     console.log("Invite listener event:" + data.event + ", SID: " + data.surveyId);
@@ -417,7 +417,7 @@ cordova.plugins.verint.xm.setInviteListener(function success(data) {
     console.log("Fail: " + data);
 });
 ```
-Remove listeners for Predictive or Survey Management events:
+Remove listeners for Predictive/Survey Management events:
 
 ```
 cordova.plugins.verint.xm.removeInviteListener(this.onSuccess, this.onFailure);
