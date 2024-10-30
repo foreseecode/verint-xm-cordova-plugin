@@ -34,6 +34,7 @@ NSString* const logTag = @"CordovaVerintXM";
         NSLog(@"%@::Configuration container will be set with value: %@", logTag, configurationContainer);
         [EXPCore setConfigurationContainer:configurationContainer];
     }
+    // TODO: datacenter should always be null pending a fix in VOC-56124
     if (datacenter != nil) {
         NSLog(@"%@::Datacenter name will be set with value: %@", logTag, datacenter);
         [EXPCore setDatacenter:datacenter];
