@@ -72,6 +72,7 @@ public class VerintXM extends CordovaPlugin {
                 Log.d(logTag, "Configuration container will be set with value: " + configurationContainer);
                 Core.setConfigurationContainer(configurationContainer);
             }
+            // TODO: datacenter should always be null pending a fix in VOC-56124
             if (datacenter != null) {
                 Log.d(logTag, "Datacenter name will be set with value: " + datacenter);
                 Core.setDatacenter(datacenter);

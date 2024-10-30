@@ -111,22 +111,20 @@ if you store resources in another location, just make sure to provide the actual
 </widget>
 ```
 
-### Alternate container and datacenter
+### Alternate container
 
-By default the SDK loads your config from the production container in a US datacenter. For testing, you may sometimes want to set an alternate configuration container. 
-In some special circumstance you may also want to specify a datacenter. 
+By default the SDK loads your config from the production container. For testing, you may sometimes want to set an alternate configuration container. 
 
 A complete config with those values looks like this:
 
 ```
 {
     "siteKey":"<YOUR_SITE_KEY>",
-    "configurationContainer":"<CONFIGURATION_CONTAINER>",
-    "datacenter":"<DATACENTER_NAME>"
+    "configurationContainer":"<CONFIGURATION_CONTAINER>"
 }
 ```
 
-Both `configurationContainer` and `datacenter` are optional values; they should be added only if non-default values are in use.
+`configurationContainer` is an optional value; it should be added only if a non-default value is in use.
 
 ### Legacy configuration
 

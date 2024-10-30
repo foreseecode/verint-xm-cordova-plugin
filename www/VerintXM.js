@@ -30,15 +30,13 @@ module.exports = {
    * SDK will be started automatically on the application launch.
    * 
    * - `setConfigurationContainer`
-   * - `setDatacenter`
    * 
    * Reason:
    * This values will be set automatically before SDK start.
-   * @note Ensure "configurationContainer" and/or "datacenter" key-value pairs
+   * @note Ensure "configurationContainer" key-value pair
    * are added to `startup_configuration.json` (if non-default values are in use).
    * 
    * - `getConfigurationContainer`
-   * - `getDatacenter`
    * 
    * Reason:
    * This values will be presented in logs before SDK start.
