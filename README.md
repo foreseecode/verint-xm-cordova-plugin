@@ -2,28 +2,47 @@
 
 ## Requirements 
 
-* cordova-android: 10.1.2+
+* cordova-android: 11.0.0+
 * cordova-ios: 6.2.0+
-* Android: 21+
-* iOS: 11.0+
+* Android: 22+
+* iOS: 12.0+
 * Verint-XM SDK
-    * iOS 7.1.1
-    * Android 7.1.2
+    * iOS 7.4.0
+    * Android 7.4.0
 
 ## API Docs
 
 Full API Docs can be found [here](https://foreseecode.github.io/public-packages/mobile/cordova/VerintXM.html)
 
-----
 ## Setting up the plugin
 
 To set up the plugin in your app, follow these instructions
 
 1. Set up the required environment variables
 
-    To install the plugin for Android, you'll need to authenticate with GitHub Packages to download our library. To do so, you'll need a personal key which can be generated from your GitHub account by following the instructions [here](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token). The token will need the `read:packages` permission.
+   You will need to authenticate with GitHub Packages to download our native Android library. 
+   To do so, you'll need a personal key which can be generated from your GitHub account by following the [instructions](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token). 
+   The token will need the `read:packages` permission.
+   
+   Once you obtain the key, you should set two environment variables on your machine: `GITHUB_USERNAME` for your username, and `GITHUB_PERSONAL_KEY` for your personal key. 
+   Those environment variables will be picked up by the following lines in the plugin's `/build.gradle` file:
 
-    Once you have that key, you should set two environment variables on your machine: `GITHUB_USERNAME` for your username, and `GITHUB_PERSONAL_KEY` for your personal key
+    ```
+    allprojects {
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/foreseecode/public-packages")
+                credentials {
+                    username = System.getenv("GITHUB_USERNAME")
+                    password = System.getenv("GITHUB_PERSONAL_KEY")
+                }
+            }
+        }
+    }
+    ```
+
+    See [Getting Started guide](https://connect.verint.com/developers/xmsdk/w/mobilesdk/39036/get-started-with-the-verint-xm-cordova-plugin) for more information.
 
 2. Add the Verint XM Cordova Plugin to your project from NPM:
 
@@ -60,15 +79,65 @@ To set up the plugin in your app, follow these instructions
 
 In order to use the SDK in your project you'll need a valid SDK configuration. The SDK configuration includes the required credentials to use the SDK and specifies the criteria for showing an invitation. For the most part, configuration is the same for both platforms (i.e. you'll have just one configuration that can be used on both iOS and Android). Any differences are documented on the [Verint Developer Portal](https://connect.verint.com/developers/fscxs/w/mobilesdk/30833/experience-management-mobile-sdk).
 
-The easiest way to start the SDK is to use Verint-Hosted configuration, which can be accessed using your App ID. If you don’t have an App ID, please contact your Verint Account Manager to have an App ID and configuration set up. You will need to let them know the trigger conditions and invitation mode you would like to use.
+The recommended way to start the SDK is with a Verint-hosted configuration, which can be accessed using your site key. If you don’t have a site key, please contact your Verint Account Manager to have a sitekey and configuration set up. You will need to let them know the trigger conditions and invitation mode you would like to use.
 
-Once you have your App ID, you can tell the SDK to start-up using that ID by placing it in the root of your project in a file named `exp_fcp.json` with the following structure:
+Once you have your site key, you can tell the SDK to start-up using that ID by placing it in the root of your project in a file named `startup_configuration.json` with the following structure:
+
+```
+{
+    "siteKey":"<YOUR_SITE_KEY>"
+}
+```
+
+Please ensure the `startup_configuration.json` is added to the resource folder of the platform.
+You could do this manually by coping `startup_configuration.json` to the resource folder each time after adding the platform.
+But there is an automated way to do this, with use of the `config.xml` API.
+In this example the origin `startup_configuration.json` file exists in the root of the project;
+if you store resources in another location, just make sure to provide the actual path in `src`:
+
+```
+<?xml ... ?>
+    ...
+    <platform name="android">
+        ...
+        <resource-file src="startup_configuration.json" target="app/src/main/res/raw/startup_configuration.json"/>
+        ...
+    </platform>
+    <platform name="ios">
+        ...
+        <resource-file src="startup_configuration.json" target="startup_configuration.json"/>
+        ...
+    </platform>
+</widget>
+```
+
+### Alternate container
+
+By default the SDK loads your config from the production container. For testing, you may sometimes want to set an alternate configuration container. 
+
+A complete config with those values looks like this:
+
+```
+{
+    "siteKey":"<YOUR_SITE_KEY>",
+    "configurationContainer":"<CONFIGURATION_CONTAINER>"
+}
+```
+
+`configurationContainer` is an optional value; it should be added only if a non-default value is in use.
+
+### Legacy configuration
+
+Previous versions of the SDK loaded configurations from a legacy tool called FCP, which could be configured in a file called `exp_fcp.json` in the following format:
 
 ```
 {
     "appId": "<YOUR_APP_ID>"
 }   
 ```
+All new implementations should use the "site key" startup method described above. If you're unsure which applies to you, please check with your account manager.
+
+### Local configuration
 
 Alternatively, you can configure your app locally by placing your config in a file called `exp_configuration.json` file in your app's `www` folder. Here's a minimal example:
 
@@ -99,7 +168,8 @@ Alternatively, you can configure your app locally by placing your config in a fi
 }
 ```
 
-For more information please check [Configuration Options](https://connect.verint.com/developers/fscxs/w/mobilesdk/24143/configuration-options)
+> **Note**  
+> For more information please check [Configuration Options](https://connect.verint.com/developers/fscxs/w/mobilesdk/24143/configuration-options)
 
 ## Usage
 
@@ -111,7 +181,10 @@ All available methods are documented in `VerintXM.js`. Each of these methods has
 
 ### Starting the SDK
 
-Usually the SDK does not need to be manually started; it will be started whenever the plugin is loaded. If your app includes an `exp_fcp.json` file with your App ID, then it will start automatically with your Verint-hosted config. Otherwise, if you have included a local config in an `exp_configuration.json` file, the SDK will start using that. (Note: other start methods are available in the plugin's JavaScript, but are not typically necessary.)
+The SDK does not need to be manually started, it will be started whenever the plugin is loaded:
+- If your app includes a `startup_configuration.json` file with your Site Key, then it will start automatically with your Verint-hosted config from Configurator.
+- If your app includes an `exp_fcp.json` file with your App ID, then it will start automatically with your Verint-hosted config from FCP.
+- Otherwise, if you have included a local config in an `exp_configuration.json` file, the SDK will start using that.
 
 ### Checking eligibility and showing an invite
 
@@ -302,39 +375,39 @@ As of this moment, there is not a known workaround, and we suggest using the `CO
 
 ### Handling lifecycle events
 
-The SDK sends a number of lifecycle events during normal operation.
+The SDK sends a number of lifecycle events during typical operation.
 
 #### Predictive and Survey Management Events
 
 ```JavaScript
-"onInvitePresented",
-"onSurveyPresented",
-"onSurveyCompleted",
-"onSurveyCancelledByUser",
-"onSurveyCancelledWithNetworkError",
-"onInviteCompleteWithAccept",
-"onInviteCompleteWithDecline",
-"onInviteNotShownWithEligibilityFailed",
-"onInviteNotShownWithSamplingFailed",
+"onInvitePresented"
+"onSurveyPresented"
+"onSurveyCompleted"
+"onSurveyCancelledByUser"
+"onSurveyCancelledWithNetworkError"
+"onInviteCompleteWithAccept"
+"onInviteCompleteWithDecline"
+"onInviteNotShownWithEligibilityFailed"
+"onInviteNotShownWithSamplingFailed"
 ```
 
 #### Digital Events
 
 ```JavaScript
-"onDigitalSurveyPresented",
-"onDigitalSurveyNotPresentedWithNetworkError",
-"onDigitalSurveyNotPresentedWithDisabled",
-"onDigitalSurveySubmitted",
-"onDigitalSurveyNotSubmittedWithNetworkError",
-"onDigitalSurveyNotSubmittedWithAbort",
-"onDigitalSurveyStatusRetrieved",
+"onDigitalSurveyPresented"
+"onDigitalSurveyNotPresentedWithNetworkError"
+"onDigitalSurveyNotPresentedWithDisabled"
+"onDigitalSurveySubmitted"
+"onDigitalSurveyNotSubmittedWithNetworkError"
+"onDigitalSurveyNotSubmittedWithAbort"
+"onDigitalSurveyStatusRetrieved"
 ```
 
-#### Add or Remove Predictive or Survey Management Events
+#### Add or Remove Predictive/Survey Management Events
 
 Use `setInviteListener(success, error)` and `removeInviteListener(success, error)` to add/remove listeners for Predictive or Survey Management events.
 
-Add listeners for Predictive or Survey Management events:
+Add listeners for Predictive/Survey Management events:
 ```
 cordova.plugins.verint.xm.setInviteListener(function success(data) {
     console.log("Invite listener event:" + data.event + ", SID: " + data.surveyId);
@@ -342,7 +415,7 @@ cordova.plugins.verint.xm.setInviteListener(function success(data) {
     console.log("Fail: " + data);
 });
 ```
-Remove listeners for Predictive or Survey Management events:
+Remove listeners for Predictive/Survey Management events:
 
 ```
 cordova.plugins.verint.xm.removeInviteListener(this.onSuccess, this.onFailure);
@@ -382,6 +455,11 @@ Enable additional native console logging:
 cordova.plugins.verint.xm.setDebugLogEnabled(true, _onSuccess, _onFailure);
 ```
 
+Enable remote event logging:
+```JavaScript
+cordova.plugins.verint.xm.setEventLogEnabled(true, _onSuccess, _onFailure);
+```
+
 Skip server-side pooling checks (i.e. show an invite to anyone eligible):
 ```JavaScript
 cordova.plugins.verint.xm.setSkipPoolingCheck(true, _onSuccess, _onFailure);
@@ -395,7 +473,7 @@ The JSDoc tool is used to generate API documentaion.
 Make sure to update documentation after any API changes.
 See: https://github.com/jsdoc/jsdoc
 
+## License
 
-## License 
 Apache License, Version 2.0 
 https://www.apache.org/licenses/LICENSE-2.0

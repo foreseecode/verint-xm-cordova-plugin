@@ -9,7 +9,6 @@
 #define VerintXM_h
 
 #import <Cordova/CDV.h>
-#import "CDVDevice.h"
 #import <EXPCore/EXPCore.h>
 #import <EXPPredictive/EXPInviteDelegate.h>
 #import <EXPDigital/EXPDigital-Swift.h>
@@ -35,9 +34,6 @@
 - (void)resetSignificantEvents:(CDVInvokedUrlCommand *)command;
 - (void)cancelPendingInvites:(CDVInvokedUrlCommand *)command;
 - (void)resetState:(CDVInvokedUrlCommand *)command;
-- (void)start:(CDVInvokedUrlCommand *)command;
-- (void)startWithConfigurationFile:(CDVInvokedUrlCommand *)command;
-- (void)startWithConfigurationJson:(CDVInvokedUrlCommand *)command;
 - (void)isDebugLogEnabled:(CDVInvokedUrlCommand *)command;
 - (void)getVersion:(CDVInvokedUrlCommand *)command;
 - (void)getContactDetails:(CDVInvokedUrlCommand *)command;
@@ -49,6 +45,7 @@
 - (void)customInviteAccepted:(CDVInvokedUrlCommand *)command;
 - (void)setSkipPoolingCheck:(CDVInvokedUrlCommand *)command;
 - (void)setDebugLogEnabled:(CDVInvokedUrlCommand *)command;
+- (void)setEventLogEnabled:(CDVInvokedUrlCommand *)command;
 - (void)showDigitalSurvey:(CDVInvokedUrlCommand *)command;
 - (void)showDigitalSurveyForName:(CDVInvokedUrlCommand *)command;
 - (void)checkIfDigitalSurveyEnabledForName:(CDVInvokedUrlCommand *)command;

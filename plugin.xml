@@ -1,10 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="cordova-plugin-verint-xm" version="3.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<plugin id="cordova-plugin-verint-xm" version="3.1.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>Verint-XM</name>
 	<description>Verint XM Cordova Plugin</description>
 	<keywords>Verint</keywords>
 	<author>Verint</author>
 
+    <engines>
+        <engine name="cordova-android" version=">=11.0.0" />
+        <engine name="cordova-ios" version=">=6.2.0" />
+    </engines>
+
+    <dependency id="cordova-plugin-device" version="^3.0.0" />
  
     <js-module name="Verint-XM" src="www/VerintXM.js">
         <clobbers target="cordova.plugins.verint.xm" />
@@ -30,9 +36,9 @@
         </config-file>
 
         <framework src="build.gradle" custom="true" type="gradleReference" />
-        <framework src="com.verint.xm.sdk:predictive:7.1.2" />
-        <framework src="com.verint.xm.sdk:digital:7.1.2" />
-        <framework src="com.verint.xm.sdk:surveymanagement:7.1.2" />
+        <framework src="com.verint.xm.sdk:predictive:7.4.1" />
+        <framework src="com.verint.xm.sdk:digital:7.4.1" />
+        <framework src="com.verint.xm.sdk:surveymanagement:7.4.1" />
         <framework src="com.android.support:appcompat-v7:26.1.0"/>
         <source-file src="src/android/VerintXM.java" target-dir="src/com/verint/xm/cordova/plugin/VerintXM" />
     </platform>
@@ -42,6 +48,32 @@
 	-->
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
+            <!-- 
+            This sets the `Podfile` platform for project where plugin is used.
+            Required, as other plugins could have older OS version requirement,
+            and in those case `pod install` will fail with error:
+            `Specs satisfying the `Verint-XM` dependency were found, 
+            but they required a higher minimum deployment target.`
+            -->
+            <!-- 
+            Valid for projects with `cordova-ios` 6.3.0.
+            Higher cordova-ios versions could have fix for this,
+            so `deployment-target` from project `config.xml` is used.
+            But keep this while we are supporting `cordova-ios` 6.3.0.
+             -->
+            <!--
+            When `deployment-target` from the project `config.xml` is the same as
+            specified here, for some reason the `Podfile` platform also could
+            be configured by `cordova-ios` using version specified in another plugin,
+            and it could be lower. So build also could fail.
+            Solutions:
+            - specify different version of `deployment-target` in `config.xml`
+            - remove `deployment-target` from `config.xml`
+            (in this case the IPHONEOS_DEPLOYMENT_TARGET will
+            be the same as version specified below)
+            - use modern `cordova-ios` version
+            -->
+            <preference name="deployment-target" value="12.0"/>
             <feature name="VerintXM">
                 <param name="ios-package" value="VerintXM" />
                 <param name="onload" value="true" />
@@ -57,9 +89,9 @@
                 <source url="https://github.com/CocoaPods/Specs.git"/>
             </config>
             <pods use-frameworks="true">
-                <pod name="Verint-XM" spec="7.1.1" />
-                <pod name="Verint-XM/Digital" spec="7.1.1" />
-                <pod name="Verint-XM/SurveyManagement" spec="7.1.1" />
+                <pod name="Verint-XM" spec="7.4.0" />
+                <pod name="Verint-XM/Digital" spec="7.4.0" />
+                <pod name="Verint-XM/SurveyManagement" spec="7.4.0" />
             </pods>
         </podspec>
     </platform>

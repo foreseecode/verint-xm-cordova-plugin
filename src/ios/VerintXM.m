@@ -1,12 +1,13 @@
 /********* VerintXM.m Cordova Plugin Implementation *******/
 
 #import "VerintXM.h"
+#import "CDVDevice.h"
 
 NSString* const platformNameKey = @"crossPlatformName";
 NSString* const platformPluginVersionKey = @"crossPlatformPluginVersion";
 NSString* const platformOSVersionKey = @"crossPlatformOSVersion";
 NSString* const platformVersionKey = @"crossPlatformVersion";
-NSString* const version = @"3.0.1";
+NSString* const version = @"3.1.0";
 
 // Class tag for logs
 NSString* const logTag = @"CordovaVerintXM";
@@ -23,35 +24,54 @@ NSString* const logTag = @"CordovaVerintXM";
 #pragma mark - Cordova
 
 - (void)pluginInitialize {
+    
     [EXPCore setDelegate:self];
 
-    NSString *appId = [self getAppIdFromJSON];
-    if (appId != nil) {
+    NSString *configurationContainer = [self getValueForKey:@"configurationContainer" fromJSONFileWithName:@"startup_configuration.json"];
+    NSString *datacenter = [self getValueForKey:@"datacenter" fromJSONFileWithName:@"startup_configuration.json"];
+
+    if (configurationContainer != nil) {
+        NSLog(@"%@::Configuration container will be set with value: %@", logTag, configurationContainer);
+        [EXPCore setConfigurationContainer:configurationContainer];
+    }
+    // TODO: datacenter should always be null pending a fix in VOC-56124
+    if (datacenter != nil) {
+        NSLog(@"%@::Datacenter name will be set with value: %@", logTag, datacenter);
+        [EXPCore setDatacenter:datacenter];
+    }
+
+    NSString *siteKey = [self getValueForKey:@"siteKey" fromJSONFileWithName:@"startup_configuration.json"];
+    NSString *appId = [self getValueForKey:@"appId" fromJSONFileWithName:@"exp_fcp.json"];
+
+    if (siteKey != nil) {
+        NSLog(@"%@::SDK will be started with Configurator, siteKey: %@", logTag, siteKey);
+        NSLog(@"%@::configurationContainer: %@, datacenter: %@", logTag, [EXPCore configurationContainer], [EXPCore datacenter]);
+        [EXPCore startWithSiteKey:siteKey];
+    } else if (appId != nil) {
+        NSString *version = @"mobsdk";
+        NSLog(@"%@::SDK will be started with FCP, appId: %@, version: %@", logTag, appId, version);
+        NSLog(@"%@::configurationContainer: %@, datacenter: %@", logTag, [EXPCore configurationContainer], [EXPCore datacenter]);
         [EXPCore startWithAppId:appId
-                    version:@"mobsdk"];
-        NSLog(@"%@::FCP startup with appId: %@", logTag, appId);
+                        version:version];
     } else {
+        NSLog(@"%@::SDK will be started with default start function", logTag);
+        NSLog(@"%@::datacenter: %@", logTag, [EXPCore datacenter]);
         [EXPCore start];
-        NSLog(@"%@::Regular startup", logTag);
     }
 
     [self addCrossPlatformCPPs];
 }
 
-- (NSString *)getAppIdFromJSON {
-    NSString *file = [EXPFileUtilities pathForResource:@"exp_fcp.json"
-                                       inBundle:[NSBundle mainBundle]];
-
-    NSDictionary *fcpConfig = [self loadFromFile:file error:nil];
-
-    NSString *appId = fcpConfig[@"appId"];
-
-    if (!appId) {
-        NSLog(@"%@::exp_fcp.json file does not exist", logTag);
+- (NSString *)getValueForKey:(NSString *)key fromJSONFileWithName:(NSString *)fileName {
+    NSString *file = [EXPFileUtilities pathForResource:fileName
+                                              inBundle:[NSBundle mainBundle]];
+    NSDictionary *JSON = [self loadFromFile:file error:nil];
+    NSString *value = JSON[key];
+    if (!value) {
+        NSLog(@"%@::Value for key: %@, in file: %@ does not exist", logTag, key, fileName);
         return nil;
-    } 
-
-    return appId;                                    
+    }
+    return value;                                    
 }
 
 - (void)addCrossPlatformCPPs {
@@ -64,27 +84,8 @@ NSString* const logTag = @"CordovaVerintXM";
 
 #pragma mark - Start
 
-- (void)start: (CDVInvokedUrlCommand *)command
-{
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    NSLog(@"%@::The start() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch", logTag);
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-- (void)startWithConfigurationFile: (CDVInvokedUrlCommand *)command
-{
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    NSLog(@"%@::The startWithConfigurationFile() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch", logTag);
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-- (void)startWithConfigurationJson: (CDVInvokedUrlCommand *)command
-{
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    NSLog(@"%@::The startWithConfigurationJson() API for iOS is not available in Cordova implementations. The SDK will start automatically on app launch", logTag);
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
+// No `start` functions integration, reason:
+// SDK will start automatically on an application launch, see: `pluginInitialize`.
 
 #pragma mark - Verint (EXPCore) Delegate
 
@@ -424,8 +425,7 @@ NSString* const logTag = @"CordovaVerintXM";
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
 
-    //TODO: Update to cancelPendingNotifications when the 7.0.3 artefacts are released
-    [EXPPredictive cancelPendingInvites];
+    [EXPPredictive cancelPendingNotifications];
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -472,6 +472,23 @@ NSString* const logTag = @"CordovaVerintXM";
     BOOL result = [EXPCore isDebugLogEnabled];
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:result];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)setEventLogEnabled: (CDVInvokedUrlCommand *)command{
+    CDVPluginResult* pluginResult = nil;
+    NSArray* arguments = command.arguments;
+
+    if (arguments == nil || arguments.count < 1) {
+        NSLog(@"%@::No data for setEventLogEnabled", logTag);
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    else {
+        BOOL enable = [command.arguments objectAtIndex:0];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        [EXPCore setEventLogEnabled:enable];
+    }
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
