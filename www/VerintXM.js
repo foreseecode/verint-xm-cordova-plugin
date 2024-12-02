@@ -90,6 +90,7 @@ module.exports = {
    * @param {callback} success - A Cordova-style success callback object.
    * @param {callback} error - A Cordova-style error callback object.
    * @memberof VerintXM
+   * @deprecated since v3.2.0. Use Survey Management instead. See: showInviteForName.
    */
   showInvite(surveyId, success, error) {
     let args = [surveyId];
@@ -107,6 +108,7 @@ module.exports = {
    * @param {callback} success - A Cordova-style success callback object.
    * @param {callback} error - A Cordova-style error callback object.
    * @memberof VerintXM
+   * @deprecated since v3.2.0. Use Survey Management instead. See: showSurveyForName.
    */
   showSurvey(surveyId, success, error) {
     let args = [surveyId];
