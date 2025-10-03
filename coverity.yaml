@@ -11,6 +11,9 @@ commit:
   # Connect.
   connect:
 
+    # Allow the committer to be blamed for any new issues
+    scm: git
+
     on-new-cert: trust
 
     # The name of the stream to commit the results to.
