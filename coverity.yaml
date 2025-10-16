@@ -13,6 +13,9 @@ commit:
 
     on-new-cert: trust
 
+    # The name of the source control management system.
+    scm: git
+
     # The name of the stream to commit the results to.
     stream: XM_Mobile-SDK_Cordova
 
